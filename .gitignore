@@ -1,0 +1,25 @@
+# Visual Studio
+*.suo
+*.user
+*.webinfo
+*.obj
+*.exe
+[Oo]bj/
+[Bb]in/
+[Dd]ebug*/
+[Rr]elease*/
+
+# MonoDevelop
+*.pidb
+*.userprefs
+
+# NDepend
+NDependOut*/
+
+# ReSharper
+_ReSharper*/
+*.resharper
+
+# NUnit
+[Tt]est[Rr]esult*/
+[Tt]est-[Rr]esult*/
