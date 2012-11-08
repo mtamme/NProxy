@@ -201,7 +201,7 @@ namespace NProxy.Core.Interceptors
                                                                    var interceptors = ApplyInterceptionBehaviors(m, typeInterceptors);
 
                                                                    dispatcher.SetInterceptors(m, interceptors);
-                                                               });
+                                                               }).Where(m => !m.IsAccessor());
 
             declaringType.VisitMethods(methodVisitor);
 
@@ -216,7 +216,7 @@ namespace NProxy.Core.Interceptors
         /// <param name="memberInfo">The member information.</param>
         /// <param name="defaultInterceptors">The default interceptors.</param>
         /// <returns>The interceptors.</returns>
-        private static IEnumerable<IInterceptor> ApplyInterceptionBehaviors(MemberInfo memberInfo, IEnumerable<IInterceptor> defaultInterceptors)
+        private static IList<IInterceptor> ApplyInterceptionBehaviors(MemberInfo memberInfo, IEnumerable<IInterceptor> defaultInterceptors)
         {
             var interceptionBehaviors = memberInfo.GetCustomAttributes<IInterceptionBehavior>();
             var interceptors = new List<IInterceptor>(defaultInterceptors);

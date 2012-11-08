@@ -96,16 +96,14 @@ namespace NProxy.Core.Internal.Definitions
             if (visitor == null)
                 throw new ArgumentNullException("visitor");
 
-            var methodVisitor = visitor.Where(m => !m.IsSpecialName);
-
             // Visit additional interface methods.
-            AdditionalInterfaceTypes.Visit(t => t.VisitMethods(methodVisitor));
+            AdditionalInterfaceTypes.Visit(t => t.VisitMethods(visitor));
 
             // Visit declaring interface methods.
-            DeclaringInterfaceTypes.Visit(t => t.VisitMethods(methodVisitor));
+            DeclaringInterfaceTypes.Visit(t => t.VisitMethods(visitor));
 
             // Visit parent type methods.
-            ParentType.VisitMethods(methodVisitor);
+            ParentType.VisitMethods(visitor);
         }
 
         #endregion

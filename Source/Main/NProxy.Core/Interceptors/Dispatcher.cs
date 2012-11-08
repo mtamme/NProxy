@@ -51,13 +51,16 @@ namespace NProxy.Core.Interceptors
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
         /// <param name="interceptors">The interceptors.</param>
-        public void SetInterceptors(MethodInfo methodInfo, IEnumerable<IInterceptor> interceptors)
+        public void SetInterceptors(MethodInfo methodInfo, IList<IInterceptor> interceptors)
         {
             if (methodInfo == null)
                 throw new ArgumentNullException("methodInfo");
 
             if (interceptors == null)
                 throw new ArgumentNullException("interceptors");
+
+            if (interceptors.Count == 0)
+                return;
 
             var methodToken = methodInfo.GetToken();
 
