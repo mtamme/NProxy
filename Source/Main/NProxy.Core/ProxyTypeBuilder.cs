@@ -133,22 +133,24 @@ namespace NProxy.Core
 
             LoadParameters(ilGenerator, parameterTypes, parametersLocalBuilder);
 
-            // Call invocation handler method.
+            // Load invocation handler.
             ilGenerator.Emit(OpCodes.Ldarg_0);
             ilGenerator.Emit(OpCodes.Ldfld, _invocationHandlerFieldInfo);
 
-            // Method can only be invoked on the proxy object if it
-            // is an override and is not abstract on the declaring type.
-            if (isOverride && !declaringMethodInfo.IsAbstract)
-                ilGenerator.Emit(OpCodes.Ldarg_0);
-            else
-                ilGenerator.Emit(OpCodes.Ldnull);
+            // Load proxy object.
+            ilGenerator.Emit(OpCodes.Ldarg_0);
 
             // Get method information constructor.
             var methodInfoConstructorInfo = GetMethodInfoConstructor(declaringMethodInfo, genericParameterTypes);
 
+            // Create and load method information.
+            ilGenerator.Emit(OpCodes.Ldarg_0);
             ilGenerator.Emit(OpCodes.Newobj, methodInfoConstructorInfo);
+
+            // Load parameters.
             ilGenerator.Emit(OpCodes.Ldloc, parametersLocalBuilder);
+
+            // Call invocation handler method.
             ilGenerator.EmitCall(InvokeMethodInfo);
 
             // Restore by reference parameters.
@@ -176,7 +178,7 @@ namespace NProxy.Core
         private ConstructorInfo GetMethodInfoConstructor(MethodInfo declaringMethodInfo, Type[] genericParameterTypes)
         {
             var type = _methodInfoTypeProvider.GetType(declaringMethodInfo);
-            var constructorInfo = type.GetConstructor(Type.EmptyTypes);
+            var constructorInfo = type.GetConstructor(new[] {typeof (object)});
 
             if (constructorInfo == null)
                 throw new MissingMethodException(String.Format("Constructor on type '{0}' not found.", type.FullName));
@@ -321,12 +323,15 @@ namespace NProxy.Core
 
             // Implement constructor.
             var ilGenerator = constructorBuilder.GetILGenerator();
-
-            // Call parent constructor.
             var parameterInfos = declaringConstructorInfo.GetParameters();
 
+            // Load this reference.
             ilGenerator.Emit(OpCodes.Ldarg_0);
+
+            // Load arguments.
             ilGenerator.EmitLoadArguments(2, parameterInfos.Length);
+
+            // Call parent constructor.
             ilGenerator.Emit(OpCodes.Call, declaringConstructorInfo);
 
             // Check for null invocation handler.
@@ -337,9 +342,13 @@ namespace NProxy.Core
             ilGenerator.ThrowException(typeof (ArgumentNullException), "invocationHandler");
             ilGenerator.MarkLabel(invocationHandlerNotNullLabel);
 
-            // Set invocation handler.
+            // Load this reference.
             ilGenerator.Emit(OpCodes.Ldarg_0);
+
+            // Load invocation handler.
             ilGenerator.Emit(OpCodes.Ldarg_1);
+
+            // Store invocation handler.
             ilGenerator.Emit(OpCodes.Stfld, _invocationHandlerFieldInfo);
 
             ilGenerator.Emit(OpCodes.Ret);

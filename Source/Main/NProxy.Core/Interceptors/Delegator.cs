@@ -55,11 +55,11 @@ namespace NProxy.Core.Interceptors
         #region IInvocationHandler Members
 
         /// <inheritdoc/>
-        public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
+        public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
         {
-            var newTarget = _invocationTarget.GetTarget(methodInfo.DeclaringType);
+            var target = _invocationTarget.GetTarget(methodInfo.DeclaringType);
 
-            return _invocationHandler.Invoke(newTarget ?? target, methodInfo, parameters);
+            return _invocationHandler.Invoke(target ?? proxy, methodInfo, parameters);
         }
 
         #endregion

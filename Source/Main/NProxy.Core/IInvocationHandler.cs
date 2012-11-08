@@ -27,10 +27,10 @@ namespace NProxy.Core
         /// <summary>
         /// Processes an invocation on a target object.
         /// </summary>
-        /// <param name="target">The target object.</param>
+        /// <param name="proxy">The proxy object.</param>
         /// <param name="methodInfo">The method information.</param>
         /// <param name="parameters">The parameter values.</param>
         /// <returns>The return value.</returns>
-        object Invoke(object target, MethodInfo methodInfo, object[] parameters);
+        object Invoke(object proxy, MethodInfo methodInfo, object[] parameters);
     }
 }

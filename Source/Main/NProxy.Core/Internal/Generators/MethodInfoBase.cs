@@ -29,6 +29,11 @@ namespace NProxy.Core.Internal.Generators
     internal abstract class MethodInfoBase : MethodInfo
     {
         /// <summary>
+        /// The proxy object.
+        /// </summary>
+        private readonly object _proxy;
+
+        /// <summary>
         /// The declaring method information.
         /// </summary>
         private readonly MethodInfo _methodInfo;
@@ -36,12 +41,17 @@ namespace NProxy.Core.Internal.Generators
         /// <summary>
         /// Initializes a new instance of the <see cref="MethodInfoBase"/> class.
         /// </summary>
+        /// <param name="proxy">The proxy object.</param>
         /// <param name="methodInfo">The declaring method information.</param>
-        protected MethodInfoBase(MethodInfo methodInfo)
+        protected MethodInfoBase(object proxy, MethodInfo methodInfo)
         {
+            if (proxy == null)
+                throw new ArgumentNullException("proxy");
+
             if (methodInfo == null)
                 throw new ArgumentNullException("methodInfo");
 
+            _proxy = proxy;
             _methodInfo = methodInfo;
         }
 
@@ -160,6 +170,10 @@ namespace NProxy.Core.Internal.Generators
         {
             if (target == null)
                 throw new TargetException("Target object must not be null");
+
+            // Check target object to avoid recursion.
+            if (target == _proxy)
+                throw new TargetException("Target object must not be the proxy object");
 
             // Check declaring type.
             var declaringType = DeclaringType;

@@ -111,6 +111,58 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
+        /// Defines a constructor.
+        /// </summary>
+        /// <param name="typeBuilder">The type builder.</param>
+        /// <param name="methodAttributes">The method attributes.</param>
+        /// <param name="callingConvention">The calling convention.</param>
+        /// <param name="parameterTypes">The parameter types.</param>
+        /// <param name="parameterNames">The parameter names.</param>
+        /// <returns>The constructor builder.</returns>
+        public static ConstructorBuilder DefineConstructor(this TypeBuilder typeBuilder,
+                                                           MethodAttributes methodAttributes,
+                                                           CallingConventions callingConvention,
+                                                           Type[] parameterTypes,
+                                                           string[] parameterNames)
+        {
+            if (typeBuilder == null)
+                throw new ArgumentNullException("typeBuilder");
+
+            if (parameterTypes == null)
+                throw new ArgumentNullException("parameterTypes");
+
+            if (parameterNames == null)
+                throw new ArgumentNullException("parameterNames");
+
+            // Define constructor.
+            var constructorBuilder = typeBuilder.DefineConstructor(
+                methodAttributes,
+                callingConvention,
+                parameterTypes);
+
+            // Define constructor parameters.
+            constructorBuilder.DefineParameters(parameterNames);
+
+            return constructorBuilder;
+        }
+
+        /// <summary>
+        /// Defines the constructor parameters.
+        /// </summary>
+        /// <param name="constructorBuilder">The constructor builder.</param>
+        /// <param name="parameterNames">The parameter names.</param>
+        private static void DefineParameters(this ConstructorBuilder constructorBuilder, IEnumerable<string> parameterNames)
+        {
+            var position = 1;
+
+            // Define additional constructor parameters.
+            foreach (var parameterName in parameterNames)
+            {
+                constructorBuilder.DefineParameter(position++, ParameterAttributes.None, parameterName);
+            }
+        }
+
+        /// <summary>
         /// Defines a constructor based on the specified declaring constructor.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
@@ -154,7 +206,7 @@ namespace NProxy.Core.Internal.Reflection
                 parameterTypes.ToArray());
 
             // Define constructor parameters.
-            DefineParameters(constructorBuilder, declaringConstructorInfo, additionalParameterNames);
+            constructorBuilder.DefineParameters(declaringConstructorInfo, additionalParameterNames);
 
             return constructorBuilder;
         }
@@ -165,7 +217,7 @@ namespace NProxy.Core.Internal.Reflection
         /// <param name="constructorBuilder">The constructor builder.</param>
         /// <param name="declaringConstructorInfo">The declaring constructor information.</param>
         /// <param name="additionalParameterNames">The additional parameter names.</param>
-        private static void DefineParameters(ConstructorBuilder constructorBuilder,
+        private static void DefineParameters(this ConstructorBuilder constructorBuilder,
                                              ConstructorInfo declaringConstructorInfo,
                                              IEnumerable<string> additionalParameterNames)
         {

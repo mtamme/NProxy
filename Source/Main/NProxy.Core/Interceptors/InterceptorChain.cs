@@ -58,9 +58,9 @@ namespace NProxy.Core.Interceptors
         #region IInvocationHandler Members
 
         /// <inheritdoc/>
-        public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
+        public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
         {
-            var invocationContext = new InvocationContext(target, methodInfo, parameters, _interceptors);
+            var invocationContext = new InvocationContext(proxy, methodInfo, parameters, _interceptors);
 
             return invocationContext.Proceed();
         }

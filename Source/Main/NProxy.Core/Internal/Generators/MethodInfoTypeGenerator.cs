@@ -82,7 +82,7 @@ namespace NProxy.Core.Internal.Generators
             // Implement type initializer.
             var ilGenerator = typeInitializer.GetILGenerator();
 
-            // Get method information.
+            // Get and load method information.
             var methodInfo = declaringMethodInfo.MapGenericMethod(genericParameterTypes);
             var declaringType = methodInfo.GetDeclaringType();
 
@@ -109,21 +109,29 @@ namespace NProxy.Core.Internal.Generators
             var constructorInfo = typeof (MethodInfoBase).GetConstructor(
                 BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
                 null,
-                new[] {typeof (MethodInfo)},
+                new[] {typeof (object), typeof (MethodInfo)},
                 null);
 
             // Define constructor.
             var constructorBuilder = typeBuilder.DefineConstructor(
                 MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
                 constructorInfo.CallingConvention,
-                null);
+                new[] {typeof (object)},
+                new[] {"proxy"});
 
             // Implement constructor.
             var ilGenerator = constructorBuilder.GetILGenerator();
 
-            // Call parent constructor.
+            // Load this reference.
             ilGenerator.Emit(OpCodes.Ldarg_0);
+
+            // Load proxy object.
+            ilGenerator.Emit(OpCodes.Ldarg_1);
+
+            // Load method information.
             ilGenerator.Emit(OpCodes.Ldsfld, methodFieldInfo);
+
+            // Call parent constructor.
             ilGenerator.Emit(OpCodes.Call, constructorInfo);
 
             ilGenerator.Emit(OpCodes.Ret);

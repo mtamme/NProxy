@@ -15,24 +15,30 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+using System;
 using System.Reflection;
 
 namespace NProxy.Core.Test.Common
 {
     internal sealed class TargetInvocationHandler : IInvocationHandler
     {
-        private readonly object _target;
+        private readonly Func<object, object> _targetFactory;
 
-        public TargetInvocationHandler(object target)
+        public TargetInvocationHandler(Func<object, object> targetFactory)
         {
-            _target = target;
+            if (targetFactory == null)
+                throw new ArgumentNullException("targetFactory");
+
+            _targetFactory = targetFactory;
         }
 
         #region IInvocationHandler Members
 
-        public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
+        public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
         {
-            return methodInfo.Invoke(_target, parameters);
+            var target = _targetFactory(proxy);
+
+            return methodInfo.Invoke(target, parameters);
         }
 
         #endregion

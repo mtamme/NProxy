@@ -15,7 +15,7 @@ At the heart of the dynamic proxy mechanism is the `IInvocationHandler` interfac
 ```csharp
 public interface IInvocationHandler
 {
-    object Invoke(object target, MethodInfo methodInfo, object[] parameters);
+    object Invoke(object proxy, MethodInfo methodInfo, object[] parameters);
 }
 ```
 
@@ -28,7 +28,7 @@ Every proxy has an associated invocation handler that is called whenever one of 
 Proxy objects can be created from unsealed classes, abstract classes, interfaces and delegates, and can implement
 an arbitrary number of interfaces. All interfaces are implemented explicitly to avoid member name conflicts.
 
-To create dynamic proxies of internally visible types, just add the following assembly attribute to your project.
+To create dynamic proxies of only internally visible types, just add the following assembly attribute to your project.
 
 ```csharp
 [assembly: InternalsVisibleTo("NProxy.Dynamic")]
