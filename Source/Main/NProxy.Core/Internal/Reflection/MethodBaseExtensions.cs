@@ -16,7 +16,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
-using System.Linq;
 using System.Reflection;
 
 namespace NProxy.Core.Internal.Reflection
@@ -26,17 +25,6 @@ namespace NProxy.Core.Internal.Reflection
     /// </summary>
     internal static class MethodBaseExtensions
     {
-        /// <summary>
-        /// The accessor method name prefixes.
-        /// </summary>
-        private static readonly string[] AccessorMethodNamePrefixes = new[]
-                                                                          {
-                                                                              // Event accessor method name prefixes.
-                                                                              "add_", "remove_", "raise_",
-                                                                              // Property accessor method name prefixes.
-                                                                              "get_", "set_"
-                                                                          };
-
         /// <summary>
         /// Returns a value indicating weather the specified method is overrideable.
         /// </summary>
@@ -75,12 +63,7 @@ namespace NProxy.Core.Internal.Reflection
             if (methodBase == null)
                 throw new ArgumentNullException("methodBase");
 
-            if (!methodBase.IsSpecialName)
-                return false;
-
-            var methodName = methodBase.Name;
-
-            return AccessorMethodNamePrefixes.Any(methodName.StartsWith);
+            return methodBase.IsSpecialName && !methodBase.IsStatic;
         }
 
         /// <summary>
