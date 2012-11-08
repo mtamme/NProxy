@@ -98,7 +98,7 @@ namespace NProxy.Core.Internal.Generators
             // Build methods.
             var buildMethodVisitor = Visitor.Create<MethodInfo>(typeBuilder.BuildMethod)
                 .Where(m => m.IsAbstract || _interceptionFilter.Accept(m))
-                .Where(m => !m.IsAccessor() && m.CanOverride());
+                .Where(m => m.CanOverride() && !m.IsAccessor());
 
             typeDefinition.VisitMethods(buildMethodVisitor);
 

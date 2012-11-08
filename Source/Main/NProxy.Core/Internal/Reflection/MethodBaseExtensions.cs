@@ -72,6 +72,9 @@ namespace NProxy.Core.Internal.Reflection
         /// <returns>A value indicating weather the specified method is an accessor.</returns>
         public static bool IsAccessor(this MethodBase methodBase)
         {
+            if (methodBase == null)
+                throw new ArgumentNullException("methodBase");
+
             if (!methodBase.IsSpecialName)
                 return false;
 
