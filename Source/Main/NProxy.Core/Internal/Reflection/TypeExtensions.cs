@@ -16,6 +16,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using NProxy.Core.Internal.Common;
@@ -256,7 +257,8 @@ namespace NProxy.Core.Internal.Reflection
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            var methodInfos = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            var methodInfos = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                .Where(m => !m.IsAccessor());
 
             methodInfos.Visit(visitor);
         }

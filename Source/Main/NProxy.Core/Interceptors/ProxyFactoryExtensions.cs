@@ -201,7 +201,7 @@ namespace NProxy.Core.Interceptors
                                                                    var interceptors = ApplyInterceptionBehaviors(m, typeInterceptors);
 
                                                                    dispatcher.SetInterceptors(m, interceptors);
-                                                               }).Where(m => !m.IsAccessor());
+                                                               });
 
             declaringType.VisitMethods(methodVisitor);
 
