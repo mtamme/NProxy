@@ -20,7 +20,7 @@ public interface IInvocationHandler
 ```
 
 The job of an invocation handler is to actually perform the requested method invocation on behalf of a dynamic
-proxy. The invocation handler is passed a target object, a `MethodInfo` object (from the `System.Reflection` namespace)
+proxy. The invocation handler is passed a proxy object, a `MethodInfo` object (from the `System.Reflection` namespace)
 and an array of parameters; in the simplest case, it could simply call the method `MethodInfo.Invoke()` and return the
 result. `MethodInfo.Invoke()` directly invokes the target method without utilizing reflection.
 
