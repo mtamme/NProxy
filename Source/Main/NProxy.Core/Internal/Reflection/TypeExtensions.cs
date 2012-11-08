@@ -227,6 +227,7 @@ namespace NProxy.Core.Internal.Reflection
             if (type == null)
                 throw new ArgumentNullException("type");
 
+            // Only visit instance events.
             var eventInfos = type.GetEvents(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 
             eventInfos.Visit(visitor);
@@ -242,6 +243,7 @@ namespace NProxy.Core.Internal.Reflection
             if (type == null)
                 throw new ArgumentNullException("type");
 
+            // Only visit instance properties.
             var propertyInfos = type.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 
             propertyInfos.Visit(visitor);
@@ -257,8 +259,9 @@ namespace NProxy.Core.Internal.Reflection
             if (type == null)
                 throw new ArgumentNullException("type");
 
+            // Only visit non-accessor instance methods.
             var methodInfos = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                .Where(m => !m.IsAccessor());
+                .Where(m => !m.IsSpecialName);
 
             methodInfos.Visit(visitor);
         }

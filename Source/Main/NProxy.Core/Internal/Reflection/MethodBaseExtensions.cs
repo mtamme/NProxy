@@ -54,19 +54,6 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Returns a value indicating weather the specified method is an accessor.
-        /// </summary>
-        /// <param name="methodBase">The method base.</param>
-        /// <returns>A value indicating weather the specified method is an accessor.</returns>
-        public static bool IsAccessor(this MethodBase methodBase)
-        {
-            if (methodBase == null)
-                throw new ArgumentNullException("methodBase");
-
-            return methodBase.IsSpecialName && !methodBase.IsStatic;
-        }
-
-        /// <summary>
         /// Maps the parameter types to the specified generic types.
         /// </summary>
         /// <param name="methodBase">The method base.</param>
