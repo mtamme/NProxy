@@ -21,7 +21,7 @@ using System.Reflection;
 namespace NProxy.Core.Internal.Generators
 {
     /// <summary>
-    /// Defines the default interception filter.
+    /// Represents the default interception filter.
     /// </summary>
     internal sealed class DefaultInterceptionFilter : IInterceptionFilter
     {
