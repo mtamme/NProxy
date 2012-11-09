@@ -35,7 +35,7 @@ namespace NProxy.Core.Internal.Generators
             if (declaringType != typeof (object))
                 return true;
 
-            return !String.Equals(memberInfo.Name, "Finalize", StringComparison.Ordinal);
+            return !String.Equals(memberInfo.Name, "Finalize");
         }
 
         #endregion
