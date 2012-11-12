@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © 2012 Martin Tamme
 //
@@ -16,40 +16,43 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
+using System.Collections.Generic;
 using System.Reflection;
+using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core.Interceptors
 {
     /// <summary>
-    /// Represents a delegator.
+    /// Represents a mixin invocation handler.
     /// </summary>
-    internal sealed class Delegator : IInvocationHandler
+    internal sealed class MixinInvocationHandler : IInvocationHandler
     {
-        /// <summary>
-        /// The invocation target.
-        /// </summary>
-        private readonly IInvocationTarget _invocationTarget;
-
         /// <summary>
         /// The next invocation handler.
         /// </summary>
         private readonly IInvocationHandler _invocationHandler;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Delegator"/> class.
+        /// The mixin objects.
         /// </summary>
-        /// <param name="invocationTarget">The invocation target.</param>
+        private readonly Dictionary<Type, object> _mixins;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MixinInvocationHandler"/> class.
+        /// </summary>
+        /// <param name="mixins">The mixin objects.</param>
         /// <param name="invocationHandler">The next invocation handler.</param>
-        public Delegator(IInvocationTarget invocationTarget, IInvocationHandler invocationHandler)
+        public MixinInvocationHandler(IDictionary<Type, object> mixins, IInvocationHandler invocationHandler)
         {
-            if (invocationTarget == null)
-                throw new ArgumentNullException("invocationTarget");
+            if (mixins == null)
+                throw new ArgumentNullException("mixins");
 
             if (invocationHandler == null)
                 throw new ArgumentNullException("invocationHandler");
 
-            _invocationTarget = invocationTarget;
             _invocationHandler = invocationHandler;
+
+            _mixins = new Dictionary<Type, object>(mixins);
         }
 
         #region IInvocationHandler Members
@@ -57,9 +60,13 @@ namespace NProxy.Core.Interceptors
         /// <inheritdoc/>
         public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
         {
-            var target = _invocationTarget.GetTarget(methodInfo);
+            var declaringType = methodInfo.GetDeclaringType();
+            object target;
 
-            return _invocationHandler.Invoke(target ?? proxy, methodInfo, parameters);
+            if (_mixins.TryGetValue(declaringType, out target))
+                return methodInfo.Invoke(target, parameters);
+
+            return _invocationHandler.Invoke(proxy, methodInfo, parameters);
         }
 
         #endregion

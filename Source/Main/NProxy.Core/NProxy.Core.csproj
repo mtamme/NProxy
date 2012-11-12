@@ -87,6 +87,7 @@
     <Compile Include="Internal\Generators\IInterceptionFilter.cs" />
     <Compile Include="Internal\Generators\DefaultInterceptionFilter.cs" />
     <Compile Include="Internal\Generators\ProxyTypeGenerator.cs" />
+    <Compile Include="Interceptors\MixinInvocationHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
