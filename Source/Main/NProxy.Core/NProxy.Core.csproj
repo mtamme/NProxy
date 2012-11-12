@@ -89,6 +89,10 @@
     <Compile Include="Internal\Generators\ProxyTypeGenerator.cs" />
     <Compile Include="Interceptors\MixinInvocationHandler.cs" />
     <Compile Include="Interceptors\Language\IFluent.cs" />
+    <Compile Include="Interceptors\Language\IExtends.cs" />
+    <Compile Include="Interceptors\Language\IImplements.cs" />
+    <Compile Include="Interceptors\Language\IInvokes.cs" />
+    <Compile Include="Interceptors\Language\ITargets.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
