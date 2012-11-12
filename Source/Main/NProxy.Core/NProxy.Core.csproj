@@ -88,6 +88,7 @@
     <Compile Include="Internal\Generators\DefaultInterceptionFilter.cs" />
     <Compile Include="Internal\Generators\ProxyTypeGenerator.cs" />
     <Compile Include="Interceptors\MixinInvocationHandler.cs" />
+    <Compile Include="Interceptors\Language\IFluent.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -99,5 +100,8 @@
   -->
   <ItemGroup>
     <EmbeddedResource Include="Internal\Dynamic.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interceptors\Language\" />
   </ItemGroup>
 </Project>
