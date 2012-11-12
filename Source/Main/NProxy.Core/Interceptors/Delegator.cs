@@ -57,7 +57,7 @@ namespace NProxy.Core.Interceptors
         /// <inheritdoc/>
         public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
         {
-            var target = _invocationTarget.GetTarget(methodInfo.DeclaringType);
+            var target = _invocationTarget.GetTarget(methodInfo);
 
             return _invocationHandler.Invoke(target ?? proxy, methodInfo, parameters);
         }

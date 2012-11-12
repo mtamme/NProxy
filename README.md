@@ -73,7 +73,7 @@ The `IInvocationTarget` interface enables the functionality to delegate invocati
 ```csharp
 public interface IInvocationTarget
 {
-    object GetTarget(Type declaringType);
+    object GetTarget(MethodInfo methodInfo);
 }
 ```
 

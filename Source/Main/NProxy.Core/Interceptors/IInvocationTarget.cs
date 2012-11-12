@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-using System;
+using System.Reflection;
 
 namespace NProxy.Core.Interceptors
 {
@@ -25,10 +25,10 @@ namespace NProxy.Core.Interceptors
     public interface IInvocationTarget
     {
         /// <summary>
-        /// Returns the target object.
+        /// Returns the target object for the specified method.
         /// </summary>
-        /// <param name="declaringType">The declaring type.</param>
+        /// <param name="methodInfo">The method information.</param>
         /// <returns>The target object.</returns>
-        object GetTarget(Type declaringType);
+        object GetTarget(MethodInfo methodInfo);
     }
 }

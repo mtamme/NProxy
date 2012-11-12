@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-using System;
+using System.Reflection;
 
 namespace NProxy.Core.Interceptors
 {
@@ -41,7 +41,7 @@ namespace NProxy.Core.Interceptors
         #region IInvocationTarget Members
 
         /// <inheritdoc/>
-        public object GetTarget(Type declaringType)
+        public object GetTarget(MethodInfo methodInfo)
         {
             return _target;
         }
