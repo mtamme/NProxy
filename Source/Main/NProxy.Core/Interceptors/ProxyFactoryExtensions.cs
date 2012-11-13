@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NProxy.Core.Interceptors.Language;
 using NProxy.Core.Internal.Common;
 using NProxy.Core.Internal.Reflection;
 
@@ -228,6 +229,21 @@ namespace NProxy.Core.Interceptors
             }
 
             return interceptors;
+        }
+
+        /// <summary>
+        /// Configures a proxy object.
+        /// </summary>
+        /// <typeparam name="T">The declaring type.</typeparam>
+        /// <param name="proxyFactory">The proxy factory.</param>
+        /// <param name="arguments">The constructor arguments.</param>
+        /// <returns>The proxy configuration.</returns>
+        public static IProxyConfiguration<T> Configure<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
+        {
+            if (proxyFactory == null)
+                throw new ArgumentNullException("proxyFactory");
+
+            return new ProxyConfiguration<T>(proxyFactory, arguments);
         }
     }
 }

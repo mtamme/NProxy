@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © 2012 Martin Tamme
 //
@@ -15,35 +15,13 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-using System.Collections.Generic;
-
 namespace NProxy.Core.Interceptors.Language
 {
     /// <summary>
-    /// Defines the <c>Invokes</c> verb.
+    /// Defines the proxy configuration.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface IInvokes<out T> : IFluent where T : class
+    public interface IProxyConfiguration<T> : IExtends<T> where T : class
     {
-        /// <summary>
-        /// Specifies interceptors to invoke.
-        /// </summary>
-        /// <param name="interceptors">The interceptors.</param>
-        /// <returns>The proxy object.</returns>
-        T Invokes(IEnumerable<IInterceptor> interceptors);
-
-        /// <summary>
-        /// Specifies an interceptor to invoke.
-        /// </summary>
-        /// <param name="interceptor">The interceptor.</param>
-        /// <returns>The proxy object.</returns>
-        T Invokes(IInterceptor interceptor);
-
-        /// <summary>
-        /// Specifies an invocation handler to invoke.
-        /// </summary>
-        /// <param name="invocationHandler">The invocation handler.</param>
-        /// <returns>The proxy object.</returns>
-        T Invokes(IInvocationHandler invocationHandler);
     }
 }
