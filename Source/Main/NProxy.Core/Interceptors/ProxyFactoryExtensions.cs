@@ -232,13 +232,13 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <summary>
-        /// Configures a proxy object.
+        /// Returns a proxy configuration for a new proxy.
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The proxy configuration.</returns>
-        public static IProxyConfiguration<T> Configure<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
+        public static IProxyConfiguration<T> NewProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
         {
             if (proxyFactory == null)
                 throw new ArgumentNullException("proxyFactory");

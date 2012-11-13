@@ -26,6 +26,12 @@ namespace NProxy.Core.Interceptors.Language
     public interface IInvokes<out T> : IFluent where T : class
     {
         /// <summary>
+        /// Applies the interception behaviors.
+        /// </summary>
+        /// <returns>The proxy object.</returns>
+        T ApplyInterceptionBehaviors();
+
+        /// <summary>
         /// Specifies interceptors to invoke.
         /// </summary>
         /// <param name="interceptors">The interceptors.</param>

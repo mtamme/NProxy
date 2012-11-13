@@ -160,6 +160,12 @@ namespace NProxy.Core.Interceptors
         #region IInvokes<T> Members
 
         /// <inheritdoc/>
+        public T ApplyInterceptionBehaviors()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
         public T Invokes(IEnumerable<IInterceptor> interceptors)
         {
             var invocationHandler = new InterceptorChain(interceptors);
