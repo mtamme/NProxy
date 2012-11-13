@@ -32,9 +32,8 @@ namespace NProxy.Core.Interceptors.Language
         /// <summary>
         /// Specifies an invocation target.
         /// </summary>
-        /// <typeparam name="TTarget">The target type.</typeparam>
         /// <param name="target">The target object.</param>
-        IInvokes<T> Targets<TTarget>(TTarget target) where TTarget : class;
+        IInvokes<T> Targets(object target);
 
         /// <summary>
         /// Specifies an invocation target.

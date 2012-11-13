@@ -17,7 +17,6 @@
 //
 using System;
 using System.Collections.Generic;
-using NProxy.Core.Interceptors;
 using NProxy.Core.Interceptors.Language;
 using NProxy.Core.Internal.Common;
 using NProxy.Core.Internal.Reflection;
@@ -56,7 +55,7 @@ namespace NProxy.Core.Interceptors
         private IInvocationTarget _invocationTarget;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Configure{T}"/> class.
+        /// Initializes a new instance of the <see cref="ProxyConfiguration{T}"/> class.
         /// </summary>
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="arguments">The constructor arguments.</param>
@@ -87,14 +86,14 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <inheritdoc/>
-        public IExtends<T> Extends<TMixin>(TMixin mixin) where TMixin : class
+        public IExtends<T> Extends(object mixin)
         {
             if (mixin == null)
                 throw new ArgumentNullException("mixin");
 
-            var mixinType = mixin.GetType();
             var interfaceVisitor = Visitor.Create<Type>(t => _mixins.Add(t, mixin))
                 .Where(t => !_mixins.ContainsKey(t));
+            var mixinType = mixin.GetType();
 
             mixinType.VisitInterfaces(interfaceVisitor);
 
@@ -137,7 +136,7 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <inheritdoc/>
-        public IInvokes<T> Targets<TTarget>(TTarget target) where TTarget : class
+        public IInvokes<T> Targets(object target)
         {
             var invocationTarget = new SingleInvocationTarget(target);
 

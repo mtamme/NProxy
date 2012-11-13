@@ -232,7 +232,7 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <summary>
-        /// Returns a proxy configuration for a new proxy.
+        /// Returns a proxy configuration for creating a new proxy.
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
         /// <param name="proxyFactory">The proxy factory.</param>
@@ -240,9 +240,6 @@ namespace NProxy.Core.Interceptors
         /// <returns>The proxy configuration.</returns>
         public static IProxyConfiguration<T> NewProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
         {
-            if (proxyFactory == null)
-                throw new ArgumentNullException("proxyFactory");
-
             return new ProxyConfiguration<T>(proxyFactory, arguments);
         }
     }

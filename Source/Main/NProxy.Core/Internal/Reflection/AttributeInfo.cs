@@ -60,7 +60,7 @@ namespace NProxy.Core.Internal.Reflection
         /// <param name="attributeType">The attribute type.</param>
         /// <param name="argumentTypes">The argument types.</param>
         /// <param name="arguments">The arguments.</param>
-        public AttributeInfo(Type attributeType, Type[] argumentTypes, object[] arguments)
+        private AttributeInfo(Type attributeType, Type[] argumentTypes, object[] arguments)
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");

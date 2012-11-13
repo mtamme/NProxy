@@ -21,7 +21,7 @@ namespace NProxy.Core.Interceptors.Language
     /// Defines the proxy configuration.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface IProxyConfiguration<T> : IExtends<T> where T : class
+    public interface IProxyConfiguration<out T> : IExtends<T> where T : class
     {
     }
 }
