@@ -17,7 +17,6 @@
 //
 using NProxy.Core.Interceptors;
 using NUnit.Framework;
-using NProxy.Core.Test.Common.Types;
 
 namespace NProxy.Core.Test.Interceptors
 {
@@ -35,13 +34,12 @@ namespace NProxy.Core.Test.Interceptors
         [Test]
         public void Test()
         {
-            var proxy = _proxyFactory.NewProxy<Employee>()
+            var employee = _proxyFactory.NewProxy<Employee>()
                 .Extends<LazyMixin>()
-                .Implements<IIntParameter>()
                 .Targets(new Employee())
                 .ApplyInterceptionBehaviors();
 
-            proxy.Name = "Saturnus";
+            employee.Name = "Saturnus";
         }
     }
 }

@@ -29,14 +29,14 @@ namespace NProxy.Core.Interceptors.Language
         /// Specifies an interface to implement.
         /// </summary>
         /// <typeparam name="TInterface">The interface type.</typeparam>
-        /// <returns>The setup.</returns>
+        /// <returns>The <c>Implements</c> verb.</returns>
         IImplements<T> Implements<TInterface>() where TInterface : class;
 
         /// <summary>
         /// Specifies an interface to implement.
         /// </summary>
         /// <param name="interfaceType">The interface type.</param>
-        /// <returns>The setup.</returns>
+        /// <returns>The <c>Implements</c> verb.</returns>
         IImplements<T> Implements(Type interfaceType);
     }
 }

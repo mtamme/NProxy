@@ -27,14 +27,14 @@ namespace NProxy.Core.Interceptors.Language
         /// Specifies a mixin to extend.
         /// </summary>
         /// <typeparam name="TMixin">The mixin type.</typeparam>
-        /// <returns>The setup.</returns>
+        /// <returns>The <c>Extends</c> verb.</returns>
         IExtends<T> Extends<TMixin>() where TMixin : class, new();
 
         /// <summary>
         /// Specifies a mixin to extend.
         /// </summary>
         /// <param name="mixin">The mixin object.</param>
-        /// <returns>The setup.</returns>
+        /// <returns>The <c>Extends</c> verb.</returns>
         IExtends<T> Extends(object mixin);
     }
 }
