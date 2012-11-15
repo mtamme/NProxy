@@ -232,15 +232,15 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <summary>
-        /// Returns a proxy configuration for creating a new proxy.
+        /// Returns the fluent interface to configure a new proxy.
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The proxy configuration.</returns>
-        public static IProxyConfiguration<T> NewProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
+        /// <returns>The fluent interface to configure a new proxy.</returns>
+        public static INewProxy<T> NewProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
         {
-            return new ProxyConfiguration<T>(proxyFactory, arguments);
+            return new NewProxy<T>(proxyFactory, arguments);
         }
     }
 }

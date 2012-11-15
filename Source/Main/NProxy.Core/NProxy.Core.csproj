@@ -93,8 +93,8 @@
     <Compile Include="Interceptors\Language\IImplements.cs" />
     <Compile Include="Interceptors\Language\IInvokes.cs" />
     <Compile Include="Interceptors\Language\ITargets.cs" />
-    <Compile Include="Interceptors\Language\IProxyConfiguration.cs" />
-    <Compile Include="Interceptors\ProxyConfiguration.cs" />
+    <Compile Include="Interceptors\Language\INewProxy.cs" />
+    <Compile Include="Interceptors\NewProxy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

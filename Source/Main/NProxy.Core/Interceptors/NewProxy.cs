@@ -24,10 +24,10 @@ using NProxy.Core.Internal.Reflection;
 namespace NProxy.Core.Interceptors
 {
     /// <summary>
-    /// Represents the proxy configuration.
+    /// Represents the fluent interface implementation to configure a new proxy.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    internal sealed class ProxyConfiguration<T> : IProxyConfiguration<T> where T : class
+    internal sealed class NewProxy<T> : INewProxy<T> where T : class
     {
         /// <summary>
         /// The proxy factory.
@@ -55,11 +55,11 @@ namespace NProxy.Core.Interceptors
         private IInvocationTarget _invocationTarget;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProxyConfiguration{T}"/> class.
+        /// Initializes a new instance of the <see cref="NewProxy{T}"/> class.
         /// </summary>
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        public ProxyConfiguration(IProxyFactory proxyFactory, object[] arguments)
+        public NewProxy(IProxyFactory proxyFactory, object[] arguments)
         {
             if (proxyFactory == null)
                 throw new ArgumentNullException("proxyFactory");

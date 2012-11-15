@@ -18,10 +18,10 @@
 namespace NProxy.Core.Interceptors.Language
 {
     /// <summary>
-    /// Defines the proxy configuration.
+    /// Defines the fluent interface to configure a new proxy.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface IProxyConfiguration<out T> : IExtends<T> where T : class
+    public interface INewProxy<out T> : IExtends<T> where T : class
     {
     }
 }
