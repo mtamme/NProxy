@@ -24,7 +24,7 @@ using NProxy.Core.Internal.Reflection;
 namespace NProxy.Core.Interceptors
 {
     /// <summary>
-    /// Represents a fluent interface implementation to configure a new proxy.
+    /// Represents a fluent interface implementation for configuring a new proxy.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
     internal sealed class NewProxy<T> : INewProxy<T> where T : class
