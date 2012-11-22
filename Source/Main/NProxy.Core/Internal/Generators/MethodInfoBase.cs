@@ -39,11 +39,17 @@ namespace NProxy.Core.Internal.Generators
         private readonly MethodInfo _methodInfo;
 
         /// <summary>
+        /// A value indicating weather the specified method is overridden.
+        /// </summary>
+        private readonly bool _isOverride;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MethodInfoBase"/> class.
         /// </summary>
         /// <param name="proxy">The proxy object.</param>
         /// <param name="methodInfo">The declaring method information.</param>
-        protected MethodInfoBase(object proxy, MethodInfo methodInfo)
+        /// <param name="isOverride">A value indicating weather the specified method is overridden.</param>
+        protected MethodInfoBase(object proxy, MethodInfo methodInfo, bool isOverride)
         {
             if (proxy == null)
                 throw new ArgumentNullException("proxy");
@@ -53,15 +59,24 @@ namespace NProxy.Core.Internal.Generators
 
             _proxy = proxy;
             _methodInfo = methodInfo;
+            _isOverride = isOverride;
         }
 
         /// <summary>
-        /// Invokes the method represented by the current instance.
+        /// Invokes the base method represented by the current instance.
         /// </summary>
         /// <param name="target">The target object.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns>The return value.</returns>
-        protected abstract object InternalInvoke(object target, object[] parameters);
+        protected abstract object BaseInvoke(object target, object[] parameters);
+
+        /// <summary>
+        /// Invokes the virtual method represented by the current instance.
+        /// </summary>
+        /// <param name="target">The target object.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>The return value.</returns>
+        protected abstract object VirtualInvoke(object target, object[] parameters);
 
         #region MethodInfo Members
 
@@ -171,10 +186,6 @@ namespace NProxy.Core.Internal.Generators
             if (target == null)
                 throw new TargetException("Target object must not be null");
 
-            // Check target object to avoid recursion.
-            if (target == _proxy)
-                throw new TargetException("Target object must not be the proxy object");
-
             // Check declaring type.
             var declaringType = DeclaringType;
 
@@ -185,9 +196,16 @@ namespace NProxy.Core.Internal.Generators
             var targetType = target.GetType();
 
             if (!declaringType.IsAssignableFrom(targetType))
-                throw new TargetException("Target object does not match declaring type");
+                throw new TargetException("Target object type does not match declaring type");
 
-            return InternalInvoke(target, parameters);
+            // Check target object.
+            if (target != _proxy)
+                return VirtualInvoke(target, parameters);
+
+            if (!_isOverride || IsAbstract)
+                throw new TargetException("Non-Override or abstract method cannot be invoked on proxy object");
+
+            return BaseInvoke(target, parameters);
         }
 
         #endregion

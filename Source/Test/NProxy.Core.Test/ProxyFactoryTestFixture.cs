@@ -2710,7 +2710,7 @@ namespace NProxy.Core.Test
         #region Target Object Tests
 
         [Test]
-        public void CreateProxyWithIntParameterAndNullTargetTest()
+        public void CreateProxyFromInterfaceAndNullTargetTest()
         {
             // Arrange
             // Act
@@ -2721,7 +2721,7 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void CreateProxyWithIntParameterAndProxyTargetTest()
+        public void CreateProxyFromInterfaceAndProxyTargetTest()
         {
             // Arrange
             // Act
@@ -2732,7 +2732,40 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void CreateProxyWithIntParameterAndInvalidTargetTest()
+        public void CreateProxyFromAbstractClassAndProxyTargetTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.CreateProxy<IntParameterBase>(Type.EmptyTypes, new TargetInvocationHandler(p => p));
+
+            // Assert
+            Assert.Throws<TargetException>(() => proxy.Method(default(int)));
+        }
+
+        [Test]
+        public void CreateProxyFromClassAndProxyTargetTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.CreateProxy<IntParameter>(Type.EmptyTypes, new TargetInvocationHandler(p => p));
+
+            // Assert
+            Assert.DoesNotThrow(() => proxy.Method(default(int)));
+        }
+
+        [Test]
+        public void CreateProxyFromDelegateAndProxyTargetTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.CreateProxy<Action<int>>(Type.EmptyTypes, new TargetInvocationHandler(p => p));
+
+            // Assert
+            Assert.Throws<TargetException>(() => proxy(default(int)));
+        }
+
+        [Test]
+        public void CreateProxyFromInterfaceAndInvalidTargetTest()
         {
             // Arrange
             // Act
@@ -2743,7 +2776,7 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void CreateProxyWithIntParameterAndTargetTest()
+        public void CreateProxyFromInterfaceAndTargetTest()
         {
             // Arrange
             // Act
