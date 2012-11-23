@@ -23,7 +23,7 @@ namespace NProxy.Core
     /// Represents an attribute which indicates that an event, property or method should not be intercepted.
     /// </summary>
     [Serializable]
-    [AttributeUsage(AttributeTargets.Event | AttributeTargets.Property | AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Event | AttributeTargets.Property | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
     public sealed class NonInterceptedAttribute : Attribute
     {
     }
