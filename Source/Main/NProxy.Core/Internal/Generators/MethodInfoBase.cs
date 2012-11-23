@@ -184,18 +184,13 @@ namespace NProxy.Core.Internal.Generators
         public override sealed object Invoke(object target, BindingFlags bindingFlags, Binder binder, object[] parameters, CultureInfo cultureInfo)
         {
             if (target == null)
-                throw new TargetException("Target object must not be null");
-
-            // Check declaring type.
-            var declaringType = DeclaringType;
-
-            if (declaringType == null)
-                throw new TargetException("Declaring type must not be null");
+                throw new TargetException("Method requires a target object");
 
             // Check target type.
+            var declaringType = DeclaringType;
             var targetType = target.GetType();
 
-            if (!declaringType.IsAssignableFrom(targetType))
+            if ((declaringType == null) || !declaringType.IsAssignableFrom(targetType))
                 throw new TargetException("Target object type does not match declaring type");
 
             // Check target object.
@@ -203,7 +198,7 @@ namespace NProxy.Core.Internal.Generators
                 return VirtualInvoke(target, parameters);
 
             if (!_isOverride || IsAbstract)
-                throw new TargetException("Non-Override or abstract method cannot be invoked on proxy object");
+                throw new TargetException("Non-Override method cannot be invoked on proxy object");
 
             return BaseInvoke(target, parameters);
         }
