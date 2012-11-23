@@ -22,8 +22,8 @@ namespace NProxy.Core
     /// <summary>
     /// Represents an attribute to exclude events, properties and methods from interception.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Event | AttributeTargets.Property | AttributeTargets.Method,
-                    Inherited = false, AllowMultiple = false)]
+    [Serializable]
+    [AttributeUsage(AttributeTargets.Event | AttributeTargets.Property | AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     public sealed class ExcludeAttribute : Attribute
     {
     }
