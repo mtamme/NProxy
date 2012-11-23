@@ -32,43 +32,24 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public bool Accept(EventInfo eventInfo)
         {
-            var declaringType = eventInfo.DeclaringType;
-
-            if (declaringType == null)
-                return false;
-
-            if (declaringType.HasCustomAttribute<NonInterceptedAttribute>())
-                return false;
-
             return !eventInfo.HasCustomAttribute<NonInterceptedAttribute>();
         }
 
         /// <inheritdoc/>
         public bool Accept(PropertyInfo propertyInfo)
         {
-            var declaringType = propertyInfo.DeclaringType;
-
-            if (declaringType == null)
-                return false;
-
-            if (declaringType.HasCustomAttribute<NonInterceptedAttribute>())
-                return false;
-
             return !propertyInfo.HasCustomAttribute<NonInterceptedAttribute>();
         }
 
         /// <inheritdoc/>
         public bool Accept(MethodInfo methodInfo)
         {
+            if (methodInfo.HasCustomAttribute<NonInterceptedAttribute>())
+                return false;
+
             var declaringType = methodInfo.DeclaringType;
 
             if (declaringType == null)
-                return false;
-
-            if (declaringType.HasCustomAttribute<NonInterceptedAttribute>())
-                return false;
-
-            if (methodInfo.HasCustomAttribute<NonInterceptedAttribute>())
                 return false;
 
             if (declaringType != typeof (object))
