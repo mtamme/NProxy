@@ -44,6 +44,22 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
+        /// Returns a value indicating weather the member is annotated with the specified custom attribute type.
+        /// </summary>
+        /// <typeparam name="TAttribute">The attribute type.</typeparam>
+        /// <param name="memberInfo">The member information.</param>
+        /// <returns>A value indicating weather the member is annotated with the specified custom attribute type.</returns>
+        public static bool HasCustomAttribute<TAttribute>(this MemberInfo memberInfo)
+        {
+            if (memberInfo == null)
+                throw new ArgumentNullException("memberInfo");
+
+            var customAttributes = memberInfo.GetCustomAttributes(typeof (TAttribute), false);
+
+            return (customAttributes.Length > 0);
+        }
+
+        /// <summary>
         /// Returns the declaring type of the specified member.
         /// </summary>
         /// <param name="memberInfo">The member information.</param>

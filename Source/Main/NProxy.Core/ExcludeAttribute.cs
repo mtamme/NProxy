@@ -16,28 +16,15 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
-using System.Reflection;
 
-namespace NProxy.Core.Internal.Generators
+namespace NProxy.Core
 {
     /// <summary>
-    /// Represents the default interception filter.
+    /// Represents an attribute to exclude events, properties and methods from interception.
     /// </summary>
-    internal sealed class DefaultInterceptionFilter : IInterceptionFilter
+    [AttributeUsage(AttributeTargets.Event | AttributeTargets.Property | AttributeTargets.Method,
+                    Inherited = false, AllowMultiple = false)]
+    public sealed class ExcludeAttribute : Attribute
     {
-        #region IInterceptionFilter Members
-
-        /// <inheritdoc/>
-        public bool Accept(MemberInfo memberInfo)
-        {
-            var declaringType = memberInfo.DeclaringType;
-
-            if (declaringType != typeof (object))
-                return true;
-
-            return !String.Equals(memberInfo.Name, "Finalize");
-        }
-
-        #endregion
     }
 }
