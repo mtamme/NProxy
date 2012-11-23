@@ -110,7 +110,6 @@ namespace NProxy.Core.Internal.Generators
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
         /// <param name="methodFieldInfo">The method information static field information.</param>
-        /// <param name="isOverride">A value indicating weather the specified method is overridden.</param>
         /// <returns>The constructor information.</returns>
         private static void BuildConstructor(TypeBuilder typeBuilder, FieldInfo methodFieldInfo)
         {
