@@ -37,10 +37,10 @@ namespace NProxy.Core
             if (declaringType == null)
                 return false;
 
-            if (declaringType.HasCustomAttribute<ExcludeAttribute>())
+            if (declaringType.HasCustomAttribute<NonInterceptedAttribute>())
                 return false;
 
-            return !eventInfo.HasCustomAttribute<ExcludeAttribute>();
+            return !eventInfo.HasCustomAttribute<NonInterceptedAttribute>();
         }
 
         /// <inheritdoc/>
@@ -51,10 +51,10 @@ namespace NProxy.Core
             if (declaringType == null)
                 return false;
 
-            if (declaringType.HasCustomAttribute<ExcludeAttribute>())
+            if (declaringType.HasCustomAttribute<NonInterceptedAttribute>())
                 return false;
 
-            return !propertyInfo.HasCustomAttribute<ExcludeAttribute>();
+            return !propertyInfo.HasCustomAttribute<NonInterceptedAttribute>();
         }
 
         /// <inheritdoc/>
@@ -65,10 +65,10 @@ namespace NProxy.Core
             if (declaringType == null)
                 return false;
 
-            if (declaringType.HasCustomAttribute<ExcludeAttribute>())
+            if (declaringType.HasCustomAttribute<NonInterceptedAttribute>())
                 return false;
 
-            if (methodInfo.HasCustomAttribute<ExcludeAttribute>())
+            if (methodInfo.HasCustomAttribute<NonInterceptedAttribute>())
                 return false;
 
             if (declaringType != typeof (object))

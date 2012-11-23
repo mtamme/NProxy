@@ -20,11 +20,11 @@ using System;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Represents an attribute to exclude events, properties and methods from interception.
+    /// Represents an attribute which indicates that an event, property or method should not be intercepted.
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Event | AttributeTargets.Property | AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-    public sealed class ExcludeAttribute : Attribute
+    public sealed class NonInterceptedAttribute : Attribute
     {
     }
 }
