@@ -28,6 +28,9 @@ Every proxy has an associated invocation handler that is called whenever one of 
 Proxy objects can be created from unsealed classes, abstract classes, interfaces and delegates, and can implement
 an arbitrary number of interfaces. All interfaces are implemented explicitly to avoid member name conflicts.
 
+To exclude events, properties and methods from beeing intercepted just apply the `ExcludeAttribute` on the
+member which should be excluded from interception. This attribute has no effect when applied to abstract members.
+
 To create dynamic proxies of only internally visible types, just add the following assembly attribute to your project.
 
 ```csharp
