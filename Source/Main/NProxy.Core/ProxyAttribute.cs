@@ -20,11 +20,11 @@ using System;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Represents an attribute which indicates that a class is interceptable.
+    /// Represents an attribute which indicates that a class is a proxy.
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public sealed class InterceptableAttribute : Attribute
+    public sealed class ProxyAttribute : Attribute
     {
     }
 }
