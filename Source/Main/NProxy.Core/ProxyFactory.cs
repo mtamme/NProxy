@@ -76,8 +76,8 @@ namespace NProxy.Core
             // Create type definition.
             var typeDefinition = CreateTypeDefinition(declaringType);
 
-            // Add custom attribute.
-            typeDefinition.AddCustomAttribute(new AttributeInfo(typeof (ProxyAttribute)));
+            // Add interceptable attribute.
+            typeDefinition.AddCustomAttribute(new AttributeInfo(typeof (InterceptableAttribute)));
 
             // Add interface types.
             foreach (var interfaceType in interfaceTypes)
@@ -166,7 +166,7 @@ namespace NProxy.Core
 
             var proxyType = proxy.GetType();
 
-            if (proxyType.GetCustomAttributes<ProxyAttribute>().Any())
+            if (proxyType.HasCustomAttribute<InterceptableAttribute>())
                 return proxy as TInterface;
 
             var delegateProxy = proxy as Delegate;
