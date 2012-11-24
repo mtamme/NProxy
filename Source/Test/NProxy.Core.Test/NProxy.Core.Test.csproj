@@ -85,6 +85,10 @@
     <Compile Include="Interceptors\LazyMixin.cs" />
     <Compile Include="Interceptors\Person.cs" />
     <Compile Include="Interceptors\ProxyFactoryTestFixture.cs" />
+    <Compile Include="Common\Types\NonIntercepted.cs" />
+    <Compile Include="Common\Types\INonIntercepted.cs" />
+    <Compile Include="Common\Types\NonInterceptedBase.cs" />
+    <Compile Include="Common\CountingInvocationHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

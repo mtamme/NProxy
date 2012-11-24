@@ -3210,6 +3210,145 @@ namespace NProxy.Core.Test
 
         #endregion
 
+        #region Non Intercepted Attribute Tests
+
+        [Test]
+        public void CreateProxyFromInterfaceWithNonInterceptedEventTest()
+        {
+            // Arrange
+            var invocationHandler = new CountingInvocationHandler();
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<INonIntercepted>(Type.EmptyTypes, invocationHandler);
+
+            proxy.Event += () => {};
+
+            // Assert
+            Assert.That(invocationHandler.InvocationCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CreateProxyFromInterfaceWithNonInterceptedPropertyTest()
+        {
+            // Arrange
+            var invocationHandler = new CountingInvocationHandler();
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<INonIntercepted>(Type.EmptyTypes, invocationHandler);
+
+            proxy.Property = default(int);
+
+            // Assert
+            Assert.That(invocationHandler.InvocationCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CreateProxyFromInterfaceWithNonInterceptedMethodTest()
+        {
+            // Arrange
+            var invocationHandler = new CountingInvocationHandler();
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<INonIntercepted>(Type.EmptyTypes, invocationHandler);
+
+            proxy.Method();
+
+            // Assert
+            Assert.That(invocationHandler.InvocationCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CreateProxyFromAbstractClassWithNonInterceptedEventTest()
+        {
+            // Arrange
+            var invocationHandler = new CountingInvocationHandler();
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<NonInterceptedBase>(Type.EmptyTypes, invocationHandler);
+
+            proxy.Event += () => {};
+
+            // Assert
+            Assert.That(invocationHandler.InvocationCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CreateProxyFromAbstractClassWithNonInterceptedPropertyTest()
+        {
+            // Arrange
+            var invocationHandler = new CountingInvocationHandler();
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<NonInterceptedBase>(Type.EmptyTypes, invocationHandler);
+
+            proxy.Property = default(int);
+
+            // Assert
+            Assert.That(invocationHandler.InvocationCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CreateProxyFromAbstractClassWithNonInterceptedMethodTest()
+        {
+            // Arrange
+            var invocationHandler = new CountingInvocationHandler();
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<NonInterceptedBase>(Type.EmptyTypes, invocationHandler);
+
+            proxy.Method();
+
+            // Assert
+            Assert.That(invocationHandler.InvocationCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void CreateProxyFromClassWithNonInterceptedEventTest()
+        {
+            // Arrange
+            var invocationHandler = new CountingInvocationHandler();
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<NonIntercepted>(Type.EmptyTypes, invocationHandler);
+
+            proxy.Event += () => {};
+
+            // Assert
+            Assert.That(invocationHandler.InvocationCount, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void CreateProxyFromClassWithNonInterceptedPropertyTest()
+        {
+            // Arrange
+            var invocationHandler = new CountingInvocationHandler();
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<NonIntercepted>(Type.EmptyTypes, invocationHandler);
+
+            proxy.Property = default(int);
+
+            // Assert
+            Assert.That(invocationHandler.InvocationCount, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void CreateProxyFromClassWithNonInterceptedMethodTest()
+        {
+            // Arrange
+            var invocationHandler = new CountingInvocationHandler();
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<NonIntercepted>(Type.EmptyTypes, invocationHandler);
+
+            proxy.Method();
+
+            // Assert
+            Assert.That(invocationHandler.InvocationCount, Is.EqualTo(0));
+        }
+
+        #endregion
+
         #region Adapt Proxy Tests
 
         [Test]
