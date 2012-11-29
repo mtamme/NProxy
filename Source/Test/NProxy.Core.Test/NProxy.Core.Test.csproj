@@ -89,6 +89,8 @@
     <Compile Include="Common\Types\INonIntercepted.cs" />
     <Compile Include="Common\Types\NonInterceptedBase.cs" />
     <Compile Include="Common\CountingInvocationHandler.cs" />
+    <Compile Include="Interceptors\IPerson.cs" />
+    <Compile Include="Interceptors\IEmployee.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

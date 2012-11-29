@@ -17,19 +17,11 @@
 //
 namespace NProxy.Core.Test.Interceptors
 {
-    internal class Employee : Person
+    internal class Employee : Person, IEmployee
     {
-        [Lazy]
-        public virtual decimal Salary { get; set; }
+        #region IEmployee Members
 
-        #region Person Members
-
-        [Lazy]
-        public override string Name
-        {
-            get { return base.Name; }
-            set { base.Name = value; }
-        }
+        public decimal Salary { get; set; }
 
         #endregion
     }

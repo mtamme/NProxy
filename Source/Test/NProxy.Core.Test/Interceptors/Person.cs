@@ -17,8 +17,12 @@
 //
 namespace NProxy.Core.Test.Interceptors
 {
-    internal class Person
+    internal class Person : IPerson
     {
-        public virtual string Name { get; set; }
+        #region IPerson Members
+
+        public string Name { get; set; }
+
+        #endregion
     }
 }

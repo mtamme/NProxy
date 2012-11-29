@@ -107,7 +107,8 @@ namespace NProxy.Core.Interceptors
         {
             var invocationHandler = new InterceptionInvocationHandler(new TargetInterceptor(invocationTarget));
 
-            invocationHandler.ApplyInterceptors(declaringType, _interceptors);
+            if (!declaringType.IsInterface)
+                invocationHandler.ApplyInterceptors(declaringType, _interceptors);
 
             var interfaceVisitor = Visitor.Create<Type>(t => invocationHandler.ApplyInterceptors(t, _interceptors));
 

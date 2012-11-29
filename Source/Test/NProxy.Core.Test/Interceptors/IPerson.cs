@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © 2012 Martin Tamme
 //
@@ -15,39 +15,11 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-using NProxy.Core.Interceptors;
-using NUnit.Framework;
-
 namespace NProxy.Core.Test.Interceptors
 {
-    [TestFixture]
-    public sealed class ProxyFactoryTestFixture
+    public interface IPerson
     {
-        private ProxyFactory _proxyFactory;
-
-        [TestFixtureSetUp]
-        public void SetUp()
-        {
-            _proxyFactory = new ProxyFactory();
-        }
-
-        [Test]
-        public void Test()
-        {
-            var employee = _proxyFactory.NewProxy<IEmployee>()
-                .Extends<LazyMixin>()
-                .Targets<Employee>();
-
-            employee.Name = "Saturnus";
-
-            Assert.That(employee, Is.InstanceOf<IEmployee>());
-            Assert.That(employee, Is.InstanceOf<ILazy>());
-
-            Assert.That(employee.Name, Is.EqualTo("Saturnus"));
-
-            var lazy = (ILazy) employee;
-
-            Assert.That(lazy.Loaded, Is.EqualTo(true));
-        }
+        [Lazy]
+        string Name { get; set; }
     }
 }
