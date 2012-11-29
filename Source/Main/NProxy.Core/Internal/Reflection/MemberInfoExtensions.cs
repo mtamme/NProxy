@@ -28,7 +28,7 @@ namespace NProxy.Core.Internal.Reflection
     internal static class MemberInfoExtensions
     {
         /// <summary>
-        /// Returns the custom attributes of the specified member.
+        /// Returns the custom attributes that are applied to the specified member.
         /// </summary>
         /// <typeparam name="TAttribute">The attribute type.</typeparam>
         /// <param name="memberInfo">The member information.</param>
@@ -44,19 +44,18 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Returns a value indicating weather the member is annotated with the specified custom attribute type.
+        /// Returns a value indicating whether one or more attributes of the specified type or of its
+        /// derived types is applied to this member.
         /// </summary>
         /// <typeparam name="TAttribute">The attribute type.</typeparam>
         /// <param name="memberInfo">The member information.</param>
         /// <returns>A value indicating weather the member is annotated with the specified custom attribute type.</returns>
-        public static bool HasCustomAttribute<TAttribute>(this MemberInfo memberInfo)
+        public static bool IsDefined<TAttribute>(this MemberInfo memberInfo)
         {
             if (memberInfo == null)
                 throw new ArgumentNullException("memberInfo");
 
-            var customAttributes = memberInfo.GetCustomAttributes(typeof (TAttribute), false);
-
-            return (customAttributes.Length > 0);
+            return memberInfo.IsDefined(typeof (TAttribute), false);
         }
 
         /// <summary>

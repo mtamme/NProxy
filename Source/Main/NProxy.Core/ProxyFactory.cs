@@ -165,7 +165,7 @@ namespace NProxy.Core
 
             var proxyType = proxy.GetType();
 
-            if (proxyType.HasCustomAttribute<ProxyAttribute>())
+            if (proxyType.IsDefined<ProxyAttribute>())
                 return proxy as TInterface;
 
             var delegateProxy = proxy as Delegate;

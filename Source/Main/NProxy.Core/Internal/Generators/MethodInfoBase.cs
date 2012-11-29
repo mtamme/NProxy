@@ -68,7 +68,10 @@ namespace NProxy.Core.Internal.Generators
         /// <param name="target">The target object.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns>The return value.</returns>
-        protected abstract object BaseInvoke(object target, object[] parameters);
+        protected virtual object BaseInvoke(object target, object[] parameters)
+        {
+            throw new TargetException("Method is not implemented or inherited by target object");
+        }
 
         /// <summary>
         /// Invokes the virtual method represented by the current instance.
@@ -191,14 +194,14 @@ namespace NProxy.Core.Internal.Generators
             var targetType = target.GetType();
 
             if ((declaringType == null) || !declaringType.IsAssignableFrom(targetType))
-                throw new TargetException("Target object type does not match declaring type");
+                throw new TargetException("Method is not declared or inherited by target object");
 
             // Check target object.
             if (target != _proxy)
                 return VirtualInvoke(target, parameters);
 
-            if (!_isOverride || IsAbstract)
-                throw new TargetException("Non-Override method cannot be invoked on proxy object");
+            if (!_isOverride)
+                throw new TargetException("Method is not inherited by target object");
 
             return BaseInvoke(target, parameters);
         }

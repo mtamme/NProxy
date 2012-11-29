@@ -284,8 +284,9 @@ namespace NProxy.Core.Internal.Generators
             // Build constructor.
             BuildConstructor(typeBuilder, methodFieldInfo);
 
-            // Build base invoke method.
-            BuildInvokeMethod(typeBuilder, declaringMethodInfo, genericParameterTypes, false);
+            // Build base invoke method only for virtual and non abstract methods.
+            if (declaringMethodInfo.IsVirtual && !declaringMethodInfo.IsAbstract)
+                BuildInvokeMethod(typeBuilder, declaringMethodInfo, genericParameterTypes, false);
 
             // Build virtual invoke method.
             BuildInvokeMethod(typeBuilder, declaringMethodInfo, genericParameterTypes, true);
