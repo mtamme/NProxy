@@ -40,12 +40,6 @@ namespace NProxy.Core.Interceptors
         object[] Parameters { get; }
 
         /// <summary>
-        /// Returns a value indicating whether there is a next interceptor in the interceptor
-        /// chain to proceed to.
-        /// </summary>
-        bool CanProceed { get; }
-
-        /// <summary>
         /// Proceed to the next interceptor in the interceptor chain.
         /// </summary>
         /// <returns>The return value of the next method in the chain.</returns>

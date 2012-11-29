@@ -15,6 +15,8 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+using System;
+
 namespace NProxy.Core.Interceptors
 {
     /// <summary>
@@ -22,14 +24,32 @@ namespace NProxy.Core.Interceptors
     /// </summary>
     internal sealed class TargetInterceptor : IInterceptor
     {
+        /// <summary>
+        /// The invocation target.
+        /// </summary>
+        private readonly IInvocationTarget _invocationTarget;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TargetInterceptor"/> class.
+        /// </summary>
+        /// <param name="invocationTarget">The invocation target.</param>
+        public TargetInterceptor(IInvocationTarget invocationTarget)
+        {
+            if (invocationTarget == null)
+                throw new ArgumentNullException("invocationTarget");
+
+            _invocationTarget = invocationTarget;
+        }
+
         #region IInterceptor Members
 
         /// <inheritdoc/>
         public object Intercept(IInvocationContext invocationContext)
         {
             var methodInfo = invocationContext.Method;
+            var target = _invocationTarget.GetTarget(methodInfo);
 
-            return methodInfo.Invoke(invocationContext.Target, invocationContext.Parameters);
+            return methodInfo.Invoke(target, invocationContext.Parameters);
         }
 
         #endregion

@@ -47,12 +47,12 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// The interface types.
         /// </summary>
-        private readonly List<Type> _interfaceTypes;
+        private readonly HashSet<Type> _interfaceTypes;
 
         /// <summary>
-        /// The invocation target.
+        /// The interceptors.
         /// </summary>
-        private IInvocationTarget _invocationTarget;
+        private List<IInterceptor> _interceptors;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NewProxy{T}"/> class.
@@ -71,8 +71,52 @@ namespace NProxy.Core.Interceptors
             _arguments = arguments;
 
             _mixins = new Dictionary<Type, object>();
-            _interfaceTypes = new List<Type>();
-            _invocationTarget = null;
+            _interfaceTypes = new HashSet<Type>();
+            _interceptors = new List<IInterceptor>();
+        }
+
+        /// <summary>
+        /// Adds a mixin for the specified interface type.
+        /// </summary>
+        /// <param name="interfaceType">The interface type.</param>
+        /// <param name="mixin">The mixin object.</param>
+        private void AddMixin(Type interfaceType, object mixin)
+        {
+            AddInterface(interfaceType);
+
+            _mixins.Add(interfaceType, mixin);
+        }
+
+        /// <summary>
+        /// Adds an interface type.
+        /// </summary>
+        /// <param name="interfaceType">The interface type.</param>
+        private void AddInterface(Type interfaceType)
+        {
+            if (!_interfaceTypes.Add(interfaceType))
+                throw new InvalidOperationException(String.Format("Interface type {0} was already added", interfaceType));
+        }
+
+        /// <summary>
+        /// Creates an invocation handler.
+        /// </summary>
+        /// <param name="declaringType">The declaring type.</param>
+        /// <param name="invocationTarget">The invocation target.</param>
+        /// <returns>The invocation handler.</returns>
+        private IInvocationHandler CreateInvocationHandler(Type declaringType, IInvocationTarget invocationTarget)
+        {
+            var invocationHandler = new InterceptionInvocationHandler(new TargetInterceptor(invocationTarget));
+
+            invocationHandler.ApplyInterceptors(declaringType, _interceptors);
+
+            var interfaceVisitor = Visitor.Create<Type>(t => invocationHandler.ApplyInterceptors(t, _interceptors));
+
+            declaringType.VisitInterfaces(interfaceVisitor);
+
+            if (_mixins.Count > 0)
+                return new MixinInvocationHandler(_mixins, invocationHandler);
+
+            return invocationHandler;
         }
 
         #region IExtends<T> Members
@@ -91,8 +135,7 @@ namespace NProxy.Core.Interceptors
             if (mixin == null)
                 throw new ArgumentNullException("mixin");
 
-            var interfaceVisitor = Visitor.Create<Type>(t => _mixins.Add(t, mixin))
-                .Where(t => !_mixins.ContainsKey(t));
+            var interfaceVisitor = Visitor.Create<Type>(t => AddMixin(t, mixin));
             var mixinType = mixin.GetType();
 
             mixinType.VisitInterfaces(interfaceVisitor);
@@ -118,38 +161,7 @@ namespace NProxy.Core.Interceptors
             if (interfaceType == null)
                 throw new ArgumentNullException("interfaceType");
 
-            _interfaceTypes.Add(interfaceType);
-
-            return this;
-        }
-
-        #endregion
-
-        #region ITargets<T> Members
-
-        /// <inheritdoc/>
-        public IInvokes<T> Targets<TTarget>() where TTarget : class, new()
-        {
-            var target = new TTarget();
-
-            return Targets(target);
-        }
-
-        /// <inheritdoc/>
-        public IInvokes<T> Targets(object target)
-        {
-            var invocationTarget = new SingleInvocationTarget(target);
-
-            return Targets(invocationTarget);
-        }
-
-        /// <inheritdoc/>
-        public IInvokes<T> Targets(IInvocationTarget invocationTarget)
-        {
-            if (invocationTarget == null)
-                throw new ArgumentNullException("invocationTarget");
-
-            _invocationTarget = invocationTarget;
+            AddInterface(interfaceType);
 
             return this;
         }
@@ -159,34 +171,57 @@ namespace NProxy.Core.Interceptors
         #region IInvokes<T> Members
 
         /// <inheritdoc/>
-        public T ApplyInterceptionBehaviors()
+        public ITargets<T> Invokes(IEnumerable<IInterceptor> interceptors)
         {
-            throw new NotImplementedException();
+            if (interceptors == null)
+                throw new ArgumentNullException("interceptors");
+
+            _interceptors.AddRange(interceptors);
+
+            return this;
         }
 
         /// <inheritdoc/>
-        public T Invokes(IEnumerable<IInterceptor> interceptors)
+        public ITargets<T> Invokes(IInterceptor interceptor)
         {
-            var invocationHandler = new InterceptorChain(interceptors);
+            if (interceptor == null)
+                throw new ArgumentNullException("interceptor");
 
-            return Invokes(invocationHandler);
+            _interceptors.Add(interceptor);
+
+            return this;
+        }
+
+        #endregion
+
+        #region ITargets<T> Members
+
+        /// <inheritdoc/>
+        public T Targets<TTarget>() where TTarget : class, new()
+        {
+            var target = new TTarget();
+
+            return Targets(target);
         }
 
         /// <inheritdoc/>
-        public T Invokes(IInterceptor interceptor)
+        public T Targets(object target)
         {
-            var invocationHandler = new InterceptorChain(interceptor);
+            var invocationTarget = new SingleInvocationTarget(target);
 
-            return Invokes(invocationHandler);
+            return Targets(invocationTarget);
         }
 
         /// <inheritdoc/>
-        public T Invokes(IInvocationHandler invocationHandler)
+        public T Targets(IInvocationTarget invocationTarget)
         {
-            if (_mixins.Count > 0)
-                invocationHandler = new MixinInvocationHandler(_mixins, invocationHandler);
+            if (invocationTarget == null)
+                throw new ArgumentNullException("invocationTarget");
 
-            return _proxyFactory.CreateProxy<T>(_interfaceTypes, invocationHandler, _arguments);
+            var declaringType = typeof (T);
+            var invocationHandler = CreateInvocationHandler(declaringType, invocationTarget);
+
+            return (T) _proxyFactory.CreateProxy(declaringType, _interfaceTypes, invocationHandler, _arguments);
         }
 
         #endregion

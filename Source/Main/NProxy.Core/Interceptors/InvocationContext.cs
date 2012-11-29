@@ -16,8 +16,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace NProxy.Core.Interceptors
@@ -43,9 +41,14 @@ namespace NProxy.Core.Interceptors
         private readonly object[] _parameters;
 
         /// <summary>
-        /// The next interceptor.
+        /// The interceptors.
         /// </summary>
-        private readonly Stack<IInterceptor> _interceptors;
+        private readonly IInterceptor[] _interceptors;
+
+        /// <summary>
+        /// The index of the next interceptor.
+        /// </summary>
+        private int _nextInterceptorIndex;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InvocationContext"/> class.
@@ -54,7 +57,7 @@ namespace NProxy.Core.Interceptors
         /// <param name="methodInfo">The method information.</param>
         /// <param name="parameters">The parameter values.</param>
         /// <param name="interceptors">The interceptors.</param>
-        public InvocationContext(object target, MethodInfo methodInfo, object[] parameters, IEnumerable<IInterceptor> interceptors)
+        public InvocationContext(object target, MethodInfo methodInfo, object[] parameters, IInterceptor[] interceptors)
         {
             if (methodInfo == null)
                 throw new ArgumentNullException("methodInfo");
@@ -68,16 +71,21 @@ namespace NProxy.Core.Interceptors
             _target = target;
             _methodInfo = methodInfo;
             _parameters = parameters;
+            _interceptors = interceptors;
 
-            _interceptors = new Stack<IInterceptor>();
+            _nextInterceptorIndex = 0;
+        }
 
-            // Add target interceptor.
-            if (target != null)
-                _interceptors.Push(new TargetInterceptor());
+        /// <summary>
+        /// Returns the next interceptor.
+        /// </summary>
+        /// <returns>The next interceptor.</returns>
+        private IInterceptor GetNextInterceptor()
+        {
+            if (_nextInterceptorIndex >= _interceptors.Length)
+                throw new InvalidOperationException("No more interceptors in the interceptor chain");
 
-            // Add interceptors.
-            foreach (var interceptor in interceptors.Reverse())
-                _interceptors.Push(interceptor);
+            return _interceptors [_nextInterceptorIndex++];
         }
 
         #region IInvocationContext Members
@@ -101,18 +109,9 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <inheritdoc/>
-        public bool CanProceed
-        {
-            get { return _interceptors.Count > 0; }
-        }
-
-        /// <inheritdoc/>
         public object Proceed()
         {
-            if (!CanProceed)
-                throw new InvalidOperationException("No more interceptors in the interceptor chain");
-
-            var interceptor = _interceptors.Pop();
+            var interceptor = GetNextInterceptor();
 
             return interceptor.Intercept(this);
         }

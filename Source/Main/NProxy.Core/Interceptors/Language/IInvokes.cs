@@ -23,33 +23,20 @@ namespace NProxy.Core.Interceptors.Language
     /// Defines the <c>Invokes</c> verb.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface IInvokes<out T> : IFluent where T : class
+    public interface IInvokes<out T> : ITargets<T> where T : class
     {
-        /// <summary>
-        /// Applies the interception behaviors.
-        /// </summary>
-        /// <returns>The proxy object.</returns>
-        T ApplyInterceptionBehaviors();
-
         /// <summary>
         /// Specifies interceptors to invoke.
         /// </summary>
         /// <param name="interceptors">The interceptors.</param>
-        /// <returns>The proxy object.</returns>
-        T Invokes(IEnumerable<IInterceptor> interceptors);
+        /// <returns>The <c>Create</c> verb.</returns>
+        ITargets<T> Invokes(IEnumerable<IInterceptor> interceptors);
 
         /// <summary>
         /// Specifies an interceptor to invoke.
         /// </summary>
         /// <param name="interceptor">The interceptor.</param>
-        /// <returns>The proxy object.</returns>
-        T Invokes(IInterceptor interceptor);
-
-        /// <summary>
-        /// Specifies an invocation handler to invoke.
-        /// </summary>
-        /// <param name="invocationHandler">The invocation handler.</param>
-        /// <returns>The proxy object.</returns>
-        T Invokes(IInvocationHandler invocationHandler);
+        /// <returns>The <c>Create</c> verb.</returns>
+        ITargets<T> Invokes(IInterceptor interceptor);
     }
 }

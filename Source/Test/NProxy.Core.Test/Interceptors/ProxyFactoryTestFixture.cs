@@ -36,8 +36,7 @@ namespace NProxy.Core.Test.Interceptors
         {
             var employee = _proxyFactory.NewProxy<Employee>()
                 .Extends<LazyMixin>()
-                .Targets(new Employee())
-                .ApplyInterceptionBehaviors();
+                .Targets<Employee>();
 
             employee.Name = "Saturnus";
         }
