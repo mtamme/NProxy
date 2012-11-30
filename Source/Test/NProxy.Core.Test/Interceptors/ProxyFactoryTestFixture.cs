@@ -118,11 +118,11 @@ namespace NProxy.Core.Test.Interceptors
                 .Targets<Employee>();
 
             // Act
-            employee.Name = "2";
+            employee.Name = "Saturnus";
 
             // Assert
             Assert.That(employee, Is.InstanceOf<IEmployee>());
-            Assert.That(employee.Name, Is.EqualTo("2"));
+            Assert.That(employee.Name, Is.EqualTo("Saturnus"));
 
             Assert.That(employee, Is.InstanceOf<ILazy>());
             var lazy = (ILazy) employee;
