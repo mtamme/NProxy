@@ -105,7 +105,7 @@ namespace NProxy.Core.Interceptors
         /// <returns>The invocation handler.</returns>
         private IInvocationHandler CreateInvocationHandler(Type declaringType, IInvocationTarget invocationTarget)
         {
-            var invocationHandler = new InterceptionInvocationHandler(new TargetInterceptor(invocationTarget));
+            var invocationHandler = new InterceptorInvocationHandler(new TargetInterceptor(invocationTarget));
 
             if (!declaringType.IsInterface)
                 invocationHandler.ApplyInterceptors(declaringType, _interceptors);

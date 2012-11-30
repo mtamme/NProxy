@@ -25,9 +25,9 @@ using NProxy.Core.Internal.Common;
 namespace NProxy.Core.Interceptors
 {
     /// <summary>
-    /// Represents an interception invocation handler.
+    /// Represents an interceptor invocation handler.
     /// </summary>
-    internal sealed class InterceptionInvocationHandler : IInvocationHandler
+    internal sealed class InterceptorInvocationHandler : IInvocationHandler
     {
         /// <summary>
         /// The interceptors.
@@ -43,7 +43,7 @@ namespace NProxy.Core.Interceptors
         /// Initializes a new instance of the <see cref="Dispatcher"/> class.
         /// </summary>
         /// <param name="interceptor">The interceptor.</param>
-        public InterceptionInvocationHandler(params IInterceptor[] interceptors)
+        public InterceptorInvocationHandler(params IInterceptor[] interceptors)
         {
             if (interceptors == null)
                 throw new ArgumentNullException("interceptor");

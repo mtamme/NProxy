@@ -93,7 +93,7 @@
     <Compile Include="DefaultInterceptionFilter.cs" />
     <Compile Include="NonInterceptedAttribute.cs" />
     <Compile Include="ProxyAttribute.cs" />
-    <Compile Include="Interceptors\InterceptionInvocationHandler.cs" />
+    <Compile Include="Interceptors\InterceptorInvocationHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
