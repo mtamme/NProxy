@@ -34,12 +34,12 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void AdaptInterfaceProxyTest()
+        public void CastInterfaceProxyTest()
         {
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<IIntParameter>(new[] {typeof (IStringParameter)}, new TargetInvocationHandler(_ => null));
-            var value = proxy.Adapt<IStringParameter>();
+            var value = proxy.Cast<IStringParameter>();
 
             // Assert
             Assert.That(value, Is.Not.Null);
@@ -47,12 +47,12 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void AdaptAbstractClassProxyTest()
+        public void CastAbstractClassProxyTest()
         {
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<IntParameterBase>(new[] {typeof (IStringParameter)}, new TargetInvocationHandler(_ => null));
-            var value = proxy.Adapt<IStringParameter>();
+            var value = proxy.Cast<IStringParameter>();
 
             // Assert
             Assert.That(value, Is.Not.Null);
@@ -60,12 +60,12 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void AdaptClassProxyTest()
+        public void CastClassProxyTest()
         {
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<IntParameter>(new[] {typeof (IStringParameter)}, new TargetInvocationHandler(_ => null));
-            var value = proxy.Adapt<IStringParameter>();
+            var value = proxy.Cast<IStringParameter>();
 
             // Assert
             Assert.That(value, Is.Not.Null);
@@ -73,12 +73,12 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void AdaptDelegateProxyTest()
+        public void CastDelegateProxyTest()
         {
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<Action<int>>(new[] {typeof (IStringParameter)}, new TargetInvocationHandler(_ => null));
-            var value = proxy.Adapt<IStringParameter>();
+            var value = proxy.Cast<IStringParameter>();
 
             // Assert
             Assert.That(value, Is.Not.Null);
@@ -86,58 +86,58 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void AdaptInterfaceProxyWithNotImplementedInterfaceTest()
+        public void CastInterfaceProxyWithNotImplementedInterfaceTest()
         {
             // Arrange
             var proxy = _proxyFactory.CreateProxy<IIntParameter>(new[] {typeof (IStringParameter)}, new TargetInvocationHandler(_ => null));
 
             // Act
             // Assert
-            Assert.Throws<InvalidCastException>(() => proxy.Adapt<IEnumParameter>());
+            Assert.Throws<InvalidCastException>(() => proxy.Cast<IEnumParameter>());
         }
 
         [Test]
-        public void AdaptAbstractClassProxyWithNotImplementedInterfaceTest()
+        public void CastAbstractClassProxyWithNotImplementedInterfaceTest()
         {
             // Arrange
             var proxy = _proxyFactory.CreateProxy<IntParameterBase>(new[] {typeof (IStringParameter)}, new TargetInvocationHandler(_ => null));
 
             // Act
             // Assert
-            Assert.Throws<InvalidCastException>(() => proxy.Adapt<IEnumParameter>());
+            Assert.Throws<InvalidCastException>(() => proxy.Cast<IEnumParameter>());
         }
 
         [Test]
-        public void AdaptClassProxyWithNotImplementedInterfaceTest()
+        public void CastClassProxyWithNotImplementedInterfaceTest()
         {
             // Arrange
             var proxy = _proxyFactory.CreateProxy<IntParameter>(new[] {typeof (IStringParameter)}, new TargetInvocationHandler(_ => null));
 
             // Act
             // Assert
-            Assert.Throws<InvalidCastException>(() => proxy.Adapt<IEnumParameter>());
+            Assert.Throws<InvalidCastException>(() => proxy.Cast<IEnumParameter>());
         }
 
         [Test]
-        public void AdaptDelegateProxyWithNotImplementedInterfaceTest()
+        public void CastDelegateProxyWithNotImplementedInterfaceTest()
         {
             // Arrange
             var proxy = _proxyFactory.CreateProxy<Action<int>>(new[] {typeof (IStringParameter)}, new TargetInvocationHandler(_ => null));
 
             // Act
             // Assert
-            Assert.Throws<InvalidCastException>(() => proxy.Adapt<IEnumParameter>());
+            Assert.Throws<InvalidCastException>(() => proxy.Cast<IEnumParameter>());
         }
 
         [Test]
-        public void AdaptNonProxyTest()
+        public void CastNonProxyTest()
         {
             // Arrange
             var proxy = new StringParameter();
 
             // Act
             // Assert
-            Assert.Throws<InvalidOperationException>(() => proxy.Adapt<IStringParameter>());
+            Assert.Throws<InvalidOperationException>(() => proxy.Cast<IStringParameter>());
         }
     }
 }

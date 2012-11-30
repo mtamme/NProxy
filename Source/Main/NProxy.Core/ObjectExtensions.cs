@@ -26,11 +26,12 @@ namespace NProxy.Core
     public static class ObjectExtensions
     {
         /// <summary>
-        /// Adapts a proxy object to the specified interface type.
+        /// Casts a proxy object to the specified interface type.
         /// </summary>
         /// <typeparam name="TInterface">The interface type.</typeparam>
         /// <param name="proxy">The proxy object.</param>
-        public static TInterface Adapt<TInterface>(this object proxy) where TInterface : class
+        /// <returns>The proxy object cast to the specified interface type.</returns>
+        public static TInterface Cast<TInterface>(this object proxy) where TInterface : class
         {
             if (proxy == null)
                 throw new ArgumentNullException("proxy");
@@ -50,7 +51,7 @@ namespace NProxy.Core
             if (delegateProxy == null)
                 throw new InvalidOperationException("Object is not a proxy");
 
-            return Adapt<TInterface>(delegateProxy.Target);
+            return Cast<TInterface>(delegateProxy.Target);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(() => proxy.Method());
 
             Assert.That(proxy, Is.InstanceOf<IMixin>());
-            var mixin = proxy.Adapt<IMixin>();
+            var mixin = proxy.Cast<IMixin>();
 
             Assert.DoesNotThrow(() => mixin.Method());
         }
@@ -66,7 +66,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(() => proxy.Method());
 
             Assert.That(proxy, Is.InstanceOf<IMixin>());
-            var mixin = proxy.Adapt<IMixin>();
+            var mixin = proxy.Cast<IMixin>();
 
             Assert.DoesNotThrow(() => mixin.Method());
         }
@@ -85,7 +85,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(() => proxy.Method());
 
             Assert.That(proxy, Is.InstanceOf<IMixin>());
-            var mixin = proxy.Adapt<IMixin>();
+            var mixin = proxy.Cast<IMixin>();
 
             Assert.DoesNotThrow(() => mixin.Method());
         }
@@ -104,7 +104,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(() => proxy());
 
             Assert.That(proxy.Target, Is.InstanceOf<IMixin>());
-            var mixin = proxy.Adapt<IMixin>();
+            var mixin = proxy.Cast<IMixin>();
 
             Assert.DoesNotThrow(() => mixin.Method());
         }
