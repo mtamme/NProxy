@@ -49,12 +49,5 @@ namespace NProxy.Core
         T CreateProxy<T>(IEnumerable<Type> interfaceTypes,
                          IInvocationHandler invocationHandler,
                          params object[] arguments) where T : class;
-
-        /// <summary>
-        /// Adapts the proxy object to the specified interface type.
-        /// </summary>
-        /// <typeparam name="TInterface">The interface type.</typeparam>
-        /// <param name="proxy">The proxy object.</param>
-        TInterface AdaptProxy<TInterface>(object proxy) where TInterface : class;
     }
 }

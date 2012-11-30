@@ -96,6 +96,7 @@
     <Compile Include="Interceptors\Types\LazyInterceptor.cs" />
     <Compile Include="Interceptors\Types\LazyMixin.cs" />
     <Compile Include="Interceptors\Types\Person.cs" />
+    <Compile Include="ObjectExtensionsTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

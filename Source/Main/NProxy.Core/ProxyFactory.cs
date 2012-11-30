@@ -152,30 +152,6 @@ namespace NProxy.Core
             return (T) InternalCreateProxy(typeof (T), interfaceTypes, invocationHandler, arguments);
         }
 
-        /// <inheritdoc/>
-        public TInterface AdaptProxy<TInterface>(object proxy) where TInterface : class
-        {
-            if (proxy == null)
-                throw new ArgumentNullException("proxy");
-
-            var interfaceType = typeof (TInterface);
-
-            if (!interfaceType.IsInterface)
-                throw new ArgumentException(String.Format("Type '{0}' is not an interface type", interfaceType));
-
-            var proxyType = proxy.GetType();
-
-            if (proxyType.IsDefined<ProxyAttribute>())
-                return proxy as TInterface;
-
-            var delegateProxy = proxy as Delegate;
-
-            if (delegateProxy == null)
-                throw new ArgumentException("Object is not a proxy", "proxy");
-
-            return AdaptProxy<TInterface>(delegateProxy.Target);
-        }
-
         #endregion
     }
 }
