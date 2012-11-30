@@ -112,17 +112,19 @@ namespace NProxy.Core.Test.Interceptors
         [Test]
         public void NewProxyWithLazyInterceptorTest()
         {
+            // Arrange
             var employee = _proxyFactory.NewProxy<IEmployee>()
                 .Extends<LazyMixin>()
                 .Targets<Employee>();
 
-            employee.Name = "Saturnus";
+            // Act
+            employee.Name = "2";
 
+            // Assert
             Assert.That(employee, Is.InstanceOf<IEmployee>());
+            Assert.That(employee.Name, Is.EqualTo("2"));
+
             Assert.That(employee, Is.InstanceOf<ILazy>());
-
-            Assert.That(employee.Name, Is.EqualTo("Saturnus"));
-
             var lazy = (ILazy) employee;
 
             Assert.That(lazy.Loaded, Is.EqualTo(true));
