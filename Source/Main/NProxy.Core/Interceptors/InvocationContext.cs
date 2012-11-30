@@ -77,7 +77,7 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <summary>
-        /// Returns the next interceptor.
+        /// Returns the next interceptor in the interceptor chain.
         /// </summary>
         /// <returns>The next interceptor.</returns>
         private IInterceptor GetNextInterceptor()
