@@ -43,7 +43,7 @@ namespace NProxy.Core
             var proxyType = proxy.GetType();
 
             if (proxyType.IsDefined<ProxyAttribute>())
-                return proxy as TInterface;
+                return (TInterface) proxy;
 
             var delegateProxy = proxy as Delegate;
 
