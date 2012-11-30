@@ -65,8 +65,6 @@ public interface IInvocationContext
 
     object[] Parameters { get; }
 
-    bool CanProceed { get; }
-
     object Proceed();
 }
 ```
