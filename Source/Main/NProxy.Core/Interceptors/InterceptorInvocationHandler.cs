@@ -30,50 +30,50 @@ namespace NProxy.Core.Interceptors
     internal sealed class InterceptorInvocationHandler : IInvocationHandler
     {
         /// <summary>
-        /// The interceptors.
+        /// The default interceptors.
         /// </summary>
-        private readonly IInterceptor[] _interceptors;
+        private readonly IInterceptor[] _defaultInterceptors;
 
         /// <summary>
-        /// The method interceptors.
+        /// The interceptors.
         /// </summary>
-        private readonly Dictionary<long, IInterceptor[]> _methodInterceptors;
+        private readonly Dictionary<long, IInterceptor[]> _interceptors;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Dispatcher"/> class.
         /// </summary>
-        /// <param name="interceptor">The interceptor.</param>
-        public InterceptorInvocationHandler(params IInterceptor[] interceptors)
+        /// <param name="defaultInterceptors">The default interceptor.</param>
+        public InterceptorInvocationHandler(params IInterceptor[] defaultInterceptors)
         {
-            if (interceptors == null)
-                throw new ArgumentNullException("interceptor");
+            if (defaultInterceptors == null)
+                throw new ArgumentNullException("defaultInterceptors");
 
-            _interceptors = interceptors;
+            _defaultInterceptors = defaultInterceptors;
 
-            _methodInterceptors = new Dictionary<long, IInterceptor[]>();
+            _interceptors = new Dictionary<long, IInterceptor[]>();
         }
 
         /// <summary>
         /// Applies all interceptors for the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <param name="defaultInterceptors">The default interceptors.</param>
-        public void ApplyInterceptors(Type type, IEnumerable<IInterceptor> defaultInterceptors)
+        /// <param name="interceptors">The interceptors.</param>
+        public void ApplyInterceptors(Type type, IEnumerable<IInterceptor> interceptors)
         {
             // Apply type interception behaviors.
-            var typeInterceptors = ApplyInterceptionBehaviors(type, defaultInterceptors);
+            var typeInterceptors = ApplyInterceptionBehaviors(type, interceptors);
 
-            // Apply event interceptors.
+            // Apply event interception behaviors.
             var eventVisitor = Visitor.Create<EventInfo>(e => ApplyInterceptors(e, typeInterceptors));
 
             type.VisitEvents(eventVisitor);
 
-            // Apply property interceptors.
+            // Apply property interception behaviors.
             var propertyVisitor = Visitor.Create<PropertyInfo>(p => ApplyInterceptors(p, typeInterceptors));
 
             type.VisitProperties(propertyVisitor);
 
-            // Apply method interceptors.
+            // Apply method interception behaviors.
             var methodVisitor = Visitor.Create<MethodInfo>(m => ApplyInterceptors(m, typeInterceptors));
 
             type.VisitMethods(methodVisitor);
@@ -83,10 +83,10 @@ namespace NProxy.Core.Interceptors
         /// Applies all interceptors for the specified event.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
-        /// <param name="defaultInterceptors">The default interceptors.</param>
-        private void ApplyInterceptors(EventInfo eventInfo, IEnumerable<IInterceptor> defaultInterceptors)
+        /// <param name="interceptors">The interceptors.</param>
+        private void ApplyInterceptors(EventInfo eventInfo, IEnumerable<IInterceptor> interceptors)
         {
-            var eventInterceptors = ApplyInterceptionBehaviors(eventInfo, defaultInterceptors);
+            var eventInterceptors = ApplyInterceptionBehaviors(eventInfo, interceptors);
 
             foreach (var methodInfo in eventInfo.GetAccessorMethods())
             {
@@ -98,10 +98,10 @@ namespace NProxy.Core.Interceptors
         /// Applies all interceptors for the specified property.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <param name="defaultInterceptors">The default interceptors.</param>
-        private void ApplyInterceptors(PropertyInfo propertyInfo, IEnumerable<IInterceptor> defaultInterceptors)
+        /// <param name="interceptors">The interceptors.</param>
+        private void ApplyInterceptors(PropertyInfo propertyInfo, IEnumerable<IInterceptor> interceptors)
         {
-            var propertyInterceptors = ApplyInterceptionBehaviors(propertyInfo, defaultInterceptors);
+            var propertyInterceptors = ApplyInterceptionBehaviors(propertyInfo, interceptors);
 
             foreach (var methodInfo in propertyInfo.GetAccessorMethods())
             {
@@ -113,32 +113,32 @@ namespace NProxy.Core.Interceptors
         /// Applies all interceptors for the specified method.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
-        /// <param name="defaultInterceptors">The default interceptors.</param>
-        private void ApplyInterceptors(MethodInfo methodInfo, IEnumerable<IInterceptor> defaultInterceptors)
+        /// <param name="interceptors">The interceptors.</param>
+        private void ApplyInterceptors(MethodInfo methodInfo, IEnumerable<IInterceptor> interceptors)
         {
-            var interceptors = ApplyInterceptionBehaviors(methodInfo, defaultInterceptors);
+            var methodInterceptors = ApplyInterceptionBehaviors(methodInfo, interceptors);
 
-            SetInterceptors(methodInfo, interceptors);
+            SetInterceptors(methodInfo, methodInterceptors);
         }
 
         /// <summary>
         /// Applies the interception behaviors for the specified member.
         /// </summary>
         /// <param name="memberInfo">The member information.</param>
-        /// <param name="defaultInterceptors">The default interceptors.</param>
-        /// <returns>The interceptors.</returns>
-        private static IList<IInterceptor> ApplyInterceptionBehaviors(MemberInfo memberInfo, IEnumerable<IInterceptor> defaultInterceptors)
+        /// <param name="interceptors">The interceptors.</param>
+        /// <returns>The member interceptors.</returns>
+        private static IList<IInterceptor> ApplyInterceptionBehaviors(MemberInfo memberInfo, IEnumerable<IInterceptor> interceptors)
         {
             var interceptionBehaviors = memberInfo.GetCustomAttributes<IInterceptionBehavior>();
-            var interceptors = new List<IInterceptor>(defaultInterceptors);
+            var memberInterceptors = new List<IInterceptor>(interceptors);
 
             foreach (var interceptionBehavior in interceptionBehaviors)
             {
                 interceptionBehavior.Validate(memberInfo);
-                interceptionBehavior.Apply(memberInfo, interceptors);
+                interceptionBehavior.Apply(memberInfo, memberInterceptors);
             }
 
-            return interceptors;
+            return memberInterceptors;
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace NProxy.Core.Interceptors
 
             var methodToken = methodInfo.GetToken();
 
-            _methodInterceptors.Add(methodToken, interceptors.Concat(_interceptors).ToArray());
+            _interceptors.Add(methodToken, interceptors.Concat(_defaultInterceptors).ToArray());
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace NProxy.Core.Interceptors
             var methodToken = memberInfo.GetToken();
             IInterceptor[] interceptors;
 
-            return _methodInterceptors.TryGetValue(methodToken, out interceptors) ? interceptors : _interceptors;
+            return _interceptors.TryGetValue(methodToken, out interceptors) ? interceptors : _defaultInterceptors;
         }
 
         #region IInvocationHandler Members
