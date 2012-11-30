@@ -60,6 +60,12 @@ namespace NProxy.Core.Interceptors
         /// <param name="interceptors">The interceptors.</param>
         public void ApplyInterceptors(Type type, IEnumerable<IInterceptor> interceptors)
         {
+            if (type == null)
+                throw new ArgumentNullException("type");
+
+            if (interceptors == null)
+                throw new ArgumentNullException("interceptors");
+
             // Apply type interception behaviors.
             var typeInterceptors = ApplyInterceptionBehaviors(type, interceptors);
 
@@ -148,12 +154,6 @@ namespace NProxy.Core.Interceptors
         /// <param name="interceptors">The interceptors.</param>
         private void SetInterceptors(MethodInfo methodInfo, IList<IInterceptor> interceptors)
         {
-            if (methodInfo == null)
-                throw new ArgumentNullException("methodInfo");
-
-            if (interceptors == null)
-                throw new ArgumentNullException("interceptors");
-
             if (interceptors.Count == 0)
                 return;
 
