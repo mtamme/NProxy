@@ -15,27 +15,27 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-namespace NProxy.Core.Test.Interceptors
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using NProxy.Core.Interceptors;
+
+namespace NProxy.Core.Test.Interceptors.Types
 {
-    internal class LazyMixin : ILazy
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = false)]
+    internal sealed class LazyAttribute : Attribute, IInterceptionBehavior
     {
-        private bool _loaded;
+        #region IInterceptionBehavior Members
 
-        /// <summary>
-        /// The Loaded property is "write-once" -
-        /// after you have set it to true you can not set
-        /// it to false again
-        /// </summary>
-        bool ILazy.Loaded
+        public void Apply(MemberInfo memberInfo, ICollection<IInterceptor> interceptors)
         {
-            get { return _loaded; }
-            set
-            {
-                if (_loaded)
-                    return;
-
-                _loaded = value;
-            }
+            interceptors.Add(LazyInterceptor.Instance);
         }
+
+        public void Validate(MemberInfo memberInfo)
+        {
+        }
+
+        #endregion
     }
 }

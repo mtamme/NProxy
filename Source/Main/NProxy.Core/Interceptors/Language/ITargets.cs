@@ -21,7 +21,7 @@ namespace NProxy.Core.Interceptors.Language
     /// Defines the <c>Targets</c> verb.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface ITargets<out T> : IFluent where T : class
+    public interface ITargets<T> : IFluent where T : class
     {
         /// <summary>
         /// Specifies an invocation target.
@@ -36,6 +36,13 @@ namespace NProxy.Core.Interceptors.Language
         /// <param name="target">The target object.</param>
         /// <returns>The <c>Invokes</c> verb.</returns>
         T Targets(object target);
+
+        /// <summary>
+        /// Specifies an invocation target.
+        /// </summary>
+        /// <param name="target">The target object.</param>
+        /// <returns>The <c>Invokes</c> verb.</returns>
+        T Targets(T target);
 
         /// <summary>
         /// Specifies an invocation target.

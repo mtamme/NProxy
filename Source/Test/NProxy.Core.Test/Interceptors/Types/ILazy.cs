@@ -15,14 +15,10 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-namespace NProxy.Core.Test.Interceptors
+namespace NProxy.Core.Test.Interceptors.Types
 {
-    internal class Employee : Person, IEmployee
+    internal interface ILazy
     {
-        #region IEmployee Members
-
-        public decimal Salary { get; set; }
-
-        #endregion
+        bool Loaded { get; set; }
     }
 }

@@ -15,13 +15,11 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-namespace NProxy.Core.Interceptors.Language
+namespace NProxy.Core.Test.Interceptors.Types
 {
-    /// <summary>
-    /// Defines a fluent interface for configuring a new proxy.
-    /// </summary>
-    /// <typeparam name="T">The declaring type.</typeparam>
-    public interface INewProxy<T> : IExtends<T> where T : class
+    public interface IPerson
     {
+        [Lazy]
+        string Name { get; set; }
     }
 }

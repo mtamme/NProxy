@@ -15,13 +15,32 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-namespace NProxy.Core.Test.Interceptors
-{
-    internal class Person : IPerson
-    {
-        #region IPerson Members
+using NProxy.Core.Interceptors;
 
-        public string Name { get; set; }
+namespace NProxy.Core.Test.Interceptors.Types
+{
+    internal sealed class LazyInterceptor : IInterceptor
+    {
+        public static readonly IInterceptor Instance = new LazyInterceptor();
+
+        #region IInterceptor Members
+
+        public object Intercept(IInvocationContext invocationContext)
+        {
+            var lazy = invocationContext.Target as ILazy;
+
+            if (lazy != null)
+            {
+                if (!lazy.Loaded)
+                {
+                    lazy.Loaded = true;
+
+                    // Perform lazy loading...
+                }
+            }
+
+            return invocationContext.Proceed();
+        }
 
         #endregion
     }

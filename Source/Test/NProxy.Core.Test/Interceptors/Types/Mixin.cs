@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © 2012 Martin Tamme
 //
@@ -15,24 +15,13 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using NProxy.Core.Interceptors;
-
-namespace NProxy.Core.Test.Interceptors
+namespace NProxy.Core.Test.Interceptors.Types
 {
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = false, Inherited = false)]
-    internal sealed class LazyAttribute : Attribute, IInterceptionBehavior
+    internal sealed class Mixin : IMixin
     {
-        #region IInterceptionBehavior Members
+        #region IMixin Members
 
-        public void Apply(MemberInfo memberInfo, ICollection<IInterceptor> interceptors)
-        {
-            interceptors.Add(LazyInterceptor.Instance);
-        }
-
-        public void Validate(MemberInfo memberInfo)
+        public void Method()
         {
         }
 

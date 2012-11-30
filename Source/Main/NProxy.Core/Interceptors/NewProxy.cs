@@ -214,6 +214,14 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <inheritdoc/>
+        public T Targets(T target)
+        {
+            var invocationTarget = new SingleInvocationTarget(target);
+
+            return Targets(invocationTarget);
+        }
+
+        /// <inheritdoc/>
         public T Targets(IInvocationTarget invocationTarget)
         {
             if (invocationTarget == null)

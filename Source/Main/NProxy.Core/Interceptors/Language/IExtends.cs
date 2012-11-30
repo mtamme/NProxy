@@ -21,7 +21,7 @@ namespace NProxy.Core.Interceptors.Language
     /// Defines the <c>Extends</c> verb.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface IExtends<out T> : IImplements<T> where T : class
+    public interface IExtends<T> : IImplements<T> where T : class
     {
         /// <summary>
         /// Specifies a mixin to extend.
