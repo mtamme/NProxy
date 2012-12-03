@@ -52,7 +52,7 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// The interceptors.
         /// </summary>
-        private List<IInterceptor> _interceptors;
+        private readonly List<IInterceptor> _interceptors;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NewProxy{T}"/> class.

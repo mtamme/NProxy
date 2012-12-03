@@ -44,12 +44,12 @@ namespace NProxy.Core.Test.Interceptors
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IVoidMethod>());
-            Assert.DoesNotThrow(() => proxy.Method());
+            Assert.DoesNotThrow(proxy.Method);
 
             Assert.That(proxy, Is.InstanceOf<IMixin>());
             var mixin = proxy.Cast<IMixin>();
 
-            Assert.DoesNotThrow(() => mixin.Method());
+            Assert.DoesNotThrow(mixin.Method);
         }
 
         [Test]
@@ -63,12 +63,12 @@ namespace NProxy.Core.Test.Interceptors
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<VoidMethodBase>());
-            Assert.DoesNotThrow(() => proxy.Method());
+            Assert.DoesNotThrow(proxy.Method);
 
             Assert.That(proxy, Is.InstanceOf<IMixin>());
             var mixin = proxy.Cast<IMixin>();
 
-            Assert.DoesNotThrow(() => mixin.Method());
+            Assert.DoesNotThrow(mixin.Method);
         }
 
         [Test]
@@ -82,12 +82,12 @@ namespace NProxy.Core.Test.Interceptors
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<VoidMethod>());
-            Assert.DoesNotThrow(() => proxy.Method());
+            Assert.DoesNotThrow(proxy.Method);
 
             Assert.That(proxy, Is.InstanceOf<IMixin>());
             var mixin = proxy.Cast<IMixin>();
 
-            Assert.DoesNotThrow(() => mixin.Method());
+            Assert.DoesNotThrow(mixin.Method);
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace NProxy.Core.Test.Interceptors
             // Act
             Action proxy = _proxyFactory.NewProxy<Action>()
                 .Extends<Mixin>()
-                .Targets(() => {});
+                .Targets(() => { });
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
@@ -106,7 +106,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.That(proxy.Target, Is.InstanceOf<IMixin>());
             var mixin = proxy.Cast<IMixin>();
 
-            Assert.DoesNotThrow(() => mixin.Method());
+            Assert.DoesNotThrow(mixin.Method);
         }
 
         [Test]

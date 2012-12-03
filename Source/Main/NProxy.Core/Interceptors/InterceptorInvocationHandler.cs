@@ -40,7 +40,7 @@ namespace NProxy.Core.Interceptors
         private readonly Dictionary<long, IInterceptor[]> _interceptors;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Dispatcher"/> class.
+        /// Initializes a new instance of the <see cref="InterceptorInvocationHandler"/> class.
         /// </summary>
         /// <param name="defaultInterceptors">The default interceptor.</param>
         public InterceptorInvocationHandler(params IInterceptor[] defaultInterceptors)
