@@ -95,7 +95,7 @@ namespace NProxy.Core.Test.Interceptors
         {
             // Arrange
             // Act
-            Action proxy = _proxyFactory.NewProxy<Action>()
+            var proxy = _proxyFactory.NewProxy<Action>()
                 .Extends<Mixin>()
                 .Targets(() => { });
 
