@@ -43,7 +43,7 @@ namespace NProxy.Core.Interceptors
         /// Initializes a new instance of the <see cref="InterceptorInvocationHandler"/> class.
         /// </summary>
         /// <param name="defaultInterceptors">The default interceptor.</param>
-        public InterceptorInvocationHandler(params IInterceptor[] defaultInterceptors)
+        public InterceptorInvocationHandler(IInterceptor[] defaultInterceptors)
         {
             if (defaultInterceptors == null)
                 throw new ArgumentNullException("defaultInterceptors");

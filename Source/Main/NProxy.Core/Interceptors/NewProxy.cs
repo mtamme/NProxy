@@ -101,11 +101,11 @@ namespace NProxy.Core.Interceptors
         /// Creates an invocation handler.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
-        /// <param name="invocationTarget">The invocation target.</param>
+        /// <param name="defaultInterceptors">The default interceptors.</param>
         /// <returns>The invocation handler.</returns>
-        private IInvocationHandler CreateInvocationHandler(Type declaringType, IInvocationTarget invocationTarget)
+        private IInvocationHandler CreateInvocationHandler(Type declaringType, params IInterceptor[] defaultInterceptors)
         {
-            var invocationHandler = new InterceptorInvocationHandler(new TargetInterceptor(invocationTarget));
+            var invocationHandler = new InterceptorInvocationHandler(defaultInterceptors);
 
             if (!declaringType.IsInterface)
                 invocationHandler.ApplyInterceptors(declaringType, _interceptors);
@@ -224,11 +224,17 @@ namespace NProxy.Core.Interceptors
         /// <inheritdoc/>
         public T Targets(IInvocationTarget invocationTarget)
         {
-            if (invocationTarget == null)
-                throw new ArgumentNullException("invocationTarget");
-
             var declaringType = typeof (T);
-            var invocationHandler = CreateInvocationHandler(declaringType, invocationTarget);
+            var invocationHandler = CreateInvocationHandler(declaringType, new TargetInterceptor(invocationTarget));
+
+            return (T) _proxyFactory.CreateProxy(declaringType, _interfaceTypes, invocationHandler, _arguments);
+        }
+
+        /// <inheritdoc/>
+        public T TargetsSelf()
+        {
+            var declaringType = typeof (T);
+            var invocationHandler = CreateInvocationHandler(declaringType);
 
             return (T) _proxyFactory.CreateProxy(declaringType, _interfaceTypes, invocationHandler, _arguments);
         }

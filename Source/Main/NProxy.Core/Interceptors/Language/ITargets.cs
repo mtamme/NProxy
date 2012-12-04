@@ -50,5 +50,11 @@ namespace NProxy.Core.Interceptors.Language
         /// <param name="invocationTarget">The invocation target.</param>
         /// <returns>The proxy object.</returns>
         T Targets(IInvocationTarget invocationTarget);
+
+        /// <summary>
+        /// Specifies an invocation target.
+        /// </summary>
+        /// <returns>The proxy object.</returns>
+        T TargetsSelf();
     }
 }
