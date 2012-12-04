@@ -29,14 +29,14 @@ namespace NProxy.Core.Interceptors.Language
         /// Specifies interceptors to invoke.
         /// </summary>
         /// <param name="interceptors">The interceptors.</param>
-        /// <returns>The <c>Create</c> verb.</returns>
+        /// <returns>The <c>Targets</c> verb.</returns>
         ITargets<T> Invokes(IEnumerable<IInterceptor> interceptors);
 
         /// <summary>
         /// Specifies an interceptor to invoke.
         /// </summary>
         /// <param name="interceptor">The interceptor.</param>
-        /// <returns>The <c>Create</c> verb.</returns>
+        /// <returns>The <c>Targets</c> verb.</returns>
         ITargets<T> Invokes(IInterceptor interceptor);
     }
 }
