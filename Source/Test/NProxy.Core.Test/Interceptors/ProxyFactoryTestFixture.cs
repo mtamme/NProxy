@@ -38,13 +38,13 @@ namespace NProxy.Core.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<IVoidMethod>()
+            var proxy = _proxyFactory.NewProxy<IFoo>()
                 .Extends<Mixin>()
-                .Targets<VoidMethod>();
+                .Targets<Foo>();
 
             // Assert
-            Assert.That(proxy, Is.InstanceOf<IVoidMethod>());
-            Assert.DoesNotThrow(proxy.Method);
+            Assert.That(proxy, Is.InstanceOf<IFoo>());
+            Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IMixin>());
             var mixin = proxy.Adapt<IMixin>();
@@ -57,13 +57,13 @@ namespace NProxy.Core.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<VoidMethodBase>()
+            var proxy = _proxyFactory.NewProxy<FooBase>()
                 .Extends<Mixin>()
-                .Targets<VoidMethod>();
+                .Targets<Foo>();
 
             // Assert
-            Assert.That(proxy, Is.InstanceOf<VoidMethodBase>());
-            Assert.DoesNotThrow(proxy.Method);
+            Assert.That(proxy, Is.InstanceOf<FooBase>());
+            Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IMixin>());
             var mixin = proxy.Adapt<IMixin>();
@@ -76,13 +76,13 @@ namespace NProxy.Core.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<VoidMethod>()
+            var proxy = _proxyFactory.NewProxy<Foo>()
                 .Extends<Mixin>()
-                .Targets<VoidMethod>();
+                .Targets<Foo>();
 
             // Assert
-            Assert.That(proxy, Is.InstanceOf<VoidMethod>());
-            Assert.DoesNotThrow(proxy.Method);
+            Assert.That(proxy, Is.InstanceOf<Foo>());
+            Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IMixin>());
             var mixin = proxy.Adapt<IMixin>();

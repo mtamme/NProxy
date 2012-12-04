@@ -17,14 +17,8 @@
 //
 namespace NProxy.Core.Test.Interceptors.Types
 {
-    internal class VoidMethod : VoidMethodBase
+    internal interface IFoo
     {
-        #region IVoidMethod Members
-
-        public override void Method()
-        {
-        }
-
-        #endregion
+        void Bar();
     }
 }

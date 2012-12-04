@@ -85,9 +85,6 @@
     <Compile Include="Common\CountingInvocationHandler.cs" />
     <Compile Include="Interceptors\Types\Mixin.cs" />
     <Compile Include="Interceptors\Types\IMixin.cs" />
-    <Compile Include="Interceptors\Types\IVoidMethod.cs" />
-    <Compile Include="Interceptors\Types\VoidMethodBase.cs" />
-    <Compile Include="Interceptors\Types\VoidMethod.cs" />
     <Compile Include="Interceptors\Types\Employee.cs" />
     <Compile Include="Interceptors\Types\IEmployee.cs" />
     <Compile Include="Interceptors\Types\ILazy.cs" />
@@ -97,6 +94,9 @@
     <Compile Include="Interceptors\Types\LazyMixin.cs" />
     <Compile Include="Interceptors\Types\Person.cs" />
     <Compile Include="ObjectExtensionsTestFixture.cs" />
+    <Compile Include="Interceptors\Types\IFoo.cs" />
+    <Compile Include="Interceptors\Types\FooBase.cs" />
+    <Compile Include="Interceptors\Types\Foo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">
