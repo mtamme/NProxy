@@ -27,6 +27,11 @@ namespace NProxy.Core
     /// </summary>
     internal sealed class DefaultInterceptionFilter : IInterceptionFilter
     {
+        /// <summary>
+        /// The name of the finalize method.
+        /// </summary>
+        private const string FinalizeMethodName = "Finalize";
+
         #region IInterceptionFilter Members
 
         /// <inheritdoc/>
@@ -55,7 +60,7 @@ namespace NProxy.Core
             if (declaringType != typeof (object))
                 return true;
 
-            return !String.Equals(methodInfo.Name, "Finalize");
+            return !String.Equals(methodInfo.Name, FinalizeMethodName);
         }
 
         #endregion
