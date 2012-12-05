@@ -33,10 +33,10 @@ namespace NProxy.Core.Interceptors.Language
         IImplements<T> Implements<TInterface>() where TInterface : class;
 
         /// <summary>
-        /// Specifies an interface to implement.
+        /// Specifies interfaces to implement.
         /// </summary>
-        /// <param name="interfaceType">The interface type.</param>
+        /// <param name="interfaceTypes">The interface types.</param>
         /// <returns>The <c>Implements</c> verb.</returns>
-        IImplements<T> Implements(Type interfaceType);
+        IImplements<T> Implements(params Type[] interfaceTypes);
     }
 }

@@ -76,6 +76,18 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <summary>
+        /// Adds a mixin.
+        /// </summary>
+        /// <param name="mixin">The mixin object.</param>
+        private void AddMixin(object mixin)
+        {
+            var interfaceVisitor = Visitor.Create<Type>(t => AddMixin(t, mixin));
+            var mixinType = mixin.GetType();
+
+            mixinType.VisitInterfaces(interfaceVisitor);
+        }
+
+        /// <summary>
         /// Adds a mixin for the specified interface type.
         /// </summary>
         /// <param name="interfaceType">The interface type.</param>
@@ -127,19 +139,21 @@ namespace NProxy.Core.Interceptors
         {
             var mixin = new TMixin();
 
-            return Extends(mixin);
+            AddMixin(mixin);
+
+            return this;
         }
 
         /// <inheritdoc/>
-        public IExtends<T> Extends(object mixin)
+        public IExtends<T> Extends(params object[] mixins)
         {
-            if (mixin == null)
-                throw new ArgumentNullException("mixin");
+            if (mixins == null)
+                throw new ArgumentNullException("mixins");
 
-            var interfaceVisitor = Visitor.Create<Type>(t => AddMixin(t, mixin));
-            var mixinType = mixin.GetType();
-
-            mixinType.VisitInterfaces(interfaceVisitor);
+            foreach (var mixin in mixins)
+            {
+                AddMixin(mixin);
+            }
 
             return this;
         }
@@ -153,16 +167,21 @@ namespace NProxy.Core.Interceptors
         {
             var interfaceType = typeof (TInterface);
 
-            return Implements(interfaceType);
+            AddInterface(interfaceType);
+
+            return this;
         }
 
         /// <inheritdoc/>
-        public IImplements<T> Implements(Type interfaceType)
+        public IImplements<T> Implements(params Type[] interfaceTypes)
         {
-            if (interfaceType == null)
-                throw new ArgumentNullException("interfaceType");
+            if (interfaceTypes == null)
+                throw new ArgumentNullException("interfaceTypes");
 
-            AddInterface(interfaceType);
+            foreach (var interfaceType in interfaceTypes)
+            {
+                AddInterface(interfaceType);
+            }
 
             return this;
         }
@@ -172,23 +191,12 @@ namespace NProxy.Core.Interceptors
         #region IInvokes<T> Members
 
         /// <inheritdoc/>
-        public ITargets<T> Invokes(IEnumerable<IInterceptor> interceptors)
+        public ITargets<T> Invokes(params IInterceptor[] interceptors)
         {
             if (interceptors == null)
                 throw new ArgumentNullException("interceptors");
 
             _interceptors.AddRange(interceptors);
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public ITargets<T> Invokes(IInterceptor interceptor)
-        {
-            if (interceptor == null)
-                throw new ArgumentNullException("interceptor");
-
-            _interceptors.Add(interceptor);
 
             return this;
         }

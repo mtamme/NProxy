@@ -15,8 +15,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-using System.Collections.Generic;
-
 namespace NProxy.Core.Interceptors.Language
 {
     /// <summary>
@@ -30,13 +28,6 @@ namespace NProxy.Core.Interceptors.Language
         /// </summary>
         /// <param name="interceptors">The interceptors.</param>
         /// <returns>The <c>Targets</c> verb.</returns>
-        ITargets<T> Invokes(IEnumerable<IInterceptor> interceptors);
-
-        /// <summary>
-        /// Specifies an interceptor to invoke.
-        /// </summary>
-        /// <param name="interceptor">The interceptor.</param>
-        /// <returns>The <c>Targets</c> verb.</returns>
-        ITargets<T> Invokes(IInterceptor interceptor);
+        ITargets<T> Invokes(params IInterceptor[] interceptors);
     }
 }

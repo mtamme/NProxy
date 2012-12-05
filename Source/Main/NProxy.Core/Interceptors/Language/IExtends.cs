@@ -31,10 +31,10 @@ namespace NProxy.Core.Interceptors.Language
         IExtends<T> Extends<TMixin>() where TMixin : class, new();
 
         /// <summary>
-        /// Specifies a mixin to extend.
+        /// Specifies mixins to extend.
         /// </summary>
-        /// <param name="mixin">The mixin object.</param>
+        /// <param name="mixins">The mixin objects.</param>
         /// <returns>The <c>Extends</c> verb.</returns>
-        IExtends<T> Extends(object mixin);
+        IExtends<T> Extends(params object[] mixins);
     }
 }
