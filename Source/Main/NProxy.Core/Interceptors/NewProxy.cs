@@ -233,7 +233,7 @@ namespace NProxy.Core.Interceptors
         public T Targets(IInvocationTarget invocationTarget)
         {
             var declaringType = typeof (T);
-            var invocationHandler = CreateInvocationHandler(declaringType, new TargetInterceptor(invocationTarget));
+            var invocationHandler = CreateInvocationHandler(declaringType, new InvocationTargetInterceptor(invocationTarget));
 
             return (T) _proxyFactory.CreateProxy(declaringType, _interfaceTypes, invocationHandler, _arguments);
         }
@@ -242,7 +242,7 @@ namespace NProxy.Core.Interceptors
         public T TargetsSelf()
         {
             var declaringType = typeof (T);
-            var invocationHandler = CreateInvocationHandler(declaringType);
+            var invocationHandler = CreateInvocationHandler(declaringType, TargetInterceptor.Instance);
 
             return (T) _proxyFactory.CreateProxy(declaringType, _interfaceTypes, invocationHandler, _arguments);
         }

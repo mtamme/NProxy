@@ -15,17 +15,31 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+using System;
+
 namespace NProxy.Core.Interceptors
 {
     /// <summary>
-    /// Represents a target interceptor.
+    /// Represents an invocation target interceptor.
     /// </summary>
-    internal sealed class TargetInterceptor : IInterceptor
+    internal sealed class InvocationTargetInterceptor : IInterceptor
     {
         /// <summary>
-        /// The singleton instance.
+        /// The invocation target.
         /// </summary>
-        public static readonly TargetInterceptor Instance = new TargetInterceptor();
+        private readonly IInvocationTarget _invocationTarget;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvocationTargetInterceptor"/> class.
+        /// </summary>
+        /// <param name="invocationTarget">The invocation target.</param>
+        public InvocationTargetInterceptor(IInvocationTarget invocationTarget)
+        {
+            if (invocationTarget == null)
+                throw new ArgumentNullException("invocationTarget");
+
+            _invocationTarget = invocationTarget;
+        }
 
         #region IInterceptor Members
 
@@ -33,8 +47,9 @@ namespace NProxy.Core.Interceptors
         public object Intercept(IInvocationContext invocationContext)
         {
             var methodInfo = invocationContext.Method;
+            var target = _invocationTarget.GetTarget(methodInfo);
 
-            return methodInfo.Invoke(invocationContext.Target, invocationContext.Parameters);
+            return methodInfo.Invoke(target, invocationContext.Parameters);
         }
 
         #endregion
