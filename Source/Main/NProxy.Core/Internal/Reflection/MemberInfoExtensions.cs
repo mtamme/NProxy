@@ -32,13 +32,14 @@ namespace NProxy.Core.Internal.Reflection
         /// </summary>
         /// <typeparam name="TAttribute">The attribute type.</typeparam>
         /// <param name="memberInfo">The member information.</param>
+        /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find the attributes.</param>
         /// <returns>The custom attributes.</returns>
-        public static IEnumerable<TAttribute> GetCustomAttributes<TAttribute>(this MemberInfo memberInfo)
+        public static IEnumerable<TAttribute> GetCustomAttributes<TAttribute>(this MemberInfo memberInfo, bool inherit)
         {
             if (memberInfo == null)
                 throw new ArgumentNullException("memberInfo");
 
-            var customAttributes = memberInfo.GetCustomAttributes(typeof (TAttribute), false);
+            var customAttributes = memberInfo.GetCustomAttributes(typeof (TAttribute), inherit);
 
             return customAttributes.OfType<TAttribute>();
         }
@@ -49,13 +50,14 @@ namespace NProxy.Core.Internal.Reflection
         /// </summary>
         /// <typeparam name="TAttribute">The attribute type.</typeparam>
         /// <param name="memberInfo">The member information.</param>
+        /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find the attributes.</param>
         /// <returns>A value indicating weather the member is annotated with the specified custom attribute type.</returns>
-        public static bool IsDefined<TAttribute>(this MemberInfo memberInfo)
+        public static bool IsDefined<TAttribute>(this MemberInfo memberInfo, bool inherit)
         {
             if (memberInfo == null)
                 throw new ArgumentNullException("memberInfo");
 
-            return memberInfo.IsDefined(typeof (TAttribute), false);
+            return memberInfo.IsDefined(typeof (TAttribute), inherit);
         }
 
         /// <summary>

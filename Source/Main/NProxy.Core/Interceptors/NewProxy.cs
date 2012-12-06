@@ -121,13 +121,13 @@ namespace NProxy.Core.Interceptors
 
             if (declaringType.IsInterface)
             {
-                var interfaceVisitor = Visitor.Create<Type>(t => invocationHandler.ApplyInterceptors(t, _interceptors));
+                var interfaceVisitor = Visitor.Create<Type>(t => invocationHandler.ApplyInterceptors(t, false, _interceptors));
 
                 declaringType.VisitInterfaces(interfaceVisitor);
             }
             else
             {
-                invocationHandler.ApplyInterceptors(declaringType, _interceptors);
+                invocationHandler.ApplyInterceptors(declaringType, true, _interceptors);
             }
 
             if (_mixins.Count > 0)

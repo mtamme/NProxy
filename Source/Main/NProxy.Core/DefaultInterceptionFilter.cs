@@ -37,19 +37,19 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public bool Accept(EventInfo eventInfo)
         {
-            return !eventInfo.IsDefined<NonInterceptedAttribute>();
+            return !eventInfo.IsDefined<NonInterceptedAttribute>(false);
         }
 
         /// <inheritdoc/>
         public bool Accept(PropertyInfo propertyInfo)
         {
-            return !propertyInfo.IsDefined<NonInterceptedAttribute>();
+            return !propertyInfo.IsDefined<NonInterceptedAttribute>(false);
         }
 
         /// <inheritdoc/>
         public bool Accept(MethodInfo methodInfo)
         {
-            if (methodInfo.IsDefined<NonInterceptedAttribute>())
+            if (methodInfo.IsDefined<NonInterceptedAttribute>(false))
                 return false;
 
             var declaringType = methodInfo.DeclaringType;
