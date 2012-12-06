@@ -157,7 +157,7 @@ namespace NProxy.Core.Interceptors
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
         /// <param name="interceptors">The interceptors.</param>
-        private void SetInterceptors(MethodInfo methodInfo, IList<IInterceptor> interceptors)
+        private void SetInterceptors(MethodInfo methodInfo, ICollection<IInterceptor> interceptors)
         {
             if (interceptors.Count == 0)
                 return;
