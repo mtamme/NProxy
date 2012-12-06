@@ -119,12 +119,16 @@ namespace NProxy.Core.Interceptors
         {
             var invocationHandler = new InterceptorInvocationHandler(defaultInterceptors);
 
-            if (!declaringType.IsInterface)
+            if (declaringType.IsInterface)
+            {
+                var interfaceVisitor = Visitor.Create<Type>(t => invocationHandler.ApplyInterceptors(t, _interceptors));
+
+                declaringType.VisitInterfaces(interfaceVisitor);
+            }
+            else
+            {
                 invocationHandler.ApplyInterceptors(declaringType, _interceptors);
-
-            var interfaceVisitor = Visitor.Create<Type>(t => invocationHandler.ApplyInterceptors(t, _interceptors));
-
-            declaringType.VisitInterfaces(interfaceVisitor);
+            }
 
             if (_mixins.Count > 0)
                 return new MixinInvocationHandler(_mixins, invocationHandler);
