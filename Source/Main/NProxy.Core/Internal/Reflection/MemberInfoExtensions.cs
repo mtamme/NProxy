@@ -30,7 +30,7 @@ namespace NProxy.Core.Internal.Reflection
         /// <summary>
         /// Returns the custom attributes that are applied to the specified member.
         /// </summary>
-        /// <typeparam name="TAttribute">The attribute type.</typeparam>
+        /// <typeparam name="TAttribute">The type of attribute to search for. Only attributes that are assignable to this type are returned.</typeparam>
         /// <param name="memberInfo">The member information.</param>
         /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find the attributes.</param>
         /// <returns>The custom attributes.</returns>
@@ -39,7 +39,7 @@ namespace NProxy.Core.Internal.Reflection
             if (memberInfo == null)
                 throw new ArgumentNullException("memberInfo");
 
-            var customAttributes = memberInfo.GetCustomAttributes(typeof (TAttribute), inherit);
+            var customAttributes = Attribute.GetCustomAttributes(memberInfo, inherit);
 
             return customAttributes.OfType<TAttribute>();
         }
@@ -48,16 +48,16 @@ namespace NProxy.Core.Internal.Reflection
         /// Returns a value indicating whether one or more attributes of the specified type or of its
         /// derived types is applied to this member.
         /// </summary>
-        /// <typeparam name="TAttribute">The attribute type.</typeparam>
+        /// <typeparam name="TAttribute">The type, or a base type, of the custom attribute to search for.</typeparam>
         /// <param name="memberInfo">The member information.</param>
         /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find the attributes.</param>
         /// <returns>A value indicating weather the member is annotated with the specified custom attribute type.</returns>
-        public static bool IsDefined<TAttribute>(this MemberInfo memberInfo, bool inherit)
+        public static bool IsDefined<TAttribute>(this MemberInfo memberInfo, bool inherit) where TAttribute : Attribute
         {
             if (memberInfo == null)
                 throw new ArgumentNullException("memberInfo");
 
-            return memberInfo.IsDefined(typeof (TAttribute), inherit);
+            return Attribute.IsDefined(memberInfo, typeof (TAttribute), inherit);
         }
 
         /// <summary>
