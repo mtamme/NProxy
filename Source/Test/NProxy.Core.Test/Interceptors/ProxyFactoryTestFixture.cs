@@ -127,7 +127,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.That(employee, Is.InstanceOf<ILazy>());
             var lazy = (ILazy) employee;
 
-            Assert.That(lazy.Loaded, Is.EqualTo(true));
+            Assert.That(lazy.Loaded, Is.True);
         }
     }
 }
