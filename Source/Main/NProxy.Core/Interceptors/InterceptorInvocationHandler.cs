@@ -128,7 +128,14 @@ namespace NProxy.Core.Interceptors
         {
             var methodInterceptors = ApplyInterceptionBehaviors(methodInfo, inherit, interceptors);
 
-            SetInterceptors(methodInfo, methodInterceptors);
+            if (methodInterceptors.Count == 0)
+                return;
+
+            methodInterceptors.AddRange(_defaultInterceptors);
+
+            var methodToken = methodInfo.GetToken();
+
+            _interceptors.Add(methodToken, methodInterceptors.ToArray());
         }
 
         /// <summary>
@@ -138,7 +145,7 @@ namespace NProxy.Core.Interceptors
         /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find interception behaviors.</param>
         /// <param name="interceptors">The interceptors.</param>
         /// <returns>The member interceptors.</returns>
-        private static IList<IInterceptor> ApplyInterceptionBehaviors(MemberInfo memberInfo, bool inherit, IEnumerable<IInterceptor> interceptors)
+        private static List<IInterceptor> ApplyInterceptionBehaviors(MemberInfo memberInfo, bool inherit, IEnumerable<IInterceptor> interceptors)
         {
             var interceptionBehaviors = memberInfo.GetCustomAttributes<IInterceptionBehavior>(inherit);
             var memberInterceptors = new List<IInterceptor>(interceptors);
@@ -150,21 +157,6 @@ namespace NProxy.Core.Interceptors
             }
 
             return memberInterceptors;
-        }
-
-        /// <summary>
-        /// Sets the interceptors for the specified method.
-        /// </summary>
-        /// <param name="methodInfo">The method information.</param>
-        /// <param name="interceptors">The interceptors.</param>
-        private void SetInterceptors(MethodInfo methodInfo, ICollection<IInterceptor> interceptors)
-        {
-            if (interceptors.Count == 0)
-                return;
-
-            var methodToken = methodInfo.GetToken();
-
-            _interceptors.Add(methodToken, interceptors.Concat(_defaultInterceptors).ToArray());
         }
 
         /// <summary>
