@@ -255,6 +255,58 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
+        public void NewProxyFromInterfaceAndTargetsTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.NewProxy<IFoo>()
+                .Targets<Foo>();
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<IFoo>());
+            Assert.DoesNotThrow(proxy.Bar);
+        }
+
+        [Test]
+        public void NewProxyFromAbstractClassAndTargetsTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.NewProxy<FooBase>()
+                .Targets<Foo>();
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<FooBase>());
+            Assert.DoesNotThrow(proxy.Bar);
+        }
+
+        [Test]
+        public void NewProxyFromClassAndTargetsTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.NewProxy<Foo>()
+                .Targets<Foo>();
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<Foo>());
+            Assert.DoesNotThrow(proxy.Bar);
+        }
+
+        [Test]
+        public void NewProxyFromDelegateAndTargetsTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.NewProxy<Action>()
+                .Targets(() => { });
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<Action>());
+            Assert.DoesNotThrow(() => proxy());
+        }
+
+        [Test]
         public void NewProxyWithLazyInterceptorTest()
         {
             // Arrange
