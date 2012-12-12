@@ -10,9 +10,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>NProxy is a library for the .NET framework to create lightweight dynamic proxies.</description>
     <copyright>Copyright 2012</copyright>
-    <tags>dynamic proxy interceptor aspect AOP</tags>
+    <tags>dynamic proxy dynamicproxy facade bridge interceptor interception decorator adapter aspect oriented programming AOP mixin compact leightweight library</tags>
   </metadata>
-
   <files>
     <file src="..\..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.dll" target="lib\net40" />
     <file src="..\..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.xml" target="lib\net40" />
