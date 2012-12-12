@@ -83,8 +83,6 @@
     <Compile Include="Common\Types\INonIntercepted.cs" />
     <Compile Include="Common\Types\NonInterceptedBase.cs" />
     <Compile Include="Common\CountingInvocationHandler.cs" />
-    <Compile Include="Interceptors\Types\Mixin.cs" />
-    <Compile Include="Interceptors\Types\IMixin.cs" />
     <Compile Include="Interceptors\Types\Employee.cs" />
     <Compile Include="Interceptors\Types\IEmployee.cs" />
     <Compile Include="Interceptors\Types\ILazy.cs" />
@@ -97,6 +95,9 @@
     <Compile Include="Interceptors\Types\IFoo.cs" />
     <Compile Include="Interceptors\Types\FooBase.cs" />
     <Compile Include="Interceptors\Types\Foo.cs" />
+    <Compile Include="Interceptors\Types\IBar.cs" />
+    <Compile Include="Interceptors\Types\Bar.cs" />
+    <Compile Include="Interceptors\Types\FooBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

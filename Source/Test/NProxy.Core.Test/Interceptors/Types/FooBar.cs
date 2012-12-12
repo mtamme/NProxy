@@ -17,11 +17,11 @@
 //
 namespace NProxy.Core.Test.Interceptors.Types
 {
-    internal sealed class Mixin : IMixin
+    internal sealed class FooBar : Foo, IBar
     {
-        #region IMixin Members
+        #region IBar Members
 
-        public void Method()
+        public void Foo()
         {
         }
 

@@ -17,8 +17,14 @@
 //
 namespace NProxy.Core.Test.Interceptors.Types
 {
-    internal interface IMixin
+    internal class Bar : IBar
     {
-        void Method();
+        #region IBar Members
+
+        public void Foo()
+        {
+        }
+
+        #endregion
     }
 }

@@ -16,6 +16,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
+using System.Reflection;
 using NProxy.Core.Interceptors;
 using NProxy.Core.Test.Interceptors.Types;
 using NUnit.Framework;
@@ -34,79 +35,155 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromInterfaceWithMixinTest()
+        public void NewProxyFromInterfaceAndExtendsTest()
         {
             // Arrange
             // Act
             var proxy = _proxyFactory.NewProxy<IFoo>()
-                .Extends<Mixin>()
+                .Extends<Bar>()
                 .Targets<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
             Assert.DoesNotThrow(proxy.Bar);
 
-            Assert.That(proxy, Is.InstanceOf<IMixin>());
-            var mixin = proxy.Adapt<IMixin>();
+            Assert.That(proxy, Is.InstanceOf<IBar>());
+            var bar = proxy.Adapt<IBar>();
 
-            Assert.DoesNotThrow(mixin.Method);
+            Assert.DoesNotThrow(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromAbstractClassWithMixinTest()
+        public void NewProxyFromAbstractClassAndExtendsTest()
         {
             // Arrange
             // Act
             var proxy = _proxyFactory.NewProxy<FooBase>()
-                .Extends<Mixin>()
+                .Extends<Bar>()
                 .Targets<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
             Assert.DoesNotThrow(proxy.Bar);
 
-            Assert.That(proxy, Is.InstanceOf<IMixin>());
-            var mixin = proxy.Adapt<IMixin>();
+            Assert.That(proxy, Is.InstanceOf<IBar>());
+            var bar = proxy.Adapt<IBar>();
 
-            Assert.DoesNotThrow(mixin.Method);
+            Assert.DoesNotThrow(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromClassWithMixinTest()
+        public void NewProxyFromClassAndExtendsTest()
         {
             // Arrange
             // Act
             var proxy = _proxyFactory.NewProxy<Foo>()
-                .Extends<Mixin>()
+                .Extends<Bar>()
                 .Targets<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
             Assert.DoesNotThrow(proxy.Bar);
 
-            Assert.That(proxy, Is.InstanceOf<IMixin>());
-            var mixin = proxy.Adapt<IMixin>();
+            Assert.That(proxy, Is.InstanceOf<IBar>());
+            var bar = proxy.Adapt<IBar>();
 
-            Assert.DoesNotThrow(mixin.Method);
+            Assert.DoesNotThrow(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromDelegateWithMixinTest()
+        public void NewProxyFromDelegateAndExtendsTest()
         {
             // Arrange
             // Act
             var proxy = _proxyFactory.NewProxy<Action>()
-                .Extends<Mixin>()
+                .Extends<Bar>()
                 .Targets(() => { });
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
             Assert.DoesNotThrow(() => proxy());
 
-            Assert.That(proxy.Target, Is.InstanceOf<IMixin>());
-            var mixin = proxy.Adapt<IMixin>();
+            Assert.That(proxy.Target, Is.InstanceOf<IBar>());
+            var bar = proxy.Adapt<IBar>();
 
-            Assert.DoesNotThrow(mixin.Method);
+            Assert.DoesNotThrow(bar.Foo);
+        }
+
+        [Test]
+        public void NewProxyFromInterfaceAndImplementsTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.NewProxy<IFoo>()
+                .Implements<IBar>()
+                .Targets<FooBar>();
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<IFoo>());
+            Assert.DoesNotThrow(proxy.Bar);
+
+            Assert.That(proxy, Is.InstanceOf<IBar>());
+            var bar = proxy.Adapt<IBar>();
+
+            Assert.DoesNotThrow(bar.Foo);
+        }
+
+        [Test]
+        public void NewProxyFromAbstractClassAndImplementsTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.NewProxy<FooBase>()
+                .Implements<IBar>()
+                .Targets<FooBar>();
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<FooBase>());
+            Assert.DoesNotThrow(proxy.Bar);
+
+            Assert.That(proxy, Is.InstanceOf<IBar>());
+            var bar = proxy.Adapt<IBar>();
+
+            Assert.DoesNotThrow(bar.Foo);
+        }
+
+        [Test]
+        public void NewProxyFromClassAndImplementsTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.NewProxy<Foo>()
+                .Implements<IBar>()
+                .Targets<FooBar>();
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<Foo>());
+            Assert.DoesNotThrow(proxy.Bar);
+
+            Assert.That(proxy, Is.InstanceOf<IBar>());
+            var bar = proxy.Adapt<IBar>();
+
+            Assert.DoesNotThrow(bar.Foo);
+        }
+
+        [Test]
+        public void NewProxyFromDelegateAndImplementsTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.NewProxy<Action>()
+                .Implements<IBar>()
+                .Targets(() => { });
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<Action>());
+            Assert.DoesNotThrow(() => proxy());
+
+            Assert.That(proxy.Target, Is.InstanceOf<IBar>());
+            var bar = proxy.Adapt<IBar>();
+
+            Assert.Throws<TargetException>(bar.Foo);
         }
 
         [Test]
