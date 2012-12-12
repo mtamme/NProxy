@@ -187,6 +187,74 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
+        public void NewProxyFromInterfaceAndInvokesTest()
+        {
+            // Arrange
+            var interceptor = new CountingInterceptor();
+
+            // Act
+            var proxy = _proxyFactory.NewProxy<IFoo>()
+                .Invokes(interceptor)
+                .Targets<Foo>();
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<IFoo>());
+            Assert.DoesNotThrow(proxy.Bar);
+            Assert.That(interceptor.InvocationCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void NewProxyFromAbstractClassAndInvokesTest()
+        {
+            // Arrange
+            var interceptor = new CountingInterceptor();
+
+            // Act
+            var proxy = _proxyFactory.NewProxy<FooBase>()
+                .Invokes(interceptor)
+                .Targets<Foo>();
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<FooBase>());
+            Assert.DoesNotThrow(proxy.Bar);
+            Assert.That(interceptor.InvocationCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void NewProxyFromClassAndInvokesTest()
+        {
+            // Arrange
+            var interceptor = new CountingInterceptor();
+
+            // Act
+            var proxy = _proxyFactory.NewProxy<Foo>()
+                .Invokes(interceptor)
+                .Targets<Foo>();
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<Foo>());
+            Assert.DoesNotThrow(proxy.Bar);
+            Assert.That(interceptor.InvocationCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void NewProxyFromDelegateAndInvokesTest()
+        {
+            // Arrange
+            var interceptor = new CountingInterceptor();
+
+            // Act
+            var proxy = _proxyFactory.NewProxy<Action>()
+                .Invokes(interceptor)
+                .Targets(() => { });
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<Action>());
+            Assert.DoesNotThrow(() => proxy());
+            Assert.That(interceptor.InvocationCount, Is.EqualTo(1));
+        }
+
+        [Test]
         public void NewProxyWithLazyInterceptorTest()
         {
             // Arrange
