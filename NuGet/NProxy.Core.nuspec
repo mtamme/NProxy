@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>NProxy.Core</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <authors>Martin Tamme</authors>
     <owners>Martin Tamme</owners>
     <licenseUrl>https://github.com/mtamme/NProxy/</licenseUrl>
@@ -13,7 +13,8 @@
     <tags>dynamic proxy dynamicproxy facade bridge interceptor interception decorator adapter aspect oriented programming AOP mixin compact leightweight library</tags>
   </metadata>
   <files>
-    <file src="..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.dll" target="Lib"/>
-    <file src="..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.xml" target="Lib"/>
+    <file src="..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.dll" target="lib\net40"/>
+    <file src="..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.xml" target="lib\net40"/>
   </files>
 </package>
+
