@@ -12,5 +12,9 @@
     <copyright>Copyright 2012</copyright>
     <tags>dynamic proxy interceptor aspect AOP</tags>
   </metadata>
-</package>
 
+  <files>
+    <file src="..\..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.dll" target="lib\net40" />
+    <file src="..\..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.xml" target="lib\net40" />
+  </files>
+</package>
