@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>NProxy.Core</id>
+    <version>1.0.0.1</version>
+    <authors>Martin Tamme</authors>
+    <owners>Martin Tamme</owners>
+    <licenseUrl>https://github.com/mtamme/NProxy/</licenseUrl>
+    <projectUrl>https://github.com/mtamme/NProxy/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>NProxy is a library for the .NET framework to create lightweight dynamic proxies.</description>
+    <copyright>Copyright 2012</copyright>
+    <tags>dynamic proxy dynamicproxy facade bridge interceptor interception decorator adapter aspect oriented programming AOP mixin compact leightweight library</tags>
+  </metadata>
+  <files>
+    <file src="..\..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.dll" target="lib"/>
+    <file src="..\..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.xml" target="lib"/>
+  </files>
+</package>
