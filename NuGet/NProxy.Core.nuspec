@@ -13,7 +13,7 @@
     <tags>dynamic proxy dynamicproxy facade bridge interceptor interception decorator adapter aspect oriented programming AOP mixin compact leightweight library</tags>
   </metadata>
   <files>
-    <file src="..\..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.dll" target="lib"/>
-    <file src="..\..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.xml" target="lib"/>
+    <file src="..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.dll" target="lib"/>
+    <file src="..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.xml" target="lib"/>
   </files>
 </package>
