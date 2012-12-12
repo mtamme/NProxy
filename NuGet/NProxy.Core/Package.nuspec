@@ -8,7 +8,7 @@
     <licenseUrl>https://github.com/mtamme/NProxy/</licenseUrl>
     <projectUrl>https://github.com/mtamme/NProxy/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>NProxy is a library for the .NET framework to create dynamic proxies.</description>
+    <description>NProxy is a library for the .NET framework to create lightweight dynamic proxies.</description>
     <copyright>Copyright 2012</copyright>
     <tags>dynamic proxy interceptor aspect AOP</tags>
   </metadata>
