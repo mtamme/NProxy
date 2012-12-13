@@ -22,5 +22,5 @@ _ReSharper*/
 [Tt]est-[Rr]esult*/
 
 # NuGet
-Source/[Pp]ackages/*/
+Lib/*/
 
