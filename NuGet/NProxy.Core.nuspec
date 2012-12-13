@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>NProxy.Core</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <authors>Martin Tamme</authors>
     <owners>Martin Tamme</owners>
     <licenseUrl>https://github.com/mtamme/NProxy/</licenseUrl>
