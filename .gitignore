@@ -1,9 +1,6 @@
 # Visual Studio
 *.suo
 *.user
-*.webinfo
-*.obj
-*.exe
 [Oo]bj/
 [Bb]in/
 [Dd]ebug*/
@@ -25,4 +22,5 @@ _ReSharper*/
 [Tt]est-[Rr]esult*/
 
 # NuGet
-/Source/[Pp]ackages
+Source/[Pp]ackages/*/
+
