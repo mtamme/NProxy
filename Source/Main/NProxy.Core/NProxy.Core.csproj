@@ -109,4 +109,7 @@
     <EmbeddedResource Include="Internal\Dynamic.snk" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <None Include="NProxy.Core.nuspec" />
+  </ItemGroup>
 </Project>
