@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package >
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>NProxy.Core</id>
     <version>1.0.3</version>
@@ -13,7 +13,7 @@
     <tags>dynamic proxy dynamicproxy facade bridge interceptor interception decorator adapter aspect oriented programming AOP mixin compact leightweight library</tags>
   </metadata>
   <files>
-    <file src="..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.dll" target="lib\net40"/>
-    <file src="..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.xml" target="lib\net40"/>
+    <file src="bin\Release\NProxy.Core.dll" target="lib\net40"/>
+    <file src="bin\Release\NProxy.Core.xml" target="lib\net40"/>
   </files>
 </package>
