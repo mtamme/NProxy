@@ -17,4 +17,3 @@
     <file src="..\Source\Main\NProxy.Core\bin\Release\NProxy.Core.xml" target="lib\net40"/>
   </files>
 </package>
-
