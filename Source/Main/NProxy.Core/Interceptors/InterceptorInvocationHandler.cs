@@ -17,7 +17,6 @@
 //
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Internal.Common;
