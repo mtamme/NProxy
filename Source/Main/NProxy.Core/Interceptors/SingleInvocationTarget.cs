@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+using System;
 using System.Reflection;
 
 namespace NProxy.Core.Interceptors
@@ -35,6 +36,9 @@ namespace NProxy.Core.Interceptors
         /// <param name="target"></param>
         public SingleInvocationTarget(object target)
         {
+            if (target == null)
+                throw new ArgumentNullException("target");
+
             _target = target;
         }
 

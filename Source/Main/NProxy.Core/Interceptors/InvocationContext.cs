@@ -59,6 +59,9 @@ namespace NProxy.Core.Interceptors
         /// <param name="interceptors">The interceptors.</param>
         public InvocationContext(object target, MethodInfo methodInfo, object[] parameters, IInterceptor[] interceptors)
         {
+            if (target == null)
+                throw new ArgumentNullException("target");
+
             if (methodInfo == null)
                 throw new ArgumentNullException("methodInfo");
 
