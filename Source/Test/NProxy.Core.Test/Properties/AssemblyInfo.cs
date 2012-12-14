@@ -24,9 +24,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NProxy.Core.Test")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("NProxy is a library for the .NET framework to create lightweight dynamic proxies.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Martin Tamme")]
 [assembly: AssemblyProduct("NProxy.Core.Test")]
 [assembly: AssemblyCopyright("Copyright © Martin Tamme 2012")]
 [assembly: AssemblyTrademark("")]
@@ -55,6 +55,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.0")]
-[assembly: AssemblyFileVersion("0.0")]
 
 [assembly: InternalsVisibleTo("NProxy.Dynamic")]

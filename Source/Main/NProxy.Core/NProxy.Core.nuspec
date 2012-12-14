@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>NProxy.Core</id>
-    <version>1.0.3</version>
-    <authors>Martin Tamme</authors>
-    <owners>Martin Tamme</owners>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
     <licenseUrl>https://github.com/mtamme/NProxy/</licenseUrl>
     <projectUrl>https://github.com/mtamme/NProxy/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>NProxy is a library for the .NET framework to create lightweight dynamic proxies.</description>
-    <copyright>Copyright 2012</copyright>
+    <description>$description$</description>
+    <copyright>$copyright$</copyright>
     <tags>dynamic proxy dynamicproxy facade bridge interceptor interception decorator adapter aspect oriented programming AOP mixin compact leightweight library</tags>
   </metadata>
   <files>
-    <file src="bin\Release\NProxy.Core.dll" target="lib\net40"/>
-    <file src="bin\Release\NProxy.Core.xml" target="lib\net40"/>
+    <file src="..\..\..\COPYING" target="COPYING" />
+    <file src="..\..\..\COPYING.LESSER" target="COPYING.LESSER" />
   </files>
 </package>
