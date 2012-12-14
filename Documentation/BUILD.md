@@ -2,8 +2,10 @@
 
 Install the dependent NuGet packages.
 
-`cd Lib\`
-`nuget install packages.config`
+```
+> cd Lib\
+> nuget install packages.config
+```
 
 Build the project with your preferred tool.
 
@@ -11,8 +13,12 @@ Build the project with your preferred tool.
 
 Create the NuGet package.
 
-`nuget pack Source\Main\NProxy.Core\NProxy.Core.csproj -Properties Configuration=Release`
+```
+> nuget pack Source\Main\NProxy.Core\NProxy.Core.csproj -Properties Configuration=Release
+```
 
 Push the NuGet package to the server.
 
-`nuget push NProxy.Core.*.*.*.*`
+```
+> nuget push NProxy.Core.x.x.x.x.nupkg
+```
