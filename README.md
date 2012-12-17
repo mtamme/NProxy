@@ -113,6 +113,10 @@ of functions with the most individual work.
 
 ![Overview](https://raw.github.com/mtamme/NProxy/master/Documentation/WithProxyTypeCache.png "With proxy type cache")
 
+# Release Notes
+
+See [here](https://raw.github.com/mtamme/NProxy/master/Documentation/RELEASE-NOTES.md) for details.
+
 # Copyright
 
 Copyright © Martin Tamme. See COPYING and COPYING.LESSER for details.
