@@ -113,11 +113,11 @@ of functions with the most individual work.
 
 ![Overview](https://raw.github.com/mtamme/NProxy/master/Documentation/WithProxyTypeCache.png "With proxy type cache")
 
-# Release Notes
+# Release notes
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md) for details.
 
-# Build
+# Building the project
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BUILD.md) for details.
 
