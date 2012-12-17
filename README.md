@@ -115,11 +115,11 @@ of functions with the most individual work.
 
 # Release Notes
 
-See [here](https://raw.github.com/mtamme/NProxy/master/Documentation/RELEASE-NOTES.md) for details.
+See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md) for details.
 
 # Build
 
-See [here](https://raw.github.com/mtamme/NProxy/master/Documentation/BUILD.md) for details.
+See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BUILD.md) for details.
 
 # Copyright
 
