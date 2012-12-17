@@ -117,7 +117,7 @@ of functions with the most individual work.
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md) for details.
 
-# Building the project
+# Building NProxy
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BUILD.md) for details.
 
