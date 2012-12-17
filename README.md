@@ -5,12 +5,13 @@ NProxy is a library for the .NET framework to create lightweight dynamic proxies
 ## Motivation
 
 There are already a few libraries out there which deal with dynamic proxy generation so why another dynamic proxy library?
-The answers are simple and can be summarized as follows:
+The answers which lead to the goals of the NProxy project can be summarized as follows:
 
-* A unified API to handle dynamic proxies based upon unsealed classes, abstract classes, interfaces and delegates.
-* A slim implementation which can be easily extended.
-* Open generic methods are not treated as aliens anymore which reduced invocation times massively.
-* A library which can be used as a base for AOP frameworks, mocking libraries, ...
+* Provide an API to generate dynamic proxies based upon unsealed classes, abstract classes, interfaces and delegates in a unified way.
+* Focus on a slim implementation which can be easily extended.
+* Treat open generic methods not as aliens and massively improve their invocation performance.
+* Support the invocation of intercepted base methods.
+* Make a library available which can be used as a base for AOP frameworks, mocking libraries, ...
 
 ## Dynamic proxies
 
