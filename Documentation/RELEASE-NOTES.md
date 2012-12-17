@@ -2,7 +2,6 @@
 
 ## Version TBA
 
-* Updated README.md.
 * Check invocation targets for null values.
 
 ## Version 1.0.4
