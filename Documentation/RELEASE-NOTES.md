@@ -1,6 +1,6 @@
 # Release Notes
 
-## Version 1.0.5
+## Version TBA
 
 * Updated README.md.
 * Check invocation targets for null values.

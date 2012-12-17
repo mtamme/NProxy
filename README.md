@@ -117,6 +117,10 @@ of functions with the most individual work.
 
 See [here](https://raw.github.com/mtamme/NProxy/master/Documentation/RELEASE-NOTES.md) for details.
 
+# Build
+
+See [here](https://raw.github.com/mtamme/NProxy/master/Documentation/BUILD.md) for details.
+
 # Copyright
 
 Copyright © Martin Tamme. See COPYING and COPYING.LESSER for details.
