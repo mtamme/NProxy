@@ -52,6 +52,7 @@
     <Compile Include="Internal\Common\Visitor.cs" />
     <Compile Include="Internal\Reflection\ILGeneratorExtensions.cs" />
     <Compile Include="Internal\Reflection\TypeBuilderExtensions.cs" />
+    <Compile Include="ProxyFactoryExtensions.cs" />
     <Compile Include="ProxyTypeBuilderFactory.cs" />
     <Compile Include="ProxyTypeBuilder.cs" />
     <Compile Include="IInvocationHandler.cs" />

@@ -37,17 +37,5 @@ namespace NProxy.Core
                            IEnumerable<Type> interfaceTypes,
                            IInvocationHandler invocationHandler,
                            params object[] arguments);
-
-        /// <summary>
-        /// Creates a proxy object.
-        /// </summary>
-        /// <typeparam name="T">The declaring type.</typeparam>
-        /// <param name="interfaceTypes">The additional interface types.</param>
-        /// <param name="invocationHandler">The invocation handler.</param>
-        /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The proxy object.</returns>
-        T CreateProxy<T>(IEnumerable<Type> interfaceTypes,
-                         IInvocationHandler invocationHandler,
-                         params object[] arguments) where T : class;
     }
 }

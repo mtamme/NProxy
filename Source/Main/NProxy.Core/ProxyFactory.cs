@@ -60,43 +60,6 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Creates a proxy for the specified declaring type.
-        /// </summary>
-        /// <param name="declaringType">The declaring type.</param>
-        /// <param name="interfaceTypes">The additional interface types.</param>
-        /// <param name="invocationHandler">The invocation handler.</param>
-        /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The proxy.</returns>
-        private object InternalCreateProxy(Type declaringType,
-                                           IEnumerable<Type> interfaceTypes,
-                                           IInvocationHandler invocationHandler,
-                                           IEnumerable<object> arguments)
-        {
-            // Create type definition.
-            var typeDefinition = CreateTypeDefinition(declaringType);
-
-            // Add proxy attribute.
-            typeDefinition.AddCustomAttribute(new AttributeInfo(typeof (ProxyAttribute)));
-
-            // Add interface types.
-            foreach (var interfaceType in interfaceTypes)
-            {
-                typeDefinition.AddInterface(interfaceType);
-            }
-
-            // Get proxy type.
-            var proxyType = _typeProvider.GetType(typeDefinition);
-
-            // Create proxy instance.
-            var constructorArguments = new List<object> {invocationHandler};
-
-            if (arguments != null)
-                constructorArguments.AddRange(arguments);
-
-            return typeDefinition.CreateInstance(proxyType, constructorArguments.ToArray());
-        }
-
-        /// <summary>
         /// Returns a type definition for the specified declaring type.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
@@ -132,24 +95,28 @@ namespace NProxy.Core
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            return InternalCreateProxy(declaringType, interfaceTypes, invocationHandler, arguments);
-        }
+            // Create type definition.
+            var typeDefinition = CreateTypeDefinition(declaringType);
 
-        /// <inheritdoc/>
-        public T CreateProxy<T>(IEnumerable<Type> interfaceTypes,
-                                IInvocationHandler invocationHandler,
-                                params object[] arguments) where T : class
-        {
-            if (interfaceTypes == null)
-                throw new ArgumentNullException("interfaceTypes");
+            // Add proxy attribute.
+            typeDefinition.AddCustomAttribute(new AttributeInfo(typeof (ProxyAttribute)));
 
-            if (invocationHandler == null)
-                throw new ArgumentNullException("invocationHandler");
+            // Add interface types.
+            foreach (var interfaceType in interfaceTypes)
+            {
+                typeDefinition.AddInterface(interfaceType);
+            }
 
-            if (arguments == null)
-                throw new ArgumentNullException("arguments");
+            // Get proxy type.
+            var proxyType = _typeProvider.GetType(typeDefinition);
 
-            return (T) InternalCreateProxy(typeof (T), interfaceTypes, invocationHandler, arguments);
+            // Create proxy instance.
+            var constructorArguments = new List<object> {invocationHandler};
+
+            if (arguments != null)
+                constructorArguments.AddRange(arguments);
+
+            return typeDefinition.CreateInstance(proxyType, constructorArguments.ToArray());
         }
 
         #endregion
