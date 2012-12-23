@@ -2,7 +2,8 @@
 
 ## Version TBA
 
-* Check invocation targets for null values.
+* Added null value checks for target objects.
+* Simplified IProxyFactory interface.
 
 ## Version 1.0.4
 
