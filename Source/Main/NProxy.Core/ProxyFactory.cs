@@ -113,8 +113,7 @@ namespace NProxy.Core
             // Create proxy instance.
             var constructorArguments = new List<object> {invocationHandler};
 
-            if (arguments != null)
-                constructorArguments.AddRange(arguments);
+            constructorArguments.AddRange(arguments);
 
             return typeDefinition.CreateInstance(proxyType, constructorArguments.ToArray());
         }
