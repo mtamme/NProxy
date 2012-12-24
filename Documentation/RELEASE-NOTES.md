@@ -1,6 +1,6 @@
 # Release notes
 
-## Version TBA
+## Version 1.1.0
 
 * Added null value checks for target objects.
 * Simplified IProxyFactory interface.
