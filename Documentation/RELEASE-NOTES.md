@@ -1,5 +1,9 @@
 # Release notes
 
+## Version TBA
+
+* Renamed proxy interface adaption method.
+
 ## Version 1.1.0
 
 * Added null value checks for target objects.
