@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © 2012 Martin Tamme
 //
@@ -48,7 +48,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = proxy.Adapt<IBar>();
+            var bar = proxy.AdaptProxy<IBar>();
 
             Assert.DoesNotThrow(bar.Foo);
         }
@@ -67,7 +67,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = proxy.Adapt<IBar>();
+            var bar = proxy.AdaptProxy<IBar>();
 
             Assert.DoesNotThrow(bar.Foo);
         }
@@ -86,7 +86,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = proxy.Adapt<IBar>();
+            var bar = proxy.AdaptProxy<IBar>();
 
             Assert.DoesNotThrow(bar.Foo);
         }
@@ -105,7 +105,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(() => proxy());
 
             Assert.That(proxy.Target, Is.InstanceOf<IBar>());
-            var bar = proxy.Adapt<IBar>();
+            var bar = proxy.AdaptProxy<IBar>();
 
             Assert.DoesNotThrow(bar.Foo);
         }
@@ -124,7 +124,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = proxy.Adapt<IBar>();
+            var bar = proxy.AdaptProxy<IBar>();
 
             Assert.DoesNotThrow(bar.Foo);
         }
@@ -143,7 +143,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = proxy.Adapt<IBar>();
+            var bar = proxy.AdaptProxy<IBar>();
 
             Assert.DoesNotThrow(bar.Foo);
         }
@@ -162,7 +162,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = proxy.Adapt<IBar>();
+            var bar = proxy.AdaptProxy<IBar>();
 
             Assert.DoesNotThrow(bar.Foo);
         }
@@ -181,7 +181,7 @@ namespace NProxy.Core.Test.Interceptors
             Assert.DoesNotThrow(() => proxy());
 
             Assert.That(proxy.Target, Is.InstanceOf<IBar>());
-            var bar = proxy.Adapt<IBar>();
+            var bar = proxy.AdaptProxy<IBar>();
 
             Assert.Throws<TargetException>(bar.Foo);
         }
