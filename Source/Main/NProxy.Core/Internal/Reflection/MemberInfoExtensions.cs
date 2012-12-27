@@ -23,7 +23,7 @@ using System.Reflection;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Represents member information extensions.
+    /// Provides member information extensions.
     /// </summary>
     internal static class MemberInfoExtensions
     {

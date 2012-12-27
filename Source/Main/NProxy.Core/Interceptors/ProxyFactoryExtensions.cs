@@ -20,7 +20,7 @@ using NProxy.Core.Interceptors.Language;
 namespace NProxy.Core.Interceptors
 {
     /// <summary>
-    /// Represents proxy factory extensions.
+    /// Provides proxy factory extensions.
     /// </summary>
     public static class ProxyFactoryExtensions
     {

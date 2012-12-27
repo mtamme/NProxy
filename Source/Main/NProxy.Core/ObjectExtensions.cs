@@ -21,7 +21,7 @@ using NProxy.Core.Internal.Reflection;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Represents object extensions.
+    /// Provides object extensions.
     /// </summary>
     public static class ObjectExtensions
     {

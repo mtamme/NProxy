@@ -21,7 +21,7 @@ using System.Collections.Generic;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Represents proxy factory extensions.
+    /// Provides proxy factory extensions.
     /// </summary>
     public static class ProxyFactoryExtensions
     {

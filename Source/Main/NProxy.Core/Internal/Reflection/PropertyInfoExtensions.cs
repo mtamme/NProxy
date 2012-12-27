@@ -23,7 +23,7 @@ using System.Reflection;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Represents property information extensions.
+    /// Provides property information extensions.
     /// </summary>
     internal static class PropertyInfoExtensions
     {

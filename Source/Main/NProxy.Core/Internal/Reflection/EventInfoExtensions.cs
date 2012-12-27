@@ -23,7 +23,7 @@ using System.Reflection;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Represents event information extensions.
+    /// Provides event information extensions.
     /// </summary>
     internal static class EventInfoExtensions
     {

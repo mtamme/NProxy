@@ -20,7 +20,7 @@ using System;
 namespace NProxy.Core.Internal.Common
 {
     /// <summary>
-    /// Provides a set of static methods for query operations over visitors.
+    /// Provides visitor extensions.
     /// </summary>
     internal static class VisitorExtensions
     {

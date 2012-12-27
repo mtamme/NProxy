@@ -23,7 +23,7 @@ using System.Reflection.Emit;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Represents type builder extensions.
+    /// Provides type builder extensions.
     /// </summary>
     internal static class TypeBuilderExtensions
     {

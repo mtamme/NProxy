@@ -21,7 +21,7 @@ using System.Collections.Generic;
 namespace NProxy.Core.Internal.Common
 {
     /// <summary>
-    /// Represents enumerable extensions.
+    /// Provides enumerable extensions.
     /// </summary>
     internal static class EnumerableExtensions
     {

@@ -24,7 +24,7 @@ using NProxy.Core.Internal.Common;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Represents type extensions.
+    /// Provides type extensions.
     /// </summary>
     internal static class TypeExtensions
     {
