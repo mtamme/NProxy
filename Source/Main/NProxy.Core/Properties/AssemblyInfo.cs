@@ -1,6 +1,6 @@
 //
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
-// Copyright © 2012 Martin Tamme
+// Copyright © Martin Tamme
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Lesser General Public License as published by
@@ -28,7 +28,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Martin Tamme")]
 [assembly: AssemblyProduct("NProxy.Core")]
-[assembly: AssemblyCopyright("Copyright © Martin Tamme 2012")]
+[assembly: AssemblyCopyright("Copyright © Martin Tamme")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
