@@ -58,7 +58,7 @@ Global
 		$3.inheritsScope = text/plain
 		$3.scope = text/plain
 		$0.StandardHeader = $4
-		$4.Text = @\nNProxy is a library for the .NET framework to create lightweight dynamic proxies.\nCopyright © Martin Tamme\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU Lesser General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\nGNU Lesser General Public License for more details.\n\nYou should have received a copy of the GNU Lesser General Public License\nalong with this program. If not, see <http://www.gnu.org/licenses/>.\n
+		$4.Text = @\nNProxy is a library for the .NET framework to create lightweight dynamic proxies.\nCopyright © ${CopyrightHolder}\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU Lesser General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\nGNU Lesser General Public License for more details.\n\nYou should have received a copy of the GNU Lesser General Public License\nalong with this program. If not, see <http://www.gnu.org/licenses/>.\n
 		$4.IncludeInNewFiles = True
 		$0.NameConventionPolicy = $5
 		$5.Rules = $6
