@@ -23,6 +23,7 @@ namespace NProxy.Core.Interceptors
     /// <summary>
     /// Represents an invocation context.
     /// </summary>
+    [Serializable]
     internal sealed class InvocationContext : IInvocationContext
     {
         /// <summary>
