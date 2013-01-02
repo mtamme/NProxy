@@ -26,6 +26,7 @@ namespace NProxy.Core.Interceptors
     /// <summary>
     /// Represents an interceptor invocation handler.
     /// </summary>
+    [Serializable]
     internal sealed class InterceptorInvocationHandler : IInvocationHandler
     {
         /// <summary>

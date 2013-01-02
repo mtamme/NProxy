@@ -23,6 +23,7 @@ namespace NProxy.Core.Interceptors
     /// <summary>
     /// Represents a single invocation target.
     /// </summary>
+    [Serializable]
     internal sealed class SingleInvocationTarget : IInvocationTarget
     {
         /// <summary>

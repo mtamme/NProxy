@@ -25,6 +25,7 @@ namespace NProxy.Core.Interceptors
     /// <summary>
     /// Represents a mixin invocation handler.
     /// </summary>
+    [Serializable]
     internal sealed class MixinInvocationHandler : IInvocationHandler
     {
         /// <summary>
