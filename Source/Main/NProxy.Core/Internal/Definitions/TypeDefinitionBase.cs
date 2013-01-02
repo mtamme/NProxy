@@ -42,7 +42,7 @@ namespace NProxy.Core.Internal.Definitions
         /// <summary>
         /// The declaring interface types.
         /// </summary>
-        private readonly Lazy<ISet<Type>> _declaringInterfaceTypes;
+        private readonly Lazy<HashSet<Type>> _declaringInterfaceTypes;
 
         /// <summary>
         /// The additional interface types.
@@ -61,7 +61,7 @@ namespace NProxy.Core.Internal.Definitions
             _declaringType = declaringType;
 
             _customAttributeInfos = new List<AttributeInfo>();
-            _declaringInterfaceTypes = new Lazy<ISet<Type>>(() => GetInterfaces(declaringType), false);
+            _declaringInterfaceTypes = new Lazy<HashSet<Type>>(() => GetInterfaces(declaringType), false);
             _additionalInterfaceTypes = new HashSet<Type>();
         }
 
@@ -70,7 +70,7 @@ namespace NProxy.Core.Internal.Definitions
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>The interface types.</returns>
-        private static ISet<Type> GetInterfaces(Type type)
+        private static HashSet<Type> GetInterfaces(Type type)
         {
             var interfacesTypes = new HashSet<Type>();
             var visitor = Visitor.Create<Type>(t => interfacesTypes.Add(t));
