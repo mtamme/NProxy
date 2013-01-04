@@ -31,6 +31,18 @@ namespace NProxy.Core
         /// <typeparam name="TInterface">The interface type.</typeparam>
         /// <param name="proxy">The proxy object.</param>
         /// <returns>The object, of the specified interface type, to which the proxy object has been adapted.</returns>
+        [Obsolete("Use the AdaptProxy method instead")]
+        public static TInterface Adapt<TInterface>(this object proxy) where TInterface : class
+        {
+            return proxy.AdaptProxy<TInterface>();
+        }
+
+        /// <summary>
+        /// Adapts a proxy object to the specified interface type.
+        /// </summary>
+        /// <typeparam name="TInterface">The interface type.</typeparam>
+        /// <param name="proxy">The proxy object.</param>
+        /// <returns>The object, of the specified interface type, to which the proxy object has been adapted.</returns>
         public static TInterface AdaptProxy<TInterface>(this object proxy) where TInterface : class
         {
             if (proxy == null)
