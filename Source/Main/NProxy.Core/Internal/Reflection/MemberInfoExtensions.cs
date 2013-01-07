@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace NProxy.Core.Internal.Reflection
 {
@@ -86,12 +87,13 @@ namespace NProxy.Core.Internal.Reflection
         public static string GetFullName(this MemberInfo memberInfo)
         {
             var declaringType = memberInfo.GetDeclaringType();
-            var name = declaringType.GetFullName();
+            var fullName = new StringBuilder();
 
-            name.Append(Type.Delimiter);
-            name.Append(memberInfo.Name);
+            fullName.Append(declaringType.FullName);
+            fullName.Append(Type.Delimiter);
+            fullName.Append(memberInfo.Name);
 
-            return name.ToString();
+            return fullName.ToString();
         }
 
         /// <summary>

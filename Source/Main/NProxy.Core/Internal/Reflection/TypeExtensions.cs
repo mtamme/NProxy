@@ -55,30 +55,6 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Returns the full name of the type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>The full name.</returns>
-        public static StringBuilder GetFullName(this Type type)
-        {
-            var declaringType = type.DeclaringType;
-            StringBuilder name;
-
-            if (declaringType != null)
-                name = declaringType.GetFullName();
-            else
-            {
-                name = new StringBuilder();
-                name.Append(type.Namespace);
-            }
-
-            name.Append(Type.Delimiter);
-            name.Append(type.Name);
-
-            return name;
-        }
-
-        /// <summary>
         /// Returns the method information that reflects the method that matches the specified criterias.
         /// </summary>
         /// <param name="type">The type.</param>
