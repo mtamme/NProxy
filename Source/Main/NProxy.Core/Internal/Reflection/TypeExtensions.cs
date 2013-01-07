@@ -18,7 +18,6 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using NProxy.Core.Internal.Common;
 
 namespace NProxy.Core.Internal.Reflection
