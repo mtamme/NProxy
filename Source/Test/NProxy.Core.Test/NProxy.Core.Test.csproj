@@ -99,6 +99,7 @@
     <Compile Include="Interceptors\Types\Bar.cs" />
     <Compile Include="Interceptors\Types\FooBar.cs" />
     <Compile Include="Interceptors\CountingInterceptor.cs" />
+    <Compile Include="Internal\Reflection\MemberInfoExtensionsTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">
@@ -115,4 +116,7 @@
   </Target>
   -->
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Internal\Reflection\" />
+  </ItemGroup>
 </Project>
