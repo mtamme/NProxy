@@ -15,7 +15,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-using System;
 using NUnit.Framework;
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Test.Common.Types;
@@ -35,7 +34,6 @@ namespace NProxy.Core.Test.Internal.Reflection
             var attributes = method.GetCustomAttributes<NonInterceptedAttribute>(false);
 
             // Assert
-            CollectionAssert.IsNotEmpty(attributes);
             CollectionAssert.AllItemsAreInstancesOfType(attributes, typeof (NonInterceptedAttribute));
         }
 

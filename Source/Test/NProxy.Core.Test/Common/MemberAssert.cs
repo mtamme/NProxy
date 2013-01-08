@@ -140,11 +140,9 @@ namespace NProxy.Core.Test.Common
             AreMembersEquivalent(actual, expected);
 
             // Check method attributes.
-            if (isExplicit)
-                Assert.That(actual.Attributes & MethodAttributes.MemberAccessMask, Is.EqualTo(MethodAttributes.Private));
-            else
-                Assert.That(actual.Attributes & MethodAttributes.MemberAccessMask, Is.EqualTo(expected.Attributes & MethodAttributes.MemberAccessMask));
+            var methodAttributes = isExplicit ? MethodAttributes.Private : expected.Attributes & MethodAttributes.MemberAccessMask;
 
+            Assert.That(actual.Attributes & MethodAttributes.MemberAccessMask, Is.EqualTo(methodAttributes));
             Assert.That(actual.Attributes & MethodAttributes.ReservedMask, Is.EqualTo(expected.Attributes & MethodAttributes.ReservedMask));
             Assert.That(actual.Attributes & MethodAttributes.SpecialName, Is.EqualTo(expected.Attributes & MethodAttributes.SpecialName));
 
