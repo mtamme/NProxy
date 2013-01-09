@@ -3,6 +3,7 @@
 ## Version TBA
 
 * Renamed proxy interface adaption method.
+* Fixed method identification inside the interceptor implementation.
 
 ## Version 1.1.0
 
