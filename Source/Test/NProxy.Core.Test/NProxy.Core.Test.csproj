@@ -101,6 +101,8 @@
     <Compile Include="Interceptors\CountingInterceptor.cs" />
     <Compile Include="Internal\Reflection\MemberInfoExtensionsTestFixture.cs" />
     <Compile Include="Internal\Reflection\MethodBaseExtensionsTestFixture.cs" />
+    <Compile Include="Internal\Reflection\EventInfoExtensionsTestFixture.cs" />
+    <Compile Include="Internal\Reflection\PropertyInfoExtensionsTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

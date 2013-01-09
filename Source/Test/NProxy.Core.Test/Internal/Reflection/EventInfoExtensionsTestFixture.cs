@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+using System.Linq;
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Test.Common.Types;
 using NUnit.Framework;
@@ -22,32 +23,45 @@ using NUnit.Framework;
 namespace NProxy.Core.Test.Internal.Reflection
 {
     [TestFixture]
-    public sealed class MethodBaseExtensionsTestFixture
+    public sealed class EventInfoExtensionsTestFixture
     {
         [Test]
         public void CanOverrideTest()
         {
             // Arrange
-            var methodInfo = typeof (IIntParameter).GetMethod("Method");
+            var eventInfo = typeof (IActionEvent).GetEvent("Event");
 
             // Act
-            var canOverride = methodInfo.CanOverride();
+            var canOverride = eventInfo.CanOverride();
 
             // Assert
             Assert.That(canOverride, Is.True);
         }
 
         [Test]
-        public void GetParameterTypesTest()
+        public void IsAbstractTest()
         {
             // Arrange
-            var methodInfo = typeof (IIntParameter).GetMethod("Method");
+            var eventInfo = typeof (IActionEvent).GetEvent("Event");
 
             // Act
-            var parameterTypes = methodInfo.GetParameterTypes();
+            var isAbstract = eventInfo.IsAbstract();
 
             // Assert
-            CollectionAssert.AreEqual(parameterTypes, new[] {typeof (int)});
+            Assert.That(isAbstract, Is.True);
+        }
+
+        [Test]
+        public void GetAccessorMethodsTest()
+        {
+            // Arrange
+            var eventInfo = typeof (IActionEvent).GetEvent("Event");
+
+            // Act
+            var accessorMethodInfos = eventInfo.GetAccessorMethods();
+
+            // Assert
+            Assert.That(accessorMethodInfos.Count(), Is.EqualTo(2));
         }
     }
 }

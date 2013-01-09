@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+using System.Linq;
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Test.Common.Types;
 using NUnit.Framework;
@@ -22,32 +23,45 @@ using NUnit.Framework;
 namespace NProxy.Core.Test.Internal.Reflection
 {
     [TestFixture]
-    public sealed class MethodBaseExtensionsTestFixture
+    public sealed class PropertyInfoExtensionsTestFixture
     {
         [Test]
         public void CanOverrideTest()
         {
             // Arrange
-            var methodInfo = typeof (IIntParameter).GetMethod("Method");
+            var propertyInfo = typeof (IObjectGetSetProperty).GetProperty("Property");
 
             // Act
-            var canOverride = methodInfo.CanOverride();
+            var canOverride = propertyInfo.CanOverride();
 
             // Assert
             Assert.That(canOverride, Is.True);
         }
 
         [Test]
-        public void GetParameterTypesTest()
+        public void IsAbstractTest()
         {
             // Arrange
-            var methodInfo = typeof (IIntParameter).GetMethod("Method");
+            var propertyInfo = typeof (IObjectGetSetProperty).GetProperty("Property");
 
             // Act
-            var parameterTypes = methodInfo.GetParameterTypes();
+            var canOverride = propertyInfo.IsAbstract();
 
             // Assert
-            CollectionAssert.AreEqual(parameterTypes, new[] {typeof (int)});
+            Assert.That(canOverride, Is.True);
+        }
+
+        [Test]
+        public void GetAccessorMethodsTest()
+        {
+            // Arrange
+            var propertyInfo = typeof (IObjectGetSetProperty).GetProperty("Property");
+
+            // Act
+            var accessorMethodInfos = propertyInfo.GetAccessorMethods();
+
+            // Assert
+            Assert.That(accessorMethodInfos.Count(), Is.EqualTo(2));
         }
     }
 }

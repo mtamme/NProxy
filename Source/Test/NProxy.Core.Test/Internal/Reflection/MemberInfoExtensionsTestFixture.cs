@@ -15,9 +15,9 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-using NUnit.Framework;
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Test.Common.Types;
+using NUnit.Framework;
 
 namespace NProxy.Core.Test.Internal.Reflection
 {
@@ -28,10 +28,10 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void GetCustomAttributesTest()
         {
             // Arrange
-            var method = typeof (INonIntercepted).GetMethod("Method");
+            var methodInfo = typeof (INonIntercepted).GetMethod("Method");
 
             // Act
-            var attributes = method.GetCustomAttributes<NonInterceptedAttribute>(false);
+            var attributes = methodInfo.GetCustomAttributes<NonInterceptedAttribute>(false);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(attributes, typeof (NonInterceptedAttribute));
@@ -41,10 +41,10 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void IsDefinedTest()
         {
             // Arrange
-            var method = typeof (INonIntercepted).GetMethod("Method");
+            var methodInfo = typeof (INonIntercepted).GetMethod("Method");
 
             // Act
-            var isDefined = method.IsDefined<NonInterceptedAttribute>(false);
+            var isDefined = methodInfo.IsDefined<NonInterceptedAttribute>(false);
 
             // Assert
             Assert.That(isDefined, Is.True);
@@ -54,10 +54,10 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void GetDeclaringTypeTest()
         {
             // Arrange
-            var method = typeof (INonIntercepted).GetMethod("Method");
+            var methodInfo = typeof (INonIntercepted).GetMethod("Method");
 
             // Act
-            var declaringType = method.GetDeclaringType();
+            var declaringType = methodInfo.GetDeclaringType();
 
             // Assert
             Assert.That(declaringType, Is.EqualTo(typeof (INonIntercepted)));
@@ -67,10 +67,10 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void GetFullNameTest()
         {
             // Arrange
-            var method = typeof (INonIntercepted).GetMethod("Method");
+            var methodInfo = typeof (INonIntercepted).GetMethod("Method");
 
             // Act
-            var fullName = method.GetFullName();
+            var fullName = methodInfo.GetFullName();
 
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.INonIntercepted.Method"));
@@ -80,12 +80,12 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void GetTokenTest()
         {
             // Arrange
-            var firstMethod = typeof (INonIntercepted).GetMethod("Method");
-            var secondMethod = typeof (INonIntercepted).GetMethod("Method");
+            var firstMethodInfo = typeof (INonIntercepted).GetMethod("Method");
+            var secondMethodInfo = typeof (INonIntercepted).GetMethod("Method");
 
             // Act
-            var firstToken = firstMethod.GetToken();
-            var secondToken = secondMethod.GetToken();
+            var firstToken = firstMethodInfo.GetToken();
+            var secondToken = secondMethodInfo.GetToken();
 
             // Assert
             Assert.That(firstToken, Is.EqualTo(secondToken));
