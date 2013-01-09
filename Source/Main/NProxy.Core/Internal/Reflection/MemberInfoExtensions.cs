@@ -103,6 +103,11 @@ namespace NProxy.Core.Internal.Reflection
         /// <returns>The unique identifier.</returns>
         public static long GetToken(this MemberInfo memberInfo)
         {
+            // FIXME The default implementation of the GetHashCode method
+            // does not guarantee unique return values for different objects.
+            // Furthermore, the .NET Framework does not guarantee the default
+            // implementation of the GetHashCode method, and the value it returns
+            // will be the same between different versions of the .NET Framework.
             long moduleToken = memberInfo.Module.GetHashCode();
             long memberToken = memberInfo.MetadataToken;
 
