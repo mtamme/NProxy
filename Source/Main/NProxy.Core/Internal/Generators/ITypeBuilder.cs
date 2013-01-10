@@ -17,7 +17,6 @@
 //
 using System;
 using System.Reflection;
-using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core.Internal.Generators
 {
@@ -29,8 +28,10 @@ namespace NProxy.Core.Internal.Generators
         /// <summary>
         /// Adds the specified custom attribute.
         /// </summary>
-        /// <param name="attributeInfo">The attribute information.</param>
-        void AddCustomAttribute(AttributeInfo attributeInfo);
+        /// <param name="attributeType">The attribute type.</param>
+        /// <param name="argumentTypes">The argument types.</param>
+        /// <param name="arguments">The arguments.</param>
+        void AddCustomAttribute(Type attributeType, Type[] argumentTypes, object[] arguments);
 
         /// <summary>
         /// Adds the specified interface.

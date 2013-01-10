@@ -16,10 +16,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Internal.Common;
-using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core.Internal.Definitions
 {
@@ -37,11 +35,6 @@ namespace NProxy.Core.Internal.Definitions
         /// Returns the parent type.
         /// </summary>
         Type ParentType { get; }
-
-        /// <summary>
-        /// Returns all custom attributes.
-        /// </summary>
-        IEnumerable<AttributeInfo> CustomAttributes { get; }
 
         /// <summary>
         /// Visits all interfaces.

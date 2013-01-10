@@ -34,11 +34,6 @@ namespace NProxy.Core.Internal.Definitions
         private readonly Type _declaringType;
 
         /// <summary>
-        /// The custom attribute informations.
-        /// </summary>
-        private readonly List<AttributeInfo> _customAttributeInfos;
-
-        /// <summary>
         /// The declaring interface types.
         /// </summary>
         private readonly Lazy<HashSet<Type>> _declaringInterfaceTypes;
@@ -59,7 +54,6 @@ namespace NProxy.Core.Internal.Definitions
 
             _declaringType = declaringType;
 
-            _customAttributeInfos = new List<AttributeInfo>();
             _declaringInterfaceTypes = new Lazy<HashSet<Type>>(() => GetInterfaces(declaringType), false);
             _additionalInterfaceTypes = new HashSet<Type>();
         }
@@ -96,18 +90,6 @@ namespace NProxy.Core.Internal.Definitions
         }
 
         /// <summary>
-        /// Adds the specified attribute information.
-        /// </summary>
-        /// <param name="attributeInfo">The attribute information.</param>
-        public void AddCustomAttribute(AttributeInfo attributeInfo)
-        {
-            if (attributeInfo == null)
-                throw new ArgumentNullException("attributeInfo");
-
-            _customAttributeInfos.Add(attributeInfo);
-        }
-
-        /// <summary>
         /// Adds the specified interface type.
         /// </summary>
         /// <param name="interfaceType">The interface type.</param>
@@ -123,7 +105,7 @@ namespace NProxy.Core.Internal.Definitions
                 throw new ArgumentException("Interface type must not be a generic type definition", "interfaceType");
 
             var addInterfaceVisitor = Visitor.Create<Type>(t => _additionalInterfaceTypes.Add(t))
-                                             .Where(t => !_declaringInterfaceTypes.Value.Contains(t));
+                .Where(t => !_declaringInterfaceTypes.Value.Contains(t));
 
             interfaceType.VisitInterfaces(addInterfaceVisitor);
         }
@@ -145,12 +127,6 @@ namespace NProxy.Core.Internal.Definitions
 
         /// <inheritdoc/>
         public abstract Type ParentType { get; }
-
-        /// <inheritdoc/>
-        public IEnumerable<AttributeInfo> CustomAttributes
-        {
-            get { return _customAttributeInfos; }
-        }
 
         /// <inheritdoc/>
         public abstract void VisitInterfaces(IVisitor<Type> visitor);
@@ -186,10 +162,7 @@ namespace NProxy.Core.Internal.Definitions
             if (other.ParentType != ParentType)
                 return false;
 
-            if (!other.AdditionalInterfaceTypes.Equals(AdditionalInterfaceTypes))
-                return false;
-
-            return other.CustomAttributes.Equals(CustomAttributes);
+            return other.AdditionalInterfaceTypes.Equals(AdditionalInterfaceTypes);
         }
 
         #endregion

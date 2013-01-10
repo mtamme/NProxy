@@ -61,7 +61,6 @@
     <Compile Include="Internal\Reflection\MethodBaseExtensions.cs" />
     <Compile Include="Internal\Reflection\PropertyInfoExtensions.cs" />
     <Compile Include="Internal\Reflection\TypeExtensions.cs" />
-    <Compile Include="Internal\Reflection\AttributeInfo.cs" />
     <Compile Include="Interceptors\IInterceptor.cs" />
     <Compile Include="Interceptors\IInvocationContext.cs" />
     <Compile Include="Interceptors\IInvocationTarget.cs" />

@@ -29,6 +29,11 @@ namespace NProxy.Core.Internal.Generators
     internal sealed class ProxyTypeGenerator : ITypeProvider<ITypeDefinition>
     {
         /// <summary>
+        /// An empty object array.
+        /// </summary>
+        private static readonly object[] EmptyObjects = new object[0];
+
+        /// <summary>
         /// The type builder factory.
         /// </summary>
         private readonly ITypeBuilderFactory _typeBuilderFactory;
@@ -65,11 +70,8 @@ namespace NProxy.Core.Internal.Generators
 
             var typeBuilder = _typeBuilderFactory.CreateBuilder(typeDefinition.ParentType);
 
-            // Add custom attributes.
-            foreach (var attributeInfo in typeDefinition.CustomAttributes)
-            {
-                typeBuilder.AddCustomAttribute(attributeInfo);
-            }
+            // Add proxy attribute.
+            typeBuilder.AddCustomAttribute(typeof (ProxyAttribute), Type.EmptyTypes, EmptyObjects);
 
             // Add interfaces.
             var addInterfaceVisitor = Visitor.Create<Type>(typeBuilder.AddInterface);

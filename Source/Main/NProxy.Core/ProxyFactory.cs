@@ -98,9 +98,6 @@ namespace NProxy.Core
             // Create type definition.
             var typeDefinition = CreateTypeDefinition(declaringType);
 
-            // Add proxy attribute.
-            typeDefinition.AddCustomAttribute(new AttributeInfo(typeof (ProxyAttribute)));
-
             // Add interface types.
             foreach (var interfaceType in interfaceTypes)
             {
