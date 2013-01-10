@@ -17,7 +17,7 @@
 //
 using System;
 
-namespace NProxy.Core
+namespace NProxy.Core.Internal.Generators
 {
     /// <summary>
     /// Represents an attribute which indicates that a class is a proxy.

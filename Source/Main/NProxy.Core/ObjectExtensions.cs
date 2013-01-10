@@ -16,6 +16,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 using System;
+using NProxy.Core.Internal.Generators;
 using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core
