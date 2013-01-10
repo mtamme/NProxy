@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -74,7 +74,7 @@ namespace NProxy.Core
         {
             var methodInfoTypeProvider = new MethodInfoTypeGenerator(this);
 
-            _methodInfoTypeProvider = new TypeCache<MethodInfo, long>(m => m.GetToken(), methodInfoTypeProvider);
+            _methodInfoTypeProvider = new TypeCache<MethodInfo, long>(m => m.GetId(), methodInfoTypeProvider);
 
             var assemblyName = GetDynamicAssemblyName(DynamicAssemblyName);
 

@@ -47,7 +47,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var parameterTypes = methodInfo.GetParameterTypes();
 
             // Assert
-            CollectionAssert.AreEqual(parameterTypes, new[] {typeof (int)});
+            Assert.That(parameterTypes, Is.EqualTo(new[] {typeof (int)}));
         }
     }
 }

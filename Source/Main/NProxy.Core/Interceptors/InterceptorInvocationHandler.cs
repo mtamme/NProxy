@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -133,9 +133,9 @@ namespace NProxy.Core.Interceptors
 
             methodInterceptors.AddRange(_defaultInterceptors);
 
-            var methodToken = methodInfo.GetToken();
+            var methodId = methodInfo.GetId();
 
-            _interceptors.Add(methodToken, methodInterceptors.ToArray());
+            _interceptors.Add(methodId, methodInterceptors.ToArray());
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace NProxy.Core.Interceptors
         /// <returns>The interceptors.</returns>
         private IInterceptor[] GetInterceptors(MemberInfo memberInfo)
         {
-            var methodToken = memberInfo.GetToken();
+            var methodToken = memberInfo.GetId();
             IInterceptor[] interceptors;
 
             return _interceptors.TryGetValue(methodToken, out interceptors) ? interceptors : _defaultInterceptors;

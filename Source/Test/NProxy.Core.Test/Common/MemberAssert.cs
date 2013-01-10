@@ -168,7 +168,7 @@ namespace NProxy.Core.Test.Common
         private static void AreMembersEquivalent(MemberInfo actual, MemberInfo expected)
         {
             // Check member name.
-            StringAssert.EndsWith(expected.Name, actual.Name);
+            Assert.That(actual.Name, Is.StringEnding(expected.Name));
 
             // Check member type.
             Assert.That(actual.MemberType, Is.EqualTo(expected.MemberType));

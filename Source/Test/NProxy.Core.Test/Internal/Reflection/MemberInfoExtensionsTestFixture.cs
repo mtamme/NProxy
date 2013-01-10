@@ -15,6 +15,9 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Test.Common.Types;
 using NUnit.Framework;
@@ -34,7 +37,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var attributes = methodInfo.GetCustomAttributes<NonInterceptedAttribute>(false);
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(attributes, typeof (NonInterceptedAttribute));
+            Assert.That(attributes, Is.All.InstanceOf<NonInterceptedAttribute>());
         }
 
         [Test]
@@ -77,18 +80,51 @@ namespace NProxy.Core.Test.Internal.Reflection
         }
 
         [Test]
-        public void GetTokenTest()
+        public void GetIdTest()
         {
             // Arrange
-            var firstMethodInfo = typeof (INonIntercepted).GetMethod("Method");
-            var secondMethodInfo = typeof (INonIntercepted).GetMethod("Method");
-
             // Act
-            var firstToken = firstMethodInfo.GetToken();
-            var secondToken = secondMethodInfo.GetToken();
-
             // Assert
-            Assert.That(firstToken, Is.EqualTo(secondToken));
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var metadataTokensByModule = new Dictionary<Module, HashSet<int>>();
+            var ids = new HashSet<long>();
+
+            foreach (var assembly in assemblies)
+            {
+                Type[] types;
+
+                try
+                {
+                    types = assembly.GetTypes();
+                }
+                catch (ReflectionTypeLoadException)
+                {
+                    continue;
+                }
+
+                foreach (var type in types)
+                {
+                    var memberInfos = type.GetMembers();
+
+                    foreach (var memberInfo in memberInfos)
+                    {
+                        HashSet<int> metadataTokens;
+
+                        if (!metadataTokensByModule.TryGetValue(memberInfo.Module, out metadataTokens))
+                        {
+                            metadataTokens = new HashSet<int>();
+                            metadataTokensByModule.Add(memberInfo.Module, metadataTokens);
+                        }
+
+                        if (!metadataTokens.Add(memberInfo.MetadataToken))
+                            continue;
+
+                        var id = memberInfo.GetId();
+
+                        Assert.That(ids.Add(id), Is.True, "Member ID is not unique");
+                    }
+                }
+            }
         }
     }
 }
