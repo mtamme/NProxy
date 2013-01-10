@@ -26,7 +26,7 @@ namespace NProxy.Core.Internal.Definitions
     /// <summary>
     /// Represents the type definition base class.
     /// </summary>
-    internal abstract class TypeDefinitionBase : ITypeDefinition, ITypeActivator
+    internal abstract class TypeDefinitionBase : IEquatable<TypeDefinitionBase>, ITypeDefinition, ITypeActivator
     {
         /// <summary>
         /// The declaring type.
@@ -123,7 +123,7 @@ namespace NProxy.Core.Internal.Definitions
                 throw new ArgumentException("Interface type must not be a generic type definition", "interfaceType");
 
             var addInterfaceVisitor = Visitor.Create<Type>(t => _additionalInterfaceTypes.Add(t))
-                .Where(t => !_declaringInterfaceTypes.Value.Contains(t));
+                                             .Where(t => !_declaringInterfaceTypes.Value.Contains(t));
 
             interfaceType.VisitInterfaces(addInterfaceVisitor);
         }
@@ -172,26 +172,33 @@ namespace NProxy.Core.Internal.Definitions
 
         #endregion
 
+        #region IEquatable<TypeDefinitionBase> Members
+
+        public bool Equals(TypeDefinitionBase other)
+        {
+            if (other == null)
+                return false;
+
+            if (other.DeclaringType != DeclaringType)
+                return false;
+
+            if (other.ParentType != ParentType)
+                return false;
+
+            if (!other.AdditionalInterfaceTypes.Equals(AdditionalInterfaceTypes))
+                return false;
+
+            return other.CustomAttributes.Equals(CustomAttributes);
+        }
+
+        #endregion
+
         #region Object Members
 
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            var typeDescriptor = obj as TypeDefinitionBase;
-
-            if (typeDescriptor == null)
-                return false;
-
-            if (typeDescriptor.DeclaringType != DeclaringType)
-                return false;
-
-            if (typeDescriptor.ParentType != ParentType)
-                return false;
-
-            if (!typeDescriptor.AdditionalInterfaceTypes.Equals(AdditionalInterfaceTypes))
-                return false;
-
-            return typeDescriptor.CustomAttributes.Equals(CustomAttributes);
+            return (obj is TypeDefinitionBase) && Equals((TypeDefinitionBase) obj);
         }
 
         /// <inheritdoc/>
