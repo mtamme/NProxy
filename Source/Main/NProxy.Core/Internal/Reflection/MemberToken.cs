@@ -50,6 +50,7 @@ namespace NProxy.Core.Internal.Reflection
 
         #region IEquatable<MemberToken> Members
 
+        /// <inheritdoc/>
         public bool Equals(MemberToken other)
         {
             if (!ReferenceEquals(other._module, _module))

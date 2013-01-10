@@ -174,6 +174,7 @@ namespace NProxy.Core.Internal.Definitions
 
         #region IEquatable<TypeDefinitionBase> Members
 
+        /// <inheritdoc/>
         public bool Equals(TypeDefinitionBase other)
         {
             if (other == null)
