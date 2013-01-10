@@ -104,15 +104,15 @@ namespace NProxy.Core
                 typeDefinition.AddInterface(interfaceType);
             }
 
-            // Get proxy type.
-            var proxyType = _typeProvider.GetType(typeDefinition);
+            // Get type.
+            var type = _typeProvider.GetType(typeDefinition);
 
-            // Create proxy instance.
+            // Create instance.
             var constructorArguments = new List<object> {invocationHandler};
 
             constructorArguments.AddRange(arguments);
 
-            return typeDefinition.CreateInstance(proxyType, constructorArguments.ToArray());
+            return typeDefinition.CreateInstance(type, constructorArguments.ToArray());
         }
 
         #endregion

@@ -42,9 +42,9 @@ namespace NProxy.Core
             if (!interfaceType.IsInterface)
                 throw new ArgumentException(String.Format("Type '{0}' is not an interface type", interfaceType));
 
-            var proxyType = proxy.GetType();
+            var type = proxy.GetType();
 
-            if (proxyType.IsDefined<ProxyAttribute>(false))
+            if (type.IsDefined<ProxyAttribute>(false))
                 return (TInterface) proxy;
 
             var delegateProxy = proxy as Delegate;
