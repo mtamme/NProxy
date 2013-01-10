@@ -1,5 +1,9 @@
 # Release notes
 
+## Version TBA
+
+* Improved proxy creation performance.
+
 ## Version 1.2.0
 
 * Renamed proxy interface adaption method.
