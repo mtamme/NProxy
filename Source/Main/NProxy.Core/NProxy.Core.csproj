@@ -40,7 +40,7 @@
     <Compile Include="Interceptors\TargetInterceptor.cs" />
     <Compile Include="Interceptors\SingleInvocationTarget.cs" />
     <Compile Include="Internal\Common\EnumerableExtensions.cs" />
-    <Compile Include="Internal\Reflection\MemberId.cs" />
+    <Compile Include="Internal\Reflection\MemberToken.cs" />
     <Compile Include="Internal\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Internal\Reflection\MethodBuilderExtensions.cs" />
     <Compile Include="Internal\Reflection\MethodInfoExtensions.cs" />

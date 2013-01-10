@@ -23,7 +23,7 @@ namespace NProxy.Core.Internal.Reflection
     /// <summary>
     /// Represents a value which uniquely identifies a member.
     /// </summary>
-    internal struct MemberId : IEquatable<MemberId>
+    internal struct MemberToken : IEquatable<MemberToken>
     {
         /// <summary>
         /// The member module.
@@ -36,10 +36,10 @@ namespace NProxy.Core.Internal.Reflection
         private readonly int _metadataToken;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MemberId"/> struct.
+        /// Initializes a new instance of the <see cref="MemberToken"/> struct.
         /// </summary>
         /// <param name="memberInfo">The member information.</param>
-        public MemberId(MemberInfo memberInfo)
+        public MemberToken(MemberInfo memberInfo)
         {
             if (memberInfo == null)
                 throw new ArgumentNullException("memberInfo");
@@ -48,9 +48,9 @@ namespace NProxy.Core.Internal.Reflection
             _metadataToken = memberInfo.MetadataToken;
         }
 
-        #region IEquatable<MemberId> Members
+        #region IEquatable<MemberToken> Members
 
-        public bool Equals(MemberId other)
+        public bool Equals(MemberToken other)
         {
             if (!ReferenceEquals(other._module, _module))
                 return false;
@@ -71,7 +71,7 @@ namespace NProxy.Core.Internal.Reflection
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            return (obj is MemberId) && Equals((MemberId) obj);
+            return (obj is MemberToken) && Equals((MemberToken) obj);
         }
 
         /// <inheritdoc/>

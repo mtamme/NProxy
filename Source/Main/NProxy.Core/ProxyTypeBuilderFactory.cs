@@ -74,7 +74,7 @@ namespace NProxy.Core
         {
             var methodInfoTypeProvider = new MethodInfoTypeGenerator(this);
 
-            _methodInfoTypeProvider = new TypeCache<MethodInfo, MemberId>(m => m.GetId(), methodInfoTypeProvider);
+            _methodInfoTypeProvider = new TypeCache<MethodInfo, MemberToken>(m => m.GetToken(), methodInfoTypeProvider);
 
             var assemblyName = GetDynamicAssemblyName(DynamicAssemblyName);
 

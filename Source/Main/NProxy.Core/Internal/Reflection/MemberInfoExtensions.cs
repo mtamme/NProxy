@@ -101,9 +101,9 @@ namespace NProxy.Core.Internal.Reflection
         /// </summary>
         /// <param name="memberInfo">The member information.</param>
         /// <returns>The unique identifier.</returns>
-        public static MemberId GetId(this MemberInfo memberInfo)
+        public static MemberToken GetToken(this MemberInfo memberInfo)
         {
-            return new MemberId(memberInfo);
+            return new MemberToken(memberInfo);
         }
     }
 }
