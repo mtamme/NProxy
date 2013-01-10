@@ -4,6 +4,7 @@
 
 * Renamed proxy interface adaption method.
 * Fixed method identification inside interceptor implementation.
+* Improved cache lookup performance.
 
 ## Version 1.1.0
 
