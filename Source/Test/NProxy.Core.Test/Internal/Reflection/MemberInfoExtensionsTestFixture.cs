@@ -87,7 +87,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             // Assert
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var metadataTokensByModule = new Dictionary<Module, HashSet<int>>();
-            var ids = new HashSet<long>();
+            var memberIds = new HashSet<MemberId>();
 
             foreach (var assembly in assemblies)
             {
@@ -119,9 +119,9 @@ namespace NProxy.Core.Test.Internal.Reflection
                         if (!metadataTokens.Add(memberInfo.MetadataToken))
                             continue;
 
-                        var id = memberInfo.GetId();
+                        var memberId = memberInfo.GetId();
 
-                        Assert.That(ids.Add(id), Is.True, "Member ID is not unique");
+                        Assert.That(memberIds.Add(memberId), Is.True, "Member identifier is not unique");
                     }
                 }
             }

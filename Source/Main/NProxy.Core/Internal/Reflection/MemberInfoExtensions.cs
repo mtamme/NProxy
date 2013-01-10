@@ -101,17 +101,9 @@ namespace NProxy.Core.Internal.Reflection
         /// </summary>
         /// <param name="memberInfo">The member information.</param>
         /// <returns>The unique identifier.</returns>
-        public static long GetId(this MemberInfo memberInfo)
+        public static MemberId GetId(this MemberInfo memberInfo)
         {
-            // FIXME The default implementation of the GetHashCode method
-            // does not guarantee unique return values for different objects.
-            // Furthermore, the .NET Framework does not guarantee the default
-            // implementation of the GetHashCode method, and the value it returns
-            // will be the same between different versions of the .NET Framework.
-            long hashCode = memberInfo.Module.ModuleHandle.GetHashCode();
-            long metadataToken = memberInfo.MetadataToken;
-
-            return (hashCode << 32) | (metadataToken & 0xffffffffL);
+            return new MemberId(memberInfo);
         }
     }
 }

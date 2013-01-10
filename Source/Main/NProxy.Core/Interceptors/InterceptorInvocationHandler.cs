@@ -37,7 +37,7 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// The interceptors.
         /// </summary>
-        private readonly Dictionary<long, IInterceptor[]> _interceptors;
+        private readonly Dictionary<MemberId, IInterceptor[]> _interceptors;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InterceptorInvocationHandler"/> class.
@@ -50,7 +50,7 @@ namespace NProxy.Core.Interceptors
 
             _defaultInterceptors = defaultInterceptors;
 
-            _interceptors = new Dictionary<long, IInterceptor[]>();
+            _interceptors = new Dictionary<MemberId, IInterceptor[]>();
         }
 
         /// <summary>
