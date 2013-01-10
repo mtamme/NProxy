@@ -57,34 +57,46 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void GetDeclaringTypeTest()
         {
             // Arrange
-            var methodInfo = typeof (INonIntercepted).GetMethod("Method");
+            var methodInfo = typeof (Action).GetMethod("Invoke");
 
             // Act
             var declaringType = methodInfo.GetDeclaringType();
 
             // Assert
-            Assert.That(declaringType, Is.EqualTo(typeof (INonIntercepted)));
+            Assert.That(declaringType, Is.EqualTo(typeof (Action)));
         }
 
         [Test]
         public void GetFullNameTest()
         {
             // Arrange
-            var methodInfo = typeof (INonIntercepted).GetMethod("Method");
+            var methodInfo = typeof (Action).GetMethod("Invoke");
 
             // Act
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.INonIntercepted.Method"));
+            Assert.That(fullName, Is.EqualTo("System.Action.Invoke"));
         }
 
         [Test]
-        public void GetTokenTest()
+        public void GetTokenEqualityTest()
         {
             // Arrange
+            var firstMethodInfo = typeof (Action).GetMethod("Invoke");
+            var secondMethodInfo = typeof (Action).GetMethod("Invoke");
+
             // Act
+            var firstMemberToken = firstMethodInfo.GetToken();
+            var secondMemberToken = secondMethodInfo.GetToken();
+
             // Assert
+            Assert.That(firstMemberToken, Is.EqualTo(secondMemberToken));
+        }
+
+        [Test]
+        public void GetTokenUniquenessTest()
+        {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var metadataTokensByModule = new Dictionary<Module, HashSet<int>>();
             var memberTokens = new HashSet<MemberToken>();
@@ -108,6 +120,7 @@ namespace NProxy.Core.Test.Internal.Reflection
 
                     foreach (var memberInfo in memberInfos)
                     {
+                        // Arrange
                         HashSet<int> metadataTokens;
 
                         if (!metadataTokensByModule.TryGetValue(memberInfo.Module, out metadataTokens))
@@ -119,8 +132,10 @@ namespace NProxy.Core.Test.Internal.Reflection
                         if (!metadataTokens.Add(memberInfo.MetadataToken))
                             continue;
 
+                        // Act
                         var memberToken = memberInfo.GetToken();
 
+                        // Assert
                         Assert.That(memberTokens.Add(memberToken), Is.True, "Member identifier is not unique");
                     }
                 }
