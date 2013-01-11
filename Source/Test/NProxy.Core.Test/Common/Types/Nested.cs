@@ -2,10 +2,16 @@
 {
     internal sealed class Nested
     {
+        public interface IGeneric<out TInner>
+        {
+            TInner Method();
+        }
+
         public sealed class Generic<TInner>
         {
-            public void Method(TInner value)
+            public TInner Method()
             {
+                return default(TInner);
             }
         }
 

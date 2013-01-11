@@ -2,10 +2,16 @@
 {
     internal sealed class GenericNested<TOuter>
     {
+        public interface IGeneric<out TInner>
+        {
+            TInner Method();
+        }
+
         public sealed class Generic<TInner>
         {
-            public void Method(TInner value)
+            public TInner Method()
             {
+                return default(TInner);
             }
         }
 
@@ -16,8 +22,9 @@
             }
         }
 
-        public void Method(TOuter value)
+        public TOuter Method()
         {
+            return default(TOuter);
         }
     }
 }

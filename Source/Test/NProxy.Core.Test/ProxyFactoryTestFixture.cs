@@ -3190,11 +3190,24 @@ namespace NProxy.Core.Test
         {
             // Arrange
             // Act
-            var proxy =  _proxyFactory.CreateProxy<IBase>(new[] {typeof (IHideBase)}, new TargetInvocationHandler(_ => null));
+            var proxy = _proxyFactory.CreateProxy<IBase>(new[] {typeof (IHideBase)}, new TargetInvocationHandler(_ => null));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IBase>());
             Assert.That(proxy, Is.InstanceOf<IHideBase>());
+        }
+
+        [Test]
+        public void CreateProxyWithNestedGenericInterfaceTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.CreateProxy<IBase>(new[] {typeof (Nested.IGeneric<int>), typeof (Nested.IGeneric<string>)}, new TargetInvocationHandler(_ => null));
+
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<IBase>());
+            Assert.That(proxy, Is.InstanceOf<Nested.IGeneric<int>>());
+            Assert.That(proxy, Is.InstanceOf<Nested.IGeneric<string>>());
         }
 
         [Test]
@@ -3221,7 +3234,7 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<INonIntercepted>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Event += () => {};
+            proxy.Event += () => { };
 
             // Assert
             Assert.That(invocationHandler.InvocationCount, Is.EqualTo(1));
@@ -3266,7 +3279,7 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<NonInterceptedBase>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Event += () => {};
+            proxy.Event += () => { };
 
             // Assert
             Assert.That(invocationHandler.InvocationCount, Is.EqualTo(1));
@@ -3311,7 +3324,7 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<NonIntercepted>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Event += () => {};
+            proxy.Event += () => { };
 
             // Assert
             Assert.That(invocationHandler.InvocationCount, Is.EqualTo(0));

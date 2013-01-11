@@ -89,7 +89,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.GenericNested`1.Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.GenericNested`1[TOuter].Method"));
         }
 
         [Test]
@@ -102,7 +102,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Nested.Generic`1.Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Nested+Generic`1[TInner].Method"));
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Nested.NonGeneric.Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Nested+NonGeneric.Method"));
         }
 
         [Test]
@@ -128,7 +128,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.GenericNested`1.Generic`1.Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.GenericNested`1+Generic`1[TOuter,TInner].Method"));
         }
 
         [Test]
@@ -141,7 +141,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.GenericNested`1.NonGeneric.Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.GenericNested`1+NonGeneric[TOuter].Method"));
         }
 
         [Test]
