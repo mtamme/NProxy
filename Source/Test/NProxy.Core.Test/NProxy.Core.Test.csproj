@@ -45,6 +45,7 @@
     <Compile Include="Common\Types\EventBase.cs" />
     <Compile Include="Common\Types\Generic.cs" />
     <Compile Include="Common\Types\GenericBase.cs" />
+    <Compile Include="Common\Types\GenericNested.cs" />
     <Compile Include="Common\Types\IEvent.cs" />
     <Compile Include="Common\Types\IGeneric.cs" />
     <Compile Include="Common\Types\IOutParameter.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Common\Types\IRefParameter.cs" />
     <Compile Include="Common\Types\IReturnValue.cs" />
     <Compile Include="Common\Types\EnumType.cs" />
+    <Compile Include="Common\Types\Nested.cs" />
     <Compile Include="Common\Types\OutParameter.cs" />
     <Compile Include="Common\Types\OutParameterBase.cs" />
     <Compile Include="Common\Types\Parameter.cs" />
@@ -119,7 +121,5 @@
   </Target>
   -->
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Internal\Reflection\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

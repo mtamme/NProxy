@@ -67,16 +67,81 @@ namespace NProxy.Core.Test.Internal.Reflection
         }
 
         [Test]
-        public void GetFullNameTest()
+        public void GetFullNameFromClassMethodTest()
         {
             // Arrange
-            var methodInfo = typeof (Action).GetMethod("Invoke");
+            var methodInfo = typeof (Nested).GetMethod("Method");
 
             // Act
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("System.Action.Invoke"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Nested.Method"));
+        }
+
+        [Test]
+        public void GetFullNameFromGenericClassMethodTest()
+        {
+            // Arrange
+            var methodInfo = typeof (GenericNested<>).GetMethod("Method");
+
+            // Act
+            var fullName = methodInfo.GetFullName();
+
+            // Assert
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.GenericNested`1.Method"));
+        }
+
+        [Test]
+        public void GetFullNameFromNestedGenericClassMethodTest()
+        {
+            // Arrange
+            var methodInfo = typeof (Nested.Generic<>).GetMethod("Method");
+
+            // Act
+            var fullName = methodInfo.GetFullName();
+
+            // Assert
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Nested.Generic`1.Method"));
+        }
+
+        [Test]
+        public void GetFullNameFromNestedClassMethodTest()
+        {
+            // Arrange
+            var methodInfo = typeof (Nested.NonGeneric).GetMethod("Method");
+
+            // Act
+            var fullName = methodInfo.GetFullName();
+
+            // Assert
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Nested.NonGeneric.Method"));
+        }
+
+        [Test]
+        public void GetFullNameFromGenericNestedGenericClassMethodTest()
+        {
+            // Arrange
+            var methodInfo = typeof (GenericNested<>.Generic<>).GetMethod("Method");
+
+            // Act
+            var fullName = methodInfo.GetFullName();
+
+            // Assert
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.GenericNested`1.Generic`1.Method"));
+        }
+
+        [Test]
+        public void GetFullNameFromGenericNestedClassMethodTest()
+        {
+            // Arrange
+            var methodInfo = typeof (GenericNested<>.NonGeneric).GetMethod("Method");
+
+            // Act
+            var fullName = methodInfo.GetFullName();
+
+            // Assert
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.GenericNested`1.NonGeneric.Method"));
         }
 
         [Test]

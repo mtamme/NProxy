@@ -29,6 +29,18 @@ namespace NProxy.Core.Internal.Reflection
     internal static class MemberInfoExtensions
     {
         /// <summary>
+        /// Returns the custom attribute that is applied to the specified member.
+        /// </summary>
+        /// <typeparam name="TAttribute">The type of attribute to search for. Only attributes that are assignable to this type are returned.</typeparam>
+        /// <param name="memberInfo">The member information.</param>
+        /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find the attributes.</param>
+        /// <returns>The custom attribute.</returns>
+        public static TAttribute GetCustomAttribute<TAttribute>(this MemberInfo memberInfo, bool inherit)
+        {
+            return memberInfo.GetCustomAttributes<TAttribute>(inherit).FirstOrDefault();
+        }
+
+        /// <summary>
         /// Returns the custom attributes that are applied to the specified member.
         /// </summary>
         /// <typeparam name="TAttribute">The type of attribute to search for. Only attributes that are assignable to this type are returned.</typeparam>
@@ -87,9 +99,8 @@ namespace NProxy.Core.Internal.Reflection
         public static string GetFullName(this MemberInfo memberInfo)
         {
             var declaringType = memberInfo.GetDeclaringType();
-            var fullName = new StringBuilder();
+            var fullName = declaringType.GetFullName();
 
-            fullName.Append(declaringType.FullName);
             fullName.Append(Type.Delimiter);
             fullName.Append(memberInfo.Name);
 

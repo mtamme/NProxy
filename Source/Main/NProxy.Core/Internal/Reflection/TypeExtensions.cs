@@ -18,6 +18,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using NProxy.Core.Internal.Common;
 
 namespace NProxy.Core.Internal.Reflection
@@ -51,6 +52,30 @@ namespace NProxy.Core.Internal.Reflection
                 throw new ArgumentNullException("type");
 
             return (type == typeof (void));
+        }
+
+        /// <summary>
+        /// Returns the full name of the type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>The full name.</returns>
+        public static StringBuilder GetFullName(this Type type)
+        {
+            var declaringType = type.DeclaringType;
+            StringBuilder fullName;
+
+            if (declaringType != null)
+                fullName = declaringType.GetFullName();
+            else
+            {
+                fullName = new StringBuilder();
+                fullName.Append(type.Namespace);
+            }
+
+            fullName.Append(Type.Delimiter);
+            fullName.Append(type.Name);
+
+            return fullName;
         }
 
         /// <summary>

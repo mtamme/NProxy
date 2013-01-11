@@ -70,7 +70,7 @@ namespace NProxy.Core.Internal.Generators
 
             var typeBuilder = _typeBuilderFactory.CreateBuilder(typeDefinition.ParentType);
 
-            // Add proxy attribute.
+            // Add custom attribute.
             typeBuilder.AddCustomAttribute(typeof (ProxyAttribute), Type.EmptyTypes, EmptyObjects);
 
             // Add interfaces.
