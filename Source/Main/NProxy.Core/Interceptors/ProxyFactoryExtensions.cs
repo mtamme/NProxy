@@ -31,7 +31,7 @@ namespace NProxy.Core.Interceptors
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>A fluent interface for configuring a new proxy.</returns>
-        public static INewProxy<T> NewProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
+        public static INewProxy<T, IInterceptor, IInvocationTarget> NewProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
         {
             return new NewProxy<T>(proxyFactory, arguments);
         }

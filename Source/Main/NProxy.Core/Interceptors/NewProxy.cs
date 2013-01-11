@@ -27,7 +27,7 @@ namespace NProxy.Core.Interceptors
     /// Represents a fluent interface implementation for configuring a new proxy.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    internal sealed class NewProxy<T> : INewProxy<T> where T : class
+    internal sealed class NewProxy<T> : INewProxy<T, IInterceptor, IInvocationTarget> where T : class
     {
         /// <summary>
         /// The proxy factory.
@@ -136,10 +136,10 @@ namespace NProxy.Core.Interceptors
             return invocationHandler;
         }
 
-        #region IExtends<T> Members
+        #region IExtends<T, IInterceptor, IInvocationTarget> Members
 
         /// <inheritdoc/>
-        public IExtends<T> Extends<TMixin>() where TMixin : class, new()
+        public IExtends<T, IInterceptor, IInvocationTarget> Extends<TMixin>() where TMixin : class, new()
         {
             var mixin = new TMixin();
 
@@ -149,7 +149,7 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <inheritdoc/>
-        public IExtends<T> Extends(params object[] mixins)
+        public IExtends<T, IInterceptor, IInvocationTarget> Extends(params object[] mixins)
         {
             if (mixins == null)
                 throw new ArgumentNullException("mixins");
@@ -164,10 +164,10 @@ namespace NProxy.Core.Interceptors
 
         #endregion
 
-        #region IImplements<T> Members
+        #region IImplements<T, IInterceptor, IInvocationTarget> Members
 
         /// <inheritdoc/>
-        public IImplements<T> Implements<TInterface>() where TInterface : class
+        public IImplements<T, IInterceptor, IInvocationTarget> Implements<TInterface>() where TInterface : class
         {
             var interfaceType = typeof (TInterface);
 
@@ -177,7 +177,7 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <inheritdoc/>
-        public IImplements<T> Implements(params Type[] interfaceTypes)
+        public IImplements<T, IInterceptor, IInvocationTarget> Implements(params Type[] interfaceTypes)
         {
             if (interfaceTypes == null)
                 throw new ArgumentNullException("interfaceTypes");
@@ -192,10 +192,10 @@ namespace NProxy.Core.Interceptors
 
         #endregion
 
-        #region IInvokes<T> Members
+        #region IInvokes<T, IInterceptor, IInvocationTarget> Members
 
         /// <inheritdoc/>
-        public ITargets<T> Invokes(params IInterceptor[] interceptors)
+        public ITargets<T, IInvocationTarget> Invokes(params IInterceptor[] interceptors)
         {
             if (interceptors == null)
                 throw new ArgumentNullException("interceptors");
@@ -207,7 +207,7 @@ namespace NProxy.Core.Interceptors
 
         #endregion
 
-        #region ITargets<T> Members
+        #region ITargets<T, IInvocationTarget> Members
 
         /// <inheritdoc/>
         public T Targets<TTarget>() where TTarget : class, new()

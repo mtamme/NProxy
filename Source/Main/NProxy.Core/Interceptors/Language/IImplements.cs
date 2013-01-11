@@ -23,20 +23,22 @@ namespace NProxy.Core.Interceptors.Language
     /// Defines the <c>Implements</c> verb.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface IImplements<T> : IInvokes<T> where T : class
+    /// <typeparam name="TInterceptor">The interceptor type.</typeparam>
+    /// <typeparam name="TInvocationTarget">The invocation target type.</typeparam>
+    public interface IImplements<T, in TInterceptor, in TInvocationTarget> : IInvokes<T, TInterceptor, TInvocationTarget> where T : class
     {
         /// <summary>
         /// Specifies an interface to implement.
         /// </summary>
         /// <typeparam name="TInterface">The interface type.</typeparam>
         /// <returns>The <c>Implements</c> verb.</returns>
-        IImplements<T> Implements<TInterface>() where TInterface : class;
+        IImplements<T, TInterceptor, TInvocationTarget> Implements<TInterface>() where TInterface : class;
 
         /// <summary>
         /// Specifies interfaces to implement.
         /// </summary>
         /// <param name="interfaceTypes">The interface types.</param>
         /// <returns>The <c>Implements</c> verb.</returns>
-        IImplements<T> Implements(params Type[] interfaceTypes);
+        IImplements<T, TInterceptor, TInvocationTarget> Implements(params Type[] interfaceTypes);
     }
 }

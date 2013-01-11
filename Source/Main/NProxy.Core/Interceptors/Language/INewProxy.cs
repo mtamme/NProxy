@@ -21,7 +21,9 @@ namespace NProxy.Core.Interceptors.Language
     /// Defines a fluent interface for configuring a new proxy.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface INewProxy<T> : IExtends<T> where T : class
+    /// <typeparam name="TInterceptor">The interceptor type.</typeparam>
+    /// <typeparam name="TInvocationTarget">The invocation target type.</typeparam>
+    public interface INewProxy<T, in TInterceptor, in TInvocationTarget> : IExtends<T, TInterceptor, TInvocationTarget> where T : class
     {
     }
 }
