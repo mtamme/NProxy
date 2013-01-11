@@ -3,6 +3,7 @@
 ## Version TBA
 
 * Improved proxy creation performance.
+* Fixed member naming for explicit interface implementation.
 
 ## Version 1.2.0
 
