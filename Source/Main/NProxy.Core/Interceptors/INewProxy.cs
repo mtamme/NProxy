@@ -15,15 +15,15 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-namespace NProxy.Core.Interceptors.Language
+using NProxy.Core.Interceptors.Language;
+
+namespace NProxy.Core.Interceptors
 {
     /// <summary>
     /// Defines a fluent interface for configuring a new proxy.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    /// <typeparam name="TInterceptor">The interceptor type.</typeparam>
-    /// <typeparam name="TInvocationTarget">The invocation target type.</typeparam>
-    public interface INewProxy<T, in TInterceptor, in TInvocationTarget> : IExtends<T, TInterceptor, TInvocationTarget> where T : class
+    public interface INewProxy<T> : IExtends<T, IInterceptor, IInvocationTarget> where T : class
     {
     }
 }

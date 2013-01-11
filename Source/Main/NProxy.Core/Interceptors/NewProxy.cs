@@ -27,7 +27,7 @@ namespace NProxy.Core.Interceptors
     /// Represents a fluent interface implementation for configuring a new proxy.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    internal sealed class NewProxy<T> : INewProxy<T, IInterceptor, IInvocationTarget> where T : class
+    internal sealed class NewProxy<T> : INewProxy<T> where T : class
     {
         /// <summary>
         /// The proxy factory.

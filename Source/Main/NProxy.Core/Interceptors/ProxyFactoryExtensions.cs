@@ -15,8 +15,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
-using NProxy.Core.Interceptors.Language;
-
 namespace NProxy.Core.Interceptors
 {
     /// <summary>
@@ -31,7 +29,7 @@ namespace NProxy.Core.Interceptors
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>A fluent interface for configuring a new proxy.</returns>
-        public static INewProxy<T, IInterceptor, IInvocationTarget> NewProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
+        public static INewProxy<T> NewProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
         {
             return new NewProxy<T>(proxyFactory, arguments);
         }

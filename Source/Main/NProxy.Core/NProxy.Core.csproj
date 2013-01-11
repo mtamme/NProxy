@@ -90,7 +90,7 @@
     <Compile Include="Interceptors\Language\IImplements.cs" />
     <Compile Include="Interceptors\Language\IInvokes.cs" />
     <Compile Include="Interceptors\Language\ITargets.cs" />
-    <Compile Include="Interceptors\Language\INewProxy.cs" />
+    <Compile Include="Interceptors\INewProxy.cs" />
     <Compile Include="Interceptors\NewProxy.cs" />
     <Compile Include="DefaultInterceptionFilter.cs" />
     <Compile Include="NonInterceptedAttribute.cs" />
