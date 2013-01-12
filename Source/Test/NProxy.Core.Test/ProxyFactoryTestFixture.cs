@@ -3202,12 +3202,12 @@ namespace NProxy.Core.Test
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IBase>(new[] {typeof (Nested.IGeneric<int>), typeof (Nested.IGeneric<string>)}, new TargetInvocationHandler(_ => null));
+            var proxy = _proxyFactory.CreateProxy<IBase>(new[] {typeof (Class.INested<int>), typeof (Class.INested<string>)}, new TargetInvocationHandler(_ => null));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IBase>());
-            Assert.That(proxy, Is.InstanceOf<Nested.IGeneric<int>>());
-            Assert.That(proxy, Is.InstanceOf<Nested.IGeneric<string>>());
+            Assert.That(proxy, Is.InstanceOf<Class.INested<int>>());
+            Assert.That(proxy, Is.InstanceOf<Class.INested<string>>());
         }
 
         [Test]
