@@ -28,6 +28,19 @@ namespace NProxy.Core.Test.Internal.Reflection
     public sealed class MemberInfoExtensionsTestFixture
     {
         [Test]
+        public void GetCustomAttributeTest()
+        {
+            // Arrange
+            var methodInfo = typeof (INonIntercepted).GetMethod("Method");
+
+            // Act
+            var attribute = methodInfo.GetCustomAttribute<NonInterceptedAttribute>(false);
+
+            // Assert
+            Assert.That(attribute, Is.InstanceOf<NonInterceptedAttribute>());
+        }
+
+        [Test]
         public void GetCustomAttributesTest()
         {
             // Arrange
@@ -54,16 +67,25 @@ namespace NProxy.Core.Test.Internal.Reflection
         }
 
         [Test]
-        public void GetDeclaringTypeTest()
+        public void GetDeclaringTypeFromClassMethodTest()
         {
             // Arrange
-            var methodInfo = typeof (Action).GetMethod("Invoke");
+            var methodInfo = typeof (Class).GetMethod("Method");
 
             // Act
             var declaringType = methodInfo.GetDeclaringType();
 
             // Assert
-            Assert.That(declaringType, Is.EqualTo(typeof (Action)));
+            Assert.That(declaringType, Is.EqualTo(typeof (Class)));
+        }
+
+        [Test]
+        public void GetDeclaringTypeFromClassTest()
+        {
+            // Arrange
+            // Act
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => typeof (Class).GetDeclaringType());
         }
 
         [Test]
