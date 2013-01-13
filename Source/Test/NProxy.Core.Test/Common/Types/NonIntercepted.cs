@@ -23,8 +23,12 @@ namespace NProxy.Core.Test.Common.Types
     {
         #region INonIntercepted Members
 
+#pragma warning disable 0067
+
         [NonIntercepted]
         public virtual event Action Event;
+
+#pragma warning restore 0067
 
         [NonIntercepted]
         public virtual int Property { get; set; }

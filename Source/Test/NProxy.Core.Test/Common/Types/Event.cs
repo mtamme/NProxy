@@ -23,7 +23,11 @@ namespace NProxy.Core.Test.Common.Types
     {
         #region IActionEvent Members
 
+#pragma warning disable 0067
+
         public virtual event Action Event;
+
+#pragma warning restore 0067
 
         #endregion
     }
