@@ -45,6 +45,9 @@ namespace NProxy.Core.Internal.Reflection
         /// <returns>The full name.</returns>
         public static string GetFullName(this MethodBase methodBase)
         {
+            if (methodBase == null)
+                throw new ArgumentNullException("methodBase");
+
             var declaringType = methodBase.DeclaringType;
             var name = declaringType.GetFullName();
             

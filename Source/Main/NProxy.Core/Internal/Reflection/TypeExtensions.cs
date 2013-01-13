@@ -88,6 +88,9 @@ namespace NProxy.Core.Internal.Reflection
         /// <returns>The full name.</returns>
         public static StringBuilder GetFullName(this Type type)
         {
+            if (type == null)
+                throw new ArgumentNullException("type");
+
             var name = new StringBuilder();
             
             AppendFullName(type, name);
@@ -111,22 +114,22 @@ namespace NProxy.Core.Internal.Reflection
 
             var genericArguments = type.GetGenericArguments();
             bool isFirstGenericArgument = true;
-            
+
             name.Append('[');
-            
+
             foreach (var genericArgument in genericArguments)
             {
                 if (isFirstGenericArgument)
                     isFirstGenericArgument = false;
                 else
                     name.Append(',');
-                
+
                 if (genericArgument.IsGenericParameter)
                     name.Append(genericArgument.Name);
                 else
                     AppendFullName(genericArgument, name);
             }
-            
+
             name.Append(']');
         }
 
@@ -138,7 +141,7 @@ namespace NProxy.Core.Internal.Reflection
         private static void AppendName(Type type, StringBuilder name)
         {
             var declaringType = type.DeclaringType;
-            
+
             if (declaringType != null)
             {
                 AppendName(declaringType, name);
@@ -149,7 +152,7 @@ namespace NProxy.Core.Internal.Reflection
                 name.Append(type.Namespace);
                 name.Append(Type.Delimiter);
             }
-            
+
             name.Append(type.Name);
         }
 

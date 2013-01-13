@@ -88,6 +88,9 @@ namespace NProxy.Core.Internal.Reflection
         /// <returns>The full name.</returns>
         public static string GetFullName(this EventInfo eventInfo)
         {
+            if (eventInfo == null)
+                throw new ArgumentNullException("eventInfo");
+
             var declaringType = eventInfo.DeclaringType;
             var name = declaringType.GetFullName();
             

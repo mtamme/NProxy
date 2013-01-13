@@ -89,6 +89,9 @@ namespace NProxy.Core.Internal.Reflection
         /// <returns>The full name.</returns>
         public static string GetFullName(this PropertyInfo propertyInfo)
         {
+            if (propertyInfo == null)
+                throw new ArgumentNullException("propertyInfo");
+
             var declaringType = propertyInfo.DeclaringType;
             var name = declaringType.GetFullName();
             
