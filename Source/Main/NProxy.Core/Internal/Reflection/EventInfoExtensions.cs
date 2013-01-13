@@ -58,7 +58,7 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Returns the accessor methods.
+        /// Returns the accessor methods for the specified event.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
         /// <returns>The accessor method informations.</returns>
@@ -79,6 +79,22 @@ namespace NProxy.Core.Internal.Reflection
                 methodInfos.Add(raiseMethodInfo);
 
             return methodInfos;
+        }
+
+        /// <summary>
+        /// Returns the full name of the specified event.
+        /// </summary>
+        /// <param name="eventInfo">The event information.</param>
+        /// <returns>The full name.</returns>
+        public static string GetFullName(this EventInfo eventInfo)
+        {
+            var declaringType = eventInfo.DeclaringType;
+            var name = declaringType.GetFullName();
+            
+            name.Append(Type.Delimiter);
+            name.Append(eventInfo.Name);
+            
+            return name.ToString();
         }
     }
 }

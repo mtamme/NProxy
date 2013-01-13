@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace NProxy.Core.Internal.Reflection
 {
@@ -89,23 +88,6 @@ namespace NProxy.Core.Internal.Reflection
                 throw new InvalidOperationException("Member has no declaring type");
 
             return declaringType;
-        }
-
-        /// <summary>
-        /// Returns the full name of the member.
-        /// </summary>
-        /// <param name="memberInfo">The member information.</param>
-        /// <returns>The full name.</returns>
-        public static string GetFullName(this MemberInfo memberInfo)
-        {
-            var declaringType = memberInfo.GetDeclaringType();
-            var fullName = new StringBuilder();
-
-            fullName.Append(declaringType);
-            fullName.Append(Type.Delimiter);
-            fullName.Append(memberInfo.Name);
-
-            return fullName.ToString();
         }
 
         /// <summary>

@@ -39,6 +39,22 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
+        /// Returns the full name of the specified method.
+        /// </summary>
+        /// <param name="methodBase">The method base.</param>
+        /// <returns>The full name.</returns>
+        public static string GetFullName(this MethodBase methodBase)
+        {
+            var declaringType = methodBase.DeclaringType;
+            var name = declaringType.GetFullName();
+            
+            name.Append(Type.Delimiter);
+            name.Append(methodBase.Name);
+            
+            return name.ToString();
+        }
+
+        /// <summary>
         /// Returns the parameter types of the specified method.
         /// </summary>
         /// <param name="methodBase">The method base.</param>
