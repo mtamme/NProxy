@@ -68,10 +68,10 @@ namespace NProxy.Core.Internal.Reflection
                 throw new ArgumentNullException("eventInfo");
 
             var methodInfos = new List<MethodInfo>
-                                  {
-                                      eventInfo.GetAddMethod(),
-                                      eventInfo.GetRemoveMethod()
-                                  };
+                {
+                    eventInfo.GetAddMethod(),
+                    eventInfo.GetRemoveMethod()
+                };
 
             var raiseMethodInfo = eventInfo.GetRaiseMethod();
 
@@ -93,10 +93,10 @@ namespace NProxy.Core.Internal.Reflection
 
             var declaringType = eventInfo.DeclaringType;
             var name = declaringType.GetFullName();
-            
+
             name.Append(Type.Delimiter);
             name.Append(eventInfo.Name);
-            
+
             return name.ToString();
         }
     }

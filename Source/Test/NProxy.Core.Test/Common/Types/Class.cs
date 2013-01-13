@@ -37,7 +37,7 @@ namespace NProxy.Core.Test.Common.Types
             public event Action Event;
 
 #pragma warning restore 0067
-            
+
             public TInner Property { get; set; }
 
             public TInner Method()
@@ -79,7 +79,7 @@ namespace NProxy.Core.Test.Common.Types
         public interface INested<TInner>
         {
             event Action Event;
-            
+
             TInner Property { get; set; }
 
             TInner Method();

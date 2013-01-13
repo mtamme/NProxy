@@ -94,10 +94,10 @@ namespace NProxy.Core.Internal.Reflection
 
             var declaringType = propertyInfo.DeclaringType;
             var name = declaringType.GetFullName();
-            
+
             name.Append(Type.Delimiter);
             name.Append(propertyInfo.Name);
-            
+
             return name.ToString();
         }
 

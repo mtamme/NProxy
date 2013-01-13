@@ -50,10 +50,10 @@ namespace NProxy.Core.Internal.Reflection
 
             var declaringType = methodBase.DeclaringType;
             var name = declaringType.GetFullName();
-            
+
             name.Append(Type.Delimiter);
             name.Append(methodBase.Name);
-            
+
             return name.ToString();
         }
 

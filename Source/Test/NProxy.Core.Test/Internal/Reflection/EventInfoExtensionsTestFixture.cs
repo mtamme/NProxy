@@ -69,127 +69,127 @@ namespace NProxy.Core.Test.Internal.Reflection
         {
             // Arrange
             var eventInfo = typeof (Class).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class.Event"));
         }
-        
+
         [Test]
         public void GetFullNameForOpenGenericClassEventTest()
         {
             // Arrange
             var eventInfo = typeof (Class<>).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[TOuter].Event"));
         }
-        
+
         [Test]
         public void GetFullNameForClosedGenericClassEventTest()
         {
             // Arrange
             var eventInfo = typeof (Class<int>).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[System.Int32].Event"));
         }
-        
+
         [Test]
         public void GetFullNameForNestedOpenGenericClassEventTest()
         {
             // Arrange
             var eventInfo = typeof (Class.Nested<>).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested`1[TInner].Event"));
         }
-        
+
         [Test]
         public void GetFullNameForNestedClosedGenericClassEventTest()
         {
             // Arrange
             var eventInfo = typeof (Class.Nested<int>).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested`1[System.Int32].Event"));
         }
-        
+
         [Test]
         public void GetFullNameForNestedClassEventTest()
         {
             // Arrange
             var eventInfo = typeof (Class.Nested).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested.Event"));
         }
-        
+
         [Test]
         public void GetFullNameForOpenGenericNestedOpenGenericClassEventTest()
         {
             // Arrange
             var eventInfo = typeof (Class<>.Nested<>).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested`1[TOuter,TInner].Event"));
         }
-        
+
         [Test]
         public void GetFullNameForClosedGenericNestedClosedGenericClassEventTest()
         {
             // Arrange
             var eventInfo = typeof (Class<int>.Nested<int>).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested`1[System.Int32,System.Int32].Event"));
         }
-        
+
         [Test]
         public void GetFullNameForOpenGenericNestedClassEventTest()
         {
             // Arrange
             var eventInfo = typeof (Class<>.Nested).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested[TOuter].Event"));
         }
-        
+
         [Test]
         public void GetFullNameForClosedGenericNestedClassEventTest()
         {
             // Arrange
             var eventInfo = typeof (Class<int>.Nested).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested[System.Int32].Event"));
         }

@@ -30,22 +30,22 @@ namespace NProxy.Core.Test.Internal.Reflection
             // Arrange
             // Act
             var fullName = typeof (Class).GetFullName();
-            
+
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class"));
         }
-        
+
         [Test]
         public void GetFullNameForOpenGenericClassTest()
         {
             // Arrange
             // Act
             var fullName = typeof (Class<>).GetFullName();
-            
+
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[TOuter]"));
         }
-        
+
         [Test]
         public void GetFullNameForClosedGenericClassTest()
         {
@@ -56,91 +56,91 @@ namespace NProxy.Core.Test.Internal.Reflection
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[System.Int32]"));
         }
-        
+
         [Test]
         public void GetFullNameForClosedGenericClassClosedGenericClassTest()
         {
             // Arrange
             // Act
             var fullName = typeof (Class<Class<int>>).GetFullName();
-            
+
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[NProxy.Core.Test.Common.Types.Class`1[System.Int32]]"));
         }
-        
+
         [Test]
         public void GetFullNameForNestedOpenGenericClassTest()
         {
             // Arrange
             // Act
             var fullName = typeof (Class.Nested<>).GetFullName();
-            
+
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested`1[TInner]"));
         }
-        
+
         [Test]
         public void GetFullNameForNestedClosedGenericClassTest()
         {
             // Arrange
             // Act
             var fullName = typeof (Class.Nested<int>).GetFullName();
-            
+
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested`1[System.Int32]"));
         }
-        
+
         [Test]
         public void GetFullNameForNestedClassTest()
         {
             // Arrange
             // Act
             var fullName = typeof (Class.Nested).GetFullName();
-            
+
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested"));
         }
-        
+
         [Test]
         public void GetFullNameForOpenGenericNestedOpenGenericClassTest()
         {
             // Arrange
             // Act
             var fullName = typeof (Class<>.Nested<>).GetFullName();
-            
+
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested`1[TOuter,TInner]"));
         }
-        
+
         [Test]
         public void GetFullNameForClosedGenericNestedClosedGenericClassTest()
         {
             // Arrange
             // Act
             var fullName = typeof (Class<int>.Nested<int>).GetFullName();
-            
+
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested`1[System.Int32,System.Int32]"));
         }
-        
+
         [Test]
         public void GetFullNameForOpenGenericNestedClassTest()
         {
             // Arrange
             // Act
             var fullName = typeof (Class<>.Nested).GetFullName();
-            
+
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested[TOuter]"));
         }
-        
+
         [Test]
         public void GetFullNameForClosedGenericNestedClassTest()
         {
             // Arrange
             // Act
             var fullName = typeof (Class<int>.Nested).GetFullName();
-            
+
             // Assert
             Assert.That(fullName.ToString(), Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested[System.Int32]"));
         }

@@ -92,9 +92,9 @@ namespace NProxy.Core.Internal.Reflection
                 throw new ArgumentNullException("type");
 
             var name = new StringBuilder();
-            
+
             AppendFullName(type, name);
-            
+
             return name;
         }
 
