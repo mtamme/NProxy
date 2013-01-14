@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace NProxy.Core.Internal.Reflection
 {
@@ -92,13 +93,13 @@ namespace NProxy.Core.Internal.Reflection
             if (eventInfo == null)
                 throw new ArgumentNullException("eventInfo");
 
-            var declaringType = eventInfo.DeclaringType;
-            var name = declaringType.GetFullName();
+            var fullName = new StringBuilder();
 
-            name.Append(Type.Delimiter);
-            name.Append(eventInfo.Name);
+            fullName.Append(eventInfo.DeclaringType);
+            fullName.Append(Type.Delimiter);
+            fullName.Append(eventInfo.Name);
 
-            return name.ToString();
+            return fullName.ToString();
         }
     }
 }

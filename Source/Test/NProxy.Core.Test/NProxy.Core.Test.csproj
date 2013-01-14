@@ -104,7 +104,6 @@
     <Compile Include="Internal\Reflection\EventInfoExtensionsTestFixture.cs" />
     <Compile Include="Internal\Reflection\PropertyInfoExtensionsTestFixture.cs" />
     <Compile Include="Common\Types\Class.cs" />
-    <Compile Include="Internal\Reflection\TypeExtensionsTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

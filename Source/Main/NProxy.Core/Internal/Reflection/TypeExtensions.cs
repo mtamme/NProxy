@@ -19,7 +19,6 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using NProxy.Core.Internal.Common;
 
 namespace NProxy.Core.Internal.Reflection
@@ -80,81 +79,6 @@ namespace NProxy.Core.Internal.Reflection
                 throw new MissingMethodException(String.Format("Method '{0}' on type '{1}' not found", methodName, type));
 
             return methodInfo;
-        }
-
-        /// <summary>
-        /// Returns the full name of the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>The full name.</returns>
-        public static StringBuilder GetFullName(this Type type)
-        {
-            if (type == null)
-                throw new ArgumentNullException("type");
-
-            var name = new StringBuilder();
-
-            AppendFullName(type, name);
-
-            return name;
-        }
-
-        /// <summary>
-        /// Appends the full name of the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="name">The name buffer.</param>
-        private static void AppendFullName(Type type, StringBuilder name)
-        {
-            // Append type name.
-            AppendName(type, name);
-
-            // Append generic arguments.
-            if (!type.IsGenericType)
-                return;
-
-            var genericArguments = type.GetGenericArguments();
-            bool isFirstGenericArgument = true;
-
-            name.Append('[');
-
-            foreach (var genericArgument in genericArguments)
-            {
-                if (isFirstGenericArgument)
-                    isFirstGenericArgument = false;
-                else
-                    name.Append(',');
-
-                if (genericArgument.IsGenericParameter)
-                    name.Append(genericArgument.Name);
-                else
-                    AppendFullName(genericArgument, name);
-            }
-
-            name.Append(']');
-        }
-
-        /// <summary>
-        /// Appends the name of the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="name">The name buffer.</param>
-        private static void AppendName(Type type, StringBuilder name)
-        {
-            var declaringType = type.DeclaringType;
-
-            if (declaringType != null)
-            {
-                AppendName(declaringType, name);
-                name.Append('+');
-            }
-            else
-            {
-                name.Append(type.Namespace);
-                name.Append(Type.Delimiter);
-            }
-
-            name.Append(type.Name);
         }
 
         /// <summary>
