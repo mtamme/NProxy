@@ -5,7 +5,7 @@
     <version>$version$</version>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/mtamme/NProxy/</licenseUrl>
+    <licenseUrl>http://www.gnu.org/licenses/lgpl-3.0.html</licenseUrl>
     <projectUrl>https://github.com/mtamme/NProxy/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
