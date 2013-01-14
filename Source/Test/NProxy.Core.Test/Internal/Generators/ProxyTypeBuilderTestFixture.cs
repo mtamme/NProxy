@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,7 +82,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (StringConstructorBase), typeof (StringConstructorBase), typeof (StringConstructor))]
         [TestCase(typeof (StructArrayConstructorBase), typeof (StructArrayConstructorBase), typeof (StructArrayConstructor))]
         [TestCase(typeof (StructConstructorBase), typeof (StructConstructorBase), typeof (StructConstructor))]
-
         [TestCase(typeof (EnumArrayRefConstructorBase), typeof (EnumArrayRefConstructorBase), typeof (EnumArrayRefConstructor))]
         [TestCase(typeof (EnumRefConstructorBase), typeof (EnumRefConstructorBase), typeof (EnumRefConstructor))]
         [TestCase(typeof (GenericArrayRefConstructorBase<object>), typeof (GenericArrayRefConstructorBase<object>), typeof (GenericArrayRefConstructor<object>))]
@@ -95,7 +95,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (StringRefConstructorBase), typeof (StringRefConstructorBase), typeof (StringRefConstructor))]
         [TestCase(typeof (StructArrayRefConstructorBase), typeof (StructArrayRefConstructorBase), typeof (StructArrayRefConstructor))]
         [TestCase(typeof (StructRefConstructorBase), typeof (StructRefConstructorBase), typeof (StructRefConstructor))]
-
         [TestCase(typeof (EnumArrayOutConstructorBase), typeof (EnumArrayOutConstructorBase), typeof (EnumArrayOutConstructor))]
         [TestCase(typeof (EnumOutConstructorBase), typeof (EnumOutConstructorBase), typeof (EnumOutConstructor))]
         [TestCase(typeof (GenericArrayOutConstructorBase<object>), typeof (GenericArrayOutConstructorBase<object>), typeof (GenericArrayOutConstructor<object>))]
@@ -127,7 +126,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (StringConstructor), typeof (StringConstructor), typeof (StringConstructor))]
         [TestCase(typeof (StructArrayConstructor), typeof (StructArrayConstructor), typeof (StructArrayConstructor))]
         [TestCase(typeof (StructConstructor), typeof (StructConstructor), typeof (StructConstructor))]
-
         [TestCase(typeof (EnumArrayRefConstructor), typeof (EnumArrayRefConstructor), typeof (EnumArrayRefConstructor))]
         [TestCase(typeof (EnumRefConstructor), typeof (EnumRefConstructor), typeof (EnumRefConstructor))]
         [TestCase(typeof (GenericArrayRefConstructor<object>), typeof (GenericArrayRefConstructor<object>), typeof (GenericArrayRefConstructor<object>))]
@@ -141,7 +139,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (StringRefConstructor), typeof (StringRefConstructor), typeof (StringRefConstructor))]
         [TestCase(typeof (StructArrayRefConstructor), typeof (StructArrayRefConstructor), typeof (StructArrayRefConstructor))]
         [TestCase(typeof (StructRefConstructor), typeof (StructRefConstructor), typeof (StructRefConstructor))]
-
         [TestCase(typeof (EnumArrayOutConstructor), typeof (EnumArrayOutConstructor), typeof (EnumArrayOutConstructor))]
         [TestCase(typeof (EnumOutConstructor), typeof (EnumOutConstructor), typeof (EnumOutConstructor))]
         [TestCase(typeof (GenericArrayOutConstructor<object>), typeof (GenericArrayOutConstructor<object>), typeof (GenericArrayOutConstructor<object>))]
@@ -331,7 +328,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (object), typeof (IStringParameter), typeof (StringParameter))]
         [TestCase(typeof (object), typeof (IStructArrayParameter), typeof (StructArrayParameter))]
         [TestCase(typeof (object), typeof (IStructParameter), typeof (StructParameter))]
-
         [TestCase(typeof (object), typeof (IEnumArrayRefParameter), typeof (EnumArrayRefParameter))]
         [TestCase(typeof (object), typeof (IEnumRefParameter), typeof (EnumRefParameter))]
         [TestCase(typeof (object), typeof (IGenericArrayRefParameter), typeof (GenericArrayRefParameter))]
@@ -345,7 +341,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (object), typeof (IStringRefParameter), typeof (StringRefParameter))]
         [TestCase(typeof (object), typeof (IStructArrayRefParameter), typeof (StructArrayRefParameter))]
         [TestCase(typeof (object), typeof (IStructRefParameter), typeof (StructRefParameter))]
-
         [TestCase(typeof (object), typeof (IEnumArrayOutParameter), typeof (EnumArrayOutParameter))]
         [TestCase(typeof (object), typeof (IEnumOutParameter), typeof (EnumOutParameter))]
         [TestCase(typeof (object), typeof (IGenericArrayOutParameter), typeof (GenericArrayOutParameter))]
@@ -359,7 +354,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (object), typeof (IStringOutParameter), typeof (StringOutParameter))]
         [TestCase(typeof (object), typeof (IStructArrayOutParameter), typeof (StructArrayOutParameter))]
         [TestCase(typeof (object), typeof (IStructOutParameter), typeof (StructOutParameter))]
-
         [TestCase(typeof (object), typeof (IEnumArrayReturnValue), typeof (EnumArrayReturnValue))]
         [TestCase(typeof (object), typeof (IEnumReturnValue), typeof (EnumReturnValue))]
         [TestCase(typeof (object), typeof (IGenericArrayReturnValue), typeof (GenericArrayReturnValue))]
@@ -392,7 +386,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (StringParameterBase), typeof (StringParameterBase), typeof (StringParameter))]
         [TestCase(typeof (StructArrayParameterBase), typeof (StructArrayParameterBase), typeof (StructArrayParameter))]
         [TestCase(typeof (StructParameterBase), typeof (StructParameterBase), typeof (StructParameter))]
-
         [TestCase(typeof (EnumArrayRefParameterBase), typeof (EnumArrayRefParameterBase), typeof (EnumArrayRefParameter))]
         [TestCase(typeof (EnumRefParameterBase), typeof (EnumRefParameterBase), typeof (EnumRefParameter))]
         [TestCase(typeof (GenericArrayRefParameterBase), typeof (GenericArrayRefParameterBase), typeof (GenericArrayRefParameter))]
@@ -406,7 +399,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (StringRefParameterBase), typeof (StringRefParameterBase), typeof (StringRefParameter))]
         [TestCase(typeof (StructArrayRefParameterBase), typeof (StructArrayRefParameterBase), typeof (StructArrayRefParameter))]
         [TestCase(typeof (StructRefParameterBase), typeof (StructRefParameterBase), typeof (StructRefParameter))]
-
         [TestCase(typeof (EnumArrayOutParameterBase), typeof (EnumArrayOutParameterBase), typeof (EnumArrayOutParameter))]
         [TestCase(typeof (EnumOutParameterBase), typeof (EnumOutParameterBase), typeof (EnumOutParameter))]
         [TestCase(typeof (GenericArrayOutParameterBase), typeof (GenericArrayOutParameterBase), typeof (GenericArrayOutParameter))]
@@ -420,7 +412,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (StringOutParameterBase), typeof (StringOutParameterBase), typeof (StringOutParameter))]
         [TestCase(typeof (StructArrayOutParameterBase), typeof (StructArrayOutParameterBase), typeof (StructArrayOutParameter))]
         [TestCase(typeof (StructOutParameterBase), typeof (StructOutParameterBase), typeof (StructOutParameter))]
-
         [TestCase(typeof (EnumArrayReturnValueBase), typeof (EnumArrayReturnValueBase), typeof (EnumArrayReturnValue))]
         [TestCase(typeof (EnumReturnValueBase), typeof (EnumReturnValueBase), typeof (EnumReturnValue))]
         [TestCase(typeof (GenericArrayReturnValueBase), typeof (GenericArrayReturnValueBase), typeof (GenericArrayReturnValue))]
@@ -453,7 +444,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (StringParameter), typeof (StringParameter), typeof (StringParameter))]
         [TestCase(typeof (StructArrayParameter), typeof (StructArrayParameter), typeof (StructArrayParameter))]
         [TestCase(typeof (StructParameter), typeof (StructParameter), typeof (StructParameter))]
-
         [TestCase(typeof (EnumArrayRefParameter), typeof (EnumArrayRefParameter), typeof (EnumArrayRefParameter))]
         [TestCase(typeof (EnumRefParameter), typeof (EnumRefParameter), typeof (EnumRefParameter))]
         [TestCase(typeof (GenericArrayRefParameter), typeof (GenericArrayRefParameter), typeof (GenericArrayRefParameter))]
@@ -467,7 +457,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (StringRefParameter), typeof (StringRefParameter), typeof (StringRefParameter))]
         [TestCase(typeof (StructArrayRefParameter), typeof (StructArrayRefParameter), typeof (StructArrayRefParameter))]
         [TestCase(typeof (StructRefParameter), typeof (StructRefParameter), typeof (StructRefParameter))]
-
         [TestCase(typeof (EnumArrayOutParameter), typeof (EnumArrayOutParameter), typeof (EnumArrayOutParameter))]
         [TestCase(typeof (EnumOutParameter), typeof (EnumOutParameter), typeof (EnumOutParameter))]
         [TestCase(typeof (GenericArrayOutParameter), typeof (GenericArrayOutParameter), typeof (GenericArrayOutParameter))]
@@ -481,7 +470,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (StringOutParameter), typeof (StringOutParameter), typeof (StringOutParameter))]
         [TestCase(typeof (StructArrayOutParameter), typeof (StructArrayOutParameter), typeof (StructArrayOutParameter))]
         [TestCase(typeof (StructOutParameter), typeof (StructOutParameter), typeof (StructOutParameter))]
-
         [TestCase(typeof (EnumArrayReturnValue), typeof (EnumArrayReturnValue), typeof (EnumArrayReturnValue))]
         [TestCase(typeof (EnumReturnValue), typeof (EnumReturnValue), typeof (EnumReturnValue))]
         [TestCase(typeof (GenericArrayReturnValue), typeof (GenericArrayReturnValue), typeof (GenericArrayReturnValue))]
@@ -581,7 +569,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (object), typeof (IStringParameter), "Method")]
         [TestCase(typeof (object), typeof (IStructArrayParameter), "Method")]
         [TestCase(typeof (object), typeof (IStructParameter), "Method")]
-
         [TestCase(typeof (object), typeof (IEnumArrayRefParameter), "Method")]
         [TestCase(typeof (object), typeof (IEnumRefParameter), "Method")]
         [TestCase(typeof (object), typeof (IGenericArrayRefParameter), "Method")]
@@ -595,7 +582,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (object), typeof (IStringRefParameter), "Method")]
         [TestCase(typeof (object), typeof (IStructArrayRefParameter), "Method")]
         [TestCase(typeof (object), typeof (IStructRefParameter), "Method")]
-
         [TestCase(typeof (object), typeof (IEnumArrayOutParameter), "Method")]
         [TestCase(typeof (object), typeof (IEnumOutParameter), "Method")]
         [TestCase(typeof (object), typeof (IGenericArrayOutParameter), "Method")]
@@ -609,7 +595,6 @@ namespace NProxy.Core.Test.Internal.Generators
         [TestCase(typeof (object), typeof (IStringOutParameter), "Method")]
         [TestCase(typeof (object), typeof (IStructArrayOutParameter), "Method")]
         [TestCase(typeof (object), typeof (IStructOutParameter), "Method")]
-
         [TestCase(typeof (object), typeof (IEnumArrayReturnValue), "Method")]
         [TestCase(typeof (object), typeof (IEnumReturnValue), "Method")]
         [TestCase(typeof (object), typeof (IGenericArrayReturnValue), "Method")]

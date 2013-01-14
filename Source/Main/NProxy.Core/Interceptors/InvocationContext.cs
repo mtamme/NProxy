@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+
 using System;
 using System.Reflection;
 
@@ -89,7 +90,7 @@ namespace NProxy.Core.Interceptors
             if (_nextInterceptorIndex >= _interceptors.Length)
                 throw new InvalidOperationException("No more interceptors in the interceptor chain");
 
-            return _interceptors [_nextInterceptorIndex++];
+            return _interceptors[_nextInterceptorIndex++];
         }
 
         #region IInvocationContext Members

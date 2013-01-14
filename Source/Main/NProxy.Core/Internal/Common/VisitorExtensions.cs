@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+
 using System;
 
 namespace NProxy.Core.Internal.Common
@@ -40,10 +41,10 @@ namespace NProxy.Core.Internal.Common
                 throw new ArgumentNullException("predicate");
 
             return new AnonymousVisitor<TElement>(e =>
-                                                      {
-                                                          if (predicate(e))
-                                                              visitor.Visit(e);
-                                                      });
+                {
+                    if (predicate(e))
+                        visitor.Visit(e);
+                });
         }
     }
 }

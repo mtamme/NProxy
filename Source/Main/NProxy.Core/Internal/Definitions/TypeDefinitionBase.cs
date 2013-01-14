@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -105,7 +106,7 @@ namespace NProxy.Core.Internal.Definitions
                 throw new ArgumentException("Interface type must not be a generic type definition", "interfaceType");
 
             var addInterfaceVisitor = Visitor.Create<Type>(t => _additionalInterfaceTypes.Add(t))
-                .Where(t => !_declaringInterfaceTypes.Value.Contains(t));
+                                             .Where(t => !_declaringInterfaceTypes.Value.Contains(t));
 
             interfaceType.VisitInterfaces(addInterfaceVisitor);
         }

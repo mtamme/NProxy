@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+
 using System;
 using System.IO;
 using System.Reflection;
@@ -145,10 +146,10 @@ namespace NProxy.Core
             var keyPair = GetDynamicAssemblyKeyPair();
 
             return new AssemblyName(assemblyName)
-                       {
-                           KeyPair = keyPair,
-                           Version = executingAssemblyName.Version
-                       };
+                {
+                    KeyPair = keyPair,
+                    Version = executingAssemblyName.Version
+                };
         }
 
         /// <summary>

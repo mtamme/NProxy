@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+
 using System;
 using System.Collections.Generic;
 
@@ -74,7 +75,7 @@ namespace NProxy.Core.Test.Common.Types
 
         public virtual void Method<TValue>(out TValue[,] value)
         {
-            value = new TValue[0, 0];
+            value = new TValue[0,0];
         }
 
         #endregion

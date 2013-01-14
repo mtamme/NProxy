@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Test.Common.Types;
 using NUnit.Framework;

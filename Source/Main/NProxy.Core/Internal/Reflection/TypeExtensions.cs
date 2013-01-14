@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+
 using System;
 using System.Linq;
 using System.Reflection;
@@ -312,7 +313,7 @@ namespace NProxy.Core.Internal.Reflection
 
             // Only visit non-accessor instance methods.
             var methodInfos = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                .Where(m => !m.IsSpecialName);
+                                  .Where(m => !m.IsSpecialName);
 
             methodInfos.Visit(visitor);
         }

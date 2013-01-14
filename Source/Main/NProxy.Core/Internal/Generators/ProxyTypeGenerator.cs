@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+
 using System;
 using System.Reflection;
 using NProxy.Core.Internal.Common;
@@ -85,22 +86,22 @@ namespace NProxy.Core.Internal.Generators
 
             // Build events.
             var buildEventVisitor = Visitor.Create<EventInfo>(typeBuilder.BuildEvent)
-                .Where(e => e.IsAbstract() || _interceptionFilter.Accept(e))
-                .Where(e => e.CanOverride());
+                                           .Where(e => e.IsAbstract() || _interceptionFilter.Accept(e))
+                                           .Where(e => e.CanOverride());
 
             typeDefinition.VisitEvents(buildEventVisitor);
 
             // Build properties.
             var buildPropertyVisitor = Visitor.Create<PropertyInfo>(typeBuilder.BuildProperty)
-                .Where(p => p.IsAbstract() || _interceptionFilter.Accept(p))
-                .Where(p => p.CanOverride());
+                                              .Where(p => p.IsAbstract() || _interceptionFilter.Accept(p))
+                                              .Where(p => p.CanOverride());
 
             typeDefinition.VisitProperties(buildPropertyVisitor);
 
             // Build methods.
             var buildMethodVisitor = Visitor.Create<MethodInfo>(typeBuilder.BuildMethod)
-                .Where(m => m.IsAbstract || _interceptionFilter.Accept(m))
-                .Where(m => m.CanOverride());
+                                            .Where(m => m.IsAbstract || _interceptionFilter.Accept(m))
+                                            .Where(m => m.CanOverride());
 
             typeDefinition.VisitMethods(buildMethodVisitor);
 

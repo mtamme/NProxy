@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
+
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,12 +32,12 @@ namespace NProxy.Core.Test.Internal.Generators
         {
             // Arrange
             var typeProvider = new MockTypeProvider<string>(d =>
-                                                                {
-                                                                    if (d != "1")
-                                                                        throw new InvalidOperationException();
+                {
+                    if (d != "1")
+                        throw new InvalidOperationException();
 
-                                                                    return typeof (object);
-                                                                });
+                    return typeof (object);
+                });
             var typeCache = new TypeCache<string>(typeProvider);
 
             // Act
@@ -52,12 +53,12 @@ namespace NProxy.Core.Test.Internal.Generators
         {
             // Arrange
             var typeProvider = new MockTypeProvider<string>(d =>
-                                                                {
-                                                                    if (d != "1")
-                                                                        throw new InvalidOperationException();
+                {
+                    if (d != "1")
+                        throw new InvalidOperationException();
 
-                                                                    return typeof (object);
-                                                                });
+                    return typeof (object);
+                });
             var typeCache = new TypeCache<string>(typeProvider);
 
             // Act
@@ -76,17 +77,17 @@ namespace NProxy.Core.Test.Internal.Generators
             // Arrange
             var monitor = new Object();
             var typeProvider = new MockTypeProvider<string>(d =>
-                                                                {
-                                                                    if (d != "1")
-                                                                        throw new InvalidOperationException();
+                {
+                    if (d != "1")
+                        throw new InvalidOperationException();
 
-                                                                    lock (monitor)
-                                                                    {
-                                                                        Monitor.Wait(monitor);
-                                                                    }
+                    lock (monitor)
+                    {
+                        Monitor.Wait(monitor);
+                    }
 
-                                                                    return typeof (object);
-                                                                });
+                    return typeof (object);
+                });
 
             var typeCache = new TypeCache<string>(typeProvider);
 
