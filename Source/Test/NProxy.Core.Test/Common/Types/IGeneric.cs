@@ -16,6 +16,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
+
 namespace NProxy.Core.Test.Common.Types
 {
     internal interface IGeneric<in TValue>
@@ -26,5 +28,20 @@ namespace NProxy.Core.Test.Common.Types
     internal interface IGenericParameter<in TFirst>
     {
         void Method<TSecond>(TFirst first, TSecond second);
+    }
+
+    internal interface IGenericEvent<TValue>
+    {
+        event Action<TValue> Event;
+    }
+
+    internal interface IGenericProperty<TValue>
+    {
+        TValue Property { get; set; }
+    }
+
+    internal interface IGenericMethod<TValue>
+    {
+        TValue Method();
     }
 }

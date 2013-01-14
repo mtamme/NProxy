@@ -16,6 +16,8 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
+
 namespace NProxy.Core.Test.Common.Types
 {
     internal class Generic<TValue> : IGeneric<TValue>
@@ -32,9 +34,68 @@ namespace NProxy.Core.Test.Common.Types
     internal class GenericParameter<TFirst> : IGenericParameter<TFirst>
     {
         #region IGenericParameter<TFirst> Members
-
+        
         public virtual void Method<TSecond>(TFirst first, TSecond second)
         {
+        }
+        
+        #endregion
+    }
+
+    internal class IntStringGenericEvent : IGenericEvent<int>, IGenericEvent<string>
+    {
+        #region IGenericEvent<int> Members
+        
+        event Action<int> IGenericEvent<int>.Event
+        {
+            add { }
+            remove { }
+        }
+        
+        #endregion
+        
+        #region IGenericEvent<string> Members
+        
+        event Action<string> IGenericEvent<string>.Event
+        {
+            add { }
+            remove { }
+        }
+        
+        #endregion
+    }
+
+    internal class IntStringGenericProperty : IGenericProperty<int>, IGenericProperty<string>
+    {
+        #region IGenericProperty<int> Members
+
+        int IGenericProperty<int>.Property { get; set; }
+
+        #endregion
+
+        #region IGenericProperty<string> Members
+        
+        string IGenericProperty<string>.Property { get; set; }
+        
+        #endregion
+    }
+
+    internal class IntStringGenericMethod : IGenericMethod<int>, IGenericMethod<string>
+    {
+        #region IGenericMethod<int> Members
+
+        int IGenericMethod<int>.Method()
+        {
+            return default (int);
+        }
+
+        #endregion
+
+        #region IGenericMethod<string> Members
+
+        string IGenericMethod<string>.Method()
+        {
+            return default (string);
         }
 
         #endregion

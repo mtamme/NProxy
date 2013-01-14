@@ -3054,6 +3054,108 @@ namespace NProxy.Core.Test
         }
 
         [Test]
+        public void CreateProxyWithTwoGenericEventInterfacesAndTargetTest()
+        {
+            // Arrange
+            // Act
+            var target = new IntStringGenericEvent();
+            var proxy = _proxyFactory.CreateProxy<IGenericEvent<int>>(new[] {typeof (IGenericEvent<string>)}, new TargetInvocationHandler(_ => target));
+            
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<IGenericEvent<int>>());
+            Assert.That(proxy, Is.InstanceOf<IGenericEvent<string>>());
+
+            ((IGenericEvent<int>)proxy).Event += i => { };
+            ((IGenericEvent<string>)proxy).Event  += s => { };
+        }
+
+        [Test]
+        public void CreateProxyWithTwoAdditionalGenericEventInterfacesAndTargetTest()
+        {
+            // Arrange
+            // Act
+            var target = new IntStringGenericEvent();
+            var proxy = _proxyFactory.CreateProxy<object>(new[] {typeof (IGenericEvent<int>), typeof (IGenericEvent<string>)}, new TargetInvocationHandler(_ => target));
+            
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<IGenericEvent<int>>());
+            Assert.That(proxy, Is.InstanceOf<IGenericEvent<string>>());
+            
+            ((IGenericEvent<int>)proxy).Event += i => { };
+            ((IGenericEvent<string>)proxy).Event  += s => { };
+        }
+
+        [Test]
+        public void CreateProxyWithTwoGenericPropertyInterfacesAndTargetTest()
+        {
+            // Arrange
+            // Act
+            var target = new IntStringGenericProperty();
+            var proxy = _proxyFactory.CreateProxy<IGenericProperty<int>>(new[] {typeof (IGenericProperty<string>)}, new TargetInvocationHandler(_ => target));
+            
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<IGenericProperty<int>>());
+            Assert.That(proxy, Is.InstanceOf<IGenericProperty<string>>());
+            
+            proxy.Property = 2;
+            ((IGenericProperty<string>)proxy).Property = "2";
+            
+            Assert.That(proxy.Property, Is.EqualTo(2));
+            Assert.That(((IGenericProperty<string>)proxy).Property, Is.EqualTo("2"));
+        }
+
+        [Test]
+        public void CreateProxyWithTwoAdditionalGenericPropertyInterfacesAndTargetTest()
+        {
+            // Arrange
+            // Act
+            var target = new IntStringGenericProperty();
+            var proxy = _proxyFactory.CreateProxy<object>(new[] {typeof (IGenericProperty<int>), typeof (IGenericProperty<string>)}, new TargetInvocationHandler(_ => target));
+            
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<IGenericProperty<int>>());
+            Assert.That(proxy, Is.InstanceOf<IGenericProperty<string>>());
+            
+            ((IGenericProperty<int>)proxy).Property = 2;
+            ((IGenericProperty<string>)proxy).Property = "2";
+            
+            Assert.That(((IGenericProperty<int>)proxy).Property, Is.EqualTo(2));
+            Assert.That(((IGenericProperty<string>)proxy).Property, Is.EqualTo("2"));
+        }
+
+        [Test]
+        public void CreateProxyWithTwoGenericMethodInterfacesAndTargetTest()
+        {
+            // Arrange
+            // Act
+            var target = new IntStringGenericMethod();
+            var proxy = _proxyFactory.CreateProxy<IGenericMethod<int>>(new[] {typeof (IGenericMethod<string>)}, new TargetInvocationHandler(_ => target));
+            
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<IGenericMethod<int>>());
+            Assert.That(proxy, Is.InstanceOf<IGenericMethod<string>>());
+
+            Assert.DoesNotThrow(() => proxy.Method());
+            Assert.DoesNotThrow(() => ((IGenericMethod<string>)proxy).Method());
+        }
+
+        [Test]
+        public void CreateProxyWithTwoAdditionalGenericMethodInterfacesAndTargetTest()
+        {
+            // Arrange
+            // Act
+            var target = new IntStringGenericMethod();
+            var proxy = _proxyFactory.CreateProxy<object>(new[] {typeof (IGenericMethod<int>), typeof (IGenericMethod<string>)}, new TargetInvocationHandler(_ => target));
+            
+            // Assert
+            Assert.That(proxy, Is.InstanceOf<IGenericMethod<int>>());
+            Assert.That(proxy, Is.InstanceOf<IGenericMethod<string>>());
+            
+            Assert.DoesNotThrow(() => ((IGenericMethod<int>)proxy).Method());
+            Assert.DoesNotThrow(() => ((IGenericMethod<string>)proxy).Method());
+        }
+
+        [Test]
         public void CreateProxyWithGenericAbstractClassAndTargetTest()
         {
             // Arrange

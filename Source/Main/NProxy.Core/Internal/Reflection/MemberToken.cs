@@ -27,12 +27,17 @@ namespace NProxy.Core.Internal.Reflection
     internal struct MemberToken : IEquatable<MemberToken>
     {
         /// <summary>
-        /// The member module.
+        /// The module.
         /// </summary>
         private readonly Module _module;
 
         /// <summary>
-        /// The member metadata token.
+        /// The declaring type.
+        /// </summary>
+        private readonly Type _declaringType;
+
+        /// <summary>
+        /// The metadata token.
         /// </summary>
         private readonly int _metadataToken;
 
@@ -46,6 +51,7 @@ namespace NProxy.Core.Internal.Reflection
                 throw new ArgumentNullException("memberInfo");
 
             _module = memberInfo.Module;
+            _declaringType = memberInfo.DeclaringType;
             _metadataToken = memberInfo.MetadataToken;
         }
 
@@ -54,7 +60,10 @@ namespace NProxy.Core.Internal.Reflection
         /// <inheritdoc/>
         public bool Equals(MemberToken other)
         {
-            if (!ReferenceEquals(other._module, _module))
+            if (other._module != _module)
+                return false;
+
+            if (other._declaringType != _declaringType)
                 return false;
 
             return (other._metadataToken == _metadataToken);

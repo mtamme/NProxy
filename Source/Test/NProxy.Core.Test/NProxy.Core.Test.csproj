@@ -73,7 +73,6 @@
     <Compile Include="Common\Types\OutConstructor.cs" />
     <Compile Include="Common\Types\OutConstructorBase.cs" />
     <Compile Include="Common\Types\RefConstructorBase.cs" />
-    <Compile Include="Common\Types\IInterface.cs" />
     <Compile Include="Common\MemberAssert.cs" />
     <Compile Include="Internal\Generators\ProxyTypeBuilderTestFixture.cs" />
     <Compile Include="Internal\Generators\TypeCacheTestFixture.cs" />
@@ -104,6 +103,7 @@
     <Compile Include="Internal\Reflection\EventInfoExtensionsTestFixture.cs" />
     <Compile Include="Internal\Reflection\PropertyInfoExtensionsTestFixture.cs" />
     <Compile Include="Common\Types\Class.cs" />
+    <Compile Include="Common\Types\Interface.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

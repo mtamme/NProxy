@@ -5,6 +5,7 @@
 * Removed obsolete proxy interface adaption method.
 * Improved proxy creation performance.
 * Fixed naming for explicit interface implementation.
+* Fixed method identification.
 
 ## Version 1.2.0
 
