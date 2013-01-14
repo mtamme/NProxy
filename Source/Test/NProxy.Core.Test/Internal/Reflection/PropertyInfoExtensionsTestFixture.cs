@@ -105,6 +105,19 @@ namespace NProxy.Core.Test.Internal.Reflection
         }
 
         [Test]
+        public void GetFullNameForClosedGenericClassClosedGenericClassPropertyTest()
+        {
+            // Arrange
+            var propertyInfo = typeof (Class<Class<int>>).GetProperty("Property");
+            
+            // Act
+            var fullName = propertyInfo.GetFullName();
+            
+            // Assert
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[NProxy.Core.Test.Common.Types.Class`1[System.Int32]].Property"));
+        }
+
+        [Test]
         public void GetFullNameForNestedOpenGenericClassPropertyTest()
         {
             // Arrange
