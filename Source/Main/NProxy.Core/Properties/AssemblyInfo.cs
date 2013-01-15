@@ -59,6 +59,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.2.0.*")]
+[assembly: AssemblyVersion("1.2.1.*")]
 [assembly: InternalsVisibleTo("NProxy.Core.Test")]
 [assembly: InternalsVisibleTo("NProxy.Dynamic")]

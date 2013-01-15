@@ -3,6 +3,9 @@
 ## Version TBA
 
 * Removed obsolete proxy interface adaption method.
+
+## Version 1.2.1
+
 * Improved proxy creation performance.
 * Fixed naming for explicit interface implementation.
 * Fixed generic type method identification.
