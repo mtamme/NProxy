@@ -88,7 +88,7 @@ namespace NProxy.Core.Internal.Reflection
         /// <inheritdoc/>
         public override string ToString()
         {
-            return String.Format("[{0}]{1}", _module.Name, _metadataToken);
+            return String.Format("[{0}]{1}+{2}", _module.Name, _declaringType, _metadataToken);
         }
 
         #endregion
