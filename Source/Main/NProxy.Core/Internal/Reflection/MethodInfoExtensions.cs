@@ -27,6 +27,16 @@ namespace NProxy.Core.Internal.Reflection
     internal static class MethodInfoExtensions
     {
         /// <summary>
+        /// Returns a value which uniquely identifies a method.
+        /// </summary>
+        /// <param name="methodInfo">The method information.</param>
+        /// <returns>A value which uniquely identifies a method.</returns>
+        public static MethodToken GetToken(this MethodInfo methodInfo)
+        {
+            return new MethodToken(methodInfo);
+        }
+
+        /// <summary>
         /// Maps a method to the specified generic types.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>

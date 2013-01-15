@@ -24,6 +24,7 @@ using System.Resources;
 using System.Threading;
 using NProxy.Core.Internal.Generators;
 using NProxy.Core.Internal.Reflection;
+using MethodToken = NProxy.Core.Internal.Reflection.MethodToken;
 
 namespace NProxy.Core
 {
@@ -75,7 +76,7 @@ namespace NProxy.Core
         {
             var methodInfoTypeProvider = new MethodInfoTypeGenerator(this);
 
-            _methodInfoTypeProvider = new TypeCache<MethodInfo, MemberToken>(m => m.GetToken(), methodInfoTypeProvider);
+            _methodInfoTypeProvider = new TypeCache<MethodInfo, MethodToken>(m => m.GetToken(), methodInfoTypeProvider);
 
             var assemblyName = GetDynamicAssemblyName(DynamicAssemblyName);
 

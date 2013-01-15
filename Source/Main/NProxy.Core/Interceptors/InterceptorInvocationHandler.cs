@@ -38,7 +38,7 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// The interceptors.
         /// </summary>
-        private readonly Dictionary<MemberToken, IInterceptor[]> _interceptors;
+        private readonly Dictionary<MethodToken, IInterceptor[]> _interceptors;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InterceptorInvocationHandler"/> class.
@@ -51,7 +51,7 @@ namespace NProxy.Core.Interceptors
 
             _defaultInterceptors = defaultInterceptors;
 
-            _interceptors = new Dictionary<MemberToken, IInterceptor[]>();
+            _interceptors = new Dictionary<MethodToken, IInterceptor[]>();
         }
 
         /// <summary>
@@ -134,9 +134,9 @@ namespace NProxy.Core.Interceptors
 
             methodInterceptors.AddRange(_defaultInterceptors);
 
-            var memberToken = methodInfo.GetToken();
+            var methodToken = methodInfo.GetToken();
 
-            _interceptors.Add(memberToken, methodInterceptors.ToArray());
+            _interceptors.Add(methodToken, methodInterceptors.ToArray());
         }
 
         /// <summary>
@@ -161,16 +161,16 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <summary>
-        /// Returns all interceptors for the specified member.
+        /// Returns all interceptors for the specified method.
         /// </summary>
-        /// <param name="memberInfo">The member information.</param>
+        /// <param name="methodInfo">The method information.</param>
         /// <returns>The interceptors.</returns>
-        private IInterceptor[] GetInterceptors(MemberInfo memberInfo)
+        private IInterceptor[] GetInterceptors(MethodInfo methodInfo)
         {
-            var memberToken = memberInfo.GetToken();
+            var methodToken = methodInfo.GetToken();
             IInterceptor[] interceptors;
 
-            return _interceptors.TryGetValue(memberToken, out interceptors) ? interceptors : _defaultInterceptors;
+            return _interceptors.TryGetValue(methodToken, out interceptors) ? interceptors : _defaultInterceptors;
         }
 
         #region IInvocationHandler Members

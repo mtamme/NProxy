@@ -18,19 +18,15 @@
 
 using System;
 using System.Reflection;
+using System.Text;
 
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Represents a value which uniquely identifies a member.
+    /// Represents a value which uniquely identifies a method.
     /// </summary>
-    internal struct MemberToken : IEquatable<MemberToken>
+    internal struct MethodToken : IEquatable<MethodToken>
     {
-        /// <summary>
-        /// The module.
-        /// </summary>
-        private readonly Module _module;
-
         /// <summary>
         /// The declaring type.
         /// </summary>
@@ -42,27 +38,23 @@ namespace NProxy.Core.Internal.Reflection
         private readonly int _metadataToken;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MemberToken"/> struct.
+        /// Initializes a new instance of the <see cref="MethodToken"/> struct.
         /// </summary>
-        /// <param name="memberInfo">The member information.</param>
-        public MemberToken(MemberInfo memberInfo)
+        /// <param name="methodBase">The method base.</param>
+        public MethodToken(MethodBase methodBase)
         {
-            if (memberInfo == null)
-                throw new ArgumentNullException("memberInfo");
+            if (methodBase == null)
+                throw new ArgumentNullException("methodBase");
 
-            _module = memberInfo.Module;
-            _declaringType = memberInfo.DeclaringType;
-            _metadataToken = memberInfo.MetadataToken;
+            _declaringType = methodBase.DeclaringType;
+            _metadataToken = methodBase.MetadataToken;
         }
 
-        #region IEquatable<MemberToken> Members
+        #region IEquatable<MethodToken> Members
 
         /// <inheritdoc/>
-        public bool Equals(MemberToken other)
+        public bool Equals(MethodToken other)
         {
-            if (other._module != _module)
-                return false;
-
             if (other._declaringType != _declaringType)
                 return false;
 
@@ -82,13 +74,19 @@ namespace NProxy.Core.Internal.Reflection
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            return (obj is MemberToken) && Equals((MemberToken) obj);
+            return (obj is MethodToken) && Equals((MethodToken) obj);
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
-            return String.Format("[{0}]{1}+{2}", _module.Name, _declaringType, _metadataToken);
+            var sb = new StringBuilder();
+
+            sb.Append(_declaringType);
+            sb.Append(Type.Delimiter);
+            sb.Append(_metadataToken);
+
+            return sb.ToString();
         }
 
         #endregion
