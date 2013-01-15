@@ -17,6 +17,8 @@
 //
 
 using System;
+using System.Collections.Generic;
+using NProxy.Core.Internal.Common;
 using NProxy.Core.Internal.Definitions;
 using NProxy.Core.Test.Common.Types;
 using NUnit.Framework;
@@ -26,6 +28,26 @@ namespace NProxy.Core.Test.Internal.Definitions
     [TestFixture]
     public sealed class DelegateTypeDefinitionTestFixture
     {
+        [Test]
+        public void AddInterfaceTest()
+        {
+            // Arrange
+            var typeDefinition = new DelegateTypeDefinition(typeof (Action));
+            
+            // Act
+            typeDefinition.AddInterface(typeof (IOne));
+            typeDefinition.AddInterface(typeof (ITwo));
+            typeDefinition.AddInterface(typeof (IOneTwo));
+            
+            // Assert
+            var interfaceTypes = new List<Type>();
+            var visitor = Visitor.Create<Type>(interfaceTypes.Add);
+            
+            typeDefinition.VisitInterfaces(visitor);
+            
+            Assert.That(interfaceTypes.Count, Is.EqualTo(4));
+        }
+
         [Test]
         public void EqualsWithoutInterfacesTest()
         {
