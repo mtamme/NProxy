@@ -157,13 +157,27 @@ namespace NProxy.Core.Internal.Definitions
             if (other == null)
                 return false;
 
-            if (other.DeclaringType != DeclaringType)
+            // Compare declaring type.
+            if (other._declaringType != _declaringType)
                 return false;
 
+            // Compare parent type.
             if (other.ParentType != ParentType)
                 return false;
 
-            return other.AdditionalInterfaceTypes.Equals(AdditionalInterfaceTypes);
+            // Compare additional interface types.
+            var additionalInterfaceTypes = other._additionalInterfaceTypes;
+
+            if (additionalInterfaceTypes.Count != _additionalInterfaceTypes.Count)
+                return false;
+
+            foreach (var additionalInterfaceType in additionalInterfaceTypes)
+            {
+                if (!_additionalInterfaceTypes.Contains(additionalInterfaceType))
+                    return false;
+            }
+
+            return true;
         }
 
         #endregion
