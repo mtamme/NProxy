@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using NProxy.Core.Internal.Common;
 using NProxy.Core.Internal.Reflection;
@@ -171,13 +172,7 @@ namespace NProxy.Core.Internal.Definitions
             if (additionalInterfaceTypes.Count != _additionalInterfaceTypes.Count)
                 return false;
 
-            foreach (var additionalInterfaceType in additionalInterfaceTypes)
-            {
-                if (!_additionalInterfaceTypes.Contains(additionalInterfaceType))
-                    return false;
-            }
-
-            return true;
+            return _additionalInterfaceTypes.All(additionalInterfaceTypes.Contains);
         }
 
         #endregion

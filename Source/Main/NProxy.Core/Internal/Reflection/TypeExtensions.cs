@@ -65,15 +65,15 @@ namespace NProxy.Core.Internal.Reflection
         {
             if (type == null)
                 throw new ArgumentNullException("type");
-            
+
             if (parameterTypes == null)
                 throw new ArgumentNullException("parameterTypes");
-            
+
             var constructorInfo = type.GetConstructor(bindingFlags, null, parameterTypes, null);
-            
+
             if (constructorInfo == null)
                 throw new MissingMethodException(String.Format("Constructor on type '{0}' not found", type));
-            
+
             return constructorInfo;
         }
 

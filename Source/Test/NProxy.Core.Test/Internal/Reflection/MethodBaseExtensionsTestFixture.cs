@@ -82,10 +82,10 @@ namespace NProxy.Core.Test.Internal.Reflection
         {
             // Arrange
             var methodInfo = typeof (Class<Class<int>>).GetMethod("Method");
-            
+
             // Act
             var fullName = methodInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[NProxy.Core.Test.Common.Types.Class`1[System.Int32]].Method"));
         }

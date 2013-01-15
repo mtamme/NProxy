@@ -16,7 +16,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Test.Common.Types;
 using NUnit.Framework;
@@ -44,8 +43,8 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void EqualsWithEqualsMethodTest()
         {
             // Arrange
-            var firstMemberToken = new MemberToken(typeof (object).GetMethod("Equals", new [] {typeof (object)}));
-            var secondMemberToken = new MemberToken(typeof (GenericReturnValue).GetMethod("Equals", new [] {typeof (object)}));
+            var firstMemberToken = new MemberToken(typeof (object).GetMethod("Equals", new[] {typeof (object)}));
+            var secondMemberToken = new MemberToken(typeof (GenericReturnValue).GetMethod("Equals", new[] {typeof (object)}));
 
             // Act
             var isEqual = firstMemberToken.Equals(secondMemberToken);

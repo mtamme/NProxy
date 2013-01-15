@@ -57,7 +57,7 @@ namespace NProxy.Core.Test.Internal.Definitions
 
             // Act
             var isEqual = firstTypeDefinition.Equals(secondTypeDefinition);
-            
+
             // Assert
             Assert.That(isEqual, Is.True);
         }

@@ -33,17 +33,17 @@ namespace NProxy.Core.Test.Internal.Definitions
         {
             // Arrange
             var typeDefinition = new InterfaceTypeDefinition(typeof (IOne));
-            
+
             // Act
             typeDefinition.AddInterface(typeof (ITwo));
             typeDefinition.AddInterface(typeof (IOneTwo));
-            
+
             // Assert
             var interfaceTypes = new List<Type>();
             var visitor = Visitor.Create<Type>(interfaceTypes.Add);
-            
+
             typeDefinition.VisitInterfaces(visitor);
-            
+
             Assert.That(interfaceTypes.Count, Is.EqualTo(4));
         }
 
@@ -56,7 +56,7 @@ namespace NProxy.Core.Test.Internal.Definitions
 
             // Act
             var isEqual = firstTypeDefinition.Equals(secondTypeDefinition);
-            
+
             // Assert
             Assert.That(isEqual, Is.True);
         }
@@ -66,12 +66,12 @@ namespace NProxy.Core.Test.Internal.Definitions
         {
             // Arrange
             var firstTypeDefinition = new InterfaceTypeDefinition(typeof (IBase));
-            
+
             firstTypeDefinition.AddInterface(typeof (IOne));
             firstTypeDefinition.AddInterface(typeof (ITwo));
-            
+
             var secondTypeDefinition = new InterfaceTypeDefinition(typeof (IBase));
-            
+
             secondTypeDefinition.AddInterface(typeof (ITwo));
             secondTypeDefinition.AddInterface(typeof (IOne));
 

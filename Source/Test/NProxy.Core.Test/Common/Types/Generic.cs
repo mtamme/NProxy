@@ -34,34 +34,34 @@ namespace NProxy.Core.Test.Common.Types
     internal class GenericParameter<TFirst> : IGenericParameter<TFirst>
     {
         #region IGenericParameter<TFirst> Members
-        
+
         public virtual void Method<TSecond>(TFirst first, TSecond second)
         {
         }
-        
+
         #endregion
     }
 
     internal class IntStringGenericEvent : IGenericEvent<int>, IGenericEvent<string>
     {
         #region IGenericEvent<int> Members
-        
+
         event Action<int> IGenericEvent<int>.Event
         {
             add { }
             remove { }
         }
-        
+
         #endregion
-        
+
         #region IGenericEvent<string> Members
-        
+
         event Action<string> IGenericEvent<string>.Event
         {
             add { }
             remove { }
         }
-        
+
         #endregion
     }
 
@@ -74,9 +74,9 @@ namespace NProxy.Core.Test.Common.Types
         #endregion
 
         #region IGenericProperty<string> Members
-        
+
         string IGenericProperty<string>.Property { get; set; }
-        
+
         #endregion
     }
 

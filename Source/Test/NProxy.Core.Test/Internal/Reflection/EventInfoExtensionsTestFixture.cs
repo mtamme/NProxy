@@ -109,10 +109,10 @@ namespace NProxy.Core.Test.Internal.Reflection
         {
             // Arrange
             var eventInfo = typeof (Class<Class<int>>).GetEvent("Event");
-            
+
             // Act
             var fullName = eventInfo.GetFullName();
-            
+
             // Assert
             Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[NProxy.Core.Test.Common.Types.Class`1[System.Int32]].Event"));
         }
