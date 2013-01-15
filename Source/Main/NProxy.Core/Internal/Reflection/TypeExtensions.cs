@@ -55,6 +55,29 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
+        /// Returns the constructor information that reflects the constructor that matches the specified criterias.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="bindingFlags">The binding flags.</param>
+        /// <param name="parameterTypes">The parameter types.</param>
+        /// <returns>The constructor information.</returns>
+        public static ConstructorInfo GetConstructor(this Type type, BindingFlags bindingFlags, params Type[] parameterTypes)
+        {
+            if (type == null)
+                throw new ArgumentNullException("type");
+            
+            if (parameterTypes == null)
+                throw new ArgumentNullException("parameterTypes");
+            
+            var constructorInfo = type.GetConstructor(bindingFlags, null, parameterTypes, null);
+            
+            if (constructorInfo == null)
+                throw new MissingMethodException(String.Format("Constructor on type '{0}' not found", type));
+            
+            return constructorInfo;
+        }
+
+        /// <summary>
         /// Returns the method information that reflects the method that matches the specified criterias.
         /// </summary>
         /// <param name="type">The type.</param>

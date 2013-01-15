@@ -25,7 +25,7 @@ using NProxy.Core.Test.Common;
 using NProxy.Core.Test.Common.Types;
 using NUnit.Framework;
 
-namespace NProxy.Core.Test.Internal.Generators
+namespace NProxy.Core.Test
 {
     [TestFixture]
     public sealed class ProxyTypeBuilderTestFixture

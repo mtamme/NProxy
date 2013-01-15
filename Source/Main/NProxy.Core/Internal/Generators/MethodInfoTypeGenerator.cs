@@ -30,7 +30,7 @@ namespace NProxy.Core.Internal.Generators
     internal sealed class MethodInfoTypeGenerator : ITypeProvider<MethodInfo>
     {
         /// <summary>
-        /// The <c>MethodBase.GetMethodFromHandle</c> method information.
+        /// The <see cref="MethodBase.GetMethodFromHandle(RuntimeMethodHandle,RuntimeTypeHandle)"/> method information.
         /// </summary>
         private static readonly MethodInfo GetMethodFromHandleMethodInfo = typeof (MethodBase).GetMethod(
             "GetMethodFromHandle",
@@ -38,7 +38,14 @@ namespace NProxy.Core.Internal.Generators
             typeof (RuntimeMethodHandle), typeof (RuntimeTypeHandle));
 
         /// <summary>
-        /// The <c>MethodInfoBase.BaseInvoke</c> method information.
+        /// The <see cref="MethodInfoBase"/> constructor information.
+        /// </summary>
+        private static readonly ConstructorInfo ConstructorInfo = typeof (MethodInfoBase).GetConstructor(
+            BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
+            typeof (object), typeof (MethodInfo), typeof (bool));
+
+        /// <summary>
+        /// The <see cref="MethodInfoBase.BaseInvoke(object,object[])"/> method information.
         /// </summary>
         private static readonly MethodInfo BaseInvokeMethodInfo = typeof (MethodInfoBase).GetMethod(
             "BaseInvoke",
@@ -46,7 +53,7 @@ namespace NProxy.Core.Internal.Generators
             typeof (object), typeof (object[]));
 
         /// <summary>
-        /// The <c>MethodInfoBase.VirtualInvoke</c> method information.
+        /// The <see cref="MethodInfoBase.VirtualInvoke(object,object[])"/> method information.
         /// </summary>
         private static readonly MethodInfo VirtualInvokeMethodInfo = typeof (MethodInfoBase).GetMethod(
             "VirtualInvoke",
@@ -114,17 +121,10 @@ namespace NProxy.Core.Internal.Generators
         /// <returns>The constructor information.</returns>
         private static void BuildConstructor(TypeBuilder typeBuilder, FieldInfo methodFieldInfo)
         {
-            // Get the base constructor.
-            var constructorInfo = typeof (MethodInfoBase).GetConstructor(
-                BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
-                null,
-                new[] {typeof (object), typeof (MethodInfo), typeof (bool)},
-                null);
-
             // Define constructor.
             var constructorBuilder = typeBuilder.DefineConstructor(
                 MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
-                constructorInfo.CallingConvention,
+                ConstructorInfo.CallingConvention,
                 new[] {typeof (object), typeof (bool)},
                 new[] {"proxy", "isOverride"});
 
@@ -144,7 +144,7 @@ namespace NProxy.Core.Internal.Generators
             ilGenerator.Emit(OpCodes.Ldarg_2);
 
             // Call parent constructor.
-            ilGenerator.Emit(OpCodes.Call, constructorInfo);
+            ilGenerator.Emit(OpCodes.Call, ConstructorInfo);
 
             ilGenerator.Emit(OpCodes.Ret);
         }
