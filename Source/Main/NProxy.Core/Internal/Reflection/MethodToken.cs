@@ -40,14 +40,14 @@ namespace NProxy.Core.Internal.Reflection
         /// <summary>
         /// Initializes a new instance of the <see cref="MethodToken"/> struct.
         /// </summary>
-        /// <param name="methodBase">The method base.</param>
-        public MethodToken(MethodBase methodBase)
+        /// <param name="methodInfo">The method information.</param>
+        public MethodToken(MethodInfo methodInfo)
         {
-            if (methodBase == null)
-                throw new ArgumentNullException("methodBase");
+            if (methodInfo == null)
+                throw new ArgumentNullException("methodInfo");
 
-            _declaringType = methodBase.DeclaringType;
-            _metadataToken = methodBase.MetadataToken;
+            _declaringType = methodInfo.DeclaringType;
+            _metadataToken = methodInfo.MetadataToken;
         }
 
         #region IEquatable<MethodToken> Members
