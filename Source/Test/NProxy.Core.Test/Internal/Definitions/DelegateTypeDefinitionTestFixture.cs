@@ -46,6 +46,10 @@ namespace NProxy.Core.Test.Internal.Definitions
             typeDefinition.VisitInterfaces(visitor);
 
             Assert.That(interfaceTypes.Count, Is.EqualTo(4));
+            Assert.That(interfaceTypes, Contains.Item(typeof (IBase)));
+            Assert.That(interfaceTypes, Contains.Item(typeof (IOne)));
+            Assert.That(interfaceTypes, Contains.Item(typeof (ITwo)));
+            Assert.That(interfaceTypes, Contains.Item(typeof (IOneTwo)));
         }
 
         [Test]

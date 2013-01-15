@@ -172,7 +172,7 @@ namespace NProxy.Core.Internal.Definitions
             if (additionalInterfaceTypes.Count != _additionalInterfaceTypes.Count)
                 return false;
 
-            return _additionalInterfaceTypes.All(additionalInterfaceTypes.Contains);
+            return additionalInterfaceTypes.All(_additionalInterfaceTypes.Contains);
         }
 
         #endregion
