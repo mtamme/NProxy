@@ -41,7 +41,7 @@ namespace NProxy.Core.Internal.Generators
         /// The <see cref="MethodInfoBase"/> constructor information.
         /// </summary>
         private static readonly ConstructorInfo ConstructorInfo = typeof (MethodInfoBase).GetConstructor(
-            BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance,
+            BindingFlags.NonPublic | BindingFlags.Instance,
             typeof (object), typeof (MethodInfo), typeof (bool));
 
         /// <summary>
