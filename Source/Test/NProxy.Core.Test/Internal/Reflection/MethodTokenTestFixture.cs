@@ -142,7 +142,7 @@ namespace NProxy.Core.Test.Internal.Reflection
         }
 
         [Test]
-        public void EqualsWithAppDomainMethodsUniquenessTest()
+        public void EqualsWithAppDomainMethodsAndUniquenessTest()
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var metadataTokensByModule = new Dictionary<Module, HashSet<int>>();
