@@ -107,6 +107,7 @@
     <Compile Include="Internal\Definitions\ClassTypeDefinitionTestFixture.cs" />
     <Compile Include="Internal\Definitions\DelegateTypeDefinitionTestFixture.cs" />
     <Compile Include="Internal\Definitions\InterfaceTypeDefinitionTestFixture.cs" />
+    <Compile Include="Internal\Reflection\MemberTokenTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">
