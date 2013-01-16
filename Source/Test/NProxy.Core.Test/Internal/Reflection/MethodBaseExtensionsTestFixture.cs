@@ -17,7 +17,7 @@
 //
 
 using NProxy.Core.Internal.Reflection;
-using NProxy.Core.Test.Common.Types;
+using NProxy.Core.Test.Types;
 using NUnit.Framework;
 
 namespace NProxy.Core.Test.Internal.Reflection
@@ -48,7 +48,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class.Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class.Method"));
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[TOuter].Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1[TOuter].Method"));
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[System.Int32].Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1[System.Int32].Method"));
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[NProxy.Core.Test.Common.Types.Class`1[System.Int32]].Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1[NProxy.Core.Test.Types.Class`1[System.Int32]].Method"));
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested`1[TInner].Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class+Nested`1[TInner].Method"));
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested`1[System.Int32].Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class+Nested`1[System.Int32].Method"));
         }
 
         [Test]
@@ -126,7 +126,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested.Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class+Nested.Method"));
         }
 
         [Test]
@@ -139,7 +139,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested`1[TOuter,TInner].Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested`1[TOuter,TInner].Method"));
         }
 
         [Test]
@@ -152,7 +152,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested`1[System.Int32,System.Int32].Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested`1[System.Int32,System.Int32].Method"));
         }
 
         [Test]
@@ -165,7 +165,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested[TOuter].Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested[TOuter].Method"));
         }
 
         [Test]
@@ -178,7 +178,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = methodInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested[System.Int32].Method"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested[System.Int32].Method"));
         }
 
         [Test]

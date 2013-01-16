@@ -18,7 +18,7 @@
 
 using System.Linq;
 using NProxy.Core.Internal.Reflection;
-using NProxy.Core.Test.Common.Types;
+using NProxy.Core.Test.Types;
 using NUnit.Framework;
 
 namespace NProxy.Core.Test.Internal.Reflection
@@ -75,7 +75,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class.Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class.Event"));
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[TOuter].Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1[TOuter].Event"));
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[System.Int32].Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1[System.Int32].Event"));
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[NProxy.Core.Test.Common.Types.Class`1[System.Int32]].Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1[NProxy.Core.Test.Types.Class`1[System.Int32]].Event"));
         }
 
         [Test]
@@ -127,7 +127,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested`1[TInner].Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class+Nested`1[TInner].Event"));
         }
 
         [Test]
@@ -140,7 +140,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested`1[System.Int32].Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class+Nested`1[System.Int32].Event"));
         }
 
         [Test]
@@ -153,7 +153,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested.Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class+Nested.Event"));
         }
 
         [Test]
@@ -166,7 +166,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested`1[TOuter,TInner].Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested`1[TOuter,TInner].Event"));
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested`1[System.Int32,System.Int32].Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested`1[System.Int32,System.Int32].Event"));
         }
 
         [Test]
@@ -192,7 +192,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested[TOuter].Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested[TOuter].Event"));
         }
 
         [Test]
@@ -205,7 +205,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = eventInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested[System.Int32].Event"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested[System.Int32].Event"));
         }
     }
 }

@@ -18,7 +18,7 @@
 
 using System.Linq;
 using NProxy.Core.Internal.Reflection;
-using NProxy.Core.Test.Common.Types;
+using NProxy.Core.Test.Types;
 using NUnit.Framework;
 
 namespace NProxy.Core.Test.Internal.Reflection
@@ -75,7 +75,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class.Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class.Property"));
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[TOuter].Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1[TOuter].Property"));
         }
 
         [Test]
@@ -101,7 +101,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[System.Int32].Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1[System.Int32].Property"));
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1[NProxy.Core.Test.Common.Types.Class`1[System.Int32]].Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1[NProxy.Core.Test.Types.Class`1[System.Int32]].Property"));
         }
 
         [Test]
@@ -127,7 +127,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested`1[TInner].Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class+Nested`1[TInner].Property"));
         }
 
         [Test]
@@ -140,7 +140,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested`1[System.Int32].Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class+Nested`1[System.Int32].Property"));
         }
 
         [Test]
@@ -153,7 +153,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class+Nested.Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class+Nested.Property"));
         }
 
         [Test]
@@ -166,7 +166,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested`1[TOuter,TInner].Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested`1[TOuter,TInner].Property"));
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested`1[System.Int32,System.Int32].Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested`1[System.Int32,System.Int32].Property"));
         }
 
         [Test]
@@ -192,7 +192,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested[TOuter].Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested[TOuter].Property"));
         }
 
         [Test]
@@ -205,7 +205,7 @@ namespace NProxy.Core.Test.Internal.Reflection
             var fullName = propertyInfo.GetFullName();
 
             // Assert
-            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Common.Types.Class`1+Nested[System.Int32].Property"));
+            Assert.That(fullName, Is.EqualTo("NProxy.Core.Test.Types.Class`1+Nested[System.Int32].Property"));
         }
     }
 }

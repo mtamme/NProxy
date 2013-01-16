@@ -17,10 +17,8 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using NProxy.Core.Internal.Reflection;
-using NProxy.Core.Test.Common.Types;
+using NProxy.Core.Test.Types;
 using NUnit.Framework;
 
 namespace NProxy.Core.Test.Internal.Reflection

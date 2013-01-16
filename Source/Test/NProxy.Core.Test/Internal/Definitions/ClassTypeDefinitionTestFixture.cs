@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using NProxy.Core.Internal.Common;
 using NProxy.Core.Internal.Definitions;
-using NProxy.Core.Test.Common.Types;
+using NProxy.Core.Test.Types;
 using NUnit.Framework;
 
 namespace NProxy.Core.Test.Internal.Definitions
