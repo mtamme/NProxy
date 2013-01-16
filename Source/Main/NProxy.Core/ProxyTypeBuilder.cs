@@ -180,10 +180,8 @@ namespace NProxy.Core
         private ConstructorInfo GetMethodInfoConstructor(MethodInfo declaringMethodInfo, Type[] genericParameterTypes)
         {
             var type = _methodInfoTypeProvider.GetType(declaringMethodInfo);
-            var constructorInfo = type.GetConstructor(new[] {typeof (object), typeof (bool)});
-
-            if (constructorInfo == null)
-                throw new MissingMethodException(String.Format("Constructor on type '{0}' not found.", type.FullName));
+            var constructorInfo = type.GetConstructor(BindingFlags.Public | BindingFlags.Instance,
+                                                      typeof (object), typeof (bool));
 
             if (!type.IsGenericTypeDefinition)
                 return constructorInfo;
