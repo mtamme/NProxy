@@ -198,7 +198,7 @@ namespace NProxy.Core.Internal.Generators
                 throw new TargetException("Method is not declared or inherited by target object");
 
             // Check target object.
-            if (target != _proxy)
+            if (!ReferenceEquals(target, _proxy))
                 return VirtualInvoke(target, parameters);
 
             if (!_isOverride)
