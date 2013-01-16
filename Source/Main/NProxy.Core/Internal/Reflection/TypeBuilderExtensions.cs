@@ -81,37 +81,6 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Sets the specified custom attribute.
-        /// </summary>
-        /// <param name="typeBuilder">The type builder.</param>
-        /// <param name="attributeType">The attribute type.</param>
-        /// <param name="argumentTypes">The argument types.</param>
-        /// <param name="arguments">The constructor argument.</param>
-        public static void SetCustomAttribute(this TypeBuilder typeBuilder, Type attributeType, Type[] argumentTypes, object[] arguments)
-        {
-            if (typeBuilder == null)
-                throw new ArgumentNullException("typeBuilder");
-
-            if (attributeType == null)
-                throw new ArgumentNullException("attributeType");
-
-            if (argumentTypes == null)
-                throw new ArgumentNullException("argumentTypes");
-
-            if (arguments == null)
-                throw new ArgumentNullException("arguments");
-
-            var constructorInfo = attributeType.GetConstructor(argumentTypes);
-
-            if (constructorInfo == null)
-                throw new MissingMethodException(String.Format("Constructor on attribute type '{0}' not found.", attributeType.FullName));
-
-            var customAttributeBuilder = new CustomAttributeBuilder(constructorInfo, arguments);
-
-            typeBuilder.SetCustomAttribute(customAttributeBuilder);
-        }
-
-        /// <summary>
         /// Defines a constructor.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
@@ -398,6 +367,35 @@ namespace NProxy.Core.Internal.Reflection
                 methodName,
                 methodAttributes,
                 declaringMethodInfo.CallingConvention);
+        }
+
+        /// <summary>
+        /// Sets the specified custom attribute.
+        /// </summary>
+        /// <param name="typeBuilder">The type builder.</param>
+        /// <param name="attributeType">The attribute type.</param>
+        /// <param name="argumentTypes">The argument types.</param>
+        /// <param name="arguments">The constructor argument.</param>
+        public static void SetCustomAttribute(this TypeBuilder typeBuilder, Type attributeType, Type[] argumentTypes, object[] arguments)
+        {
+            if (typeBuilder == null)
+                throw new ArgumentNullException("typeBuilder");
+
+            if (attributeType == null)
+                throw new ArgumentNullException("attributeType");
+
+            if (argumentTypes == null)
+                throw new ArgumentNullException("argumentTypes");
+
+            if (arguments == null)
+                throw new ArgumentNullException("arguments");
+
+            var constructorInfo = attributeType.GetConstructor(BindingFlags.Public | BindingFlags.Instance,
+                                                               argumentTypes);
+
+            var customAttributeBuilder = new CustomAttributeBuilder(constructorInfo, arguments);
+
+            typeBuilder.SetCustomAttribute(customAttributeBuilder);
         }
     }
 }

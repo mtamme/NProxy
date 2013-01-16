@@ -76,10 +76,8 @@ namespace NProxy.Core.Internal.Reflection
             if (exceptionType == null)
                 throw new ArgumentNullException("exceptionType");
 
-            var constructorInfo = exceptionType.GetConstructor(new[] {typeof (string)});
-
-            if (constructorInfo == null)
-                throw new MissingMethodException(String.Format("Constructor on exception type '{0}' not found.", exceptionType.FullName));
+            var constructorInfo = exceptionType.GetConstructor(BindingFlags.Public | BindingFlags.Instance,
+                                                               typeof (string));
 
             ilGenerator.Emit(OpCodes.Ldstr, message);
             ilGenerator.Emit(OpCodes.Newobj, constructorInfo);
