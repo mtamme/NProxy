@@ -47,7 +47,7 @@ namespace NProxy.Core
         /// </summary>
         /// <param name="typeBuilderFactory">The type builder factory.</param>
         internal ProxyFactory(ITypeBuilderFactory typeBuilderFactory)
-            : this(new ProxyTypeGenerator(typeBuilderFactory, new DefaultInterceptionFilter()))
+            : this(new TypeCache<ITypeDefinition>(new ProxyTypeGenerator(typeBuilderFactory, new DefaultInterceptionFilter())))
         {
         }
 
@@ -55,9 +55,12 @@ namespace NProxy.Core
         /// Initializes a new instance of the <see cref="ProxyFactory"/> class.
         /// </summary>
         /// <param name="typeProvider">The type provider.</param>
-        private ProxyFactory(ITypeProvider<ITypeDefinition> typeProvider)
+        internal ProxyFactory(ITypeProvider<ITypeDefinition> typeProvider)
         {
-            _typeProvider = new TypeCache<ITypeDefinition>(typeProvider);
+            if (typeProvider == null)
+                throw new ArgumentNullException("typeProvider");
+
+            _typeProvider = typeProvider;
         }
 
         /// <summary>
