@@ -18,7 +18,7 @@
 
 namespace NProxy.Core.Test.Performance.Types
 {
-    internal interface IIntMethod
+    public interface IIntMethod
     {
         int Invoke(int value);
     }

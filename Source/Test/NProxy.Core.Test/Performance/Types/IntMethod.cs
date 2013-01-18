@@ -18,7 +18,7 @@
 
 namespace NProxy.Core.Test.Performance.Types
 {
-    internal sealed class IntMethod : IIntMethod
+    public sealed class IntMethod : IIntMethod
     {
         #region IIntMethod Members
 

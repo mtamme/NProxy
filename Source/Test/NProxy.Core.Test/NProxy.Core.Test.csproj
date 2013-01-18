@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LinFu.Core">
+      <HintPath>..\..\..\Lib\LinFu.Core.2.3.0.41559\lib\net35\LinFu.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="nunit.framework">
@@ -40,9 +43,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Performance\Castle\PerformanceTestFixture.cs" />
-    <Compile Include="Performance\NProxy\PerformanceTestFixture.cs" />
-    <Compile Include="Performance\NProxy\InvocationHandler.cs" />
+    <Compile Include="Performance\CastlePerformanceTestFixture.cs" />
+    <Compile Include="Performance\LinFuInterceptor.cs" />
+    <Compile Include="Performance\LinFuPerformanceTestFixture.cs" />
+    <Compile Include="Performance\NProxyPerformanceTestFixture.cs" />
+    <Compile Include="Performance\NProxyInvocationHandler.cs" />
     <Compile Include="Performance\Types\GenericMethod.cs" />
     <Compile Include="Performance\Types\IGenericMethod.cs" />
     <Compile Include="Performance\Types\IIntMethod.cs" />
@@ -118,7 +123,7 @@
     <Compile Include="Internal\Definitions\DelegateTypeDefinitionTestFixture.cs" />
     <Compile Include="Internal\Definitions\InterfaceTypeDefinitionTestFixture.cs" />
     <Compile Include="Internal\Reflection\MethodTokenTestFixture.cs" />
-    <Compile Include="Performance\Castle\Interceptor.cs" />
+    <Compile Include="Performance\CastleInterceptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

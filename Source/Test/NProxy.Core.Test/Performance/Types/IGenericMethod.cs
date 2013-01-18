@@ -18,7 +18,7 @@
 
 namespace NProxy.Core.Test.Performance.Types
 {
-    internal interface IGenericMethod
+    public interface IGenericMethod
     {
         TValue Invoke<TValue>(TValue value);
     }

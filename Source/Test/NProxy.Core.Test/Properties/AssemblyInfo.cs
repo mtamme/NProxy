@@ -61,4 +61,3 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("0.0")]
 [assembly: InternalsVisibleTo("NProxy.Dynamic")]
-[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

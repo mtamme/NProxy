@@ -22,11 +22,11 @@ using NProxy.Core.Test.Performance.Types;
 using Castle.DynamicProxy;
 using NUnit.Framework;
 
-namespace NProxy.Core.Test.Performance.Castle
+namespace NProxy.Core.Test.Performance
 {
     [TestFixture]
     [Category("Performance")]
-    public sealed class PerformanceTestFixture
+    public sealed class CastlePerformanceTestFixture
     {
         private static void ShowMetrics(int iterations, TimeSpan elapsedTime)
         {
@@ -42,7 +42,7 @@ namespace NProxy.Core.Test.Performance.Castle
         public void CreateProxyWithCacheTest()
         {
             var proxyGenerator = new ProxyGenerator();
-            var interceptors = new IInterceptor[] {new Interceptor()};
+            var interceptors = new IInterceptor[] {new CastleInterceptor()};
             var target = new IntMethod();
             var stopwatch = new Stopwatch();
             var iteration = 0;
@@ -66,7 +66,7 @@ namespace NProxy.Core.Test.Performance.Castle
         public void InvokeMethodTest()
         {
             var proxyGenerator = new ProxyGenerator();
-            var interceptors = new IInterceptor[] {new Interceptor()};
+            var interceptors = new IInterceptor[] {new CastleInterceptor()};
             var target = new IntMethod();
             var proxy = (IIntMethod) proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IIntMethod), target, interceptors);
             var stopwatch = new Stopwatch();
@@ -88,7 +88,7 @@ namespace NProxy.Core.Test.Performance.Castle
         public void InvokeGenericMethodTest()
         {
             var proxyGenerator = new ProxyGenerator();
-            var interceptors = new IInterceptor[] {new Interceptor()};
+            var interceptors = new IInterceptor[] {new CastleInterceptor()};
             var target = new GenericMethod();
             var proxy = (IGenericMethod) proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IGenericMethod), target, interceptors);
             var stopwatch = new Stopwatch();
