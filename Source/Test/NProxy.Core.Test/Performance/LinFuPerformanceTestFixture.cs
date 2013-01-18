@@ -18,8 +18,8 @@
 
 using System;
 using System.Diagnostics;
-using LinFu.Proxy.Interfaces;
 using NProxy.Core.Test.Performance.Types;
+using LinFu.Proxy.Interfaces;
 using NUnit.Framework;
 
 namespace NProxy.Core.Test.Performance
