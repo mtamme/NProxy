@@ -40,6 +40,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Performance\Castle\PerformanceTestFixture.cs" />
+    <Compile Include="Performance\NProxy\PerformanceTestFixture.cs" />
+    <Compile Include="Performance\NProxy\InvocationHandler.cs" />
+    <Compile Include="Performance\Types\GenericMethod.cs" />
+    <Compile Include="Performance\Types\IGenericMethod.cs" />
+    <Compile Include="Performance\Types\IIntMethod.cs" />
+    <Compile Include="Performance\Types\IntMethod.cs" />
     <Compile Include="TargetInvocationHandler.cs" />
     <Compile Include="GetParametersInvocationHandler.cs" />
     <Compile Include="SetParametersInvocationHandler.cs" />
@@ -111,8 +118,7 @@
     <Compile Include="Internal\Definitions\DelegateTypeDefinitionTestFixture.cs" />
     <Compile Include="Internal\Definitions\InterfaceTypeDefinitionTestFixture.cs" />
     <Compile Include="Internal\Reflection\MethodTokenTestFixture.cs" />
-    <Compile Include="ProxyFactoryPerformanceTestFixture.cs" />
-    <Compile Include="CastleTargetInterceptor.cs" />
+    <Compile Include="Performance\Castle\Interceptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -16,17 +16,28 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using Castle.DynamicProxy;
+using System;
+using System.Reflection;
 
-namespace NProxy.Core.Test
+namespace NProxy.Core.Test.Performance.NProxy
 {
-    internal sealed class CastleTargetInterceptor : IInterceptor
+    internal sealed class InvocationHandler : IInvocationHandler
     {
-        #region IInterceptor Members
+        private readonly object _target;
 
-        public void Intercept(IInvocation invocation)
+        public InvocationHandler(object target)
         {
-            invocation.Proceed();
+            if (target == null)
+                throw new ArgumentNullException("target");
+
+            _target = target;
+        }
+
+        #region IInvocationHandler Members
+
+        public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
+        {
+            return methodInfo.Invoke(_target, parameters);
         }
 
         #endregion
