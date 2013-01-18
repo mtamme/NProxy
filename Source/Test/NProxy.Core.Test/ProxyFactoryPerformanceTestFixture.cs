@@ -40,6 +40,16 @@ namespace NProxy.Core.Test
             return new ProxyFactory(typeProvider);
         }
 
+        private static void ShowMetrics(int iterations, long elapsedMilliseconds)
+        {
+            Console.WriteLine("Iterations:   {0}", iterations);
+            Console.WriteLine("Elapsed Time: {0}ms", elapsedMilliseconds);
+            
+            var averageMicroseconds = elapsedMilliseconds * 1000D / iterations;
+            
+            Console.WriteLine("Average Time: {0}µs", averageMicroseconds);
+        }
+
         [Test]
         public void CreateProxyWithoutCacheTest()
         {
@@ -57,9 +67,7 @@ namespace NProxy.Core.Test
             
             stopwatch.Stop();
 
-            Console.WriteLine("Iterations:   {0}", iteration);
-            Console.WriteLine("Elapsed Time: {0}ms", stopwatch.ElapsedMilliseconds);
-            Console.WriteLine("Average Time: {0}µs", stopwatch.ElapsedMilliseconds / (double) iteration * 1000);
+            ShowMetrics(iteration, stopwatch.ElapsedMilliseconds);
         }
 
         [Test]
@@ -79,9 +87,7 @@ namespace NProxy.Core.Test
 
             stopwatch.Stop();
 
-            Console.WriteLine("Iterations:   {0}", iteration);
-            Console.WriteLine("Elapsed Time: {0}ms", stopwatch.ElapsedMilliseconds);
-            Console.WriteLine("Average Time: {0}µs", stopwatch.ElapsedMilliseconds / (double) iteration * 1000);
+            ShowMetrics(iteration, stopwatch.ElapsedMilliseconds);
         }
 
         [Test]
@@ -104,9 +110,7 @@ namespace NProxy.Core.Test
             
             stopwatch.Stop();
             
-            Console.WriteLine("Iterations:   {0}", iteration);
-            Console.WriteLine("Elapsed Time: {0}ms", stopwatch.ElapsedMilliseconds);
-            Console.WriteLine("Average Time: {0}µs", stopwatch.ElapsedMilliseconds / (double) iteration * 1000);
+            ShowMetrics(iteration, stopwatch.ElapsedMilliseconds);
         }
 
         [Test]
@@ -128,10 +132,8 @@ namespace NProxy.Core.Test
             }
             
             stopwatch.Stop();
-            
-            Console.WriteLine("Iterations:   {0}", iteration);
-            Console.WriteLine("Elapsed Time: {0}ms", stopwatch.ElapsedMilliseconds);
-            Console.WriteLine("Average Time: {0}µs", stopwatch.ElapsedMilliseconds / (double) iteration * 1000);
+
+            ShowMetrics(iteration, stopwatch.ElapsedMilliseconds);
         }
     }
 }
