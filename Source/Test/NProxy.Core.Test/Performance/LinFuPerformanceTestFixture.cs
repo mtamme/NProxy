@@ -16,7 +16,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Diagnostics;
 using NProxy.Core.Test.Performance.Types;
 using LinFu.Proxy.Interfaces;
@@ -28,79 +27,66 @@ namespace NProxy.Core.Test.Performance
     [Category("Performance")]
     public sealed class LinFuPerformanceTestFixture
     {
-        private static void ShowMetrics(int iterations, TimeSpan elapsedTime)
-        {
-            Console.WriteLine("Iterations:   {0}", iterations);
-            Console.WriteLine("Elapsed Time: {0:0.000}ms", elapsedTime.TotalMilliseconds);
-
-            var averageMicroseconds = (elapsedTime.TotalMilliseconds*1000)/iterations;
-
-            Console.WriteLine("Average Time: {0:0.000}µs", averageMicroseconds);
-        }
-
-        [Test]
-        public void CreateProxyWithCacheTest()
+        [TestCase(200000)]
+        public void CreateProxyTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
             var interceptor = new LinFuInterceptor(new IntMethod());
             var stopwatch = new Stopwatch();
-            var iteration = 0;
 
             // Create proxy type.
             proxyFactory.CreateProxy<IIntMethod>(interceptor);
 
             stopwatch.Start();
 
-            for (; iteration < 200000; iteration++)
+            for (var i = 0; i < iterations; i++)
             {
                 proxyFactory.CreateProxy<IIntMethod>(interceptor);
             }
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics("LinFu.Core", "CreateProxy", iterations, stopwatch.Elapsed);
         }
 
-        [Test]
-        public void InvokeMethodTest()
+        [TestCase(10000000)]
+        public void InvokeIntMethodTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
             var interceptor = new LinFuInterceptor(new IntMethod());
             var proxy = proxyFactory.CreateProxy<IIntMethod>(interceptor);
             var stopwatch = new Stopwatch();
-            var iteration = 0;
 
             stopwatch.Start();
 
-            for (; iteration < 10000000; iteration++)
+            for (var i = 0; i < iterations; i++)
             {
-                proxy.Invoke(iteration);
+                proxy.Invoke(i);
             }
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics("LinFu.Core", "InvokeIntMethod", iterations, stopwatch.Elapsed);
         }
 
-        [Test]
-        public void InvokeGenericMethodTest()
+        [TestCase(10000000)]
+        public void InvokeGenericMethodTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
             var interceptor = new LinFuInterceptor(new GenericMethod());
             var proxy = proxyFactory.CreateProxy<IGenericMethod>(interceptor);
             var stopwatch = new Stopwatch();
-            var iteration = 0;
 
             stopwatch.Start();
 
-            for (; iteration < 1000000; iteration++)
+            for (var i = 0; i < iterations; i++)
             {
-                proxy.Invoke(iteration);
+                proxy.Invoke(i);
             }
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics("LinFu.Core", "InvokeGenericMethod", iterations, stopwatch.Elapsed);
         }
     }
 }

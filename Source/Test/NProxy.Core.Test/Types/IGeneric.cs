@@ -30,7 +30,7 @@ namespace NProxy.Core.Test.Types
         void Method<TSecond>(TFirst first, TSecond second);
     }
 
-    internal interface IGenericEvent<TValue>
+    internal interface IGenericEvent<out TValue>
     {
         event Action<TValue> Event;
     }
@@ -40,7 +40,7 @@ namespace NProxy.Core.Test.Types
         TValue Property { get; set; }
     }
 
-    internal interface IGenericMethod<TValue>
+    internal interface IGenericMethod<out TValue>
     {
         TValue Method();
     }

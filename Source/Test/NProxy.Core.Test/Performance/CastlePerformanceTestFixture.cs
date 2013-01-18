@@ -16,7 +16,6 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
 using System.Diagnostics;
 using NProxy.Core.Test.Performance.Types;
 using Castle.DynamicProxy;
@@ -28,82 +27,69 @@ namespace NProxy.Core.Test.Performance
     [Category("Performance")]
     public sealed class CastlePerformanceTestFixture
     {
-        private static void ShowMetrics(int iterations, TimeSpan elapsedTime)
-        {
-            Console.WriteLine("Iterations:   {0}", iterations);
-            Console.WriteLine("Elapsed Time: {0:0.000}ms", elapsedTime.TotalMilliseconds);
-
-            var averageMicroseconds = (elapsedTime.TotalMilliseconds*1000)/iterations;
-
-            Console.WriteLine("Average Time: {0:0.000}µs", averageMicroseconds);
-        }
-
-        [Test]
-        public void CreateProxyWithCacheTest()
+        [TestCase(200000)]
+        public void CreateProxyTest(int iterations)
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
             var target = new IntMethod();
             var stopwatch = new Stopwatch();
-            var iteration = 0;
 
             // Create proxy type.
             proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IIntMethod), target, interceptors);
 
             stopwatch.Start();
 
-            for (; iteration < 200000; iteration++)
+            for (var i = 0; i < iterations; i++)
             {
                 proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IIntMethod), target, interceptors);
             }
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics("Castle.Core", "CreateProxy", iterations, stopwatch.Elapsed);
         }
 
-        [Test]
-        public void InvokeMethodTest()
+        [TestCase(10000000)]
+        public void InvokeIntMethodTest(int iterations)
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
             var target = new IntMethod();
             var proxy = (IIntMethod) proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IIntMethod), target, interceptors);
             var stopwatch = new Stopwatch();
-            var iteration = 0;
 
             stopwatch.Start();
 
-            for (; iteration < 10000000; iteration++)
+            for (var i = 0; i < iterations; i++)
             {
-                proxy.Invoke(iteration);
+                proxy.Invoke(i);
             }
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics("Castle.Core", "InvokeIntMethod", iterations, stopwatch.Elapsed);
         }
 
-        [Test]
-        public void InvokeGenericMethodTest()
+        [TestCase(10000000)]
+        public void InvokeGenericMethodTest(int iterations)
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
             var target = new GenericMethod();
             var proxy = (IGenericMethod) proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IGenericMethod), target, interceptors);
             var stopwatch = new Stopwatch();
-            var iteration = 0;
 
             stopwatch.Start();
 
-            for (; iteration < 1000000; iteration++)
+            for (var i = 0; i < iterations; i++)
             {
-                proxy.Invoke(iteration);
+                proxy.Invoke(i);
             }
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics("Castle.Core", "InvokeGenericMethod", iterations, stopwatch.Elapsed);
         }
     }
 }

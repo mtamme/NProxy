@@ -48,6 +48,7 @@
     <Compile Include="Performance\LinFuPerformanceTestFixture.cs" />
     <Compile Include="Performance\NProxyPerformanceTestFixture.cs" />
     <Compile Include="Performance\NProxyInvocationHandler.cs" />
+    <Compile Include="Performance\PerformanceSetUpFixture.cs" />
     <Compile Include="Performance\Types\GenericMethod.cs" />
     <Compile Include="Performance\Types\IGenericMethod.cs" />
     <Compile Include="Performance\Types\IIntMethod.cs" />

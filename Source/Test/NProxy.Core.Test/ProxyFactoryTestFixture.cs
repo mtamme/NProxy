@@ -3064,7 +3064,7 @@ namespace NProxy.Core.Test
             Assert.That(proxy, Is.InstanceOf<IGenericEvent<int>>());
             Assert.That(proxy, Is.InstanceOf<IGenericEvent<string>>());
 
-            ((IGenericEvent<int>) proxy).Event += i => { };
+            proxy.Event += i => { };
             ((IGenericEvent<string>) proxy).Event += s => { };
         }
 

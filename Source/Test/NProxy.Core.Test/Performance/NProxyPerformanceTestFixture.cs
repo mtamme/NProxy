@@ -37,99 +37,86 @@ namespace NProxy.Core.Test.Performance
             return withCache ? new ProxyFactory(new TypeCache<ITypeDefinition>(typeProvider)) : new ProxyFactory(typeProvider);
         }
 
-        private static void ShowMetrics(int iterations, TimeSpan elapsedTime)
-        {
-            Console.WriteLine("Iterations:   {0}", iterations);
-            Console.WriteLine("Elapsed Time: {0:0.000}ms", elapsedTime.TotalMilliseconds);
-
-            var averageMicroseconds = (elapsedTime.TotalMilliseconds*1000)/iterations;
-
-            Console.WriteLine("Average Time: {0:0.000}µs", averageMicroseconds);
-        }
-
-        [Test]
-        public void CreateProxyWithoutCacheTest()
+        [Ignore]
+        [TestCase(1000)]
+        public void CreateProxyWithoutCacheTest(int iterations)
         {
             var invocationHandler = new NProxyInvocationHandler(new IntMethod());
             var proxyFactory = CreateProxyFactory(false);
             var stopwatch = new Stopwatch();
-            var iteration = 0;
 
             stopwatch.Start();
 
-            for (; iteration < 1000; iteration++)
+            for (var i = 0; i < iterations; i++)
             {
                 proxyFactory.CreateProxy<IIntMethod>(Type.EmptyTypes, invocationHandler);
             }
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics("NProxy.Core", "CreateProxyWithoutCache", iterations, stopwatch.Elapsed);
         }
 
-        [Test]
-        public void CreateProxyWithCacheTest()
+        [TestCase(200000)]
+        public void CreateProxyTest(int iterations)
         {
             var invocationHandler = new NProxyInvocationHandler(new IntMethod());
             var proxyFactory = CreateProxyFactory(true);
             var stopwatch = new Stopwatch();
-            var iteration = 0;
 
             // Create proxy type.
             proxyFactory.CreateProxy<IIntMethod>(Type.EmptyTypes, invocationHandler);
 
             stopwatch.Start();
 
-            for (; iteration < 200000; iteration++)
+            for (var i = 0; i < iterations; i++)
             {
                 proxyFactory.CreateProxy<IIntMethod>(Type.EmptyTypes, invocationHandler);
             }
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics("NProxy.Core", "CreateProxy", iterations, stopwatch.Elapsed);
         }
 
-        [Test]
-        public void InvokeMethodTest()
+        [TestCase(10000000)]
+        public void InvokeIntMethodTest(int iterations)
         {
             var invocationHandler = new NProxyInvocationHandler(new IntMethod());
             var proxyFactory = CreateProxyFactory(true);
             var proxy = proxyFactory.CreateProxy<IIntMethod>(Type.EmptyTypes, invocationHandler);
             var stopwatch = new Stopwatch();
-            var iteration = 0;
 
             stopwatch.Start();
 
-            for (; iteration < 10000000; iteration++)
+            for (var i = 0; i < iterations; i++)
             {
-                proxy.Invoke(iteration);
+                proxy.Invoke(i);
             }
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics("NProxy.Core", "InvokeIntMethod", iterations, stopwatch.Elapsed);
         }
 
-        [Test]
-        public void InvokeGenericMethodTest()
+        [TestCase(10000000)]
+        public void InvokeGenericMethodTest(int iterations)
         {
             var invocationHandler = new NProxyInvocationHandler(new GenericMethod());
             var proxyFactory = CreateProxyFactory(true);
             var proxy = proxyFactory.CreateProxy<IGenericMethod>(Type.EmptyTypes, invocationHandler);
             var stopwatch = new Stopwatch();
-            var iteration = 0;
 
             stopwatch.Start();
 
-            for (; iteration < 10000000; iteration++)
+            for (var i = 0; i < iterations; i++)
             {
-                proxy.Invoke(iteration);
+                proxy.Invoke(i);
             }
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics("NProxy.Core", "InvokeGenericMethod", iterations, stopwatch.Elapsed);
         }
     }
 }
