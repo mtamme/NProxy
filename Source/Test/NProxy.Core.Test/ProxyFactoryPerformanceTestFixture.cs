@@ -40,14 +40,14 @@ namespace NProxy.Core.Test
             return new ProxyFactory(typeProvider);
         }
 
-        private static void ShowMetrics(int iterations, long elapsedMilliseconds)
+        private static void ShowMetrics(int iterations, TimeSpan elapsedTime)
         {
             Console.WriteLine("Iterations:   {0}", iterations);
-            Console.WriteLine("Elapsed Time: {0}ms", elapsedMilliseconds);
+            Console.WriteLine("Elapsed Time: {0:0.000}ms", elapsedTime.TotalMilliseconds);
             
-            var averageMicroseconds = elapsedMilliseconds * 1000D / iterations;
+            var averageMicroseconds = (elapsedTime.TotalMilliseconds * 1000) / iterations;
             
-            Console.WriteLine("Average Time: {0}µs", averageMicroseconds);
+            Console.WriteLine("Average Time: {0:0.000}µs", averageMicroseconds);
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace NProxy.Core.Test
             
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.ElapsedMilliseconds);
+            ShowMetrics(iteration, stopwatch.Elapsed);
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace NProxy.Core.Test
 
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.ElapsedMilliseconds);
+            ShowMetrics(iteration, stopwatch.Elapsed);
         }
 
         [Test]
@@ -110,7 +110,7 @@ namespace NProxy.Core.Test
             
             stopwatch.Stop();
             
-            ShowMetrics(iteration, stopwatch.ElapsedMilliseconds);
+            ShowMetrics(iteration, stopwatch.Elapsed);
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace NProxy.Core.Test
             
             stopwatch.Stop();
 
-            ShowMetrics(iteration, stopwatch.ElapsedMilliseconds);
+            ShowMetrics(iteration, stopwatch.Elapsed);
         }
     }
 }
