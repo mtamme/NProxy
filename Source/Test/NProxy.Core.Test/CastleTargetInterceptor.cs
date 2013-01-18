@@ -26,6 +26,7 @@ namespace NProxy.Core.Test
 
         public void Intercept(IInvocation invocation)
         {
+            invocation.Proceed();
         }
 
         #endregion

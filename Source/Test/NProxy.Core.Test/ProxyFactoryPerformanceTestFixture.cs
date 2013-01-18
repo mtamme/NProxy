@@ -21,8 +21,8 @@ using System.Diagnostics;
 using NProxy.Core.Internal.Generators;
 using NProxy.Core.Internal.Definitions;
 using NProxy.Core.Test.Types;
-using NUnit.Framework;
 using Castle.DynamicProxy;
+using NUnit.Framework;
 
 namespace NProxy.Core.Test
 {
@@ -35,19 +35,16 @@ namespace NProxy.Core.Test
             var typeBuilderFactory = new ProxyTypeBuilderFactory(false);
             var typeProvider = new ProxyTypeGenerator(typeBuilderFactory, new DefaultInterceptionFilter());
 
-            if (withCache)
-                return new ProxyFactory(new TypeCache<ITypeDefinition>(typeProvider));
-
-            return new ProxyFactory(typeProvider);
+            return withCache ? new ProxyFactory(new TypeCache<ITypeDefinition>(typeProvider)) : new ProxyFactory(typeProvider);
         }
 
         private static void ShowMetrics(int iterations, TimeSpan elapsedTime)
         {
             Console.WriteLine("Iterations:   {0}", iterations);
             Console.WriteLine("Elapsed Time: {0:0.000}ms", elapsedTime.TotalMilliseconds);
-            
-            var averageMicroseconds = (elapsedTime.TotalMilliseconds * 1000) / iterations;
-            
+
+            var averageMicroseconds = (elapsedTime.TotalMilliseconds*1000)/iterations;
+
             Console.WriteLine("Average Time: {0:0.000}µs", averageMicroseconds);
         }
 
@@ -59,15 +56,15 @@ namespace NProxy.Core.Test
             var invocationHandler = new TargetInvocationHandler(_ => new IntParameter());
             var proxyFactory = CreateProxyFactory(false);
             var stopwatch = new Stopwatch();
-            int iteration = 0;
-            
+            var iteration = 0;
+
             stopwatch.Start();
-            
+
             for (; iteration < 10000; iteration++)
             {
                 proxyFactory.CreateProxy<IIntParameter>(Type.EmptyTypes, invocationHandler);
             }
-            
+
             stopwatch.Stop();
 
             ShowMetrics(iteration, stopwatch.Elapsed);
@@ -79,8 +76,9 @@ namespace NProxy.Core.Test
             var invocationHandler = new TargetInvocationHandler(_ => new IntParameter());
             var proxyFactory = CreateProxyFactory(true);
             var stopwatch = new Stopwatch();
-            int iteration = 0;
+            var iteration = 0;
 
+            // Create proxy type.
             proxyFactory.CreateProxy<IIntParameter>(Type.EmptyTypes, invocationHandler);
 
             stopwatch.Start();
@@ -100,21 +98,19 @@ namespace NProxy.Core.Test
         {
             var invocationHandler = new TargetInvocationHandler(_ => new IntParameter());
             var proxyFactory = CreateProxyFactory(true);
-            var stopwatch = new Stopwatch();
-            int iteration = 0;
-
             var proxy = proxyFactory.CreateProxy<IIntParameter>(Type.EmptyTypes, invocationHandler);
-            int value = 0;
+            var stopwatch = new Stopwatch();
+            var iteration = 0;
 
             stopwatch.Start();
-            
-            for (; iteration < 1000000; iteration++)
+
+            for (; iteration < 10000000; iteration++)
             {
-                proxy.Method(value);
+                proxy.Method(iteration);
             }
-            
+
             stopwatch.Stop();
-            
+
             ShowMetrics(iteration, stopwatch.Elapsed);
         }
 
@@ -123,19 +119,17 @@ namespace NProxy.Core.Test
         {
             var invocationHandler = new TargetInvocationHandler(_ => new GenericParameter());
             var proxyFactory = CreateProxyFactory(true);
-            var stopwatch = new Stopwatch();
-            int iteration = 0;
-            
             var proxy = proxyFactory.CreateProxy<IGenericParameter>(Type.EmptyTypes, invocationHandler);
-            int value = 0;
+            var stopwatch = new Stopwatch();
+            var iteration = 0;
 
             stopwatch.Start();
-            
-            for (; iteration < 1000000; iteration++)
+
+            for (; iteration < 10000000; iteration++)
             {
-                proxy.Method<int>(value);
+                proxy.Method(iteration);
             }
-            
+
             stopwatch.Stop();
 
             ShowMetrics(iteration, stopwatch.Elapsed);
@@ -149,22 +143,23 @@ namespace NProxy.Core.Test
         public void CastleCreateProxyWithCacheTest()
         {
             var proxyGenerator = new ProxyGenerator();
-            var interceptors = new[] { new CastleTargetInterceptor() };
+            var interceptors = new IInterceptor[] {new CastleTargetInterceptor()};
             var target = new IntParameter();
             var stopwatch = new Stopwatch();
-            int iteration = 0;
-            
+            var iteration = 0;
+
+            // Create proxy type.
             proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IIntParameter), target, interceptors);
-            
+
             stopwatch.Start();
-            
+
             for (; iteration < 200000; iteration++)
             {
                 proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IIntParameter), target, interceptors);
             }
-            
+
             stopwatch.Stop();
-            
+
             ShowMetrics(iteration, stopwatch.Elapsed);
         }
 
@@ -172,23 +167,21 @@ namespace NProxy.Core.Test
         public void CastleInvokeMethodTest()
         {
             var proxyGenerator = new ProxyGenerator();
-            var interceptors = new[] { new CastleTargetInterceptor() };
+            var interceptors = new IInterceptor[] {new CastleTargetInterceptor()};
             var target = new IntParameter();
-            var stopwatch = new Stopwatch();
-            int iteration = 0;
-            
             var proxy = (IIntParameter) proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IIntParameter), target, interceptors);
-            int value = 0;
-            
+            var stopwatch = new Stopwatch();
+            var iteration = 0;
+
             stopwatch.Start();
-            
-            for (; iteration < 1000000; iteration++)
+
+            for (; iteration < 10000000; iteration++)
             {
-                proxy.Method(value);
+                proxy.Method(iteration);
             }
-            
+
             stopwatch.Stop();
-            
+
             ShowMetrics(iteration, stopwatch.Elapsed);
         }
 
@@ -196,23 +189,21 @@ namespace NProxy.Core.Test
         public void CastleInvokeGenericMethodTest()
         {
             var proxyGenerator = new ProxyGenerator();
-            var interceptors = new[] { new CastleTargetInterceptor() };
+            var interceptors = new IInterceptor[] {new CastleTargetInterceptor()};
             var target = new GenericParameter();
-            var stopwatch = new Stopwatch();
-            int iteration = 0;
-            
             var proxy = (IGenericParameter) proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IGenericParameter), target, interceptors);
-            int value = 0;
-            
+            var stopwatch = new Stopwatch();
+            var iteration = 0;
+
             stopwatch.Start();
-            
+
             for (; iteration < 1000000; iteration++)
             {
-                proxy.Method<int>(value);
+                proxy.Method(iteration);
             }
-            
+
             stopwatch.Stop();
-            
+
             ShowMetrics(iteration, stopwatch.Elapsed);
         }
 
