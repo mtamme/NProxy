@@ -17,6 +17,7 @@
 //
 
 using System.Diagnostics;
+using System.Reflection;
 using NProxy.Core.Test.Performance.Types;
 using LinFu.Proxy.Interfaces;
 using NUnit.Framework;
@@ -27,6 +28,15 @@ namespace NProxy.Core.Test.Performance
     [Category("Performance")]
     public sealed class LinFuPerformanceTestFixture
     {
+        private static readonly AssemblyName AssemblyName;
+        
+        static LinFuPerformanceTestFixture()
+        {
+            var type = typeof (LinFu.Proxy.ProxyFactory);
+            
+            AssemblyName = type.Assembly.GetName();
+        }
+
         [TestCase(200000)]
         public void CreateProxyTest(int iterations)
         {
@@ -46,7 +56,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceSetUpFixture.Instance.WriteMetrics("LinFu.Core", "CreateProxy", iterations, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics(AssemblyName, "CreateProxy", iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
@@ -66,7 +76,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceSetUpFixture.Instance.WriteMetrics("LinFu.Core", "InvokeIntMethod", iterations, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics(AssemblyName, "InvokeIntMethod", iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
@@ -86,7 +96,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceSetUpFixture.Instance.WriteMetrics("LinFu.Core", "InvokeGenericMethod", iterations, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics(AssemblyName, "InvokeGenericMethod", iterations, stopwatch.Elapsed);
         }
     }
 }

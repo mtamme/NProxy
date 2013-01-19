@@ -18,6 +18,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Reflection;
 using NProxy.Core.Internal.Generators;
 using NProxy.Core.Internal.Definitions;
 using NProxy.Core.Test.Performance.Types;
@@ -29,6 +30,15 @@ namespace NProxy.Core.Test.Performance
     [Category("Performance")]
     public sealed class NProxyPerformanceTestFixture
     {
+        private static readonly AssemblyName AssemblyName;
+        
+        static NProxyPerformanceTestFixture()
+        {
+            var type = typeof (ProxyFactory);
+            
+            AssemblyName = type.Assembly.GetName();
+        }
+
         private static IProxyFactory CreateProxyFactory(bool withCache)
         {
             var typeBuilderFactory = new ProxyTypeBuilderFactory(false);
@@ -54,7 +64,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceSetUpFixture.Instance.WriteMetrics("NProxy.Core", "CreateProxyWithoutCache", iterations, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics(AssemblyName, "CreateProxyWithoutCache", iterations, stopwatch.Elapsed);
         }
 
         [TestCase(200000)]
@@ -76,7 +86,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceSetUpFixture.Instance.WriteMetrics("NProxy.Core", "CreateProxy", iterations, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics(AssemblyName, "CreateProxy", iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
@@ -96,7 +106,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceSetUpFixture.Instance.WriteMetrics("NProxy.Core", "InvokeIntMethod", iterations, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics(AssemblyName, "InvokeIntMethod", iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
@@ -116,7 +126,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceSetUpFixture.Instance.WriteMetrics("NProxy.Core", "InvokeGenericMethod", iterations, stopwatch.Elapsed);
+            PerformanceSetUpFixture.Instance.WriteMetrics(AssemblyName, "InvokeGenericMethod", iterations, stopwatch.Elapsed);
         }
     }
 }
