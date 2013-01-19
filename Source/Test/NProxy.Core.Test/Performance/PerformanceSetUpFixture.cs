@@ -61,7 +61,7 @@ namespace NProxy.Core.Test.Performance
             get { return _writer.Value; }
         }
 
-        public void WriteMetrics(AssemblyName assemblyName, string testName, int iterations, TimeSpan elapsedTime)
+        public void WriteValues(AssemblyName assemblyName, string testName, int iterations, TimeSpan elapsedTime)
         {
             var totalMilliseconds = elapsedTime.TotalMilliseconds;
             var averageMicroseconds = (totalMilliseconds*1000)/iterations;
