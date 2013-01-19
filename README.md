@@ -113,7 +113,7 @@ of functions with the most individual work.
 
 ![Overview](https://raw.github.com/mtamme/NProxy/master/Documentation/WithProxyTypeCache.png "With proxy type cache")
 
-The follwoing table shows a performance comparison between the major dynamic proxy libraries and NProxy.
+The follwoing table shows a performance comparison between the most popular dynamic proxy libraries and NProxy.
 
 | Library     | Version | Test                | Iterations | Total Time in µs | Average Time in ns |
 |:------------|--------:|---------------------|-----------:|-----------------:|-------------------:|
