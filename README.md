@@ -113,6 +113,20 @@ of functions with the most individual work.
 
 ![Overview](https://raw.github.com/mtamme/NProxy/master/Documentation/WithProxyTypeCache.png "With proxy type cache")
 
+The follwoing table shows a performance comparison between the major dynamic proxy libraries and NProxy.
+
+| Library     | Test                | Iterations | Total Time / ms | Time / µs |
+|:------------|:--------------------|-----------:|----------------:|----------:|
+| Castle.Core | CreateProxy         |     200000 |        1364.428 |     6.822 |
+| Castle.Core | InvokeGenericMethod |   10000000 |       19486.872 |     1.949 |
+| Castle.Core | InvokeIntMethod     |   10000000 |        1169.620 |     0.117 |
+| LinFu.Core  | CreateProxy         |     200000 |         230.837 |     1.154 |
+| LinFu.Core  | InvokeGenericMethod |   10000000 |       85687.750 |     8.569 |
+| LinFu.Core  | InvokeIntMethod     |   10000000 |       22992.519 |     2.299 |
+| NProxy.Core | CreateProxy         |     200000 |         926.489 |     4.632 |
+| NProxy.Core | InvokeGenericMethod |   10000000 |        1597.898 |     0.160 |
+| NProxy.Core | InvokeIntMethod     |   10000000 |        1129.862 |     0.113 |
+
 # Release notes
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md) for details.
