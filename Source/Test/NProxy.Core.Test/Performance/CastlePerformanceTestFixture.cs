@@ -37,7 +37,9 @@ namespace NProxy.Core.Test.Performance
             AssemblyName = type.Assembly.GetName();
         }
 
-        [TestCase(200000)]
+        [TestCase(10000)]
+        [TestCase(100000)]
+        [TestCase(1000000)]
         public void CreateProxyTest(int iterations)
         {
             var proxyGenerator = new ProxyGenerator();
@@ -60,6 +62,8 @@ namespace NProxy.Core.Test.Performance
             PerformanceSetUpFixture.Instance.WriteMetrics(AssemblyName, "CreateProxy", iterations, stopwatch.Elapsed);
         }
 
+        [TestCase(100000)]
+        [TestCase(1000000)]
         [TestCase(10000000)]
         public void InvokeIntMethodTest(int iterations)
         {
@@ -81,6 +85,8 @@ namespace NProxy.Core.Test.Performance
             PerformanceSetUpFixture.Instance.WriteMetrics(AssemblyName, "InvokeIntMethod", iterations, stopwatch.Elapsed);
         }
 
+        [TestCase(100000)]
+        [TestCase(1000000)]
         [TestCase(10000000)]
         public void InvokeGenericMethodTest(int iterations)
         {
