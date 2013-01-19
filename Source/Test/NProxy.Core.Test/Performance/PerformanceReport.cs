@@ -63,6 +63,12 @@ namespace NProxy.Core.Test.Performance
 
         public void WriteValues(AssemblyName assemblyName, string testName, int iterations, TimeSpan elapsedTime)
         {
+            if (assemblyName == null)
+                throw new ArgumentNullException("assemblyName");
+
+            if (testName == null)
+                throw new ArgumentNullException("testName");
+
             var totalMilliseconds = elapsedTime.TotalMilliseconds;
             var averageMicroseconds = (totalMilliseconds*1000)/iterations;
 
