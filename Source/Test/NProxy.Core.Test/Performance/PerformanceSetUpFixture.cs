@@ -51,7 +51,7 @@ namespace NProxy.Core.Test.Performance
         {
             var writer = new StreamWriter(path, false);
 
-            writer.WriteLine("\"Library\";\"Version\";\"Test\";\"Iterations\";\"Total Time in µs\";\"Average Time in ns\"");
+            writer.WriteLine("\"Library\";\"Version\";\"Test\";\"Iterations\";\"Total Time in ms\";\"Average Time in µs\"");
 
             return writer;
         }
@@ -63,18 +63,18 @@ namespace NProxy.Core.Test.Performance
 
         public void WriteMetrics(AssemblyName assemblyName, string testName, int iterations, TimeSpan elapsedTime)
         {
-            var totalMicroseconds = elapsedTime.TotalMilliseconds * 1000;
-            var averageNanoseconds = (totalMicroseconds*1000)/iterations;
+            var totalMilliseconds = elapsedTime.TotalMilliseconds;
+            var averageMicroseconds = (totalMilliseconds*1000)/iterations;
 
-            Writer.WriteLine("{0};{1}.{2}.{3};{4};{5};{6:0};{7:0}",
+            Writer.WriteLine("{0};{1}.{2}.{3};{4};{5};{6:0.000};{7:0.000}",
                              assemblyName.Name,
                              assemblyName.Version.Major,
                              assemblyName.Version.Minor,
                              assemblyName.Version.Build,
                              testName,
                              iterations,
-                             totalMicroseconds,
-                             averageNanoseconds);
+                             totalMilliseconds,
+                             averageMicroseconds);
         }
     }
 }

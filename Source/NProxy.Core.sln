@@ -216,6 +216,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
-		Project = ".\NProxy.Core.ndproj"
+		Project = ""
 	EndGlobalSection
 EndGlobal
