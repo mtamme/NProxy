@@ -12,6 +12,8 @@ The answers which lead to the goals of the NProxy project can be summarized as f
 * Treat open generic methods not as aliens and massively improve their invocation performance.
 * Support the invocation of intercepted base methods.
 * Make a library available which can be used as a base for AOP frameworks, mocking libraries, ...
+* The library should run under the Microsoft .NET Framework as well as Mono.
+* Dynamic proxy creation must be thread-safe.
 
 ## Dynamic proxies
 
