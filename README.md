@@ -116,7 +116,7 @@ of functions with the most individual work.
 The follwoing table shows a performance comparison between the most popular dynamic proxy libraries and NProxy.
 
 | Library     | Version | Test                | Iterations | Total Time in µs | Average Time in ns |
-|:------------|--------:|---------------------|-----------:|-----------------:|-------------------:|
+|:------------|--------:|:--------------------|-----------:|-----------------:|-------------------:|
 | Castle.Core |   3.1.0 | CreateProxy         |     200000 |          1364428 |               6822 |
 | LinFu.Core  |   2.3.0 | CreateProxy         |     200000 |           230837 |               1154 |
 | NProxy.Core |   1.2.1 | CreateProxy         |     200000 |           926489 |               4632 |
