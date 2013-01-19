@@ -117,19 +117,19 @@ of functions with the most individual work.
 
 The follwoing table shows a performance comparison between the most popular dynamic proxy libraries and NProxy.
 
-| Library     | Version | Test                | Iterations | Total Time in µs | Average Time in ns |
+| Library     | Version | Test                | Iterations | Total Time in ms | Average Time in µs |
 |:------------|--------:|:--------------------|-----------:|-----------------:|-------------------:|
-| Castle.Core |   3.1.0 | CreateProxy         |     200000 |          1364428 |               6822 |
-| LinFu.Core  |   2.3.0 | CreateProxy         |     200000 |           230837 |               1154 |
-| NProxy.Core |   1.2.1 | CreateProxy         |     200000 |           926489 |               4632 |
-| Castle.Core |   3.1.0 | InvokeIntMethod     |   10000000 |          1169620 |                117 |
-| LinFu.Core  |   2.3.0 | InvokeIntMethod     |   10000000 |         22992519 |               2299 |
-| NProxy.Core |   1.2.1 | InvokeIntMethod     |   10000000 |          1129862 |                113 |
-| Castle.Core |   3.1.0 | InvokeGenericMethod |   10000000 |         19486872 |               1949 |
-| LinFu.Core  |   2.3.0 | InvokeGenericMethod |   10000000 |         85687750 |               8569 |
-| NProxy.Core |   1.2.1 | InvokeGenericMethod |   10000000 |          1597898 |                160 |
+| Castle.Core |   3.1.0 | CreateProxy         |    1000000 |         5929.160 |              5.929 |
+| LinFu.Core  |   2.3.0 | CreateProxy         |    1000000 |         2006.009 |              2.006 |
+| NProxy.Core |   1.2.1 | CreateProxy         |    1000000 |         3843.029 |              3.843 |
+| Castle.Core |   3.1.0 | InvokeIntMethod     |   10000000 |          869.915 |              0.087 |
+| LinFu.Core  |   2.3.0 | InvokeIntMethod     |   10000000 |        25743.463 |              2.574 |
+| NProxy.Core |   1.2.1 | InvokeIntMethod     |   10000000 |          824.943 |              0.082 |
+| Castle.Core |   3.1.0 | InvokeGenericMethod |   10000000 |        18471.089 |              1.847 |
+| LinFu.Core  |   2.3.0 | InvokeGenericMethod |   10000000 |        76997.030 |              7.700 |
+| NProxy.Core |   1.2.1 | InvokeGenericMethod |   10000000 |         1013.833 |              0.101 |
 
-The tests have been performed under .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Test/Performance).
+Tests have been performed under .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Test/Performance).
 
 # Release notes
 
