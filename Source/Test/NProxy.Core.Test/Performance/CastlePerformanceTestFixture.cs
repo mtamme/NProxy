@@ -57,7 +57,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceSetUpFixture.Instance.WriteValues(AssemblyName, "CreateProxy", iterations, stopwatch.Elapsed);
+            PerformanceReport.Instance.WriteValues(AssemblyName, "CreateProxy", iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
@@ -78,7 +78,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceSetUpFixture.Instance.WriteValues(AssemblyName, "InvokeIntMethod", iterations, stopwatch.Elapsed);
+            PerformanceReport.Instance.WriteValues(AssemblyName, "InvokeIntMethod", iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
@@ -99,7 +99,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceSetUpFixture.Instance.WriteValues(AssemblyName, "InvokeGenericMethod", iterations, stopwatch.Elapsed);
+            PerformanceReport.Instance.WriteValues(AssemblyName, "InvokeGenericMethod", iterations, stopwatch.Elapsed);
         }
     }
 }

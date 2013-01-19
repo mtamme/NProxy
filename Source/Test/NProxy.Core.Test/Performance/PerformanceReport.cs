@@ -24,9 +24,9 @@ using NUnit.Framework;
 namespace NProxy.Core.Test.Performance
 {
     [SetUpFixture]
-    internal sealed class PerformanceSetUpFixture
+    internal sealed class PerformanceReport
     {
-        public static PerformanceSetUpFixture Instance { get; private set; }
+        public static PerformanceReport Instance { get; private set; }
 
         private Lazy<TextWriter> _writer;
 
