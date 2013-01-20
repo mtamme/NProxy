@@ -102,13 +102,21 @@ public interface IInterceptionBehavior
 }
 ```
 
-## Performance
+## Latest version
 
-See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/PERFORMANCE.md) for details.
+To get the latest version of NProxy just add it to your project using [NuGet](http://nuget.org/packages/NProxy.Core).
+
+```
+PM> Install-Package NProxy.Core
+```
 
 ## Release notes
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md) for details.
+
+## Performance
+
+See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/PERFORMANCE.md) for details.
 
 ## Building NProxy
 
