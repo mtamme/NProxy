@@ -1,4 +1,4 @@
-# Samples
+# Examples
 
 To demonstrate the basic dynamic proxy functionality lets assume we have a class named `Foo` which will present the base class for our new proxy.
 
