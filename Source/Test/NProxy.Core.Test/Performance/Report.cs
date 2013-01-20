@@ -51,7 +51,7 @@ namespace NProxy.Core.Test.Performance
         {
             var writer = new StreamWriter(path, false);
 
-            writer.WriteLine("\"Library\";\"Version\";\"Scenario ID\";\"Scenario Name\";\"Scenario Description\";\"Iterations\";\"Total Time in ms\";\"Average Time in µs\"");
+            writer.WriteLine("\"Library\";\"Version\";\"Scenario ID\";\"Scenario name\";\"Scenario description\";\"Iterations\";\"Total time in ms\";\"Average time in µs\"");
 
             return writer;
         }

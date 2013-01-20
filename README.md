@@ -8,7 +8,7 @@ There are already a few libraries out there which deal with dynamic proxy genera
 The answers which lead to the goals of the NProxy project can be summarized as follows:
 
 * Provide an API to generate dynamic proxies based upon unsealed classes, abstract classes, interfaces and delegates in a unified way.
-* Focus on a slim implementation which can be easily extended.
+* Focus on a slim and fast implementation which can be easily extended.
 * Treat open generic methods not as aliens and massively improve their invocation performance.
 * Support the invocation of intercepted base methods.
 * Make a library available which can be used as a base for AOP frameworks, mocking libraries, ...
