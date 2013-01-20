@@ -102,15 +102,15 @@ public interface IInterceptionBehavior
 }
 ```
 
-# Performance
+## Performance
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/PERFORMANCE.md) for details.
 
-# Release notes
+## Release notes
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md) for details.
 
-# Building NProxy
+## Building NProxy
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BUILD.md) for details.
 
