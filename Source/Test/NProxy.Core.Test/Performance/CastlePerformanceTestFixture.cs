@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -37,6 +37,17 @@ namespace NProxy.Core.Test.Performance
             AssemblyName = type.Assembly.GetName();
         }
 
+        [TestFixtureSetUp]
+        public void SetUp()
+        {
+            // Ensure all classes are loaded and initialized.
+            var proxyGenerator = new ProxyGenerator();
+            var interceptors = new IInterceptor[] {new CastleInterceptor()};
+            var target = new Method();
+
+            proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
+        }
+
         [TestCase(1000000)]
         public void CreateProxyTest(int iterations)
         {
@@ -45,19 +56,38 @@ namespace NProxy.Core.Test.Performance
             var target = new Method();
             var stopwatch = new Stopwatch();
 
-            // Create proxy type.
-            proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IMethod), target, interceptors);
+            stopwatch.Start();
+
+            proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
+
+            stopwatch.Stop();
+
+            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownType, 1, stopwatch.Elapsed);
+
+            stopwatch.Reset();
+
+            var newTarget = new GenericMethod();
+
+            stopwatch.Start();
+
+            proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(newTarget, interceptors);
+
+            stopwatch.Stop();
+
+            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownTypeWithGenericMethod, 1, stopwatch.Elapsed);
+
+            stopwatch.Reset();
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IMethod), target, interceptors);
+                proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
             }
 
             stopwatch.Stop();
 
-            PerformanceReport.Instance.WriteValues(AssemblyName, "CreateProxy", iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownType, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
@@ -66,7 +96,7 @@ namespace NProxy.Core.Test.Performance
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
             var target = new Method();
-            var proxy = (IMethod) proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IMethod), target, interceptors);
+            var proxy = proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
@@ -78,7 +108,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceReport.Instance.WriteValues(AssemblyName, "InvokeMethod", iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues(AssemblyName, Scenario.InvokeMethod, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
@@ -87,7 +117,7 @@ namespace NProxy.Core.Test.Performance
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
             var target = new GenericMethod();
-            var proxy = (IGenericMethod) proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IGenericMethod), target, interceptors);
+            var proxy = proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(target, interceptors);
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
@@ -99,7 +129,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceReport.Instance.WriteValues(AssemblyName, "InvokeGenericMethod", iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues(AssemblyName, Scenario.InvokeGenericMethod, iterations, stopwatch.Elapsed);
         }
     }
 }
