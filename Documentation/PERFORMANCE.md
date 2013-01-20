@@ -1,17 +1,5 @@
 # Performance
 
-## The worst-case scenario
-
-Looking at the worst-case scenario where each proxy creation generates a new proxy type the main bottleneck is currently the `System.Reflection.Emit`
-namespace. The functions with the most individual work are shown below.
-
-![Without proxy type cache](https://raw.github.com/mtamme/NProxy/master/Documentation/WithoutProxyTypeCache.png "Without proxy type cache")
-
-Proxy types are cached by default so under normal circumstances this scenario does not apply. Enabling proxy type caching results in the following list
-of functions with the most individual work.
-
-![With proxy type cache](https://raw.github.com/mtamme/NProxy/master/Documentation/WithProxyTypeCache.png "With proxy type cache")
-
 ## Comparison
 
 The follwoing chart shows a performance comparison between the most popular dynamic proxy libraries and NProxy.
@@ -33,3 +21,15 @@ Detailed performance values can be found in the table below.
 | NProxy.Core |   1.2.1 | InvokeGenericMethod |   10000000 |         1013.833 |              0.101 |
 
 Tests have been performed under .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Test/Performance).
+
+## The worst-case scenario
+
+Looking at the worst-case scenario where each proxy creation generates a new proxy type the main bottleneck is currently the `System.Reflection.Emit`
+namespace. The functions with the most individual work are shown below.
+
+![Without proxy type cache](https://raw.github.com/mtamme/NProxy/master/Documentation/WithoutProxyTypeCache.png "Without proxy type cache")
+
+Proxy types are cached by default so under normal circumstances this scenario does not apply. Enabling proxy type caching results in the following list
+of functions with the most individual work.
+
+![With proxy type cache](https://raw.github.com/mtamme/NProxy/master/Documentation/WithProxyTypeCache.png "With proxy type cache")
