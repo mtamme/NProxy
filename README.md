@@ -2,18 +2,6 @@
 
 NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 
-## Latest version
-
-To get the latest version of NProxy just add it to your project using [NuGet](http://nuget.org/packages/NProxy.Core).
-
-```
-PM> Install-Package NProxy.Core
-```
-
-## Release notes
-
-See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md) for details.
-
 ## Motivation
 
 There are already a few libraries out there which deal with dynamic proxy generation so why another dynamic proxy library?
@@ -25,6 +13,18 @@ The answers which lead to the goals of the NProxy project can be summarized as f
 * Support the invocation of intercepted base methods.
 * Make a library available which can be used as a base for AOP frameworks, mocking libraries, ...
 * Dynamic proxy creation must be thread-safe.
+
+## Latest version
+
+To get the latest version of NProxy just add it to your project using [NuGet](http://nuget.org/packages/NProxy.Core).
+
+```
+PM> Install-Package NProxy.Core
+```
+
+## Release notes
+
+See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md) for details.
 
 ## Dynamic proxies
 
