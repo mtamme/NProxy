@@ -18,7 +18,7 @@ Details can be found in the table below.
 | LinFu.Core  |   2.3.0 | InvokeGenericMethod |   10000000 |        76997.030 |              7.700 |
 | NProxy.Core |   1.2.1 | InvokeGenericMethod |   10000000 |         1013.833 |              0.101 |
 
-Tests have been performed under .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Test/Performance).
+Tests have been performed under Microsoft .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Test/Performance).
 
 ## The worst-case scenario
 
