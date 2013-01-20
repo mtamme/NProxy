@@ -102,7 +102,7 @@ public interface IInterceptionBehavior
 }
 ```
 
-## Performance
+# Performance
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/PERFORMANCE.md) for details.
 
