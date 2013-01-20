@@ -1,4 +1,4 @@
-# Dynamic proxies
+# Samples
 
 To demonstrate the basic dynamic proxy functionality lets assume we have a class named `Foo` which will present the base class for our new proxy.
 
@@ -45,7 +45,7 @@ var foo = proxyFactory.CreateProxy<Foo>(Type.EmptyTypes, new LoggingInvocationHa
 foo.Bar();
 ```
 
-# Interceptors
+## Interceptors
 
 To demonstrate the interception functionality lets assume we want to implement a lazy loading mechanism in an aspect oriented manner.
 
