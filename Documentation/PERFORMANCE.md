@@ -1,5 +1,7 @@
 # Performance
 
+## The worst-case scenario
+
 Looking at the worst-case scenario where each proxy creation generates a new proxy type the main bottleneck is currently the `System.Reflection.Emit`
 namespace. The functions with the most individual work are shown below.
 
