@@ -50,8 +50,6 @@
     <Compile Include="Performance\NProxyInvocationHandler.cs" />
     <Compile Include="Performance\Types\GenericMethod.cs" />
     <Compile Include="Performance\Types\IGenericMethod.cs" />
-    <Compile Include="Performance\Types\IIntMethod.cs" />
-    <Compile Include="Performance\Types\IntMethod.cs" />
     <Compile Include="TargetInvocationHandler.cs" />
     <Compile Include="GetParametersInvocationHandler.cs" />
     <Compile Include="SetParametersInvocationHandler.cs" />
@@ -125,6 +123,8 @@
     <Compile Include="Internal\Reflection\MethodTokenTestFixture.cs" />
     <Compile Include="Performance\CastleInterceptor.cs" />
     <Compile Include="Performance\PerformanceReport.cs" />
+    <Compile Include="Performance\Types\IMethod.cs" />
+    <Compile Include="Performance\Types\Method.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

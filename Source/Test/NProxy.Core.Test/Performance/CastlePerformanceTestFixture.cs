@@ -42,17 +42,17 @@ namespace NProxy.Core.Test.Performance
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new IntMethod();
+            var target = new Method();
             var stopwatch = new Stopwatch();
 
             // Create proxy type.
-            proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IIntMethod), target, interceptors);
+            proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IMethod), target, interceptors);
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IIntMethod), target, interceptors);
+                proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IMethod), target, interceptors);
             }
 
             stopwatch.Stop();
@@ -65,8 +65,8 @@ namespace NProxy.Core.Test.Performance
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new IntMethod();
-            var proxy = (IIntMethod) proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IIntMethod), target, interceptors);
+            var target = new Method();
+            var proxy = (IMethod) proxyGenerator.CreateInterfaceProxyWithTarget(typeof (IMethod), target, interceptors);
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
@@ -78,7 +78,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceReport.Instance.WriteValues(AssemblyName, "InvokeIntMethod", iterations, stopwatch.Elapsed);
+            PerformanceReport.Instance.WriteValues(AssemblyName, "InvokeMethod", iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]

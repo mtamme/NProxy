@@ -41,17 +41,17 @@ namespace NProxy.Core.Test.Performance
         public void CreateProxyTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
-            var interceptor = new LinFuInterceptor(new IntMethod());
+            var interceptor = new LinFuInterceptor(new Method());
             var stopwatch = new Stopwatch();
 
             // Create proxy type.
-            proxyFactory.CreateProxy<IIntMethod>(interceptor);
+            proxyFactory.CreateProxy<IMethod>(interceptor);
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxyFactory.CreateProxy<IIntMethod>(interceptor);
+                proxyFactory.CreateProxy<IMethod>(interceptor);
             }
 
             stopwatch.Stop();
@@ -63,8 +63,8 @@ namespace NProxy.Core.Test.Performance
         public void InvokeIntMethodTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
-            var interceptor = new LinFuInterceptor(new IntMethod());
-            var proxy = proxyFactory.CreateProxy<IIntMethod>(interceptor);
+            var interceptor = new LinFuInterceptor(new Method());
+            var proxy = proxyFactory.CreateProxy<IMethod>(interceptor);
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
@@ -76,7 +76,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            PerformanceReport.Instance.WriteValues(AssemblyName, "InvokeIntMethod", iterations, stopwatch.Elapsed);
+            PerformanceReport.Instance.WriteValues(AssemblyName, "InvokeMethod", iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
