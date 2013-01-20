@@ -4,7 +4,7 @@ The follwoing chart shows a performance comparison between the most popular dyna
 
 ![Comparison](https://raw.github.com/mtamme/NProxy/master/Documentation/Comparison.png "Comparison")
 
-Detailed performance values can be found in the table below.
+Details can be found in the table below.
 
 | Library     | Version | Test                | Iterations | Total Time in ms | Average Time in µs |
 |:------------|--------:|:--------------------|-----------:|-----------------:|-------------------:|
