@@ -114,9 +114,9 @@ public interface IInterceptionBehavior
 }
 ```
 
-## Samples
+## Examples
 
-See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/SAMPLES.md) for details.
+See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/EXAMPLES.md) for details.
 
 ## Performance
 
