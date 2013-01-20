@@ -90,7 +90,7 @@ namespace NProxy.Core.Test.Performance
         }
 
         [TestCase(10000000)]
-        public void InvokeIntMethodTest(int iterations)
+        public void InvokeMethodTest(int iterations)
         {
             var invocationHandler = new NProxyInvocationHandler(new Method());
             var proxyFactory = CreateProxyFactory(true);

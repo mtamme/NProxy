@@ -60,7 +60,7 @@ namespace NProxy.Core.Test.Performance
         }
 
         [TestCase(10000000)]
-        public void InvokeIntMethodTest(int iterations)
+        public void InvokeMethodTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
             var interceptor = new LinFuInterceptor(new Method());
