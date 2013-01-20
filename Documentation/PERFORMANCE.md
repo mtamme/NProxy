@@ -1,7 +1,5 @@
 # Performance
 
-## Comparison
-
 The follwoing chart shows a performance comparison between the most popular dynamic proxy libraries and NProxy.
 
 ![Comparison](https://raw.github.com/mtamme/NProxy/master/Documentation/Comparison.png "Comparison")
