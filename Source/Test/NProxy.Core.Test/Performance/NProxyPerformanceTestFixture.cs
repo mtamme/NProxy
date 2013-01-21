@@ -29,11 +29,11 @@ namespace NProxy.Core.Test.Performance
     public sealed class NProxyPerformanceTestFixture
     {
         private static readonly AssemblyName AssemblyName;
-        
+
         static NProxyPerformanceTestFixture()
         {
             var type = typeof (ProxyFactory);
-            
+
             AssemblyName = type.Assembly.GetName();
         }
 
@@ -86,16 +86,16 @@ namespace NProxy.Core.Test.Performance
             Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownType, iterations, stopwatch.Elapsed);
 
             stopwatch.Reset();
-            
+
             stopwatch.Start();
-            
+
             for (var i = 0; i < iterations; i++)
             {
                 proxyFactory.CreateProxy<IGenericMethod>(Type.EmptyTypes, invocationHandler);
             }
-            
+
             stopwatch.Stop();
-            
+
             Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownTypeWithGenericMethod, iterations, stopwatch.Elapsed);
         }
 

@@ -89,16 +89,16 @@ namespace NProxy.Core.Test.Performance
             Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownType, iterations, stopwatch.Elapsed);
 
             stopwatch.Reset();
-            
+
             stopwatch.Start();
-            
+
             for (var i = 0; i < iterations; i++)
             {
                 proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(newTarget, interceptors);
             }
-            
+
             stopwatch.Stop();
-            
+
             Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownTypeWithGenericMethod, iterations, stopwatch.Elapsed);
         }
 
