@@ -17,7 +17,7 @@ public interface IGenericMethod
 
 ## Proxy generation
 
-Proxy generation can be so called a worst-case scenario where each dynamic proxy creation
+Proxy generation can be so called the worst-case scenario where each dynamic proxy creation
 generates a new dynamic proxy type. The chart below shows the average proxy generation time in
 milliseconds.
 
@@ -25,7 +25,7 @@ milliseconds.
 
 ## Proxy instantiation
 
-Dynamic proxy types are cached by default so under normal circumstances the previous scenario does not apply.
+Dynamic proxy types are usually cached by default so under normal circumstances the previous scenario does not apply.
 Looking at the more common scenario where only a cache lookup following a type instantiation is performed results
 in the following chart showing the average proxy instantiation time in microseconds.
 
