@@ -1,33 +1,64 @@
 ﻿# Performance
 
-The follwoing chart shows a performance comparison between the most popular dynamic proxy libraries and NProxy.
+To get a picture how NProxy performs in comparison to other popular dynamic proxy libraries lets
+define two interfaces to create dynamic proxies from.
 
-![Comparison](https://raw.github.com/mtamme/NProxy/master/Documentation/Comparison.png "Comparison")
+```csharp
+public interface IMethod
+{
+    int Method(int value);
+}
 
-Details can be found in the table below.
+public interface IGenericMethod
+{
+    TValue Method<TValue>(TValue value);
+}
+```
 
-| Library     | Version | Scenario            | Iterations | Total time in ms | Average time in µs |
-|:------------|--------:|:--------------------|-----------:|-----------------:|-------------------:|
-| Castle.Core |   3.1.0 | CreateProxy         |    1000000 |         5929.160 |              5.929 |
-| LinFu.Core  |   2.3.0 | CreateProxy         |    1000000 |         2006.009 |              2.006 |
-| NProxy.Core |   1.2.1 | CreateProxy         |    1000000 |         3843.029 |              3.843 |
-| Castle.Core |   3.1.0 | InvokeMethod        |   10000000 |          869.915 |              0.087 |
-| LinFu.Core  |   2.3.0 | InvokeMethod        |   10000000 |        25743.463 |              2.574 |
-| NProxy.Core |   1.2.1 | InvokeMethod        |   10000000 |          824.943 |              0.082 |
-| Castle.Core |   3.1.0 | InvokeGenericMethod |   10000000 |        18471.089 |              1.847 |
-| LinFu.Core  |   2.3.0 | InvokeGenericMethod |   10000000 |        76997.030 |              7.700 |
-| NProxy.Core |   1.2.1 | InvokeGenericMethod |   10000000 |         1013.833 |              0.101 |
+## Proxy generation
 
-Tests have been performed under Microsoft .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Test/Performance).
+Proxy generation can be so called a worst-case scenario where each dynamic proxy creation
+generates a new dynamic proxy type. The chart below shows the average proxy generation time in
+milliseconds.
 
-## The worst-case scenario
+![Proxy generation performance](https://raw.github.com/mtamme/NProxy/master/Documentation/ProxyGeneration.png "Proxy generation performance")
 
-Looking at the worst-case scenario where each proxy creation generates a new proxy type the main bottleneck is currently the `System.Reflection.Emit`
-namespace. The functions with the most individual work are shown below.
+## Proxy instantiation
 
-![Without proxy type cache](https://raw.github.com/mtamme/NProxy/master/Documentation/WithoutProxyTypeCache.png "Without proxy type cache")
+Dynamic proxy types are cached by default so under normal circumstances the previous scenario does not apply.
+Looking at the more common scenario where only a cache lookup following a type instantiation is performed results
+in the following chart showing the average proxy instantiation time in microseconds.
 
-Proxy types are cached by default so under normal circumstances this scenario does not apply. Enabling proxy type caching results in the following list
-of functions with the most individual work.
+![Proxy instantiation performance](https://raw.github.com/mtamme/NProxy/master/Documentation/ProxyInstantiation.png "Proxy instantiation performance")
 
-![With proxy type cache](https://raw.github.com/mtamme/NProxy/master/Documentation/WithProxyTypeCache.png "With proxy type cache")
+## Method invocation
+
+Method inocation is probably the most important performance indicator. The following chart shows
+the values in microseconds for this scenario.
+
+![Method invocation performance](https://raw.github.com/mtamme/NProxy/master/Documentation/MethodInvocation.png "Method invocation performance")
+
+Details to the performed test can be found in the table below.
+
+| Library   | Version | Scenario                                   | Iterations | Total time in ms | Average time in µs |
+|:----------|--------:|:-------------------------------------------|-----------:|-----------------:|-------------------:|
+|Castle.Core|  v 3.1.0|Proxy generation                            |        1000|          5008,675|            5008,675|
+|LinFu.Core |  v 2.3.0|Proxy generation                            |        1000|          6818,439|            6818,439|
+|NProxy.Core|  v 1.2.1|Proxy generation                            |        1000|          2109,058|            2109,058|
+|Castle.Core|  v 3.1.0|Proxy generation (with generic parameter)   |        1000|          5030,624|            5030,624|
+|LinFu.Core |  v 2.3.0|Proxy generation (with generic parameter)   |        1000|          7858,363|            7858,363|
+|NProxy.Core|  v 1.2.1|Proxy generation (with generic parameter)   |        1000|          2164,682|            2164,682|
+|Castle.Core|  v 3.1.0|Proxy instantiation                         |     1000000|          6389,657|               6,390|
+|LinFu.Core |  v 2.3.0|Proxy instantiation                         |     1000000|          1244,126|               1,244|
+|NProxy.Core|  v 1.2.1|Proxy instantiation                         |     1000000|          4112,233|               4,112|
+|Castle.Core|  v 3.1.0|Proxy instantiation (with generic parameter)|     1000000|          6403,285|               6,403|
+|LinFu.Core |  v 2.3.0|Proxy instantiation (with generic parameter)|     1000000|          1219,634|               1,220|
+|NProxy.Core|  v 1.2.1|Proxy instantiation (with generic parameter)|     1000000|          4137,089|               4,137|
+|Castle.Core|  v 3.1.0|Method invocation                           |    10000000|          1186,243|               0,119|
+|LinFu.Core |  v 2.3.0|Method invocation                           |    10000000|         19998,139|               2,000|
+|NProxy.Core|  v 1.2.1|Method invocation                           |    10000000|          1104,409|               0,110|
+|Castle.Core|  v 3.1.0|Method invocation (with generic parameter)  |    10000000|         17118,276|               1,712|
+|LinFu.Core |  v 2.3.0|Method invocation (with generic parameter)  |    10000000|         79450,488|               7,945|
+|NProxy.Core|  v 1.2.1|Method invocation (with generic parameter)  |    10000000|          1567,495|               0,157|
+
+All tests have been performed under Microsoft .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Test/Performance).
