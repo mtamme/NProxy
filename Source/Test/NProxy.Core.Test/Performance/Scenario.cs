@@ -37,13 +37,18 @@ namespace NProxy.Core.Test.Performance
             "CreateProxyFromKnownType",
             "Create proxy from known type");
 
-        public static readonly Scenario InvokeMethod = new Scenario(
+        public static readonly Scenario CreateProxyFromKnownTypeWithGenericMethod = new Scenario(
             4,
+            "CreateProxyFromKnownTypeWithGenericMethod",
+            "Create proxy from known type with generic method");
+
+        public static readonly Scenario InvokeMethod = new Scenario(
+            5,
             "InvokeMethod",
             "Invoke method");
 
         public static readonly Scenario InvokeGenericMethod = new Scenario(
-            5,
+            6,
             "InvokeGenericMethod",
             "Invoke generic method");
 

@@ -84,6 +84,19 @@ namespace NProxy.Core.Test.Performance
             stopwatch.Stop();
 
             Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownType, iterations, stopwatch.Elapsed);
+
+            stopwatch.Reset();
+            
+            stopwatch.Start();
+            
+            for (var i = 0; i < iterations; i++)
+            {
+                proxyFactory.CreateProxy<IGenericMethod>(interceptor);
+            }
+            
+            stopwatch.Stop();
+            
+            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownTypeWithGenericMethod, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
