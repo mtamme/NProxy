@@ -19,6 +19,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using NUnit.Framework;
 
 namespace NProxy.Core.Test.Performance
@@ -49,7 +50,7 @@ namespace NProxy.Core.Test.Performance
 
         private static TextWriter CreateWriter(string path)
         {
-            var writer = new StreamWriter(path, false);
+            var writer = new StreamWriter(path, false, Encoding.UTF8);
 
             writer.WriteLine("\"Library\";\"Version\";\"Scenario ID\";\"Scenario name\";\"Scenario description\";\"Iterations\";\"Total time in ms\";\"Average time in µs\"");
 
@@ -72,7 +73,7 @@ namespace NProxy.Core.Test.Performance
             var totalMilliseconds = elapsedTime.TotalMilliseconds;
             var averageMicroseconds = (totalMilliseconds*1000)/iterations;
 
-            Writer.WriteLine("\"{0}\";\"{1}.{2}.{3}\";{4};\"{5}\";\"{6}\";{7};{8:0.000};{9:0.000}",
+            Writer.WriteLine("\"{0}\";v {1}.{2}.{3};{4};\"{5}\";\"{6}\";{7};{8:0.000};{9:0.000}",
                              assemblyName.Name,
                              assemblyName.Version.Major,
                              assemblyName.Version.Minor,

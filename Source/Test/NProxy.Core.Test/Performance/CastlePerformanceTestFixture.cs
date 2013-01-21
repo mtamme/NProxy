@@ -48,34 +48,57 @@ namespace NProxy.Core.Test.Performance
             proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
         }
 
+        [TestCase(1000)]
+        public void CreateProxyFromUnknownTypeTest(int iterations)
+        {
+            var interceptors = new IInterceptor[] {new CastleInterceptor()};
+            var target = new Method();
+            var stopwatch = new Stopwatch();
+
+            for (var i = 0; i < iterations; i++)
+            {
+                var proxyGenerator = new ProxyGenerator();
+
+                stopwatch.Start();
+
+                proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
+
+                stopwatch.Stop();
+            }
+
+            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownType, iterations, stopwatch.Elapsed);
+        }
+
+        [TestCase(1000)]
+        public void CreateProxyFromUnknownTypeWithGenericMethodTest(int iterations)
+        {
+            var interceptors = new IInterceptor[] {new CastleInterceptor()};
+            var target = new GenericMethod();
+            var stopwatch = new Stopwatch();
+
+            for (var i = 0; i < iterations; i++)
+            {
+                var proxyGenerator = new ProxyGenerator();
+
+                stopwatch.Start();
+
+                proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(target, interceptors);
+
+                stopwatch.Stop();
+            }
+
+            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownTypeWithGenericMethod, iterations, stopwatch.Elapsed);
+        }
+
         [TestCase(1000000)]
-        public void CreateProxyTest(int iterations)
+        public void CreateProxyFromKnownTypeTest(int iterations)
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
             var target = new Method();
-            var newTarget = new GenericMethod();
             var stopwatch = new Stopwatch();
 
-            stopwatch.Start();
-
             proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
-
-            stopwatch.Stop();
-
-            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownType, 1, stopwatch.Elapsed);
-
-            stopwatch.Reset();
-
-            stopwatch.Start();
-
-            proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(newTarget, interceptors);
-
-            stopwatch.Stop();
-
-            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownTypeWithGenericMethod, 1, stopwatch.Elapsed);
-
-            stopwatch.Reset();
 
             stopwatch.Start();
 
@@ -87,14 +110,23 @@ namespace NProxy.Core.Test.Performance
             stopwatch.Stop();
 
             Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownType, iterations, stopwatch.Elapsed);
+        }
 
-            stopwatch.Reset();
+        [TestCase(1000000)]
+        public void CreateProxyFromKnownTypeWithGenericMethodTest(int iterations)
+        {
+            var proxyGenerator = new ProxyGenerator();
+            var interceptors = new IInterceptor[] {new CastleInterceptor()};
+            var target = new GenericMethod();
+            var stopwatch = new Stopwatch();
+
+            proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(target, interceptors);
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(newTarget, interceptors);
+                proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(target, interceptors);
             }
 
             stopwatch.Stop();

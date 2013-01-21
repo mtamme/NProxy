@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Performance\CastlePerformanceTestFixture.cs" />
+    <Compile Include="Performance\LinFuProxyCache.cs" />
     <Compile Include="Performance\LinFuInterceptor.cs" />
     <Compile Include="Performance\LinFuPerformanceTestFixture.cs" />
     <Compile Include="Performance\NProxyPerformanceTestFixture.cs" />

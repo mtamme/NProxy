@@ -47,32 +47,54 @@ namespace NProxy.Core.Test.Performance
             proxyFactory.CreateProxy<IMethod>(Type.EmptyTypes, invocationHandler);
         }
 
+        [TestCase(1000)]
+        public void CreateProxyFromUnknownTypeTest(int iterations)
+        {
+            var invocationHandler = new NProxyInvocationHandler(new Method());
+            var stopwatch = new Stopwatch();
+
+            for (var i = 0; i < iterations; i++)
+            {
+                var proxyFactory = new ProxyFactory();
+
+                stopwatch.Start();
+
+                proxyFactory.CreateProxy<IMethod>(Type.EmptyTypes, invocationHandler);
+
+                stopwatch.Stop();
+            }
+
+            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownType, iterations, stopwatch.Elapsed);
+        }
+
+        [TestCase(1000)]
+        public void CreateProxyFromUnknownTypeWithGenericMethodTest(int iterations)
+        {
+            var invocationHandler = new NProxyInvocationHandler(new GenericMethod());
+            var stopwatch = new Stopwatch();
+
+            for (var i = 0; i < iterations; i++)
+            {
+                var proxyFactory = new ProxyFactory();
+
+                stopwatch.Start();
+
+                proxyFactory.CreateProxy<IGenericMethod>(Type.EmptyTypes, invocationHandler);
+
+                stopwatch.Stop();
+            }
+
+            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownTypeWithGenericMethod, iterations, stopwatch.Elapsed);
+        }
+
         [TestCase(1000000)]
-        public void CreateProxyTest(int iterations)
+        public void CreateProxyFromKnownTypeTest(int iterations)
         {
             var invocationHandler = new NProxyInvocationHandler(new Method());
             var proxyFactory = new ProxyFactory();
             var stopwatch = new Stopwatch();
 
-            stopwatch.Start();
-
             proxyFactory.CreateProxy<IMethod>(Type.EmptyTypes, invocationHandler);
-
-            stopwatch.Stop();
-
-            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownType, 1, stopwatch.Elapsed);
-
-            stopwatch.Reset();
-
-            stopwatch.Start();
-
-            proxyFactory.CreateProxy<IGenericMethod>(Type.EmptyTypes, invocationHandler);
-
-            stopwatch.Stop();
-
-            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownTypeWithGenericMethod, 1, stopwatch.Elapsed);
-
-            stopwatch.Reset();
 
             stopwatch.Start();
 
@@ -84,8 +106,16 @@ namespace NProxy.Core.Test.Performance
             stopwatch.Stop();
 
             Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownType, iterations, stopwatch.Elapsed);
+        }
 
-            stopwatch.Reset();
+        [TestCase(1000000)]
+        public void CreateProxyFromKnownTypeWithGenericMethodTest(int iterations)
+        {
+            var invocationHandler = new NProxyInvocationHandler(new GenericMethod());
+            var proxyFactory = new ProxyFactory();
+            var stopwatch = new Stopwatch();
+
+            proxyFactory.CreateProxy<IGenericMethod>(Type.EmptyTypes, invocationHandler);
 
             stopwatch.Start();
 
