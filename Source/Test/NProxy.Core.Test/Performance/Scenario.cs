@@ -22,35 +22,35 @@ namespace NProxy.Core.Test.Performance
 {
     internal sealed class Scenario
     {
-        public static readonly Scenario CreateProxyFromUnknownType = new Scenario(
+        public static readonly Scenario ProxyGeneration = new Scenario(
             1,
-            "CreateProxyFromUnknownType",
-            "Create proxy from unknown type");
+            "ProxyGeneration",
+            "Proxy generation");
 
-        public static readonly Scenario CreateProxyFromUnknownTypeWithGenericMethod = new Scenario(
+        public static readonly Scenario ProxyGenerationWithGenericParameter = new Scenario(
             2,
-            "CreateProxyFromUnknownTypeWithGenericMethod",
-            "Create proxy from unknown type with generic method");
+            "ProxyGenerationWithGenericParameter",
+            "Proxy generation (with generic parameter)");
 
-        public static readonly Scenario CreateProxyFromKnownType = new Scenario(
+        public static readonly Scenario ProxyInstantiation = new Scenario(
             3,
-            "CreateProxyFromKnownType",
-            "Create proxy from known type");
+            "ProxyInstantiation",
+            "Proxy instantiation");
 
-        public static readonly Scenario CreateProxyFromKnownTypeWithGenericMethod = new Scenario(
+        public static readonly Scenario ProxyInstantiationWithGenericParameter = new Scenario(
             4,
-            "CreateProxyFromKnownTypeWithGenericMethod",
-            "Create proxy from known type with generic method");
+            "ProxyInstantiationWithGenericParameter",
+            "Proxy instantiation (with generic parameter)");
 
-        public static readonly Scenario InvokeMethod = new Scenario(
+        public static readonly Scenario MethodInvocation = new Scenario(
             5,
-            "InvokeMethod",
-            "Invoke method");
+            "MethodInvocation",
+            "Method invocation");
 
-        public static readonly Scenario InvokeGenericMethod = new Scenario(
+        public static readonly Scenario MethodInvocationWithGenericParameter = new Scenario(
             6,
-            "InvokeGenericMethod",
-            "Invoke generic method");
+            "MethodInvocationWithGenericParameter",
+            "Method invocation (with generic parameter)");
 
         private readonly int _id;
 

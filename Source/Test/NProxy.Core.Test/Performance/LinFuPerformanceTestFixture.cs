@@ -48,7 +48,7 @@ namespace NProxy.Core.Test.Performance
         }
 
         [TestCase(1000)]
-        public void CreateProxyFromUnknownTypeTest(int iterations)
+        public void ProxyGenerationTest(int iterations)
         {
             var interceptor = new LinFuInterceptor(new Method());
             var stopwatch = new Stopwatch();
@@ -64,11 +64,11 @@ namespace NProxy.Core.Test.Performance
                 stopwatch.Stop();
             }
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownType, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues(AssemblyName, Scenario.ProxyGeneration, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(1000)]
-        public void CreateProxyFromUnknownTypeWithGenericMethodTest(int iterations)
+        public void ProxyGenerationWithGenericParameterTest(int iterations)
         {
             var interceptor = new LinFuInterceptor(new GenericMethod());
             var stopwatch = new Stopwatch();
@@ -84,11 +84,11 @@ namespace NProxy.Core.Test.Performance
                 stopwatch.Stop();
             }
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromUnknownTypeWithGenericMethod, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues(AssemblyName, Scenario.ProxyGenerationWithGenericParameter, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(1000000)]
-        public void CreateProxyFromKnownTypeTest(int iterations)
+        public void ProxyInstantiationTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
             var interceptor = new LinFuInterceptor(new Method());
@@ -105,11 +105,11 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownType, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues(AssemblyName, Scenario.ProxyInstantiation, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(1000000)]
-        public void CreateProxyFromKnownTypeWithGenericMethodTest(int iterations)
+        public void ProxyInstantiationWithGenericParameterTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
             var interceptor = new LinFuInterceptor(new GenericMethod());
@@ -126,11 +126,11 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.CreateProxyFromKnownTypeWithGenericMethod, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues(AssemblyName, Scenario.ProxyInstantiationWithGenericParameter, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
-        public void InvokeMethodTest(int iterations)
+        public void MethodInvocationTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
             var interceptor = new LinFuInterceptor(new Method());
@@ -146,11 +146,11 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.InvokeMethod, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues(AssemblyName, Scenario.MethodInvocation, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
-        public void InvokeGenericMethodTest(int iterations)
+        public void MethodInvocationWithGenericParameterTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
             var interceptor = new LinFuInterceptor(new GenericMethod());
@@ -166,7 +166,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.InvokeGenericMethod, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues(AssemblyName, Scenario.MethodInvocationWithGenericParameter, iterations, stopwatch.Elapsed);
         }
     }
 }
