@@ -66,5 +66,4 @@ All tests have been performed under Microsoft .NET 4.0.30319 and can be found [h
 ## Conclusion
 
 From performance point of view NProxy beats the other dynamic proxy libraries in almost all scenarios. Only LinFu performs better
-in terms of proxy instantiation. This is due to the fact that LinFu's default dynamic proxy type cache is backed by a simple `Dictionary`
-which is of cause much faster but not thread-safe.
+in terms of proxy instantiation.
