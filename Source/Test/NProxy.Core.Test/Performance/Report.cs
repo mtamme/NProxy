@@ -67,17 +67,31 @@ namespace NProxy.Core.Test.Performance
             if (assemblyName == null)
                 throw new ArgumentNullException("assemblyName");
 
+            var version = String.Format("v {0}.{1}.{2}",
+                                        assemblyName.Version.Major,
+                                        assemblyName.Version.Minor,
+                                        assemblyName.Version.Build);
+
+            WriteValues(assemblyName.Name, version, scenario, iterations, elapsedTime);
+        }
+
+        public void WriteValues(string libraryName, string version, Scenario scenario, int iterations, TimeSpan elapsedTime)
+        {
+            if (libraryName == null)
+                throw new ArgumentNullException("libraryName");
+
+            if (version == null)
+                throw new ArgumentNullException("version");
+
             if (scenario == null)
                 throw new ArgumentNullException("scenario");
 
             var totalMilliseconds = elapsedTime.TotalMilliseconds;
             var averageMicroseconds = (totalMilliseconds*1000)/iterations;
 
-            Writer.WriteLine("\"{0}\";v {1}.{2}.{3};{4};\"{5}\";\"{6}\";{7};{8:0.000};{9:0.000}",
-                             assemblyName.Name,
-                             assemblyName.Version.Major,
-                             assemblyName.Version.Minor,
-                             assemblyName.Version.Build,
+            Writer.WriteLine("\"{0}\";\"{1}\";{2};\"{3}\";\"{4}\";{5};{6:0.000};{7:0.000}",
+                             libraryName,
+                             version,
                              scenario.Id,
                              scenario.Name,
                              scenario.Description,

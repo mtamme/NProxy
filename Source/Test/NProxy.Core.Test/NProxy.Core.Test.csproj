@@ -127,6 +127,9 @@
     <Compile Include="Performance\Types\Trivial.cs" />
     <Compile Include="Performance\Types\IGeneric.cs" />
     <Compile Include="Performance\Types\Generic.cs" />
+    <Compile Include="Performance\TrivialDecorator.cs" />
+    <Compile Include="Performance\GenericDecorator.cs" />
+    <Compile Include="Performance\DecoratorPerformanceTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

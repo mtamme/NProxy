@@ -30,7 +30,7 @@ namespace NProxy.Core.Test.Performance
         public static readonly Scenario ProxyGenerationWithGenericParameter = new Scenario(
             2,
             "ProxyGenerationWithGenericParameter",
-            "Proxy generation (with generic parameter)");
+            "Proxy generation (w/ generic param)");
 
         public static readonly Scenario ProxyInstantiation = new Scenario(
             3,
@@ -40,7 +40,7 @@ namespace NProxy.Core.Test.Performance
         public static readonly Scenario ProxyInstantiationWithGenericParameter = new Scenario(
             4,
             "ProxyInstantiationWithGenericParameter",
-            "Proxy instantiation (with generic parameter)");
+            "Proxy instantiation (w/ generic param)");
 
         public static readonly Scenario MethodInvocation = new Scenario(
             5,
@@ -50,7 +50,7 @@ namespace NProxy.Core.Test.Performance
         public static readonly Scenario MethodInvocationWithGenericParameter = new Scenario(
             6,
             "MethodInvocationWithGenericParameter",
-            "Method invocation (with generic parameter)");
+            "Method invocation (w/ generic param)");
 
         private readonly int _id;
 
