@@ -17,6 +17,7 @@
 //
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -52,7 +53,7 @@ namespace NProxy.Core.Test.Performance
         {
             var writer = new StreamWriter(path, false, Encoding.UTF8);
 
-            writer.WriteLine("\"Name\";\"Version\";\"Scenario ID\";\"Scenario name\";\"Scenario description\";\"Iterations\";\"Total time in ms\";\"Average time in µs\"");
+            writer.WriteLine("\"Artifact\";\"Version\";\"Scenario\";\"Description\";\"Iterations\";\"Total time (ms)\";\"Average time (ms)\";\"Average time (µs)\"");
 
             return writer;
         }
@@ -75,10 +76,10 @@ namespace NProxy.Core.Test.Performance
             WriteValues(assemblyName.Name, version, scenario, iterations, elapsedTime);
         }
 
-        public void WriteValues(string name, string version, Scenario scenario, int iterations, TimeSpan elapsedTime)
+        private void WriteValues(string artifact, string version, Scenario scenario, int iterations, TimeSpan elapsedTime)
         {
-            if (name == null)
-                throw new ArgumentNullException("name");
+            if (artifact == null)
+                throw new ArgumentNullException("artifact");
 
             if (version == null)
                 throw new ArgumentNullException("version");
@@ -89,15 +90,18 @@ namespace NProxy.Core.Test.Performance
             var totalMilliseconds = elapsedTime.TotalMilliseconds;
             var averageMicroseconds = (totalMilliseconds*1000)/iterations;
 
-            Writer.WriteLine("\"{0}\";\"{1}\";{2};\"{3}\";\"{4}\";{5};{6:0.000};{7:0.000}",
-                             name,
-                             version,
-                             scenario.Id,
-                             scenario.Name,
-                             scenario.Description,
-                             iterations,
-                             totalMilliseconds,
-                             averageMicroseconds);
+            var line = String.Format(CultureInfo.InvariantCulture,
+                                     "\"{0}\";\"{1}\";\"{2}\";\"{3}\";{4};{5:0.000};{6:0.000};{7:0.000}",
+                                     artifact,
+                                     version,
+                                     scenario.Name,
+                                     scenario.Description,
+                                     iterations,
+                                     totalMilliseconds,
+                                     averageMicroseconds/1000,
+                                     averageMicroseconds);
+
+            Writer.WriteLine(line);
         }
     }
 }

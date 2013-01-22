@@ -23,42 +23,34 @@ namespace NProxy.Core.Test.Performance
     internal sealed class Scenario
     {
         public static readonly Scenario ProxyGeneration = new Scenario(
-            1,
             "ProxyGeneration",
             "Proxy generation");
 
         public static readonly Scenario ProxyGenerationWithGenericParameter = new Scenario(
-            2,
             "ProxyGenerationWithGenericParameter",
             "Proxy generation (w/ generic param)");
 
         public static readonly Scenario ProxyInstantiation = new Scenario(
-            3,
             "ProxyInstantiation",
             "Proxy instantiation");
 
         public static readonly Scenario ProxyInstantiationWithGenericParameter = new Scenario(
-            4,
             "ProxyInstantiationWithGenericParameter",
             "Proxy instantiation (w/ generic param)");
 
         public static readonly Scenario MethodInvocation = new Scenario(
-            5,
             "MethodInvocation",
             "Method invocation");
 
         public static readonly Scenario MethodInvocationWithGenericParameter = new Scenario(
-            6,
             "MethodInvocationWithGenericParameter",
             "Method invocation (w/ generic param)");
-
-        private readonly int _id;
 
         private readonly string _name;
 
         private readonly string _description;
 
-        private Scenario(int id, string name, string description)
+        private Scenario(string name, string description)
         {
             if (name == null)
                 throw new ArgumentNullException("name");
@@ -66,14 +58,8 @@ namespace NProxy.Core.Test.Performance
             if (description == null)
                 throw new ArgumentNullException("description");
 
-            _id = id;
             _name = name;
             _description = description;
-        }
-
-        public int Id
-        {
-            get { return _id; }
         }
 
         public string Name
