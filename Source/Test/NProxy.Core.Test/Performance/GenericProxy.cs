@@ -21,11 +21,11 @@ using NProxy.Core.Test.Performance.Types;
 
 namespace NProxy.Core.Test.Performance
 {
-    public class GenericDecorator : IGeneric
+    public class GenericProxy : IGeneric
     {
         private readonly IGeneric _target;
 
-        public GenericDecorator(IGeneric target)
+        public GenericProxy(IGeneric target)
         {
             if (target == null)
                 throw new ArgumentNullException("target");

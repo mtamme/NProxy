@@ -52,7 +52,7 @@ namespace NProxy.Core.Test.Performance
         {
             var writer = new StreamWriter(path, false, Encoding.UTF8);
 
-            writer.WriteLine("\"Library\";\"Version\";\"Scenario ID\";\"Scenario name\";\"Scenario description\";\"Iterations\";\"Total time in ms\";\"Average time in µs\"");
+            writer.WriteLine("\"Name\";\"Version\";\"Scenario ID\";\"Scenario name\";\"Scenario description\";\"Iterations\";\"Total time in ms\";\"Average time in µs\"");
 
             return writer;
         }
@@ -75,10 +75,10 @@ namespace NProxy.Core.Test.Performance
             WriteValues(assemblyName.Name, version, scenario, iterations, elapsedTime);
         }
 
-        public void WriteValues(string libraryName, string version, Scenario scenario, int iterations, TimeSpan elapsedTime)
+        public void WriteValues(string name, string version, Scenario scenario, int iterations, TimeSpan elapsedTime)
         {
-            if (libraryName == null)
-                throw new ArgumentNullException("libraryName");
+            if (name == null)
+                throw new ArgumentNullException("name");
 
             if (version == null)
                 throw new ArgumentNullException("version");
@@ -90,7 +90,7 @@ namespace NProxy.Core.Test.Performance
             var averageMicroseconds = (totalMilliseconds*1000)/iterations;
 
             Writer.WriteLine("\"{0}\";\"{1}\";{2};\"{3}\";\"{4}\";{5};{6:0.000};{7:0.000}",
-                             libraryName,
+                             name,
                              version,
                              scenario.Id,
                              scenario.Name,

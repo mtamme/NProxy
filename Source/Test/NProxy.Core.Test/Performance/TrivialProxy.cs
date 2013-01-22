@@ -21,11 +21,11 @@ using NProxy.Core.Test.Performance.Types;
 
 namespace NProxy.Core.Test.Performance
 {
-    internal sealed class TrivialDecorator : ITrivial
+    internal sealed class TrivialProxy : ITrivial
     {
         private readonly ITrivial _target;
 
-        public TrivialDecorator(ITrivial target)
+        public TrivialProxy(ITrivial target)
         {
             if (target == null)
                 throw new ArgumentNullException("target");

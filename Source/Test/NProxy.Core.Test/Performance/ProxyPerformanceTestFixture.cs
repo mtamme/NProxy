@@ -25,7 +25,7 @@ namespace NProxy.Core.Test.Performance
 {
     [TestFixture]
     [Category("Performance")]
-    public class DecoratorPerformanceTestFixture
+    public class ProxyPerformanceTestFixture
     {
         [TestCase(10000000)]
         public void ProxyGenerationTest(int iterations)
@@ -37,12 +37,12 @@ namespace NProxy.Core.Test.Performance
             {
                 stopwatch.Start();
 
-                new TrivialDecorator(target);
+                new TrivialProxy(target);
                 
                 stopwatch.Stop();
             }
             
-            Report.Instance.WriteValues("Decorator", "n/a", Scenario.ProxyGeneration, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues("Manual proxy", "n/a", Scenario.ProxyGeneration, iterations, stopwatch.Elapsed);
         }
         
         [TestCase(10000000)]
@@ -55,12 +55,12 @@ namespace NProxy.Core.Test.Performance
             {
                 stopwatch.Start();
                 
-                new GenericDecorator(target);
+                new GenericProxy(target);
                 
                 stopwatch.Stop();
             }
             
-            Report.Instance.WriteValues("Decorator", "n/a", Scenario.ProxyGenerationWithGenericParameter, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues("Manual proxy", "n/a", Scenario.ProxyGenerationWithGenericParameter, iterations, stopwatch.Elapsed);
         }
         
         [TestCase(10000000)]
@@ -73,12 +73,12 @@ namespace NProxy.Core.Test.Performance
             
             for (var i = 0; i < iterations; i++)
             {
-                new TrivialDecorator(target);
+                new TrivialProxy(target);
             }
             
             stopwatch.Stop();
             
-            Report.Instance.WriteValues("Decorator", "n/a", Scenario.ProxyInstantiation, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues("Manual proxy", "n/a", Scenario.ProxyInstantiation, iterations, stopwatch.Elapsed);
         }
         
         [TestCase(10000000)]
@@ -91,18 +91,18 @@ namespace NProxy.Core.Test.Performance
             
             for (var i = 0; i < iterations; i++)
             {
-                new GenericDecorator(target);
+                new GenericProxy(target);
             }
             
             stopwatch.Stop();
             
-            Report.Instance.WriteValues("Decorator", "n/a", Scenario.ProxyInstantiationWithGenericParameter, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues("Manual proxy", "n/a", Scenario.ProxyInstantiationWithGenericParameter, iterations, stopwatch.Elapsed);
         }
         
         [TestCase(10000000)]
         public void MethodInvocationTest(int iterations)
         {
-            var proxy = new TrivialDecorator(new Trivial());
+            var proxy = new TrivialProxy(new Trivial());
             var stopwatch = new Stopwatch();
             
             stopwatch.Start();
@@ -114,13 +114,13 @@ namespace NProxy.Core.Test.Performance
             
             stopwatch.Stop();
             
-            Report.Instance.WriteValues("Decorator", "n/a", Scenario.MethodInvocation, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues("Manual proxy", "n/a", Scenario.MethodInvocation, iterations, stopwatch.Elapsed);
         }
         
         [TestCase(10000000)]
         public void MethodInvocationWithGenericParameterTest(int iterations)
         {
-            var proxy = new GenericDecorator(new Generic());
+            var proxy = new GenericProxy(new Generic());
             var stopwatch = new Stopwatch();
             
             stopwatch.Start();
@@ -132,7 +132,7 @@ namespace NProxy.Core.Test.Performance
             
             stopwatch.Stop();
             
-            Report.Instance.WriteValues("Decorator", "n/a", Scenario.MethodInvocationWithGenericParameter, iterations, stopwatch.Elapsed);
+            Report.Instance.WriteValues("Manual proxy", "n/a", Scenario.MethodInvocationWithGenericParameter, iterations, stopwatch.Elapsed);
         }
     }
 }
