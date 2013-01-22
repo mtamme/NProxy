@@ -40,7 +40,7 @@ the values in microseconds for this scenario.
 
 Details to the performed test can be found in the table below.
 
-| Library   | Version | Scenario                             | Iterations | Total time in ms | Average time in µs |
+| Artifact  | Version | Scenario                             | Iterations | Total time in ms | Average time in µs |
 |:----------|--------:|:-------------------------------------|-----------:|-----------------:|-------------------:|
 |Castle.Core|  v 3.1.0|Proxy generation                      |        1000|          4887.234|            4887.234|
 |LinFu.Core |  v 2.3.0|Proxy generation                      |        1000|          6679.920|            6679.920|
