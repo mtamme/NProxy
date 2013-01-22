@@ -63,7 +63,7 @@ namespace NProxy.Core.Test.Performance
             get { return _writer.Value; }
         }
 
-        public void WriteValues(AssemblyName assemblyName, Scenario scenario, int iterations, TimeSpan elapsedTime)
+        public void Write(AssemblyName assemblyName, Scenario scenario, int iterations, TimeSpan elapsedTime)
         {
             if (assemblyName == null)
                 throw new ArgumentNullException("assemblyName");
@@ -73,10 +73,10 @@ namespace NProxy.Core.Test.Performance
                                         assemblyName.Version.Minor,
                                         assemblyName.Version.Build);
 
-            WriteValues(assemblyName.Name, version, scenario, iterations, elapsedTime);
+            Write(assemblyName.Name, version, scenario, iterations, elapsedTime);
         }
 
-        private void WriteValues(string artifact, string version, Scenario scenario, int iterations, TimeSpan elapsedTime)
+        private void Write(string artifact, string version, Scenario scenario, int iterations, TimeSpan elapsedTime)
         {
             if (artifact == null)
                 throw new ArgumentNullException("artifact");

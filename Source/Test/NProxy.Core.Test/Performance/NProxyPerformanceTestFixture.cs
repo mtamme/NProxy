@@ -63,7 +63,7 @@ namespace NProxy.Core.Test.Performance
                 stopwatch.Stop();
             }
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.ProxyGeneration, iterations, stopwatch.Elapsed);
+            Report.Instance.Write(AssemblyName, Scenario.ProxyGeneration, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(1000)]
@@ -83,7 +83,7 @@ namespace NProxy.Core.Test.Performance
                 stopwatch.Stop();
             }
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.ProxyGenerationWithGenericParameter, iterations, stopwatch.Elapsed);
+            Report.Instance.Write(AssemblyName, Scenario.ProxyGenerationWithGenericParameter, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(1000000)]
@@ -104,7 +104,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.ProxyInstantiation, iterations, stopwatch.Elapsed);
+            Report.Instance.Write(AssemblyName, Scenario.ProxyInstantiation, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(1000000)]
@@ -125,7 +125,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.ProxyInstantiationWithGenericParameter, iterations, stopwatch.Elapsed);
+            Report.Instance.Write(AssemblyName, Scenario.ProxyInstantiationWithGenericParameter, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
@@ -145,7 +145,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.MethodInvocation, iterations, stopwatch.Elapsed);
+            Report.Instance.Write(AssemblyName, Scenario.MethodInvocation, iterations, stopwatch.Elapsed);
         }
 
         [TestCase(10000000)]
@@ -165,7 +165,7 @@ namespace NProxy.Core.Test.Performance
 
             stopwatch.Stop();
 
-            Report.Instance.WriteValues(AssemblyName, Scenario.MethodInvocationWithGenericParameter, iterations, stopwatch.Elapsed);
+            Report.Instance.Write(AssemblyName, Scenario.MethodInvocationWithGenericParameter, iterations, stopwatch.Elapsed);
         }
     }
 }
