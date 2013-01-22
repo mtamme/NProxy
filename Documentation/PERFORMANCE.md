@@ -6,12 +6,12 @@ define two interfaces to create dynamic proxies from.
 ```csharp
 public interface IStandard
 {
-    int Method(int value);
+    int Invoke(int value);
 }
 
 public interface IGeneric
 {
-    TValue Method<TValue>(TValue value);
+    TValue Invoke<TValue>(TValue value);
 }
 ```
 
