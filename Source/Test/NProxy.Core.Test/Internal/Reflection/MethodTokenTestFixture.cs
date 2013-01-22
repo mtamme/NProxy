@@ -18,7 +18,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Test.Types;
@@ -161,28 +160,42 @@ namespace NProxy.Core.Test.Internal.Reflection
                     continue;
                 }
 
-                foreach (var methodInfo in types.Select(t => t.GetMethods()).SelectMany(m => m))
+                foreach (var type in types)
                 {
-                    // Arrange
-                    HashSet<int> metadataTokens;
+                    MethodInfo[] methodInfos;
 
-                    if (!metadataTokensByModule.TryGetValue(methodInfo.Module, out metadataTokens))
+                    try
                     {
-                        metadataTokens = new HashSet<int>();
-                        metadataTokensByModule.Add(methodInfo.Module, metadataTokens);
+                        methodInfos = type.GetMethods();
+                    }
+                    catch (TypeLoadException)
+                    {
+                        continue;
                     }
 
-                    if (!metadataTokens.Add(methodInfo.MetadataToken))
-                        continue;
+                    foreach (var methodInfo in methodInfos)
+                    {
+                        // Arrange
+                        HashSet<int> metadataTokens;
 
-                    var methodToken = new MethodToken(methodInfo);
+                        if (!metadataTokensByModule.TryGetValue(methodInfo.Module, out metadataTokens))
+                        {
+                            metadataTokens = new HashSet<int>();
+                            metadataTokensByModule.Add(methodInfo.Module, metadataTokens);
+                        }
 
-                    // Act
-                    // Implicitly check equality.
-                    var isEqual = !methodTokens.Add(methodToken);
+                        if (!metadataTokens.Add(methodInfo.MetadataToken))
+                            continue;
 
-                    // Assert
-                    Assert.That(isEqual, Is.False);
+                        var methodToken = new MethodToken(methodInfo);
+
+                        // Act
+                        // Implicitly check equality.
+                        var isEqual = !methodTokens.Add(methodToken);
+
+                        // Assert
+                        Assert.That(isEqual, Is.False);
+                    }
                 }
             }
         }
