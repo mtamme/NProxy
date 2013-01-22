@@ -38,7 +38,7 @@ namespace NProxy.Core.Test.Internal.Generators
 
                     return typeof (object);
                 });
-            var typeCache = new TypeCache<string>(typeProvider);
+            var typeCache = new TypeCache<string, string>(s => s, typeProvider);
 
             // Act
             var type = typeCache.GetType("1");
@@ -59,7 +59,7 @@ namespace NProxy.Core.Test.Internal.Generators
 
                     return typeof (object);
                 });
-            var typeCache = new TypeCache<string>(typeProvider);
+            var typeCache = new TypeCache<string, string>(s => s, typeProvider);
 
             // Act
             typeCache.GetType("1");
@@ -88,8 +88,7 @@ namespace NProxy.Core.Test.Internal.Generators
 
                     return typeof (object);
                 });
-
-            var typeCache = new TypeCache<string>(typeProvider);
+            var typeCache = new TypeCache<string, string>(s => s, typeProvider);
 
             // Act
             var firstTask = Task.Factory.StartNew(() => typeCache.GetType("1"));

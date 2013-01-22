@@ -26,22 +26,6 @@ namespace NProxy.Core.Internal.Generators
     /// Represents a type cache.
     /// </summary>
     /// <typeparam name="TDefinition">The definition type.</typeparam>
-    internal sealed class TypeCache<TDefinition> : TypeCache<TDefinition, TDefinition> where TDefinition : class
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TypeCache{TDefinition}"/> class.
-        /// </summary>
-        /// <param name="typeProvider">The underlying type provider.</param>
-        public TypeCache(ITypeProvider<TDefinition> typeProvider)
-            : base(d => d, typeProvider)
-        {
-        }
-    }
-
-    /// <summary>
-    /// Represents a type cache.
-    /// </summary>
-    /// <typeparam name="TDefinition">The definition type.</typeparam>
     /// <typeparam name="TKey">The key type.</typeparam>
     internal class TypeCache<TDefinition, TKey> : ITypeProvider<TDefinition> where TDefinition : class
     {

@@ -57,7 +57,7 @@ namespace NProxy.Core
         /// <param name="typeProvider">The type provider.</param>
         private ProxyFactory(ITypeProvider<ITypeDefinition> typeProvider)
         {
-            _typeProvider = new TypeCache<ITypeDefinition>(typeProvider);
+            _typeProvider = new TypeCache<ITypeDefinition, ITypeDefinition>(d => d, typeProvider);
         }
 
         /// <summary>
