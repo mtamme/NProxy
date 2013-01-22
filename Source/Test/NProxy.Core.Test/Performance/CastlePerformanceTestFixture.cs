@@ -42,16 +42,16 @@ namespace NProxy.Core.Test.Performance
             // Ensure all classes are loaded and initialized.
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new Trivial();
+            var target = new Standard();
 
-            proxyGenerator.CreateInterfaceProxyWithTarget<ITrivial>(target, interceptors);
+            proxyGenerator.CreateInterfaceProxyWithTarget<IStandard>(target, interceptors);
         }
 
         [TestCase(1000)]
         public void ProxyGenerationTest(int iterations)
         {
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new Trivial();
+            var target = new Standard();
             var stopwatch = new Stopwatch();
 
             for (var i = 0; i < iterations; i++)
@@ -60,7 +60,7 @@ namespace NProxy.Core.Test.Performance
 
                 stopwatch.Start();
 
-                proxyGenerator.CreateInterfaceProxyWithTarget<ITrivial>(target, interceptors);
+                proxyGenerator.CreateInterfaceProxyWithTarget<IStandard>(target, interceptors);
 
                 stopwatch.Stop();
             }
@@ -94,16 +94,16 @@ namespace NProxy.Core.Test.Performance
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new Trivial();
+            var target = new Standard();
             var stopwatch = new Stopwatch();
 
-            proxyGenerator.CreateInterfaceProxyWithTarget<ITrivial>(target, interceptors);
+            proxyGenerator.CreateInterfaceProxyWithTarget<IStandard>(target, interceptors);
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxyGenerator.CreateInterfaceProxyWithTarget<ITrivial>(target, interceptors);
+                proxyGenerator.CreateInterfaceProxyWithTarget<IStandard>(target, interceptors);
             }
 
             stopwatch.Stop();
@@ -138,8 +138,8 @@ namespace NProxy.Core.Test.Performance
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new Trivial();
-            var proxy = proxyGenerator.CreateInterfaceProxyWithTarget<ITrivial>(target, interceptors);
+            var target = new Standard();
+            var proxy = proxyGenerator.CreateInterfaceProxyWithTarget<IStandard>(target, interceptors);
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();

@@ -123,10 +123,10 @@
     <Compile Include="Internal\Reflection\MethodTokenTestFixture.cs" />
     <Compile Include="Performance\CastleInterceptor.cs" />
     <Compile Include="Performance\Report.cs" />
-    <Compile Include="Performance\Types\ITrivial.cs" />
-    <Compile Include="Performance\Types\Trivial.cs" />
     <Compile Include="Performance\Types\IGeneric.cs" />
     <Compile Include="Performance\Types\Generic.cs" />
+    <Compile Include="Performance\Types\IStandard.cs" />
+    <Compile Include="Performance\Types\Standard.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

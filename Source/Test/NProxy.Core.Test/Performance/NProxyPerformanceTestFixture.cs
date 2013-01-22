@@ -40,16 +40,16 @@ namespace NProxy.Core.Test.Performance
         public void SetUp()
         {
             // Ensure all classes are loaded and initialized.
-            var invocationHandler = new NProxyInvocationHandler(new Trivial());
+            var invocationHandler = new NProxyInvocationHandler(new Standard());
             var proxyFactory = new ProxyFactory();
 
-            proxyFactory.CreateProxy<ITrivial>(Type.EmptyTypes, invocationHandler);
+            proxyFactory.CreateProxy<IStandard>(Type.EmptyTypes, invocationHandler);
         }
 
         [TestCase(1000)]
         public void ProxyGenerationTest(int iterations)
         {
-            var invocationHandler = new NProxyInvocationHandler(new Trivial());
+            var invocationHandler = new NProxyInvocationHandler(new Standard());
             var stopwatch = new Stopwatch();
 
             for (var i = 0; i < iterations; i++)
@@ -58,7 +58,7 @@ namespace NProxy.Core.Test.Performance
 
                 stopwatch.Start();
 
-                proxyFactory.CreateProxy<ITrivial>(Type.EmptyTypes, invocationHandler);
+                proxyFactory.CreateProxy<IStandard>(Type.EmptyTypes, invocationHandler);
 
                 stopwatch.Stop();
             }
@@ -89,17 +89,17 @@ namespace NProxy.Core.Test.Performance
         [TestCase(1000000)]
         public void ProxyInstantiationTest(int iterations)
         {
-            var invocationHandler = new NProxyInvocationHandler(new Trivial());
+            var invocationHandler = new NProxyInvocationHandler(new Standard());
             var proxyFactory = new ProxyFactory();
             var stopwatch = new Stopwatch();
 
-            proxyFactory.CreateProxy<ITrivial>(Type.EmptyTypes, invocationHandler);
+            proxyFactory.CreateProxy<IStandard>(Type.EmptyTypes, invocationHandler);
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxyFactory.CreateProxy<ITrivial>(Type.EmptyTypes, invocationHandler);
+                proxyFactory.CreateProxy<IStandard>(Type.EmptyTypes, invocationHandler);
             }
 
             stopwatch.Stop();
@@ -131,9 +131,9 @@ namespace NProxy.Core.Test.Performance
         [TestCase(10000000)]
         public void MethodInvocationTest(int iterations)
         {
-            var invocationHandler = new NProxyInvocationHandler(new Trivial());
+            var invocationHandler = new NProxyInvocationHandler(new Standard());
             var proxyFactory = new ProxyFactory();
-            var proxy = proxyFactory.CreateProxy<ITrivial>(Type.EmptyTypes, invocationHandler);
+            var proxy = proxyFactory.CreateProxy<IStandard>(Type.EmptyTypes, invocationHandler);
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();

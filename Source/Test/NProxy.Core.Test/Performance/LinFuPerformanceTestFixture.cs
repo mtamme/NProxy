@@ -41,15 +41,15 @@ namespace NProxy.Core.Test.Performance
         {
             // Ensure all classes are loaded and initialized.
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
-            var interceptor = new LinFuInterceptor(new Trivial());
+            var interceptor = new LinFuInterceptor(new Standard());
 
-            proxyFactory.CreateProxy<ITrivial>(interceptor);
+            proxyFactory.CreateProxy<IStandard>(interceptor);
         }
 
         [TestCase(1000)]
         public void ProxyGenerationTest(int iterations)
         {
-            var interceptor = new LinFuInterceptor(new Trivial());
+            var interceptor = new LinFuInterceptor(new Standard());
             var stopwatch = new Stopwatch();
 
             for (var i = 0; i < iterations; i++)
@@ -58,7 +58,7 @@ namespace NProxy.Core.Test.Performance
 
                 stopwatch.Start();
 
-                proxyFactory.CreateProxy<ITrivial>(interceptor);
+                proxyFactory.CreateProxy<IStandard>(interceptor);
 
                 stopwatch.Stop();
             }
@@ -90,16 +90,16 @@ namespace NProxy.Core.Test.Performance
         public void ProxyInstantiationTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
-            var interceptor = new LinFuInterceptor(new Trivial());
+            var interceptor = new LinFuInterceptor(new Standard());
             var stopwatch = new Stopwatch();
 
-            proxyFactory.CreateProxy<ITrivial>(interceptor);
+            proxyFactory.CreateProxy<IStandard>(interceptor);
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxyFactory.CreateProxy<ITrivial>(interceptor);
+                proxyFactory.CreateProxy<IStandard>(interceptor);
             }
 
             stopwatch.Stop();
@@ -132,8 +132,8 @@ namespace NProxy.Core.Test.Performance
         public void MethodInvocationTest(int iterations)
         {
             var proxyFactory = new LinFu.Proxy.ProxyFactory();
-            var interceptor = new LinFuInterceptor(new Trivial());
-            var proxy = proxyFactory.CreateProxy<ITrivial>(interceptor);
+            var interceptor = new LinFuInterceptor(new Standard());
+            var proxy = proxyFactory.CreateProxy<IStandard>(interceptor);
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();

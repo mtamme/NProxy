@@ -18,9 +18,9 @@
 
 namespace NProxy.Core.Test.Performance.Types
 {
-    public sealed class Trivial : ITrivial
+    public sealed class Standard : IStandard
     {
-        #region ITrivial Members
+        #region IStandard Members
 
         public int Invoke(int value)
         {
