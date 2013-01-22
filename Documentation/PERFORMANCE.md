@@ -40,26 +40,26 @@ the values in microseconds for this scenario.
 
 Details to the performed test can be found in the table below.
 
-| Library   | Version | Scenario                                   | Iterations | Total time in ms | Average time in µs |
-|:----------|--------:|:-------------------------------------------|-----------:|-----------------:|-------------------:|
-|Castle.Core|  v 3.1.0|Proxy generation                            |        1000|          5008,675|            5008,675|
-|LinFu.Core |  v 2.3.0|Proxy generation                            |        1000|          6818,439|            6818,439|
-|NProxy.Core|  v 1.2.1|Proxy generation                            |        1000|          2109,058|            2109,058|
-|Castle.Core|  v 3.1.0|Proxy generation (with generic parameter)   |        1000|          5030,624|            5030,624|
-|LinFu.Core |  v 2.3.0|Proxy generation (with generic parameter)   |        1000|          7858,363|            7858,363|
-|NProxy.Core|  v 1.2.1|Proxy generation (with generic parameter)   |        1000|          2164,682|            2164,682|
-|Castle.Core|  v 3.1.0|Proxy instantiation                         |     1000000|          6389,657|               6,390|
-|LinFu.Core |  v 2.3.0|Proxy instantiation                         |     1000000|          1244,126|               1,244|
-|NProxy.Core|  v 1.2.1|Proxy instantiation                         |     1000000|          4112,233|               4,112|
-|Castle.Core|  v 3.1.0|Proxy instantiation (with generic parameter)|     1000000|          6403,285|               6,403|
-|LinFu.Core |  v 2.3.0|Proxy instantiation (with generic parameter)|     1000000|          1219,634|               1,220|
-|NProxy.Core|  v 1.2.1|Proxy instantiation (with generic parameter)|     1000000|          4137,089|               4,137|
-|Castle.Core|  v 3.1.0|Method invocation                           |    10000000|          1186,243|               0,119|
-|LinFu.Core |  v 2.3.0|Method invocation                           |    10000000|         19998,139|               2,000|
-|NProxy.Core|  v 1.2.1|Method invocation                           |    10000000|          1104,409|               0,110|
-|Castle.Core|  v 3.1.0|Method invocation (with generic parameter)  |    10000000|         17118,276|               1,712|
-|LinFu.Core |  v 2.3.0|Method invocation (with generic parameter)  |    10000000|         79450,488|               7,945|
-|NProxy.Core|  v 1.2.1|Method invocation (with generic parameter)  |    10000000|          1567,495|               0,157|
+| Library   | Version | Scenario                             | Iterations | Total time in ms | Average time in µs |
+|:----------|--------:|:-------------------------------------|-----------:|-----------------:|-------------------:|
+|Castle.Core|  v 3.1.0|Proxy generation                      |        1000|          5008.675|            5008.675|
+|LinFu.Core |  v 2.3.0|Proxy generation                      |        1000|          6818.439|            6818.439|
+|NProxy.Core|  v 1.2.1|Proxy generation                      |        1000|          2109.058|            2109.058|
+|Castle.Core|  v 3.1.0|Proxy generation (w/ generic param)   |        1000|          5030.624|            5030.624|
+|LinFu.Core |  v 2.3.0|Proxy generation (w/ generic param)   |        1000|          7858.363|            7858.363|
+|NProxy.Core|  v 1.2.1|Proxy generation (w/ generic param)   |        1000|          2164.682|            2164.682|
+|Castle.Core|  v 3.1.0|Proxy instantiation                   |     1000000|          6389.657|               6.390|
+|LinFu.Core |  v 2.3.0|Proxy instantiation                   |     1000000|          1244.126|               1.244|
+|NProxy.Core|  v 1.2.1|Proxy instantiation                   |     1000000|          4112.233|               4.112|
+|Castle.Core|  v 3.1.0|Proxy instantiation (w/ generic param)|     1000000|          6403.285|               6.403|
+|LinFu.Core |  v 2.3.0|Proxy instantiation (w/ generic param)|     1000000|          1219.634|               1.220|
+|NProxy.Core|  v 1.2.1|Proxy instantiation (w/ generic param)|     1000000|          4137.089|               4.137|
+|Castle.Core|  v 3.1.0|Method invocation                     |    10000000|          1186.243|               0.119|
+|LinFu.Core |  v 2.3.0|Method invocation                     |    10000000|         19998.139|               2.000|
+|NProxy.Core|  v 1.2.1|Method invocation                     |    10000000|          1104.409|               0.110|
+|Castle.Core|  v 3.1.0|Method invocation (w/ generic param)  |    10000000|         17118.276|               1.712|
+|LinFu.Core |  v 2.3.0|Method invocation (w/ generic param)  |    10000000|         79450.488|               7.945|
+|NProxy.Core|  v 1.2.1|Method invocation (w/ generic param)  |    10000000|          1567.495|               0.157|
 
 All tests have been performed under Microsoft .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Test/Performance).
 
