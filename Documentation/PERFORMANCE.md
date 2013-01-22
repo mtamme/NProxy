@@ -4,12 +4,12 @@ To get a picture how NProxy performs in comparison to other popular dynamic prox
 define two interfaces to create dynamic proxies from.
 
 ```csharp
-public interface IMethod
+public interface ITrivial
 {
     int Method(int value);
 }
 
-public interface IGenericMethod
+public interface IGeneric
 {
     TValue Method<TValue>(TValue value);
 }

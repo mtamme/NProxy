@@ -18,15 +18,8 @@
 
 namespace NProxy.Core.Test.Performance.Types
 {
-    public sealed class GenericMethod : IGenericMethod
+    public interface IGeneric
     {
-        #region IGenericMethod Members
-
-        public TValue Invoke<TValue>(TValue value)
-        {
-            return value;
-        }
-
-        #endregion
+        TValue Invoke<TValue>(TValue value);
     }
 }

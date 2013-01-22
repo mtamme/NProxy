@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -43,16 +43,16 @@ namespace NProxy.Core.Test.Performance
             // Ensure all classes are loaded and initialized.
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new Method();
+            var target = new Trivial();
 
-            proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
+            proxyGenerator.CreateInterfaceProxyWithTarget<ITrivial>(target, interceptors);
         }
 
         [TestCase(1000)]
         public void ProxyGenerationTest(int iterations)
         {
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new Method();
+            var target = new Trivial();
             var stopwatch = new Stopwatch();
 
             for (var i = 0; i < iterations; i++)
@@ -61,7 +61,7 @@ namespace NProxy.Core.Test.Performance
 
                 stopwatch.Start();
 
-                proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
+                proxyGenerator.CreateInterfaceProxyWithTarget<ITrivial>(target, interceptors);
 
                 stopwatch.Stop();
             }
@@ -73,7 +73,7 @@ namespace NProxy.Core.Test.Performance
         public void ProxyGenerationWithGenericParameterTest(int iterations)
         {
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new GenericMethod();
+            var target = new Generic();
             var stopwatch = new Stopwatch();
 
             for (var i = 0; i < iterations; i++)
@@ -82,7 +82,7 @@ namespace NProxy.Core.Test.Performance
 
                 stopwatch.Start();
 
-                proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(target, interceptors);
+                proxyGenerator.CreateInterfaceProxyWithTarget<IGeneric>(target, interceptors);
 
                 stopwatch.Stop();
             }
@@ -95,16 +95,16 @@ namespace NProxy.Core.Test.Performance
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new Method();
+            var target = new Trivial();
             var stopwatch = new Stopwatch();
 
-            proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
+            proxyGenerator.CreateInterfaceProxyWithTarget<ITrivial>(target, interceptors);
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
+                proxyGenerator.CreateInterfaceProxyWithTarget<ITrivial>(target, interceptors);
             }
 
             stopwatch.Stop();
@@ -117,16 +117,16 @@ namespace NProxy.Core.Test.Performance
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new GenericMethod();
+            var target = new Generic();
             var stopwatch = new Stopwatch();
 
-            proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(target, interceptors);
+            proxyGenerator.CreateInterfaceProxyWithTarget<IGeneric>(target, interceptors);
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(target, interceptors);
+                proxyGenerator.CreateInterfaceProxyWithTarget<IGeneric>(target, interceptors);
             }
 
             stopwatch.Stop();
@@ -139,8 +139,8 @@ namespace NProxy.Core.Test.Performance
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new Method();
-            var proxy = proxyGenerator.CreateInterfaceProxyWithTarget<IMethod>(target, interceptors);
+            var target = new Trivial();
+            var proxy = proxyGenerator.CreateInterfaceProxyWithTarget<ITrivial>(target, interceptors);
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
@@ -160,8 +160,8 @@ namespace NProxy.Core.Test.Performance
         {
             var proxyGenerator = new ProxyGenerator();
             var interceptors = new IInterceptor[] {new CastleInterceptor()};
-            var target = new GenericMethod();
-            var proxy = proxyGenerator.CreateInterfaceProxyWithTarget<IGenericMethod>(target, interceptors);
+            var target = new Generic();
+            var proxy = proxyGenerator.CreateInterfaceProxyWithTarget<IGeneric>(target, interceptors);
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();

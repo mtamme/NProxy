@@ -18,7 +18,7 @@
 
 namespace NProxy.Core.Test.Performance.Types
 {
-    public interface IMethod
+    public interface ITrivial
     {
         int Invoke(int value);
     }

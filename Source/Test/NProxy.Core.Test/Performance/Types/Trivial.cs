@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -18,8 +18,15 @@
 
 namespace NProxy.Core.Test.Performance.Types
 {
-    public interface IGenericMethod
+    public sealed class Trivial : ITrivial
     {
-        TValue Invoke<TValue>(TValue value);
+        #region ITrivial Members
+
+        public int Invoke(int value)
+        {
+            return value;
+        }
+
+        #endregion
     }
 }
