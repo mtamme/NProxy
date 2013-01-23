@@ -53,7 +53,7 @@ namespace NProxy.Core.Benchmark
         {
             var writer = new StreamWriter(path, false, Encoding.UTF8);
 
-            writer.WriteLine("\"Artifact\";\"Version\";\"Scenario\";\"Description\";\"Iterations\";\"Total time (ms)\";\"Average time (ms)\";\"Average time (µs)\"");
+            writer.WriteLine("\"Type\";\"Version\";\"Scenario\";\"Description\";\"Iterations\";\"Total time (ms)\";\"Average time (ms)\";\"Average time (µs)\"");
 
             return writer;
         }
@@ -76,10 +76,10 @@ namespace NProxy.Core.Benchmark
             Write(assemblyName.Name, version, scenario, iterations, elapsedTime);
         }
 
-        private void Write(string artifact, string version, Scenario scenario, int iterations, TimeSpan elapsedTime)
+        public void Write(string typeName, string version, Scenario scenario, int iterations, TimeSpan elapsedTime)
         {
-            if (artifact == null)
-                throw new ArgumentNullException("artifact");
+            if (typeName == null)
+                throw new ArgumentNullException("typeName");
 
             if (version == null)
                 throw new ArgumentNullException("version");
@@ -92,7 +92,7 @@ namespace NProxy.Core.Benchmark
 
             var line = String.Format(CultureInfo.InvariantCulture,
                                      "\"{0}\";\"{1}\";\"{2}\";\"{3}\";{4};{5:0.000};{6:0.000};{7:0.000}",
-                                     artifact,
+                                     typeName,
                                      version,
                                      scenario.Name,
                                      scenario.Description,
