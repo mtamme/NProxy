@@ -16,10 +16,27 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-namespace NProxy.Core.Test.Interceptors.Types
+namespace NProxy.Core.Test.Interceptors
 {
-    internal interface ILazy
+    internal class LazyMixin : ILazy
     {
-        bool Loaded { get; set; }
+        private bool _loaded;
+
+        /// <summary>
+        /// The Loaded property is "write-once" -
+        /// after you have set it to true you can not set
+        /// it to false again
+        /// </summary>
+        bool ILazy.Loaded
+        {
+            get { return _loaded; }
+            set
+            {
+                if (_loaded)
+                    return;
+
+                _loaded = value;
+            }
+        }
     }
 }

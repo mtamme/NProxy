@@ -96,11 +96,7 @@
     <Compile Include="CountingInvocationHandler.cs" />
     <Compile Include="Interceptors\Types\Employee.cs" />
     <Compile Include="Interceptors\Types\IEmployee.cs" />
-    <Compile Include="Interceptors\Types\ILazy.cs" />
     <Compile Include="Interceptors\Types\IPerson.cs" />
-    <Compile Include="Interceptors\Types\LazyAttribute.cs" />
-    <Compile Include="Interceptors\Types\LazyInterceptor.cs" />
-    <Compile Include="Interceptors\Types\LazyMixin.cs" />
     <Compile Include="Interceptors\Types\Person.cs" />
     <Compile Include="ObjectExtensionsTestFixture.cs" />
     <Compile Include="Interceptors\Types\IFoo.cs" />
@@ -127,6 +123,10 @@
     <Compile Include="Performance\Types\Generic.cs" />
     <Compile Include="Performance\Types\IStandard.cs" />
     <Compile Include="Performance\Types\Standard.cs" />
+    <Compile Include="Interceptors\LazyAttribute.cs" />
+    <Compile Include="Interceptors\LazyInterceptor.cs" />
+    <Compile Include="Interceptors\LazyMixin.cs" />
+    <Compile Include="Interceptors\ILazy.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

@@ -16,33 +16,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using NProxy.Core.Interceptors;
-
-namespace NProxy.Core.Test.Interceptors.Types
+namespace NProxy.Core.Test.Interceptors
 {
-    internal sealed class LazyInterceptor : IInterceptor
+    internal interface ILazy
     {
-        public static readonly IInterceptor Instance = new LazyInterceptor();
-
-        #region IInterceptor Members
-
-        public object Intercept(IInvocationContext invocationContext)
-        {
-            var lazy = invocationContext.Target as ILazy;
-
-            if (lazy != null)
-            {
-                if (!lazy.Loaded)
-                {
-                    lazy.Loaded = true;
-
-                    // Perform lazy loading...
-                }
-            }
-
-            return invocationContext.Proceed();
-        }
-
-        #endregion
+        bool Loaded { get; set; }
     }
 }
