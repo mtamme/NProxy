@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{52608273-BCEB-422E-828A-5B3942F0AF15}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NProxy.Core.Benchmark</RootNamespace>
+    <AssemblyName>NProxy.Core.Benchmark</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\Lib\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="LinFu.Core">
+      <HintPath>..\..\..\Lib\LinFu.Core.2.3.0.41559\lib\net35\LinFu.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\..\..\Lib\Castle.Core.3.1.0\lib\net40-client\Castle.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CastlePerformanceTestFixture.cs" />
+    <Compile Include="LinFuProxyCache.cs" />
+    <Compile Include="LinFuInterceptor.cs" />
+    <Compile Include="LinFuPerformanceTestFixture.cs" />
+    <Compile Include="NProxyPerformanceTestFixture.cs" />
+    <Compile Include="NProxyInvocationHandler.cs" />
+    <Compile Include="Scenario.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CastleInterceptor.cs" />
+    <Compile Include="Report.cs" />
+    <Compile Include="Types\IGeneric.cs" />
+    <Compile Include="Types\Generic.cs" />
+    <Compile Include="Types\IStandard.cs" />
+    <Compile Include="Types\Standard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">
+      <Project>{E4D8E5AB-7233-4A6F-9763-54931E7580B4}</Project>
+      <Name>NProxy.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup />
+  <ItemGroup />
+  <ItemGroup />
+</Project>

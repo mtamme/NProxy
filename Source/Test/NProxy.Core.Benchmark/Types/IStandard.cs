@@ -16,30 +16,10 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Reflection;
-
-namespace NProxy.Core.Test.Performance
+namespace NProxy.Core.Benchmark.Types
 {
-    internal sealed class NProxyInvocationHandler : IInvocationHandler
+    public interface IStandard
     {
-        private readonly object _target;
-
-        public NProxyInvocationHandler(object target)
-        {
-            if (target == null)
-                throw new ArgumentNullException("target");
-
-            _target = target;
-        }
-
-        #region IInvocationHandler Members
-
-        public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
-        {
-            return methodInfo.Invoke(_target, parameters);
-        }
-
-        #endregion
+        int Invoke(int value);
     }
 }

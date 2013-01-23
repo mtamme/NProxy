@@ -19,7 +19,7 @@
 using System;
 using LinFu.AOP.Interfaces;
 
-namespace NProxy.Core.Test.Performance
+namespace NProxy.Core.Benchmark
 {
     internal sealed class LinFuInterceptor : IInterceptor
     {

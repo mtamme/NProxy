@@ -16,15 +16,17 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-namespace NProxy.Core.Test.Performance.Types
-{
-    public sealed class Standard : IStandard
-    {
-        #region IStandard Members
+using Castle.DynamicProxy;
 
-        public int Invoke(int value)
+namespace NProxy.Core.Benchmark
+{
+    internal sealed class CastleInterceptor : IInterceptor
+    {
+        #region IInterceptor Members
+
+        public void Intercept(IInvocation invocation)
         {
-            return value;
+            invocation.Proceed();
         }
 
         #endregion

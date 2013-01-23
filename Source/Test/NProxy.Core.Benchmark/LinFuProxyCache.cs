@@ -16,10 +16,30 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-namespace NProxy.Core.Test.Performance.Types
+using System;
+using System.Collections.Generic;
+using LinFu.Proxy.Interfaces;
+
+namespace NProxy.Core.Benchmark
 {
-    public interface IStandard
+    internal sealed class LinFuProxyCache : IProxyCache
     {
-        int Invoke(int value);
+        #region IProxyCache Members
+
+        public bool Contains(Type baseType, params Type[] baseInterfaces)
+        {
+            return false;
+        }
+
+        public Type Get(Type baseType, params Type[] baseInterfaces)
+        {
+            throw new KeyNotFoundException();
+        }
+
+        public void Store(Type result, Type baseType, params Type[] baseInterfaces)
+        {
+        }
+
+        #endregion
     }
 }

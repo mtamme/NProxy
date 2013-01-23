@@ -18,11 +18,11 @@
 
 using System.Diagnostics;
 using System.Reflection;
-using NProxy.Core.Test.Performance.Types;
 using Castle.DynamicProxy;
+using NProxy.Core.Benchmark.Types;
 using NUnit.Framework;
 
-namespace NProxy.Core.Test.Performance
+namespace NProxy.Core.Benchmark
 {
     [TestFixture(Ignore = true, IgnoreReason = "Ignore performance test cases by default")]
     public sealed class CastlePerformanceTestFixture

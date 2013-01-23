@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -16,28 +16,15 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Collections.Generic;
-using LinFu.Proxy.Interfaces;
-
-namespace NProxy.Core.Test.Performance
+namespace NProxy.Core.Benchmark.Types
 {
-    internal sealed class LinFuProxyCache : IProxyCache
+    public sealed class Standard : IStandard
     {
-        #region IProxyCache Members
+        #region IStandard Members
 
-        public bool Contains(Type baseType, params Type[] baseInterfaces)
+        public int Invoke(int value)
         {
-            return false;
-        }
-
-        public Type Get(Type baseType, params Type[] baseInterfaces)
-        {
-            throw new KeyNotFoundException();
-        }
-
-        public void Store(Type result, Type baseType, params Type[] baseInterfaces)
-        {
+            return value;
         }
 
         #endregion

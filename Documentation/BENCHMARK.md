@@ -1,4 +1,4 @@
-﻿# Performance
+﻿# Benchmark
 
 To get a picture how NProxy performs in comparison to other popular dynamic proxy libraries lets
 define two interfaces to create dynamic proxies from.
@@ -61,7 +61,7 @@ Details to the performed test can be found in the table below.
 |LinFu.Core |  v 2.3.0|Method invocation (w/ generic param)  |    10000000|         78770.864|               7.877|
 |NProxy.Core|  v 1.2.1|Method invocation (w/ generic param)  |    10000000|          1371.717|               0.137|
 
-All tests have been performed under Microsoft .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Test/Performance).
+All tests have been performed under Microsoft .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Benchmark/).
 
 ## Conclusion
 

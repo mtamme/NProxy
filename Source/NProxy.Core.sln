@@ -9,24 +9,34 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{1BF10CDB-1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NProxy.Core.Test", "Test\NProxy.Core.Test\NProxy.Core.Test.csproj", "{1F4AC368-C9AD-4DB2-9318-D6669E263275}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NProxy.Core.Benchmark", "Test\NProxy.Core.Benchmark\NProxy.Core.Benchmark.csproj", "{52608273-BCEB-422E-828A-5B3942F0AF15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F4AC368-C9AD-4DB2-9318-D6669E263275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F4AC368-C9AD-4DB2-9318-D6669E263275}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F4AC368-C9AD-4DB2-9318-D6669E263275}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F4AC368-C9AD-4DB2-9318-D6669E263275}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E4D8E5AB-7233-4A6F-9763-54931E7580B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E4D8E5AB-7233-4A6F-9763-54931E7580B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4D8E5AB-7233-4A6F-9763-54931E7580B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4D8E5AB-7233-4A6F-9763-54931E7580B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F4AC368-C9AD-4DB2-9318-D6669E263275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F4AC368-C9AD-4DB2-9318-D6669E263275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F4AC368-C9AD-4DB2-9318-D6669E263275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F4AC368-C9AD-4DB2-9318-D6669E263275}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52608273-BCEB-422E-828A-5B3942F0AF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52608273-BCEB-422E-828A-5B3942F0AF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52608273-BCEB-422E-828A-5B3942F0AF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52608273-BCEB-422E-828A-5B3942F0AF15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E4D8E5AB-7233-4A6F-9763-54931E7580B4} = {5ECA8C5C-8007-448F-80D7-5520C143F329}
 		{1F4AC368-C9AD-4DB2-9318-D6669E263275} = {1BF10CDB-1046-461F-AB4A-2959F1F72929}
+		{52608273-BCEB-422E-828A-5B3942F0AF15} = {1BF10CDB-1046-461F-AB4A-2959F1F72929}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Main\NProxy.Core\NProxy.Core.csproj
@@ -211,9 +221,6 @@ Global
 		$31.NamingStyle = PascalCase
 		$31.IncludeInstanceMembers = True
 		$31.IncludeStaticEntities = True
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NDepend) = preSolution
 		Project = ""

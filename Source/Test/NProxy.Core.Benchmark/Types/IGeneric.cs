@@ -16,7 +16,7 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-namespace NProxy.Core.Test.Performance.Types
+namespace NProxy.Core.Benchmark.Types
 {
     public interface IGeneric
     {

@@ -23,7 +23,7 @@ using System.Reflection;
 using System.Text;
 using NUnit.Framework;
 
-namespace NProxy.Core.Test.Performance
+namespace NProxy.Core.Benchmark
 {
     [SetUpFixture]
     internal sealed class Report
@@ -35,7 +35,7 @@ namespace NProxy.Core.Test.Performance
         [SetUp]
         public void SetUp()
         {
-            var path = String.Format("PerformanceReport_{0:yyyyMMdd_HHmmss}.csv", DateTime.Now);
+            var path = String.Format("Benchmark_{0:yyyyMMdd_HHmmss}.csv", DateTime.Now);
 
             _writer = new Lazy<TextWriter>(() => CreateWriter(path));
 

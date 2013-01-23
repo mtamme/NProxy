@@ -118,9 +118,9 @@ See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NO
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/EXAMPLES.md) for details.
 
-## Performance
+## Benchmark
 
-See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/PERFORMANCE.md) for details.
+See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BENCHMARK.md) for details.
 
 ## Building NProxy
 

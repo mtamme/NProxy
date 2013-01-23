@@ -35,21 +35,8 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\Lib\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="LinFu.Core">
-      <HintPath>..\..\..\Lib\LinFu.Core.2.3.0.41559\lib\net35\LinFu.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core">
-      <HintPath>..\..\..\Lib\Castle.Core.3.1.0\lib\net40-client\Castle.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Performance\CastlePerformanceTestFixture.cs" />
-    <Compile Include="Performance\LinFuProxyCache.cs" />
-    <Compile Include="Performance\LinFuInterceptor.cs" />
-    <Compile Include="Performance\LinFuPerformanceTestFixture.cs" />
-    <Compile Include="Performance\NProxyPerformanceTestFixture.cs" />
-    <Compile Include="Performance\NProxyInvocationHandler.cs" />
-    <Compile Include="Performance\Scenario.cs" />
     <Compile Include="TargetInvocationHandler.cs" />
     <Compile Include="GetParametersInvocationHandler.cs" />
     <Compile Include="SetParametersInvocationHandler.cs" />
@@ -117,12 +104,6 @@
     <Compile Include="Internal\Definitions\DelegateTypeDefinitionTestFixture.cs" />
     <Compile Include="Internal\Definitions\InterfaceTypeDefinitionTestFixture.cs" />
     <Compile Include="Internal\Reflection\MethodTokenTestFixture.cs" />
-    <Compile Include="Performance\CastleInterceptor.cs" />
-    <Compile Include="Performance\Report.cs" />
-    <Compile Include="Performance\Types\IGeneric.cs" />
-    <Compile Include="Performance\Types\Generic.cs" />
-    <Compile Include="Performance\Types\IStandard.cs" />
-    <Compile Include="Performance\Types\Standard.cs" />
     <Compile Include="Interceptors\LazyAttribute.cs" />
     <Compile Include="Interceptors\LazyInterceptor.cs" />
     <Compile Include="Interceptors\LazyMixin.cs" />

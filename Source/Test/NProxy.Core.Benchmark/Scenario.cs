@@ -18,7 +18,7 @@
 
 using System;
 
-namespace NProxy.Core.Test.Performance
+namespace NProxy.Core.Benchmark
 {
     internal sealed class Scenario
     {
