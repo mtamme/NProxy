@@ -24,7 +24,7 @@ using NUnit.Framework;
 
 namespace NProxy.Core.Benchmark
 {
-    [TestFixture(Ignore = true, IgnoreReason = "Ignore performance test cases by default")]
+    [TestFixture]
     public sealed class NProxyPerformanceTestFixture
     {
         private static readonly AssemblyName AssemblyName;
