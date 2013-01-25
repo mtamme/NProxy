@@ -64,7 +64,7 @@ namespace NProxy.Core
         private readonly ModuleBuilder _moduleBuilder;
 
         /// <summary>
-        /// The next type id.
+        /// The next type identifier.
         /// </summary>
         private long _nextTypeId;
 
