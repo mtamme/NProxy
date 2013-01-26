@@ -88,7 +88,7 @@ namespace NProxy.Core
             // Define dynamic module.
             _moduleBuilder = _assemblyBuilder.DefineDynamicModule(DynamicModuleName);
 
-            _nextTypeId = 0;
+            _nextTypeId = -1;
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace NProxy.Core
         public TypeBuilder DefineType(string typeName, Type parentType)
         {
             var typeId = Interlocked.Increment(ref _nextTypeId);
-            var uniqueTypeName = String.Format("{0}{1}${2}{3:x}", DynamicAssemblyName, Type.Delimiter, typeName, typeId);
+            var uniqueTypeName = String.Format("{0}{1}{2}${3:x}", DynamicAssemblyName, Type.Delimiter, typeName, typeId);
 
             return _moduleBuilder.DefineType(
                 uniqueTypeName,
