@@ -29,10 +29,9 @@ namespace NProxy.Core.Internal.Generators
         /// <summary>
         /// Adds the specified custom attribute.
         /// </summary>
-        /// <param name="attributeType">The attribute type.</param>
-        /// <param name="argumentTypes">The argument types.</param>
-        /// <param name="arguments">The arguments.</param>
-        void AddCustomAttribute(Type attributeType, Type[] argumentTypes, object[] arguments);
+        /// <param name="constructorInfo">The constructor information.</param>
+        /// <param name="arguments">The constructor arguments.</param>
+        void AddCustomAttribute(ConstructorInfo constructorInfo, params object[] arguments);
 
         /// <summary>
         /// Adds the specified interface.

@@ -284,18 +284,15 @@ namespace NProxy.Core
         #region ITypeBuilder Members
 
         /// <inheritdoc/>
-        public void AddCustomAttribute(Type attributeType, Type[] argumentTypes, object[] arguments)
+        public void AddCustomAttribute(ConstructorInfo constructorInfo, params object[] arguments)
         {
-            if (attributeType == null)
-                throw new ArgumentNullException("attributeType");
-
-            if (argumentTypes == null)
-                throw new ArgumentNullException("argumentTypes");
+            if (constructorInfo == null)
+                throw new ArgumentNullException("constructorInfo");
 
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            _typeBuilder.SetCustomAttribute(attributeType, argumentTypes, arguments);
+            _typeBuilder.SetCustomAttribute(constructorInfo, arguments);
         }
 
         /// <inheritdoc/>

@@ -373,28 +373,21 @@ namespace NProxy.Core.Internal.Reflection
         /// Sets the specified custom attribute.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-        /// <param name="attributeType">The attribute type.</param>
-        /// <param name="argumentTypes">The argument types.</param>
-        /// <param name="arguments">The constructor argument.</param>
-        public static void SetCustomAttribute(this TypeBuilder typeBuilder, Type attributeType, Type[] argumentTypes, object[] arguments)
+        /// <param name="constructorInfo">The constructor information.</param>
+        /// <param name="arguments">The constructor arguments.</param>
+        public static void SetCustomAttribute(this TypeBuilder typeBuilder, ConstructorInfo constructorInfo, object[] arguments)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
-
-            if (attributeType == null)
-                throw new ArgumentNullException("attributeType");
-
-            if (argumentTypes == null)
-                throw new ArgumentNullException("argumentTypes");
+            
+            if (constructorInfo == null)
+                throw new ArgumentNullException("constructorInfo");
 
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            var constructorInfo = attributeType.GetConstructor(BindingFlags.Public | BindingFlags.Instance,
-                                                               argumentTypes);
-
             var customAttributeBuilder = new CustomAttributeBuilder(constructorInfo, arguments);
-
+            
             typeBuilder.SetCustomAttribute(customAttributeBuilder);
         }
     }
