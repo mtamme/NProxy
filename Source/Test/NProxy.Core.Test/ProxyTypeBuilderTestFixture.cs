@@ -34,7 +34,7 @@ namespace NProxy.Core.Test
         [TestFixtureSetUp]
         public void SetUp()
         {
-            _proxyTypeBuilderFactory = new ProxyTypeBuilderFactory(false);
+            _proxyTypeBuilderFactory = new ProxyTypeBuilderFactory(true, false);
         }
 
         #region Add Interface Test Cases

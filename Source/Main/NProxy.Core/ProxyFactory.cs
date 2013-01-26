@@ -38,7 +38,7 @@ namespace NProxy.Core
         /// Initializes a new instance of the <see cref="ProxyFactory"/> class.
         /// </summary>
         public ProxyFactory()
-            : this(new ProxyTypeBuilderFactory(false))
+            : this(new ProxyTypeBuilderFactory(true, false))
         {
         }
 

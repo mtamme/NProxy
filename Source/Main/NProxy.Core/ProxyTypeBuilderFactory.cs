@@ -71,14 +71,15 @@ namespace NProxy.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyTypeBuilderFactory"/> class.
         /// </summary>
+        /// <param name="strongNamedAssembly">A value indicating weather the assembly should be strong named.</param>
         /// <param name="canSaveAssembly">A value indicating weather the assembly can be saved.</param>
-        public ProxyTypeBuilderFactory(bool canSaveAssembly)
+        public ProxyTypeBuilderFactory(bool strongNamedAssembly, bool canSaveAssembly)
         {
             var methodInfoTypeProvider = new MethodInfoTypeGenerator(this);
 
             _methodInfoTypeProvider = new TypeCache<MethodInfo, MethodToken>(m => m.GetToken(), methodInfoTypeProvider);
 
-            var assemblyName = GetDynamicAssemblyName(DynamicAssemblyName);
+            var assemblyName = GetDynamicAssemblyName(DynamicAssemblyName, strongNamedAssembly);
 
             // Define dynamic assembly.
             var assemblyBuilderAccess = canSaveAssembly ? AssemblyBuilderAccess.RunAndSave : AssemblyBuilderAccess.Run;
@@ -140,11 +141,12 @@ namespace NProxy.Core
         /// Returns the dynamic assembly name.
         /// </summary>
         /// <param name="assemblyName">The assembly name.</param>
+        /// <param name="strongNamedAssembly">A value indicating weather the assembly name should contain a strong name key pair.</param>
         /// <returns>The assembly name.</returns>
-        private static AssemblyName GetDynamicAssemblyName(string assemblyName)
+        private static AssemblyName GetDynamicAssemblyName(string assemblyName, bool strongNamedAssembly)
         {
             var executingAssemblyName = GetExecutingAssemblyName();
-            var keyPair = GetDynamicAssemblyKeyPair();
+            var keyPair = strongNamedAssembly ? GetDynamicAssemblyKeyPair() : null;
 
             return new AssemblyName(assemblyName)
                 {
