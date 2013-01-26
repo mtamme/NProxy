@@ -32,7 +32,7 @@ namespace NProxy.Core.Internal.Generators
         /// <summary>
         /// The <see cref="MethodBase.GetMethodFromHandle(RuntimeMethodHandle,RuntimeTypeHandle)"/> method information.
         /// </summary>
-        private static readonly MethodInfo GetMethodFromHandleMethodInfo = typeof (MethodBase).GetMethod(
+        private static readonly MethodInfo MethodBaseGetMethodFromHandleMethodInfo = typeof (MethodBase).GetMethod(
             "GetMethodFromHandle",
             BindingFlags.Public | BindingFlags.Static,
             typeof (RuntimeMethodHandle), typeof (RuntimeTypeHandle));
@@ -40,14 +40,14 @@ namespace NProxy.Core.Internal.Generators
         /// <summary>
         /// The <see cref="MethodInfoBase"/> constructor information.
         /// </summary>
-        private static readonly ConstructorInfo ConstructorInfo = typeof (MethodInfoBase).GetConstructor(
+        private static readonly ConstructorInfo MethodInfoBaseConstructorInfo = typeof (MethodInfoBase).GetConstructor(
             BindingFlags.NonPublic | BindingFlags.Instance,
             typeof (object), typeof (MethodInfo), typeof (bool));
 
         /// <summary>
         /// The <see cref="MethodInfoBase.BaseInvoke(object,object[])"/> method information.
         /// </summary>
-        private static readonly MethodInfo BaseInvokeMethodInfo = typeof (MethodInfoBase).GetMethod(
+        private static readonly MethodInfo MethodInfoBaseBaseInvokeMethodInfo = typeof (MethodInfoBase).GetMethod(
             "BaseInvoke",
             BindingFlags.NonPublic | BindingFlags.Instance,
             typeof (object), typeof (object[]));
@@ -55,7 +55,7 @@ namespace NProxy.Core.Internal.Generators
         /// <summary>
         /// The <see cref="MethodInfoBase.VirtualInvoke(object,object[])"/> method information.
         /// </summary>
-        private static readonly MethodInfo VirtualInvokeMethodInfo = typeof (MethodInfoBase).GetMethod(
+        private static readonly MethodInfo MethodInfoBaseVirtualInvokeMethodInfo = typeof (MethodInfoBase).GetMethod(
             "VirtualInvoke",
             BindingFlags.NonPublic | BindingFlags.Instance,
             typeof (object), typeof (object[]));
@@ -104,7 +104,7 @@ namespace NProxy.Core.Internal.Generators
 
             ilGenerator.Emit(OpCodes.Ldtoken, methodInfo);
             ilGenerator.Emit(OpCodes.Ldtoken, declaringType);
-            ilGenerator.EmitCall(GetMethodFromHandleMethodInfo);
+            ilGenerator.EmitCall(MethodBaseGetMethodFromHandleMethodInfo);
 
             // Store method information.
             ilGenerator.Emit(OpCodes.Castclass, typeof (MethodInfo));
@@ -124,7 +124,7 @@ namespace NProxy.Core.Internal.Generators
             // Define constructor.
             var constructorBuilder = typeBuilder.DefineConstructor(
                 MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
-                ConstructorInfo.CallingConvention,
+                MethodInfoBaseConstructorInfo.CallingConvention,
                 new[] {typeof (object), typeof (bool)},
                 new[] {"proxy", "isOverride"});
 
@@ -144,7 +144,7 @@ namespace NProxy.Core.Internal.Generators
             ilGenerator.Emit(OpCodes.Ldarg_2);
 
             // Call parent constructor.
-            ilGenerator.Emit(OpCodes.Call, ConstructorInfo);
+            ilGenerator.Emit(OpCodes.Call, MethodInfoBaseConstructorInfo);
 
             ilGenerator.Emit(OpCodes.Ret);
         }
@@ -158,7 +158,7 @@ namespace NProxy.Core.Internal.Generators
         /// <param name="isVirtual">A value indicating weather the method should be called virtually.</param>
         private static void BuildInvokeMethod(TypeBuilder typeBuilder, MethodInfo declaringMethodInfo, Type[] genericParameterTypes, bool isVirtual)
         {
-            var invokeMethodInfo = isVirtual ? VirtualInvokeMethodInfo : BaseInvokeMethodInfo;
+            var invokeMethodInfo = isVirtual ? MethodInfoBaseVirtualInvokeMethodInfo : MethodInfoBaseBaseInvokeMethodInfo;
 
             // Define method.
             var methodBuilder = typeBuilder.DefineMethod(invokeMethodInfo, false, true);

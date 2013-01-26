@@ -33,7 +33,7 @@ namespace NProxy.Core
         /// <summary>
         /// The <c>IInvocationHandler.Invoke</c> method information.
         /// </summary>
-        private static readonly MethodInfo InvokeMethodInfo = typeof (IInvocationHandler).GetMethod(
+        private static readonly MethodInfo InvocationHandlerInvokeMethodInfo = typeof (IInvocationHandler).GetMethod(
             "Invoke",
             BindingFlags.Public | BindingFlags.Instance,
             typeof (object), typeof (MethodInfo), typeof (object[]));
@@ -153,7 +153,7 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ldloc, parametersLocalBuilder);
 
             // Call invocation handler method.
-            ilGenerator.EmitCall(InvokeMethodInfo);
+            ilGenerator.EmitCall(InvocationHandlerInvokeMethodInfo);
 
             // Restore by reference parameters.
             RestoreByReferenceParameters(ilGenerator, parameterTypes, parametersLocalBuilder);
