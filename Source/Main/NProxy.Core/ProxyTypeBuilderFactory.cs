@@ -66,7 +66,7 @@ namespace NProxy.Core
         /// <summary>
         /// The next type identifier.
         /// </summary>
-        private long _nextTypeId;
+        private int _nextTypeId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyTypeBuilderFactory"/> class.
