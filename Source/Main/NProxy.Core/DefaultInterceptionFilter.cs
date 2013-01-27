@@ -29,9 +29,9 @@ namespace NProxy.Core
     internal sealed class DefaultInterceptionFilter : IInterceptionFilter
     {
         /// <summary>
-        /// The name of the destructor.
+        /// The name of the destructor method.
         /// </summary>
-        private const string DestructorName = "Finalize";
+        private const string DestructorMethodName = "Finalize";
 
         #region IInterceptionFilter Members
 
@@ -61,7 +61,7 @@ namespace NProxy.Core
             if (declaringType != typeof (object))
                 return true;
 
-            return !String.Equals(methodInfo.Name, DestructorName);
+            return !String.Equals(methodInfo.Name, DestructorMethodName);
         }
 
         #endregion

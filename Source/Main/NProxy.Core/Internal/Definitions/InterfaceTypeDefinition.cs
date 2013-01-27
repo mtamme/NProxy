@@ -94,9 +94,6 @@ namespace NProxy.Core.Internal.Definitions
         /// <inheritdoc/>
         public override void VisitMethods(IVisitor<MethodInfo> visitor)
         {
-            if (visitor == null)
-                throw new ArgumentNullException("visitor");
-
             // Visit additional interface methods.
             AdditionalInterfaceTypes.Visit(t => t.VisitMethods(visitor));
 
