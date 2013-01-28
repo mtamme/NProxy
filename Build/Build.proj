@@ -10,7 +10,6 @@
 
   <Target Name="CleanAll">
     <MSBuild Projects="@(Projects)" Properties="Configuration=$(Configuration)" Targets="Clean" />
-    <MSBuild Projects="@(Projects)" Properties="Configuration=$(Configuration)" Targets="Clean" />
   </Target>
 
   <Target Name="BuildAll" DependsOnTargets="CleanAll">
