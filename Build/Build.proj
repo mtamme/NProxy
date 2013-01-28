@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="BuildAll" InitialTargets="CleanAll" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
-
-  <PropertyGroup>
-    <Net35>NET35</Net35>
-    <Net40>NET40</Net40>
-  </PropertyGroup>
-
+<Project ToolsVersion="4.0" DefaultTargets="BuildAll" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Projects Include="$(MSBuildProjectDirectory)\..\Source\Main\NProxy.Core\NProxy.Core.csproj" />
+    <Projects Include="$(MSBuildProjectDirectory)\..\Source\Main\**\*proj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <Configuration>Release</Configuration>
+  </PropertyGroup>
+
   <Target Name="CleanAll">
-    <MSBuild Projects="@(Projects)" Targets="Clean" />
+    <MSBuild Projects="@(Projects)" Properties="Configuration=$(Configuration)" Targets="Clean" />
+    <MSBuild Projects="@(Projects)" Properties="Configuration=$(Configuration)" Targets="Clean" />
   </Target>
 
-  <Target Name="BuildAll" DependsOnTargets="CleanAll;BuildNet35;BuildNet40" /> 
-
-  <Target Name="BuildNet35">
+  <Target Name="BuildAll" DependsOnTargets="CleanAll">
+    <!--<MSBuild Projects="@(Projects)"
+             Properties="Configuration=$(Configuration);
+                         OutputPath=bin\$(Configuration)\net35\;
+                         IntermediateOutputPath=obj\$(Configuration)\net35\;
+                         DefineConstants=NET35;
+                         TargetFrameworkVersion=v3.5" />-->
     <MSBuild Projects="@(Projects)"
-             Properties="Configuration=Release;
-                         OutputPath=bin\Release\net35\;
-                         IntermediateOutputPath=obj\Release\net35\;
-                         DefineConstants=$(Net35);
-                         TargetFrameworkVersion=v3.5" />
-  </Target>
-
-  <Target Name="BuildNet40">
-    <MSBuild Projects="@(Projects)"
-             Properties="Configuration=Release;
-                         OutputPath=bin\Release\net40\;
-                         IntermediateOutputPath=obj\Release\net40\;
-                         DefineConstants=$(Net40);
+             Properties="Configuration=$(Configuration);
+                         OutputPath=bin\$(Configuration)\net40\;
+                         IntermediateOutputPath=obj\$(Configuration)\net40\;
+                         DefineConstants=NET40;
                          TargetFrameworkVersion=v4.0" />
   </Target>
-
 </Project>
