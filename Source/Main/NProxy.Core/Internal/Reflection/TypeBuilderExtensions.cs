@@ -379,7 +379,7 @@ namespace NProxy.Core.Internal.Reflection
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
-            
+
             if (constructorInfo == null)
                 throw new ArgumentNullException("constructorInfo");
 
@@ -387,7 +387,7 @@ namespace NProxy.Core.Internal.Reflection
                 throw new ArgumentNullException("arguments");
 
             var customAttributeBuilder = new CustomAttributeBuilder(constructorInfo, arguments);
-            
+
             typeBuilder.SetCustomAttribute(customAttributeBuilder);
         }
     }
