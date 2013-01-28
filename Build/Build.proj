@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="BuildAll" InitialTargets="CleanAll" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+  <PropertyGroup>
+    <Net35>NET35</Net35>
+    <Net40>NET40</Net40>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Projects Include="$(MSBuildProjectDirectory)\..\Source\Main\NProxy.Core\NProxy.Core.csproj" />
+  </ItemGroup>
+
+  <Target Name="CleanAll">
+    <MSBuild Projects="@(Projects)" Targets="Clean" />
+  </Target>
+
+  <Target Name="BuildAll" DependsOnTargets="CleanAll;BuildNet35;BuildNet40" /> 
+
+  <Target Name="BuildNet35">
+    <MSBuild Projects="@(Projects)"
+             Properties="Configuration=Release;
+                         OutputPath=bin\Release\net35\;
+                         IntermediateOutputPath=obj\Release\net35\;
+                         DefineConstants=$(Net35);
+                         TargetFrameworkVersion=v3.5" />
+  </Target>
+
+  <Target Name="BuildNet40">
+    <MSBuild Projects="@(Projects)"
+             Properties="Configuration=Release;
+                         OutputPath=bin\Release\net40\;
+                         IntermediateOutputPath=obj\Release\net40\;
+                         DefineConstants=$(Net40);
+                         TargetFrameworkVersion=v4.0" />
+  </Target>
+
+</Project>
