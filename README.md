@@ -8,7 +8,7 @@ There are already a few libraries out there which deal with dynamic proxy genera
 The answers which lead to the goals of the NProxy project can be summarized as follows:
 
 * Provide an API to generate dynamic proxies based upon unsealed classes, abstract classes, interfaces and delegates in a unified way.
-* Focus on a slim and fast implementation which can be easily extended.
+* General focus on quality attributes like performance, extensibility and lightweightness.
 * Treat generic methods not as aliens and massively improve their invocation performance.
 * Support the invocation of intercepted base methods.
 * Make a library available which can be used as a base for AOP frameworks, mocking libraries, ...
@@ -110,9 +110,7 @@ To get the latest version of NProxy just add it to your project using [NuGet](ht
 PM> Install-Package NProxy.Core
 ```
 
-## Release notes
-
-See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md) for details.
+Detailed release notes can be found [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md).
 
 ## Examples
 
@@ -121,10 +119,6 @@ See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/EXAMPLES.m
 ## Benchmark
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BENCHMARK.md) for details.
-
-## Building NProxy
-
-See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BUILD.md) for details.
 
 # Copyright
 
