@@ -116,9 +116,9 @@ Detailed release notes can be found [here](https://github.com/mtamme/NProxy/blob
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/EXAMPLES.md) for details.
 
-## Benchmark
+## Benchmarks
 
-See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BENCHMARK.md) for details.
+See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BENCHMARKS.md) for details.
 
 # Copyright
 
