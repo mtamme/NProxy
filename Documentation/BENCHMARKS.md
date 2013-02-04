@@ -1,4 +1,4 @@
-﻿# Benchmark
+﻿# Benchmarks
 
 To get a picture how NProxy performs in comparison to other popular dynamic proxy libraries lets
 define two interfaces to create dynamic proxies from.
