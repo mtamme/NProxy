@@ -27,7 +27,7 @@ namespace NProxy.Core.Internal.Generators
     /// </summary>
     /// <typeparam name="TDefinition">The definition type.</typeparam>
     /// <typeparam name="TKey">The key type.</typeparam>
-    internal class TypeCache<TDefinition, TKey> : ITypeProvider<TDefinition> where TDefinition : class
+    internal sealed class TypeCache<TDefinition, TKey> : ITypeProvider<TDefinition> where TDefinition : class
     {
         /// <summary>
         /// The key factory.
