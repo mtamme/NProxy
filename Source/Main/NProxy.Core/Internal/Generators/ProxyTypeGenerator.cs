@@ -88,22 +88,19 @@ namespace NProxy.Core.Internal.Generators
 
             // Build events.
             var buildEventVisitor = Visitor.Create<EventInfo>(typeBuilder.BuildEvent)
-                                           .Where(e => e.IsAbstract() || _interceptionFilter.Accept(e))
-                                           .Where(e => e.CanOverride());
+                                           .Where(_interceptionFilter.Accept);
 
             typeDefinition.VisitEvents(buildEventVisitor);
 
             // Build properties.
             var buildPropertyVisitor = Visitor.Create<PropertyInfo>(typeBuilder.BuildProperty)
-                                              .Where(p => p.IsAbstract() || _interceptionFilter.Accept(p))
-                                              .Where(p => p.CanOverride());
+                                              .Where(_interceptionFilter.Accept);
 
             typeDefinition.VisitProperties(buildPropertyVisitor);
 
             // Build methods.
             var buildMethodVisitor = Visitor.Create<MethodInfo>(typeBuilder.BuildMethod)
-                                            .Where(m => m.IsAbstract || _interceptionFilter.Accept(m))
-                                            .Where(m => m.CanOverride());
+                                            .Where(_interceptionFilter.Accept);
 
             typeDefinition.VisitMethods(buildMethodVisitor);
 

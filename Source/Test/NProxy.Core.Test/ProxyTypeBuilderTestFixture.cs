@@ -633,5 +633,23 @@ namespace NProxy.Core.Test
 
             MemberAssert.AreEquivalent(actual, expected, false);
         }
+
+        #region Build Method From Non Overridable Method Test Cases
+
+        [TestCase(typeof (object), typeof (object), "GetType")]
+        [TestCase(typeof (object), typeof (object), "MemberwiseClone")]
+
+        #endregion
+
+        public void BuildMethodWithNonOverridableMethodTest(Type parentType, Type declaringType, string methodName)
+        {
+            // Arrange
+            var typeBuilder = _proxyTypeBuilderFactory.CreateBuilder(parentType);
+            var methodInfo = declaringType.GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+
+            // Act
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => typeBuilder.BuildMethod(methodInfo));
+        }
     }
 }

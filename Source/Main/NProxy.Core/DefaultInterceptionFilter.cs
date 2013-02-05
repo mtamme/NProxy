@@ -38,18 +38,36 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public bool Accept(EventInfo eventInfo)
         {
+            if (!eventInfo.CanOverride())
+                return false;
+
+            if (eventInfo.IsAbstract())
+                return true;
+
             return !eventInfo.IsDefined<NonInterceptedAttribute>(false);
         }
 
         /// <inheritdoc/>
         public bool Accept(PropertyInfo propertyInfo)
         {
+            if (!propertyInfo.CanOverride())
+                return false;
+
+            if (propertyInfo.IsAbstract())
+                return true;
+
             return !propertyInfo.IsDefined<NonInterceptedAttribute>(false);
         }
 
         /// <inheritdoc/>
         public bool Accept(MethodInfo methodInfo)
         {
+            if (!methodInfo.CanOverride())
+                return false;
+
+            if (methodInfo.IsAbstract)
+                return true;
+
             if (methodInfo.IsDefined<NonInterceptedAttribute>(false))
                 return false;
 

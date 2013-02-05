@@ -108,7 +108,7 @@ namespace NProxy.Core
         private MethodBuilder BuildInterceptedMethod(MethodInfo declaringMethodInfo, bool isExplicit)
         {
             if (!declaringMethodInfo.CanOverride())
-                throw new ArgumentException(String.Format("Method '{0}' is not overridable", declaringMethodInfo.Name), "declaringMethodInfo");
+                throw new InvalidOperationException(String.Format("Method '{0}' is not overridable", declaringMethodInfo.Name));
 
             var isOverride = IsOverrideMethod(declaringMethodInfo);
 
