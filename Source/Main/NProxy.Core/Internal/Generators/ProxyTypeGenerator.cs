@@ -33,8 +33,7 @@ namespace NProxy.Core.Internal.Generators
         /// The <see cref="ProxyAttribute"/> constructor information.
         /// </summary>
         private static readonly ConstructorInfo ProxyAttributeConstructorInfo = typeof (ProxyAttribute).GetConstructor(
-            BindingFlags.Public | BindingFlags.Instance,
-            Type.EmptyTypes);
+            BindingFlags.Public | BindingFlags.Instance);
 
         /// <summary>
         /// The type builder factory.
