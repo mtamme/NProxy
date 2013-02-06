@@ -38,7 +38,7 @@ the values in microseconds for this scenario.
 
 ![Method invocation performance](https://raw.github.com/mtamme/NProxy/master/Documentation/MethodInvocation.png "Method invocation performance")
 
-Details to the performed test can be found in the table below.
+Details to the performed tests can be found in the table below.
 
 | Type      | Version | Scenario                             | Iterations | Total time in ms | Average time in µs |
 |:----------|--------:|:-------------------------------------|-----------:|-----------------:|-------------------:|
