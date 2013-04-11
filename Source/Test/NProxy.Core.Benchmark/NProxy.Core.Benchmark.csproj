@@ -39,7 +39,7 @@
       <HintPath>..\..\..\Lib\LinFu.Core.2.3.0.41559\lib\net35\LinFu.Core.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
-      <HintPath>..\..\..\Lib\Castle.Core.3.1.0\lib\net40-client\Castle.Core.dll</HintPath>
+      <HintPath>..\..\..\Lib\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
