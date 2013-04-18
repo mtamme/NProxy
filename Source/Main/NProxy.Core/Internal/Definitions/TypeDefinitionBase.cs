@@ -28,7 +28,7 @@ namespace NProxy.Core.Internal.Definitions
     /// <summary>
     /// Represents the type definition base class.
     /// </summary>
-    internal abstract class TypeDefinitionBase : IEquatable<TypeDefinitionBase>, ITypeDefinition, ITypeActivator
+    internal abstract class TypeDefinitionBase : IEquatable<TypeDefinitionBase>, ITypeDefinition
     {
         /// <summary>
         /// The declaring type.
@@ -112,13 +112,6 @@ namespace NProxy.Core.Internal.Definitions
             interfaceType.VisitInterfaces(addInterfaceVisitor);
         }
 
-        #region ITypeActivator Members
-
-        /// <inheritdoc/>
-        public abstract object CreateInstance(Type type, object[] arguments);
-
-        #endregion
-
         #region ITypeDefinition Members
 
         /// <inheritdoc/>
@@ -129,6 +122,9 @@ namespace NProxy.Core.Internal.Definitions
 
         /// <inheritdoc/>
         public abstract Type ParentType { get; }
+
+        /// <inheritdoc/>
+        public abstract object CreateInstance(Type type, object[] arguments);
 
         /// <inheritdoc/>
         public abstract void VisitInterfaces(IVisitor<Type> visitor);

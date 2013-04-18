@@ -38,6 +38,14 @@ namespace NProxy.Core.Internal.Definitions
         Type ParentType { get; }
 
         /// <summary>
+        /// Creates an instance of the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="arguments">The constructor arguments.</param>
+        /// <returns>The instance.</returns>
+        object CreateInstance(Type type, object[] arguments);
+
+        /// <summary>
         /// Visits all interfaces.
         /// </summary>
         /// <param name="visitor">The visitor.</param>

@@ -27,16 +27,20 @@ namespace NProxy.Core
     public interface IProxyFactory
     {
         /// <summary>
-        /// Creates a proxy object.
+        /// Creates a proxy.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
-        /// <param name="invocationHandler">The invocation handler.</param>
-        /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The proxy object.</returns>
-        object CreateProxy(Type declaringType,
-                           IEnumerable<Type> interfaceTypes,
-                           IInvocationHandler invocationHandler,
-                           params object[] arguments);
+        IProxy CreateProxy(Type declaringType, IEnumerable<Type> interfaceTypes);
+
+		/// <summary>
+		/// Creates a proxy.
+		/// </summary>
+		/// <typeparam name="T">The declaring type.</typeparam>
+		/// <param name="declaringType">The declaring type.</param>
+		/// <param name="interfaceTypes">The additional interface types.</param>
+		/// <returns>The proxy object.</returns>
+		IProxy<T> CreateProxy<T>(IEnumerable<Type> interfaceTypes) where T : class;
     }
 }

@@ -72,22 +72,13 @@ namespace NProxy.Core
         #region IProxyFactory Members
 
         /// <inheritdoc/>
-        public object CreateProxy(Type declaringType,
-                                  IEnumerable<Type> interfaceTypes,
-                                  IInvocationHandler invocationHandler,
-                                  params object[] arguments)
+        public IProxy CreateProxy(Type declaringType, IEnumerable<Type> interfaceTypes)
         {
             if (declaringType == null)
                 throw new ArgumentNullException("declaringType");
 
             if (interfaceTypes == null)
                 throw new ArgumentNullException("interfaceTypes");
-
-            if (invocationHandler == null)
-                throw new ArgumentNullException("invocationHandler");
-
-            if (arguments == null)
-                throw new ArgumentNullException("arguments");
 
             // Create type definition.
             var typeDefinition = CreateTypeDefinition(declaringType);
@@ -101,13 +92,29 @@ namespace NProxy.Core
             // Get type.
             var type = _typeProvider.GetType(typeDefinition);
 
-            // Create instance.
-            var constructorArguments = new List<object> {invocationHandler};
-
-            constructorArguments.AddRange(arguments);
-
-            return typeDefinition.CreateInstance(type, constructorArguments.ToArray());
+            return new Proxy(typeDefinition, type);
         }
+
+		/// <inheritdoc/>
+		public IProxy<T> CreateProxy<T>(IEnumerable<Type> interfaceTypes) where T : class
+		{
+			if (interfaceTypes == null)
+				throw new ArgumentNullException("interfaceTypes");
+			
+			// Create type definition.
+			var typeDefinition = CreateTypeDefinition(typeof (T));
+			
+			// Add interface types.
+			foreach (var interfaceType in interfaceTypes)
+			{
+				typeDefinition.AddInterface(interfaceType);
+			}
+			
+			// Get type.
+			var type = _typeProvider.GetType(typeDefinition);
+			
+			return new Proxy<T>(typeDefinition, type);
+		}
 
         #endregion
     }

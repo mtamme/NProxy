@@ -13,9 +13,9 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>False</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -23,13 +23,13 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>True</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>$(OutputPath)NProxy.Core.xml</DocumentationFile>
-    <GenerateDocumentation>true</GenerateDocumentation>
+    <GenerateDocumentation>True</GenerateDocumentation>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -74,7 +74,6 @@
     <Compile Include="Internal\Definitions\ClassTypeDefinition.cs" />
     <Compile Include="Internal\Definitions\DelegateTypeDefinition.cs" />
     <Compile Include="Internal\Definitions\InterfaceTypeDefinition.cs" />
-    <Compile Include="Internal\Definitions\ITypeActivator.cs" />
     <Compile Include="Internal\Generators\ITypeBuilder.cs" />
     <Compile Include="Internal\Generators\ITypeBuilderFactory.cs" />
     <Compile Include="Internal\Generators\ITypeEmitter.cs" />
@@ -97,6 +96,8 @@
     <Compile Include="Interceptors\InterceptorInvocationHandler.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Internal\Generators\ProxyAttribute.cs" />
+    <Compile Include="Proxy.cs" />
+    <Compile Include="IProxy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

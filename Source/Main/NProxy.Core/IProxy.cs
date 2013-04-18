@@ -18,19 +18,39 @@
 
 using System;
 
-namespace NProxy.Core.Internal.Definitions
+namespace NProxy.Core
 {
     /// <summary>
-    /// Defines a type activator.
+    /// Defines a proxy.
     /// </summary>
-    internal interface ITypeActivator
+    public interface IProxy
     {
         /// <summary>
-        /// Creates an instance of the specified type.
+        /// Returns the declaring type.
         /// </summary>
-        /// <param name="type">The type.</param>
+        Type DeclaringType { get; }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The instance.</returns>
-        object CreateInstance(Type type, object[] arguments);
+        /// <param name="invocationHandler">The invocation handler.</param>
+		/// <returns>The new instance.</returns>
+		object CreateInstance(IInvocationHandler invocationHandler, object[] arguments);
     }
+
+	/// <summary>
+	/// Defines a proxy.
+	/// </summary>
+	/// <typeparam name="T">The declaring type.</typeparam>
+	public interface IProxy<T> : IProxy where T : class
+	{
+		/// <summary>
+		/// Creates a new instance.
+		/// </summary>
+		/// <param name="arguments">The constructor arguments.</param>
+		/// <param name="invocationHandler">The invocation handler.</param>
+		/// <returns>The new instance.</returns>
+		new T CreateInstance(IInvocationHandler invocationHandler, object[] arguments);
+	}
 }
