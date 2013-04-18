@@ -43,7 +43,7 @@ namespace NProxy.Core
     /// Defines a proxy.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface IProxy<T> : IProxy where T : class
+    public interface IProxy<out T> : IProxy where T : class
     {
         /// <summary>
         /// Creates a new instance.
