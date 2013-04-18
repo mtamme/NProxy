@@ -30,12 +30,12 @@ namespace NProxy.Core
         /// <summary>
         /// The type definition.
         /// </summary>
-        protected readonly ITypeDefinition _typeDefinition;
+        private readonly ITypeDefinition _typeDefinition;
 
         /// <summary>
         /// The type.
         /// </summary>
-        protected readonly Type _type;
+        private readonly Type _type;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Proxy"/> class.
