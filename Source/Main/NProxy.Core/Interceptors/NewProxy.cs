@@ -113,12 +113,13 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// Creates an invocation handler.
         /// </summary>
-        /// <param name="declaringType">The declaring type.</param>
+        /// <param name="proxy">The proxy.</param>
         /// <param name="defaultInterceptors">The default interceptors.</param>
         /// <returns>The invocation handler.</returns>
-        private IInvocationHandler CreateInvocationHandler(Type declaringType, params IInterceptor[] defaultInterceptors)
+        private IInvocationHandler CreateInvocationHandler(IProxy proxy, params IInterceptor[] defaultInterceptors)
         {
             var invocationHandler = new InterceptorInvocationHandler(defaultInterceptors);
+            var declaringType = proxy.DeclaringType;
 
             if (declaringType.IsInterface)
             {
@@ -238,7 +239,7 @@ namespace NProxy.Core.Interceptors
         public T Targets(IInvocationTarget invocationTarget)
         {
             var proxy = _proxyFactory.CreateProxy<T>(_interfaceTypes);
-            var invocationHandler = CreateInvocationHandler(proxy.DeclaringType, new InvocationTargetInterceptor(invocationTarget));
+            var invocationHandler = CreateInvocationHandler(proxy, new InvocationTargetInterceptor(invocationTarget));
 
             return proxy.CreateInstance(invocationHandler, _arguments);
         }
@@ -247,7 +248,7 @@ namespace NProxy.Core.Interceptors
         public T TargetsSelf()
         {
             var proxy = _proxyFactory.CreateProxy<T>(_interfaceTypes);
-            var invocationHandler = CreateInvocationHandler(proxy.DeclaringType, TargetInterceptor.Instance);
+            var invocationHandler = CreateInvocationHandler(proxy, TargetInterceptor.Instance);
 
             return proxy.CreateInstance(invocationHandler, _arguments);
         }

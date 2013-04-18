@@ -34,7 +34,7 @@ namespace NProxy.Core
         /// <param name="interfaceTypes">The additional interface types.</param>
         /// <param name="invocationHandler">The invocation handler.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The proxy.</returns>
+        /// <returns>The proxy object.</returns>
         public static object CreateProxy(this IProxyFactory proxyFactory,
                                          Type declaringType,
                                          IEnumerable<Type> interfaceTypes,

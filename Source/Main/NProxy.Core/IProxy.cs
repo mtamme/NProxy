@@ -33,8 +33,8 @@ namespace NProxy.Core
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="arguments">The constructor arguments.</param>
         /// <param name="invocationHandler">The invocation handler.</param>
+        /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The new instance.</returns>
         object CreateInstance(IInvocationHandler invocationHandler, params object[] arguments);
     }
@@ -48,8 +48,8 @@ namespace NProxy.Core
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="arguments">The constructor arguments.</param>
         /// <param name="invocationHandler">The invocation handler.</param>
+        /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The new instance.</returns>
         new T CreateInstance(IInvocationHandler invocationHandler, params object[] arguments);
     }
