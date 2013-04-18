@@ -95,26 +95,26 @@ namespace NProxy.Core
             return new Proxy(typeDefinition, type);
         }
 
-		/// <inheritdoc/>
-		public IProxy<T> CreateProxy<T>(IEnumerable<Type> interfaceTypes) where T : class
-		{
-			if (interfaceTypes == null)
-				throw new ArgumentNullException("interfaceTypes");
-			
-			// Create type definition.
-			var typeDefinition = CreateTypeDefinition(typeof (T));
-			
-			// Add interface types.
-			foreach (var interfaceType in interfaceTypes)
-			{
-				typeDefinition.AddInterface(interfaceType);
-			}
-			
-			// Get type.
-			var type = _typeProvider.GetType(typeDefinition);
-			
-			return new Proxy<T>(typeDefinition, type);
-		}
+        /// <inheritdoc/>
+        public IProxy<T> CreateProxy<T>(IEnumerable<Type> interfaceTypes) where T : class
+        {
+            if (interfaceTypes == null)
+                throw new ArgumentNullException("interfaceTypes");
+            
+            // Create type definition.
+            var typeDefinition = CreateTypeDefinition(typeof(T));
+            
+            // Add interface types.
+            foreach (var interfaceType in interfaceTypes)
+            {
+                typeDefinition.AddInterface(interfaceType);
+            }
+            
+            // Get type.
+            var type = _typeProvider.GetType(typeDefinition);
+            
+            return new Proxy<T>(typeDefinition, type);
+        }
 
         #endregion
     }

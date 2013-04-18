@@ -35,22 +35,22 @@ namespace NProxy.Core
         /// </summary>
         /// <param name="arguments">The constructor arguments.</param>
         /// <param name="invocationHandler">The invocation handler.</param>
-		/// <returns>The new instance.</returns>
-		object CreateInstance(IInvocationHandler invocationHandler, object[] arguments);
+        /// <returns>The new instance.</returns>
+        object CreateInstance(IInvocationHandler invocationHandler, object[] arguments);
     }
 
-	/// <summary>
-	/// Defines a proxy.
-	/// </summary>
-	/// <typeparam name="T">The declaring type.</typeparam>
-	public interface IProxy<T> : IProxy where T : class
-	{
-		/// <summary>
-		/// Creates a new instance.
-		/// </summary>
-		/// <param name="arguments">The constructor arguments.</param>
-		/// <param name="invocationHandler">The invocation handler.</param>
-		/// <returns>The new instance.</returns>
-		new T CreateInstance(IInvocationHandler invocationHandler, object[] arguments);
-	}
+    /// <summary>
+    /// Defines a proxy.
+    /// </summary>
+    /// <typeparam name="T">The declaring type.</typeparam>
+    public interface IProxy<T> : IProxy where T : class
+    {
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="arguments">The constructor arguments.</param>
+        /// <param name="invocationHandler">The invocation handler.</param>
+        /// <returns>The new instance.</returns>
+        new T CreateInstance(IInvocationHandler invocationHandler, object[] arguments);
+    }
 }

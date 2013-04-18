@@ -35,14 +35,14 @@ namespace NProxy.Core
         /// <summary>
         /// The type.
         /// </summary>
-		protected readonly Type _type;
+        protected readonly Type _type;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Proxy"/> class.
         /// </summary>
         /// <param name="typeDefinition">The type definition.</param>
         /// <param name="type">The type.</param>
-		public Proxy(ITypeDefinition typeDefinition, Type type)
+        public Proxy(ITypeDefinition typeDefinition, Type type)
         {
             if (typeDefinition == null)
                 throw new ArgumentNullException("typeDefinition");
@@ -81,30 +81,30 @@ namespace NProxy.Core
         #endregion
     }
 
-	/// <summary>
-	/// Represents a proxy.
-	/// </summary>
-	/// <typeparam name="T">The declaring type.</typeparam>
-	internal sealed class Proxy<T> : Proxy, IProxy<T> where T : class
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Proxy{T}"/> class.
-		/// </summary>
-		/// <param name="typeDefinition">The type definition.</param>
-		/// <param name="type">The type.</param>
-		public Proxy(ITypeDefinition typeDefinition, Type type)
-			: base(typeDefinition, type)
-		{
-		}
+    /// <summary>
+    /// Represents a proxy.
+    /// </summary>
+    /// <typeparam name="T">The declaring type.</typeparam>
+    internal sealed class Proxy<T> : Proxy, IProxy<T> where T : class
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Proxy{T}"/> class.
+        /// </summary>
+        /// <param name="typeDefinition">The type definition.</param>
+        /// <param name="type">The type.</param>
+        public Proxy(ITypeDefinition typeDefinition, Type type)
+            : base(typeDefinition, type)
+        {
+        }
 
-		#region IProxy<T> Members
+        #region IProxy<T> Members
 
-		/// <inheritdoc/>
-		public new T CreateInstance(IInvocationHandler invocationHandler, object[] arguments)
-		{
-			return (T) base.CreateInstance(invocationHandler, arguments);
-		}
+        /// <inheritdoc/>
+        public new T CreateInstance(IInvocationHandler invocationHandler, object[] arguments)
+        {
+            return (T) base.CreateInstance(invocationHandler, arguments);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

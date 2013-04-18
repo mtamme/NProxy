@@ -46,23 +46,23 @@ namespace NProxy.Core
             return proxy.CreateInstance(invocationHandler, arguments);
         }
 
-		/// <summary>
-		/// Creates a proxy object.
-		/// </summary>
-		/// <typeparam name="T">The declaring type.</typeparam>
-		/// <param name="proxyFactory">The proxy factory.</param>
-		/// <param name="interfaceTypes">The additional interface types.</param>
-		/// <param name="invocationHandler">The invocation handler.</param>
-		/// <param name="arguments">The constructor arguments.</param>
-		/// <returns>The proxy object.</returns>
-		public static T CreateProxy<T>(this IProxyFactory proxyFactory,
-		                               IEnumerable<Type> interfaceTypes,
-		                               IInvocationHandler invocationHandler,
-		                               params object[] arguments) where T : class
-		{
-			var proxy = proxyFactory.CreateProxy<T>(interfaceTypes);
-			
-			return proxy.CreateInstance(invocationHandler, arguments);
-		}
+        /// <summary>
+        /// Creates a proxy object.
+        /// </summary>
+        /// <typeparam name="T">The declaring type.</typeparam>
+        /// <param name="proxyFactory">The proxy factory.</param>
+        /// <param name="interfaceTypes">The additional interface types.</param>
+        /// <param name="invocationHandler">The invocation handler.</param>
+        /// <param name="arguments">The constructor arguments.</param>
+        /// <returns>The proxy object.</returns>
+        public static T CreateProxy<T>(this IProxyFactory proxyFactory,
+                                       IEnumerable<Type> interfaceTypes,
+                                       IInvocationHandler invocationHandler,
+                                       params object[] arguments) where T : class
+        {
+            var proxy = proxyFactory.CreateProxy<T>(interfaceTypes);
+            
+            return proxy.CreateInstance(invocationHandler, arguments);
+        }
     }
 }
