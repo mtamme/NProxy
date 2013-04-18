@@ -63,7 +63,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public object CreateInstance(IInvocationHandler invocationHandler, object[] arguments)
+        public object CreateInstance(IInvocationHandler invocationHandler, params object[] arguments)
         {
             if (invocationHandler == null)
                 throw new ArgumentNullException("invocationHandler");
@@ -100,7 +100,7 @@ namespace NProxy.Core
         #region IProxy<T> Members
 
         /// <inheritdoc/>
-        public new T CreateInstance(IInvocationHandler invocationHandler, object[] arguments)
+        public new T CreateInstance(IInvocationHandler invocationHandler, params object[] arguments)
         {
             return (T) base.CreateInstance(invocationHandler, arguments);
         }

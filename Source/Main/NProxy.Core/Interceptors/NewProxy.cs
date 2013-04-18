@@ -237,19 +237,19 @@ namespace NProxy.Core.Interceptors
         /// <inheritdoc/>
         public T Targets(IInvocationTarget invocationTarget)
         {
-            var declaringType = typeof (T);
-            var invocationHandler = CreateInvocationHandler(declaringType, new InvocationTargetInterceptor(invocationTarget));
+            var proxy = _proxyFactory.CreateProxy<T>(_interfaceTypes);
+            var invocationHandler = CreateInvocationHandler(proxy.DeclaringType, new InvocationTargetInterceptor(invocationTarget));
 
-            return (T) _proxyFactory.CreateProxy(declaringType, _interfaceTypes, invocationHandler, _arguments);
+            return proxy.CreateInstance(invocationHandler, _arguments);
         }
 
         /// <inheritdoc/>
         public T TargetsSelf()
         {
-            var declaringType = typeof (T);
-            var invocationHandler = CreateInvocationHandler(declaringType, TargetInterceptor.Instance);
+            var proxy = _proxyFactory.CreateProxy<T>(_interfaceTypes);
+            var invocationHandler = CreateInvocationHandler(proxy.DeclaringType, TargetInterceptor.Instance);
 
-            return (T) _proxyFactory.CreateProxy(declaringType, _interfaceTypes, invocationHandler, _arguments);
+            return proxy.CreateInstance(invocationHandler, _arguments);
         }
 
         #endregion
