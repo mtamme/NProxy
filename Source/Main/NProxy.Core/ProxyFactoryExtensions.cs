@@ -41,6 +41,9 @@ namespace NProxy.Core
                                          IInvocationHandler invocationHandler,
                                          params object[] arguments)
         {
+            if (proxyFactory == null)
+                throw new ArgumentNullException("proxyFactory");
+
             var proxy = proxyFactory.CreateProxy(declaringType, interfaceTypes);
 
             return proxy.CreateInstance(invocationHandler, arguments);
@@ -60,8 +63,11 @@ namespace NProxy.Core
                                        IInvocationHandler invocationHandler,
                                        params object[] arguments) where T : class
         {
+            if (proxyFactory == null)
+                throw new ArgumentNullException("proxyFactory");
+
             var proxy = proxyFactory.CreateProxy<T>(interfaceTypes);
-            
+
             return proxy.CreateInstance(invocationHandler, arguments);
         }
     }

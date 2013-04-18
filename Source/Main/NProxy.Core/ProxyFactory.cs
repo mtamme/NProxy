@@ -100,19 +100,19 @@ namespace NProxy.Core
         {
             if (interfaceTypes == null)
                 throw new ArgumentNullException("interfaceTypes");
-            
+
             // Create type definition.
-            var typeDefinition = CreateTypeDefinition(typeof(T));
-            
+            var typeDefinition = CreateTypeDefinition(typeof (T));
+
             // Add interface types.
             foreach (var interfaceType in interfaceTypes)
             {
                 typeDefinition.AddInterface(interfaceType);
             }
-            
+
             // Get type.
             var type = _typeProvider.GetType(typeDefinition);
-            
+
             return new Proxy<T>(typeDefinition, type);
         }
 
