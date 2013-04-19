@@ -73,6 +73,7 @@ Global
 		$5.BeforeDelegateDeclarationParentheses = False
 		$5.AfterDelegateDeclarationParameterComma = True
 		$5.NewParentheses = False
+		$5.BeforeTypeOfParentheses = True
 		$5.SpacesBeforeBrackets = False
 		$5.SpacesAfterTypecast = True
 		$5.BlankLinesBeforeUsings = 1
