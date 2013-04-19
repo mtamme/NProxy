@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -54,7 +54,7 @@ namespace NProxy.Core.Internal.Definitions
         public override object CreateInstance(Type type, object[] arguments)
         {
             var proxy = Activator.CreateInstance(type, arguments);
-            
+
             return Delegate.CreateDelegate(DeclaringType, proxy, DelegateMethodName);
         }
 
