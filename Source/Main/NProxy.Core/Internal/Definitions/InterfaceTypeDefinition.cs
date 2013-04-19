@@ -37,22 +37,18 @@ namespace NProxy.Core.Internal.Definitions
         {
         }
 
-        #region ITypeActivator Members
-
-        /// <inheritdoc/>
-        public override object CreateInstance(Type type, object[] arguments)
-        {
-            return Activator.CreateInstance(type, arguments);
-        }
-
-        #endregion
-
         #region ITypeDefinition Members
 
         /// <inheritdoc/>
         public override Type ParentType
         {
             get { return typeof (object); }
+        }
+
+        /// <inheritdoc/>
+        public override object CreateInstance(Type type, object[] arguments)
+        {
+            return Activator.CreateInstance(type, arguments);
         }
 
         /// <inheritdoc/>
