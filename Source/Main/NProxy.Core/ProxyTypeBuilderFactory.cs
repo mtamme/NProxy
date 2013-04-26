@@ -34,14 +34,19 @@ namespace NProxy.Core
     internal sealed class ProxyTypeBuilderFactory : ITypeBuilderFactory, ITypeEmitter
     {
         /// <summary>
+        /// The dynamic default namespace.
+        /// </summary>
+        private const string DynamicDefaultNamespace = "NProxy.Dynamic";
+
+        /// <summary>
         /// The dynamic assembly name.
         /// </summary>
-        private const string DynamicAssemblyName = "NProxy.Dynamic";
+        private const string DynamicAssemblyName = DynamicDefaultNamespace;
 
         /// <summary>
         /// The dynamic module name.
         /// </summary>
-        private const string DynamicModuleName = "NProxy.Dynamic.dll";
+        private const string DynamicModuleName = DynamicAssemblyName + ".dll";
 
         /// <summary>
         /// The dynamic assembly key pair resource name.
@@ -181,7 +186,7 @@ namespace NProxy.Core
         public TypeBuilder DefineType(string typeName, Type parentType)
         {
             var typeId = Interlocked.Increment(ref _nextTypeId);
-            var uniqueTypeName = String.Format("{0}{1}{2}${3:x}", DynamicAssemblyName, Type.Delimiter, typeName, typeId);
+            var uniqueTypeName = String.Format("{0}{1}{2}${3:x}", DynamicDefaultNamespace, Type.Delimiter, typeName, typeId);
 
             return _moduleBuilder.DefineType(
                 uniqueTypeName,
