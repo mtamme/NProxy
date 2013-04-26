@@ -98,6 +98,8 @@
     <Compile Include="Internal\Generators\ProxyAttribute.cs" />
     <Compile Include="Proxy.cs" />
     <Compile Include="IProxy.cs" />
+    <Compile Include="Internal\Common\ICache.cs" />
+    <Compile Include="Internal\Common\Cache.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
