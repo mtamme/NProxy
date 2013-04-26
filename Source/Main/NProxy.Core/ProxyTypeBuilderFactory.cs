@@ -49,11 +49,6 @@ namespace NProxy.Core
         private const string DynamicAssemblyKeyPairResourceName = "NProxy.Core.Internal.Dynamic.snk";
 
         /// <summary>
-        /// The method information type provider.
-        /// </summary>
-        private readonly ITypeProvider<MethodInfo> _methodInfoTypeProvider;
-
-        /// <summary>
         /// The assembly builder.
         /// </summary>
         private readonly AssemblyBuilder _assemblyBuilder;
@@ -62,6 +57,11 @@ namespace NProxy.Core
         /// The module builder.
         /// </summary>
         private readonly ModuleBuilder _moduleBuilder;
+
+        /// <summary>
+        /// The method information type provider.
+        /// </summary>
+        private readonly ITypeProvider<MethodInfo> _methodInfoTypeProvider;
 
         /// <summary>
         /// The next type identifier.
@@ -75,21 +75,29 @@ namespace NProxy.Core
         /// <param name="canSaveAssembly">A value indicating weather the assembly can be saved.</param>
         public ProxyTypeBuilderFactory(bool strongNamedAssembly, bool canSaveAssembly)
         {
+            _assemblyBuilder = DefineDynamicAssembly(DynamicAssemblyName, strongNamedAssembly, canSaveAssembly);
+            _moduleBuilder = _assemblyBuilder.DefineDynamicModule(DynamicModuleName);
+
             var methodInfoTypeProvider = new MethodInfoTypeGenerator(this);
 
             _methodInfoTypeProvider = new TypeCache<MethodInfo, MethodToken>(m => m.GetToken(), methodInfoTypeProvider);
 
-            var assemblyName = GetDynamicAssemblyName(DynamicAssemblyName, strongNamedAssembly);
-
-            // Define dynamic assembly.
-            var assemblyBuilderAccess = canSaveAssembly ? AssemblyBuilderAccess.RunAndSave : AssemblyBuilderAccess.Run;
-
-            _assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, assemblyBuilderAccess);
-
-            // Define dynamic module.
-            _moduleBuilder = _assemblyBuilder.DefineDynamicModule(DynamicModuleName);
-
             _nextTypeId = -1;
+        }
+
+        /// <summary>
+        /// Defines the dynamic assembly.
+        /// </summary>
+        /// <param name="name">The assembly name.</param>
+        /// <param name="strongNamedAssembly">A value indicating weather the assembly should be strong named.</param>
+        /// <param name="canSaveAssembly">A value indicating weather the assembly can be saved.</param>
+        /// <returns>The assembly builder.</returns>
+        private static AssemblyBuilder DefineDynamicAssembly(string name, bool strongNamedAssembly, bool canSaveAssembly)
+        {
+            var assemblyBuilderAccess = canSaveAssembly ? AssemblyBuilderAccess.RunAndSave : AssemblyBuilderAccess.Run;
+            var assemblyName = GetDynamicAssemblyName(name, strongNamedAssembly);
+
+            return AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, assemblyBuilderAccess);
         }
 
         /// <summary>
@@ -161,6 +169,9 @@ namespace NProxy.Core
         /// <param name="path">The path of the assembly.</param>
         public void SaveAssembly(string path)
         {
+            if (path == null)
+                throw new ArgumentNullException("path");
+
             _assemblyBuilder.Save(path);
         }
 
