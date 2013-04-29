@@ -47,7 +47,7 @@ namespace NProxy.Core
         /// The dynamic default namespace.
         /// </summary>
         private const string DynamicDefaultNamespace = DynamicAssemblyName;
-        
+
         /// <summary>
         /// The dynamic assembly key pair resource name.
         /// </summary>
