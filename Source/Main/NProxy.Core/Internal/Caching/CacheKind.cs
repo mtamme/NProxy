@@ -21,7 +21,7 @@ namespace NProxy.Core.Internal.Caching
     /// <summary>
     /// Defines all cache types.
     /// </summary>
-    public enum CacheKind
+    internal enum CacheKind
     {
         Default,
         Inner
