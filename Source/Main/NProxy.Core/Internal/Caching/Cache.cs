@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -19,13 +19,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace NProxy.Core.Internal.Common
+namespace NProxy.Core.Internal.Caching
 {
     /// <summary>
     /// Represents a cache.
     /// </summary>
-    /// <typeparam name="TKey">The key type.</typeparam>
-    /// <typeparam name="TValue">The value type.</typeparam>
     internal sealed class Cache<TKey, TValue> : ICache<TKey, TValue>
     {
         /// <summary>
@@ -34,39 +32,24 @@ namespace NProxy.Core.Internal.Common
         private readonly Dictionary<TKey, TValue> _values;
 
         /// <summary>
-        /// The lock.
-        /// </summary>
-        private readonly ReadWriteLock _lock;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Cache{TKey, TValue}"/> class.
         /// </summary>
         public Cache()
         {
             _values = new Dictionary<TKey, TValue>();
-            _lock = new ReadWriteLock();
         }
 
         #region ICache<TKey, TValue> Members
-
+        
         /// <inheritdoc/>
         public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
         {
             TValue value;
 
-            using (_lock.UpgradeableRead())
+            if (!_values.TryGetValue(key, out value))
             {
-                if (_values.TryGetValue(key, out value))
-                    return value;
-
-                using (_lock.Write())
-                {
-                    if (_values.TryGetValue(key, out value))
-                        return value;
-
-                    value = valueFactory(key);
-                    _values.Add(key, value);
-                }
+                value = valueFactory(key);
+                _values.Add(key, value);
             }
 
             return value;

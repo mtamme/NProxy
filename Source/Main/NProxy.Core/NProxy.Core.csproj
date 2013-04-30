@@ -98,8 +98,12 @@
     <Compile Include="Internal\Generators\ProxyAttribute.cs" />
     <Compile Include="Proxy.cs" />
     <Compile Include="IProxy.cs" />
-    <Compile Include="Internal\Common\ICache.cs" />
-    <Compile Include="Internal\Common\Cache.cs" />
+    <Compile Include="Internal\Caching\Cache.cs" />
+    <Compile Include="Internal\Caching\CacheKind.cs" />
+    <Compile Include="Internal\Caching\DefaultCacheFactory.cs" />
+    <Compile Include="Internal\Caching\ICache.cs" />
+    <Compile Include="Internal\Caching\ICacheFactory.cs" />
+    <Compile Include="Internal\Caching\InterlockedCache.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -115,5 +119,8 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="NProxy.Core.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Internal\Caching\" />
   </ItemGroup>
 </Project>
