@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -40,7 +40,7 @@ namespace NProxy.Core.Internal.Caching
         }
 
         #region ICache<TKey, TValue> Members
-        
+
         /// <inheritdoc/>
         public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
         {
