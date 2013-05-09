@@ -275,7 +275,7 @@ namespace NProxy.Core.Internal.Generators
 
             // Define method information static field.
             var methodFieldInfo = typeBuilder.DefineField(
-                "Method",
+                "MethodInfo",
                 typeof (MethodInfo),
                 FieldAttributes.Private | FieldAttributes.Static | FieldAttributes.InitOnly);
 
