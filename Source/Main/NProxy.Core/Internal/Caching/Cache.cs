@@ -46,11 +46,11 @@ namespace NProxy.Core.Internal.Caching
         {
             TValue value;
 
-            if (!_values.TryGetValue(key, out value))
-            {
-                value = valueFactory(key);
-                _values.Add(key, value);
-            }
+            if (_values.TryGetValue(key, out value))
+                return value;
+
+            value = valueFactory(key);
+            _values.Add(key, value);
 
             return value;
         }
