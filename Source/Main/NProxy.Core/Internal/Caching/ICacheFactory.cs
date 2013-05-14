@@ -26,10 +26,10 @@ namespace NProxy.Core.Internal.Caching
         /// <summary>
         /// Creates a new cache.
         /// </summary>
-        /// <param name="kind">The cache kind.</param>
+        /// <param name="cacheKind">The cache kind.</param>
         /// <returns>The cache.</returns>
         /// <typeparam name="TKey">The key type.</typeparam>
         /// <typeparam name="TValue">The value type.</typeparam>
-        ICache<TKey, TValue> CreateCache<TKey, TValue>(CacheKind kind);
+        ICache<TKey, TValue> CreateCache<TKey, TValue>(CacheKind cacheKind);
     }
 }

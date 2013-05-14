@@ -26,9 +26,9 @@ namespace NProxy.Core.Internal.Caching
         #region ICacheFactory Members
 
         /// <inheritdoc/>
-        public ICache<TKey, TValue> CreateCache<TKey, TValue>(CacheKind kind)
+        public ICache<TKey, TValue> CreateCache<TKey, TValue>(CacheKind cacheKind)
         {
-            if (kind == CacheKind.Inner)
+            if (cacheKind == CacheKind.Inner)
                 return new Cache<TKey, TValue>();
 
             return new InterlockedCache<TKey, TValue>();

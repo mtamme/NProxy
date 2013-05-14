@@ -198,7 +198,7 @@ namespace NProxy.Core.Internal.Reflection
 
             var interfaceTypes = type.GetInterfaces();
 
-            interfaceTypes.Visit(t => t.VisitInterfaces(visitor));
+            interfaceTypes.Visit(visitor);
         }
 
         /// <summary>
