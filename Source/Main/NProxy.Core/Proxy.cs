@@ -18,7 +18,7 @@
 
 using System;
 using System.Collections.Generic;
-using NProxy.Core.Internal.Definitions;
+using NProxy.Core.Internal.Descriptors;
 
 namespace NProxy.Core
 {
@@ -28,9 +28,9 @@ namespace NProxy.Core
     internal class Proxy : IProxy
     {
         /// <summary>
-        /// The type definition.
+        /// The proxy descriptor.
         /// </summary>
-        private readonly ITypeDefinition _typeDefinition;
+        private readonly IProxyDescriptor _proxyDescriptor;
 
         /// <summary>
         /// The type.
@@ -40,17 +40,17 @@ namespace NProxy.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="Proxy"/> class.
         /// </summary>
-        /// <param name="typeDefinition">The type definition.</param>
+        /// <param name="proxyDescriptor">The proxy descriptor.</param>
         /// <param name="type">The type.</param>
-        public Proxy(ITypeDefinition typeDefinition, Type type)
+        public Proxy(IProxyDescriptor proxyDescriptor, Type type)
         {
-            if (typeDefinition == null)
-                throw new ArgumentNullException("typeDefinition");
+            if (proxyDescriptor == null)
+                throw new ArgumentNullException("proxyDescriptor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            _typeDefinition = typeDefinition;
+            _proxyDescriptor = proxyDescriptor;
             _type = type;
         }
 
@@ -59,7 +59,7 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public Type DeclaringType
         {
-            get { return _typeDefinition.DeclaringType; }
+            get { return _proxyDescriptor.DeclaringType; }
         }
 
         /// <inheritdoc/>
@@ -75,7 +75,7 @@ namespace NProxy.Core
 
             constructorArguments.AddRange(arguments);
 
-            return _typeDefinition.CreateInstance(_type, constructorArguments.ToArray());
+            return _proxyDescriptor.CreateInstance(_type, constructorArguments.ToArray());
         }
 
         #endregion
@@ -90,10 +90,10 @@ namespace NProxy.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="Proxy{T}"/> class.
         /// </summary>
-        /// <param name="typeDefinition">The type definition.</param>
+        /// <param name="proxyDescriptor">The proxy descriptor.</param>
         /// <param name="type">The type.</param>
-        public Proxy(ITypeDefinition typeDefinition, Type type)
-            : base(typeDefinition, type)
+        public Proxy(IProxyDescriptor proxyDescriptor, Type type)
+            : base(proxyDescriptor, type)
         {
         }
 

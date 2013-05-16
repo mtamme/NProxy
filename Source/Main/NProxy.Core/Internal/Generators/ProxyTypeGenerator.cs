@@ -19,7 +19,7 @@
 using System;
 using System.Reflection;
 using NProxy.Core.Internal.Common;
-using NProxy.Core.Internal.Definitions;
+using NProxy.Core.Internal.Descriptors;
 using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core.Internal.Generators
@@ -27,7 +27,7 @@ namespace NProxy.Core.Internal.Generators
     /// <summary>
     /// Represents a proxy type generator.
     /// </summary>
-    internal sealed class ProxyTypeGenerator : ITypeProvider<ITypeDefinition>
+    internal sealed class ProxyTypeGenerator : ITypeProvider<IProxyDescriptor>
     {
         /// <summary>
         /// The <see cref="ProxyAttribute"/> constructor information.
@@ -62,46 +62,48 @@ namespace NProxy.Core.Internal.Generators
             _interceptionFilter = interceptionFilter;
         }
 
-        #region ITypeProvider<ITypeDefinition> Members
+        #region ITypeProvider<IProxyDescriptor> Members
 
         /// <inheritdoc/>
-        public Type GetType(ITypeDefinition typeDefinition)
+        public Type GetType(IProxyDescriptor proxyDescriptor)
         {
-            if (typeDefinition == null)
-                throw new ArgumentNullException("typeDefinition");
+            if (proxyDescriptor == null)
+                throw new ArgumentNullException("proxyDescriptor");
 
-            var typeBuilder = _typeBuilderFactory.CreateBuilder(typeDefinition.ParentType);
+            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDescriptor.ParentType);
 
             // Add custom attribute.
             typeBuilder.AddCustomAttribute(ProxyAttributeConstructorInfo);
 
+            var typeReflector = proxyDescriptor.CreateReflector();
+
             // Add interfaces.
             var addInterfaceVisitor = Visitor.Create<Type>(typeBuilder.AddInterface);
 
-            typeDefinition.VisitInterfaces(addInterfaceVisitor);
+            typeReflector.VisitInterfaces(addInterfaceVisitor);
 
             // Build constructors.
             var buildConstructorVisitor = Visitor.Create<ConstructorInfo>(typeBuilder.BuildConstructor);
 
-            typeDefinition.VisitConstructors(buildConstructorVisitor);
+            typeReflector.VisitConstructors(buildConstructorVisitor);
 
             // Build events.
             var buildEventVisitor = Visitor.Create<EventInfo>(typeBuilder.BuildEvent)
                                            .Where(_interceptionFilter.Accept);
 
-            typeDefinition.VisitEvents(buildEventVisitor);
+            typeReflector.VisitEvents(buildEventVisitor);
 
             // Build properties.
             var buildPropertyVisitor = Visitor.Create<PropertyInfo>(typeBuilder.BuildProperty)
                                               .Where(_interceptionFilter.Accept);
 
-            typeDefinition.VisitProperties(buildPropertyVisitor);
+            typeReflector.VisitProperties(buildPropertyVisitor);
 
             // Build methods.
             var buildMethodVisitor = Visitor.Create<MethodInfo>(typeBuilder.BuildMethod)
                                             .Where(_interceptionFilter.Accept);
 
-            typeDefinition.VisitMethods(buildMethodVisitor);
+            typeReflector.VisitMethods(buildMethodVisitor);
 
             return typeBuilder.CreateType();
         }

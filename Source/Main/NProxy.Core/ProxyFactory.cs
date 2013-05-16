@@ -18,7 +18,7 @@
 
 using System;
 using System.Collections.Generic;
-using NProxy.Core.Internal.Definitions;
+using NProxy.Core.Internal.Descriptors;
 using NProxy.Core.Internal.Generators;
 using NProxy.Core.Internal.Reflection;
 
@@ -32,7 +32,7 @@ namespace NProxy.Core
         /// <summary>
         /// The type provider.
         /// </summary>
-        private readonly ITypeProvider<ITypeDefinition> _typeProvider;
+        private readonly ITypeProvider<IProxyDescriptor> _typeProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyFactory"/> class.
@@ -50,23 +50,24 @@ namespace NProxy.Core
         {
             var typeProvider = new ProxyTypeGenerator(typeBuilderFactory, new DefaultInterceptionFilter());
 
-            _typeProvider = new TypeCache<ITypeDefinition, ITypeDefinition>(d => d, typeProvider);
+            _typeProvider = new TypeCache<IProxyDescriptor, IProxyDescriptor>(d => d, typeProvider);
         }
 
         /// <summary>
-        /// Returns a type definition for the specified declaring type.
+        /// Returns a proxy descriptor for the specified declaring type.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
+        /// <param name="interfaceTypes">The interface types.</param>
         /// <returns>The type definition.</returns>
-        private static TypeDefinitionBase CreateTypeDefinition(Type declaringType)
+        private static IProxyDescriptor CreateDescriptor(Type declaringType, IEnumerable<Type> interfaceTypes)
         {
             if (declaringType.IsDelegate())
-                return new DelegateTypeDefinition(declaringType);
+                return new DelegateProxyDescriptor(declaringType, interfaceTypes);
 
             if (declaringType.IsInterface)
-                return new InterfaceTypeDefinition(declaringType);
+                return new InterfaceProxyDescriptor(declaringType, interfaceTypes);
 
-            return new ClassTypeDefinition(declaringType);
+            return new ClassProxyDescriptor(declaringType, interfaceTypes);
         }
 
         #region IProxyFactory Members
@@ -80,19 +81,13 @@ namespace NProxy.Core
             if (interfaceTypes == null)
                 throw new ArgumentNullException("interfaceTypes");
 
-            // Create type definition.
-            var typeDefinition = CreateTypeDefinition(declaringType);
-
-            // Add interface types.
-            foreach (var interfaceType in interfaceTypes)
-            {
-                typeDefinition.AddInterface(interfaceType);
-            }
+            // Create proxy descriptor.
+            var proxyDescriptor = CreateDescriptor(declaringType, interfaceTypes);
 
             // Get type.
-            var type = _typeProvider.GetType(typeDefinition);
+            var type = _typeProvider.GetType(proxyDescriptor);
 
-            return new Proxy(typeDefinition, type);
+            return new Proxy(proxyDescriptor, type);
         }
 
         /// <inheritdoc/>
@@ -101,19 +96,13 @@ namespace NProxy.Core
             if (interfaceTypes == null)
                 throw new ArgumentNullException("interfaceTypes");
 
-            // Create type definition.
-            var typeDefinition = CreateTypeDefinition(typeof (T));
-
-            // Add interface types.
-            foreach (var interfaceType in interfaceTypes)
-            {
-                typeDefinition.AddInterface(interfaceType);
-            }
+            // Create proxy descriptor.
+            var proxyDescriptor = CreateDescriptor(typeof (T), interfaceTypes);
 
             // Get type.
-            var type = _typeProvider.GetType(typeDefinition);
+            var type = _typeProvider.GetType(proxyDescriptor);
 
-            return new Proxy<T>(typeDefinition, type);
+            return new Proxy<T>(proxyDescriptor, type);
         }
 
         #endregion

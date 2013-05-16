@@ -40,6 +40,13 @@
     <Compile Include="Interceptors\TargetInterceptor.cs" />
     <Compile Include="Interceptors\SingleInvocationTarget.cs" />
     <Compile Include="Internal\Common\EnumerableExtensions.cs" />
+    <Compile Include="Internal\Descriptors\ClassProxyDescriptor.cs" />
+    <Compile Include="Internal\Descriptors\DelegateProxyDescriptor.cs" />
+    <Compile Include="Internal\Descriptors\InterfaceProxyDescriptor.cs" />
+    <Compile Include="Internal\Descriptors\IProxyDescriptor.cs" />
+    <Compile Include="Internal\Descriptors\ITypeReflector.cs" />
+    <Compile Include="Internal\Descriptors\ProxyDescriptorBase.cs" />
+    <Compile Include="Internal\Descriptors\TypeReflectorBase.cs" />
     <Compile Include="Internal\Reflection\MethodToken.cs" />
     <Compile Include="Internal\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Internal\Reflection\MethodBuilderExtensions.cs" />
@@ -69,11 +76,6 @@
     <Compile Include="Interceptors\InvocationTargetInterceptor.cs" />
     <Compile Include="Internal\Common\AnonymousDisposable.cs" />
     <Compile Include="Internal\Common\ReadWriteLock.cs" />
-    <Compile Include="Internal\Definitions\ITypeDefinition.cs" />
-    <Compile Include="Internal\Definitions\TypeDefinitionBase.cs" />
-    <Compile Include="Internal\Definitions\ClassTypeDefinition.cs" />
-    <Compile Include="Internal\Definitions\DelegateTypeDefinition.cs" />
-    <Compile Include="Internal\Definitions\InterfaceTypeDefinition.cs" />
     <Compile Include="Internal\Generators\ITypeBuilder.cs" />
     <Compile Include="Internal\Generators\ITypeBuilderFactory.cs" />
     <Compile Include="Internal\Generators\ITypeEmitter.cs" />
@@ -120,7 +122,5 @@
   <ItemGroup>
     <None Include="NProxy.Core.nuspec" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Internal\Caching\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

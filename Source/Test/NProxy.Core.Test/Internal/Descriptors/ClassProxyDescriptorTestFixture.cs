@@ -19,31 +19,29 @@
 using System;
 using System.Collections.Generic;
 using NProxy.Core.Internal.Common;
-using NProxy.Core.Internal.Definitions;
+using NProxy.Core.Internal.Descriptors;
 using NProxy.Core.Test.Types;
 using NUnit.Framework;
 
-namespace NProxy.Core.Test.Internal.Definitions
+namespace NProxy.Core.Test.Internal.Descriptors
 {
     [TestFixture]
-    public sealed class DelegateTypeDefinitionTestFixture
+    public sealed class ClassProxyDescriptorTestFixture
     {
         [Test]
-        public void AddInterfaceTest()
+        public void CreateReflectorTest()
         {
             // Arrange
-            var typeDefinition = new DelegateTypeDefinition(typeof (Action));
+            var proxyDescriptor = new ClassProxyDescriptor(typeof (object), new[] {typeof (IOne), typeof (ITwo), typeof (IOneTwo)});
 
             // Act
-            typeDefinition.AddInterface(typeof (IOne));
-            typeDefinition.AddInterface(typeof (ITwo));
-            typeDefinition.AddInterface(typeof (IOneTwo));
+            var typeReflector = proxyDescriptor.CreateReflector();
 
             // Assert
             var interfaceTypes = new List<Type>();
             var visitor = Visitor.Create<Type>(interfaceTypes.Add);
 
-            typeDefinition.VisitInterfaces(visitor);
+            typeReflector.VisitInterfaces(visitor);
 
             Assert.That(interfaceTypes.Count, Is.EqualTo(4));
             Assert.That(interfaceTypes, Contains.Item(typeof (IBase)));
@@ -56,11 +54,11 @@ namespace NProxy.Core.Test.Internal.Definitions
         public void EqualsWithoutInterfacesTest()
         {
             // Arrange
-            var firstTypeDefinition = new DelegateTypeDefinition(typeof (Action));
-            var secondTypeDefinition = new DelegateTypeDefinition(typeof (Action));
+            var firstProxyDescriptor = new ClassProxyDescriptor(typeof (object), Type.EmptyTypes);
+            var secondProxyDescriptor = new ClassProxyDescriptor(typeof (object), Type.EmptyTypes);
 
             // Act
-            var isEqual = firstTypeDefinition.Equals(secondTypeDefinition);
+            var isEqual = firstProxyDescriptor.Equals(secondProxyDescriptor);
 
             // Assert
             Assert.That(isEqual, Is.True);
@@ -70,18 +68,11 @@ namespace NProxy.Core.Test.Internal.Definitions
         public void EqualsWithInterfacesTest()
         {
             // Arrange
-            var firstTypeDefinition = new DelegateTypeDefinition(typeof (Action));
-
-            firstTypeDefinition.AddInterface(typeof (IOne));
-            firstTypeDefinition.AddInterface(typeof (ITwo));
-
-            var secondTypeDefinition = new DelegateTypeDefinition(typeof (Action));
-
-            secondTypeDefinition.AddInterface(typeof (ITwo));
-            secondTypeDefinition.AddInterface(typeof (IOne));
+            var firstProxyDescriptor = new ClassProxyDescriptor(typeof (object), new[] {typeof (IOne), typeof (ITwo)});
+            var secondProxyDescriptor = new ClassProxyDescriptor(typeof (object), new[] {typeof (ITwo), typeof (IOne)});
 
             // Act
-            var isEqual = firstTypeDefinition.Equals(secondTypeDefinition);
+            var isEqual = firstProxyDescriptor.Equals(secondProxyDescriptor);
 
             // Assert
             Assert.That(isEqual, Is.True);

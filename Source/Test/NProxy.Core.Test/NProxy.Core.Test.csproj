@@ -100,9 +100,9 @@
     <Compile Include="Types\Class.cs" />
     <Compile Include="Types\Interface.cs" />
     <Compile Include="ProxyTypeBuilderTestFixture.cs" />
-    <Compile Include="Internal\Definitions\ClassTypeDefinitionTestFixture.cs" />
-    <Compile Include="Internal\Definitions\DelegateTypeDefinitionTestFixture.cs" />
-    <Compile Include="Internal\Definitions\InterfaceTypeDefinitionTestFixture.cs" />
+    <Compile Include="Internal\Descriptors\ClassProxyDescriptorTestFixture.cs" />
+    <Compile Include="Internal\Descriptors\DelegateTypeDefinitionTestFixture.cs" />
+    <Compile Include="Internal\Descriptors\InterfaceTypeDefinitionTestFixture.cs" />
     <Compile Include="Internal\Reflection\MethodTokenTestFixture.cs" />
     <Compile Include="Interceptors\LazyAttribute.cs" />
     <Compile Include="Interceptors\LazyInterceptor.cs" />

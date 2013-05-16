@@ -17,15 +17,13 @@
 //
 
 using System;
-using System.Reflection;
-using NProxy.Core.Internal.Common;
 
-namespace NProxy.Core.Internal.Definitions
+namespace NProxy.Core.Internal.Descriptors
 {
     /// <summary>
-    /// Defines a type definition.
+    /// Defines a proxy descriptor.
     /// </summary>
-    internal interface ITypeDefinition
+    internal interface IProxyDescriptor
     {
         /// <summary>
         /// Returns the declaring type.
@@ -46,33 +44,9 @@ namespace NProxy.Core.Internal.Definitions
         object CreateInstance(Type type, object[] arguments);
 
         /// <summary>
-        /// Visits all interfaces.
+        /// Creates a type reflector.
         /// </summary>
-        /// <param name="visitor">The visitor.</param>
-        void VisitInterfaces(IVisitor<Type> visitor);
-
-        /// <summary>
-        /// Visits all constructors.
-        /// </summary>
-        /// <param name="visitor">The visitor.</param>
-        void VisitConstructors(IVisitor<ConstructorInfo> visitor);
-
-        /// <summary>
-        /// Visits all events.
-        /// </summary>
-        /// <param name="visitor">The visitor.</param>
-        void VisitEvents(IVisitor<EventInfo> visitor);
-
-        /// <summary>
-        /// Visits all properties.
-        /// </summary>
-        /// <param name="visitor">The visitor.</param>
-        void VisitProperties(IVisitor<PropertyInfo> visitor);
-
-        /// <summary>
-        /// Visits all methods.
-        /// </summary>
-        /// <param name="visitor">The visitor.</param>
-        void VisitMethods(IVisitor<MethodInfo> visitor);
+        /// <returns>The type reflector.</returns>
+        ITypeReflector CreateReflector();
     }
 }
