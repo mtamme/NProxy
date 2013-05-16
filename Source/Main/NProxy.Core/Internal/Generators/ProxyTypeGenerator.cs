@@ -17,6 +17,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Internal.Common;
 using NProxy.Core.Internal.Descriptors;
@@ -75,6 +76,7 @@ namespace NProxy.Core.Internal.Generators
             // Add custom attribute.
             typeBuilder.AddCustomAttribute(ProxyAttributeConstructorInfo);
 
+            // Create type reflector.
             var typeReflector = proxyDescriptor.CreateReflector();
 
             // Add interfaces.
@@ -88,19 +90,25 @@ namespace NProxy.Core.Internal.Generators
             typeReflector.VisitConstructors(buildConstructorVisitor);
 
             // Build events.
-            var buildEventVisitor = Visitor.Create<EventInfo>(typeBuilder.BuildEvent)
+            var interceptedEventInfos = new List<EventInfo>();
+            var buildEventVisitor = Visitor.Create<EventInfo>(interceptedEventInfos.Add)
+                                           .Do(typeBuilder.BuildEvent)
                                            .Where(_interceptionFilter.Accept);
 
             typeReflector.VisitEvents(buildEventVisitor);
 
             // Build properties.
-            var buildPropertyVisitor = Visitor.Create<PropertyInfo>(typeBuilder.BuildProperty)
+            var interceptedPropertyInfos = new List<PropertyInfo>();
+            var buildPropertyVisitor = Visitor.Create<PropertyInfo>(interceptedPropertyInfos.Add)
+                                              .Do(typeBuilder.BuildProperty)
                                               .Where(_interceptionFilter.Accept);
 
             typeReflector.VisitProperties(buildPropertyVisitor);
 
             // Build methods.
-            var buildMethodVisitor = Visitor.Create<MethodInfo>(typeBuilder.BuildMethod)
+            var interceptedMethodInfos = new List<MethodInfo>();
+            var buildMethodVisitor = Visitor.Create<MethodInfo>(interceptedMethodInfos.Add)
+                                            .Do(typeBuilder.BuildMethod)
                                             .Where(_interceptionFilter.Accept);
 
             typeReflector.VisitMethods(buildMethodVisitor);

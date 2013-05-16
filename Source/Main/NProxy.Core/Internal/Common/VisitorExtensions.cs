@@ -26,6 +26,28 @@ namespace NProxy.Core.Internal.Common
     internal static class VisitorExtensions
     {
         /// <summary>
+        /// Invokes an action for each visited element.
+        /// </summary>
+        /// <typeparam name="TElement">The element type.</typeparam>
+        /// <param name="visitor">The visitor.</param>
+        /// <param name="action">The action.</param>
+        /// <returns>The visitor with the side-effecting behavior applied.</returns>
+        public static IVisitor<TElement> Do<TElement>(this IVisitor<TElement> visitor, Action<TElement> action)
+        {
+            if (visitor == null)
+                throw new ArgumentNullException("visitor");
+
+            if (action == null)
+                throw new ArgumentNullException("action");
+
+            return new AnonymousVisitor<TElement>(e =>
+                {
+                    action(e);
+                    visitor.Visit(e);
+                });
+        }
+
+        /// <summary>
         /// Filters the elements of a visitor based on a predicate.
         /// </summary>
         /// <typeparam name="TElement">The element type.</typeparam>
