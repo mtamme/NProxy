@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace NProxy.Core.Test.Internal.Descriptors
 {
     [TestFixture]
-    public sealed class InterfaceTypeDefinitionTestFixture
+    public sealed class InterfaceProxyDescriptorTestFixture
     {
         [Test]
         public void CreateReflectorTest()
@@ -58,24 +58,38 @@ namespace NProxy.Core.Test.Internal.Descriptors
             var secondProxyDescriptor = new InterfaceProxyDescriptor(typeof (IBase), Type.EmptyTypes);
 
             // Act
-            var isEqual = firstProxyDescriptor.Equals(secondProxyDescriptor);
+            var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
 
             // Assert
-            Assert.That(isEqual, Is.True);
+			Assert.That(equals, Is.True);
         }
 
         [Test]
-        public void EqualsWithInterfacesTest()
+		public void EqualsWithSwappedInterfacesTest()
         {
             // Arrange
             var firstProxyDescriptor = new InterfaceProxyDescriptor(typeof (IBase), new[] {typeof (IOne), typeof (ITwo)});
             var secondProxyDescriptor = new InterfaceProxyDescriptor(typeof (IBase), new[] {typeof (ITwo), typeof (IOne)});
 
             // Act
-            var isEqual = firstProxyDescriptor.Equals(secondProxyDescriptor);
+			var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
 
             // Assert
-            Assert.That(isEqual, Is.True);
+			Assert.That(equals, Is.True);
         }
+
+		[Test]
+		public void EqualsWithDeclaringInterfaceTest()
+		{
+			// Arrange
+			var firstProxyDescriptor = new InterfaceProxyDescriptor(typeof (IOne), new[] {typeof (IBase)});
+			var secondProxyDescriptor = new InterfaceProxyDescriptor(typeof (IOne), Type.EmptyTypes);
+			
+			// Act
+			var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
+			
+			// Assert
+			Assert.That(equals, Is.True);
+		}
     }
 }

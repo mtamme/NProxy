@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace NProxy.Core.Test.Internal.Descriptors
 {
     [TestFixture]
-    public sealed class DelegateTypeDefinitionTestFixture
+    public sealed class DelegateProxyDescriptorTestFixture
     {
         [Test]
         public void CreateReflectorTest()
@@ -58,24 +58,38 @@ namespace NProxy.Core.Test.Internal.Descriptors
             var secondProxyDescriptor = new DelegateProxyDescriptor(typeof (Action), Type.EmptyTypes);
 
             // Act
-            var isEqual = firstProxyDescriptor.Equals(secondProxyDescriptor);
+			var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
 
             // Assert
-            Assert.That(isEqual, Is.True);
+			Assert.That(equals, Is.True);
         }
 
         [Test]
-        public void EqualsWithInterfacesTest()
+		public void EqualsWithSwappedInterfacesTest()
         {
-            // Arrange
-            var firstProxyDescriptor = new DelegateProxyDescriptor(typeof (Action), new[] {typeof (IOne), typeof (ITwo)});
-            var secondProxyDescriptor = new DelegateProxyDescriptor(typeof (Action), new[] {typeof (ITwo), typeof (IOne)});
-
-            // Act
-            var isEqual = firstProxyDescriptor.Equals(secondProxyDescriptor);
-
-            // Assert
-            Assert.That(isEqual, Is.True);
+			// Arrange
+			var firstProxyDescriptor = new DelegateProxyDescriptor(typeof (Action), new[] {typeof (IOne), typeof (ITwo)});
+			var secondProxyDescriptor = new DelegateProxyDescriptor(typeof (Action), new[] {typeof (ITwo), typeof (IOne)});
+			
+			// Act
+			var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
+			
+			// Assert
+			Assert.That(equals, Is.True);
         }
+
+		[Test]
+		public void EqualsWithDeclaringInterfaceTest()
+		{
+			// Arrange
+			var firstProxyDescriptor = new DelegateProxyDescriptor(typeof (Action), Type.EmptyTypes);
+			var secondProxyDescriptor = new DelegateProxyDescriptor(typeof (Action), new[] {typeof (ICloneable)});
+			
+			// Act
+			var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
+			
+			// Assert
+			Assert.That(equals, Is.True);
+		}
     }
 }

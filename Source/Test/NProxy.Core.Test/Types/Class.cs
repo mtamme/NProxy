@@ -130,4 +130,38 @@ namespace NProxy.Core.Test.Types
             return default(TOuter);
         }
     }
+
+	internal class Base : IBase
+	{
+		#region IBase Members
+
+		public event Action BaseEvent;
+
+		public void BaseMethod ()
+		{
+		}
+
+		public int BaseGetProperty { get; set; }
+
+		public int BaseSetProperty { get; set; }
+
+		#endregion
+	}
+
+	internal class Other : IOther
+	{
+		#region IOther Members
+
+		public event Action OtherEvent;
+
+		public void OtherMethod ()
+		{
+		}
+
+		public int OtherGetProperty { get; set; }
+
+		public int OtherSetProperty { get; set; }
+
+		#endregion
+	}
 }

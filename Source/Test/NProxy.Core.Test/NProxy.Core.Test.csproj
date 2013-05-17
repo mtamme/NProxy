@@ -101,13 +101,13 @@
     <Compile Include="Types\Interface.cs" />
     <Compile Include="ProxyTypeBuilderTestFixture.cs" />
     <Compile Include="Internal\Descriptors\ClassProxyDescriptorTestFixture.cs" />
-    <Compile Include="Internal\Descriptors\DelegateTypeDefinitionTestFixture.cs" />
-    <Compile Include="Internal\Descriptors\InterfaceTypeDefinitionTestFixture.cs" />
     <Compile Include="Internal\Reflection\MethodTokenTestFixture.cs" />
     <Compile Include="Interceptors\LazyAttribute.cs" />
     <Compile Include="Interceptors\LazyInterceptor.cs" />
     <Compile Include="Interceptors\LazyMixin.cs" />
     <Compile Include="Interceptors\ILazy.cs" />
+    <Compile Include="Internal\Descriptors\DelegateProxyDescriptorTestFixture.cs" />
+    <Compile Include="Internal\Descriptors\InterfaceProxyDescriptorTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">
