@@ -30,20 +30,20 @@ namespace NProxy.Core.Internal.Generators
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
         /// <returns>A value indicating weather the specified event information is accepted.</returns>
-        bool Accept(EventInfo eventInfo);
+        bool AcceptEvent(EventInfo eventInfo);
 
         /// <summary>
         /// Accepts the specified property information.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
         /// <returns>A value indicating weather the specified property information is accepted.</returns>
-        bool Accept(PropertyInfo propertyInfo);
+        bool AcceptProperty(PropertyInfo propertyInfo);
 
         /// <summary>
         /// Accepts the specified method information.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
         /// <returns>A value indicating weather the specified method information is accepted.</returns>
-        bool Accept(MethodInfo methodInfo);
+        bool AcceptMethod(MethodInfo methodInfo);
     }
 }

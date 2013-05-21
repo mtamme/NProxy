@@ -93,7 +93,7 @@ namespace NProxy.Core.Internal.Generators
             var interceptedEventInfos = new List<EventInfo>();
             var buildEventVisitor = Visitor.Create<EventInfo>(interceptedEventInfos.Add)
                                            .Do(typeBuilder.BuildEvent)
-                                           .Where(_interceptionFilter.Accept);
+                                           .Where(_interceptionFilter.AcceptEvent);
 
             typeReflector.VisitEvents(buildEventVisitor);
 
@@ -101,7 +101,7 @@ namespace NProxy.Core.Internal.Generators
             var interceptedPropertyInfos = new List<PropertyInfo>();
             var buildPropertyVisitor = Visitor.Create<PropertyInfo>(interceptedPropertyInfos.Add)
                                               .Do(typeBuilder.BuildProperty)
-                                              .Where(_interceptionFilter.Accept);
+                                              .Where(_interceptionFilter.AcceptProperty);
 
             typeReflector.VisitProperties(buildPropertyVisitor);
 
@@ -109,7 +109,7 @@ namespace NProxy.Core.Internal.Generators
             var interceptedMethodInfos = new List<MethodInfo>();
             var buildMethodVisitor = Visitor.Create<MethodInfo>(interceptedMethodInfos.Add)
                                             .Do(typeBuilder.BuildMethod)
-                                            .Where(_interceptionFilter.Accept);
+                                            .Where(_interceptionFilter.AcceptMethod);
 
             typeReflector.VisitMethods(buildMethodVisitor);
 

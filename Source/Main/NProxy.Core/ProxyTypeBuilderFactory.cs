@@ -118,22 +118,32 @@ namespace NProxy.Core
                 if (stream == null)
                     throw new MissingManifestResourceException("Dynamic assembly key pair is missing");
 
-                var keyPair = GetBytes(stream);
+                var keyPair = ReadToEnd(stream);
 
                 return new StrongNameKeyPair(keyPair);
             }
         }
 
         /// <summary>
-        /// Returns all bytes read from the specified stream.
+        /// Reads all bytes from the current position to the end of the specified stream.
         /// </summary>
         /// <param name="stream">The stream.</param>
-        /// <returns>All bytes read from the specified stream.</returns>
-        private static byte[] GetBytes(Stream stream)
+        /// <returns>All bytes from the current position to the end of the specified stream.</returns>
+        private static byte[] ReadToEnd(Stream stream)
         {
             using (var memoryStream = new MemoryStream())
             {
-                stream.CopyTo(memoryStream);
+                var buffer = new byte[512];
+
+                while (true)
+                {
+                    var count = stream.Read(buffer, 0, buffer.Length);
+
+                    if (count <= 0)
+                        break;
+
+                    memoryStream.Write(buffer, 0, count);
+                }
 
                 return memoryStream.ToArray();
             }

@@ -36,7 +36,7 @@ namespace NProxy.Core
         #region IInterceptionFilter Members
 
         /// <inheritdoc/>
-        public bool Accept(EventInfo eventInfo)
+        public bool AcceptEvent(EventInfo eventInfo)
         {
             if (!eventInfo.CanOverride())
                 return false;
@@ -48,7 +48,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public bool Accept(PropertyInfo propertyInfo)
+        public bool AcceptProperty(PropertyInfo propertyInfo)
         {
             if (!propertyInfo.CanOverride())
                 return false;
@@ -60,7 +60,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public bool Accept(MethodInfo methodInfo)
+        public bool AcceptMethod(MethodInfo methodInfo)
         {
             if (!methodInfo.CanOverride())
                 return false;
