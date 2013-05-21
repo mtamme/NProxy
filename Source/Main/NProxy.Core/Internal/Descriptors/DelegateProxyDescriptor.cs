@@ -37,7 +37,7 @@ namespace NProxy.Core.Internal.Descriptors
             /// <summary>
             /// The interface types.
             /// </summary>
-            private readonly HashSet<Type> _interfaceTypes;
+			private readonly ICollection<Type> _interfaceTypes;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="TypeReflector"/> class.
@@ -45,13 +45,10 @@ namespace NProxy.Core.Internal.Descriptors
             /// <param name="declaringType">The declaring type.</param>
             /// <param name="parentType">The parent type.</param>
             /// <param name="interfaceTypes">The interface types.</param>
-            public TypeReflector(Type declaringType, Type parentType, IEnumerable<Type> interfaceTypes)
+            public TypeReflector(Type declaringType, Type parentType, ICollection<Type> interfaceTypes)
                 : base(declaringType, parentType)
             {
-                var declaringInterfaceTypes = declaringType.GetInterfaces();
-
-                _interfaceTypes = new HashSet<Type>(interfaceTypes);
-                _interfaceTypes.ExceptWith(declaringInterfaceTypes);
+				_interfaceTypes = interfaceTypes;
             }
 
             #region ITypeReflector Members
@@ -115,9 +112,9 @@ namespace NProxy.Core.Internal.Descriptors
         #region ProxyDescriptorBase Members
 
         /// <inheritdoc/>
-        protected override ITypeReflector CreateReflector(Type declaringType, Type parentType, IEnumerable<Type> interfaceTypes)
+		protected override ITypeReflector CreateReflector(Type declaringType, Type parentType, ICollection<Type> declaringInterfaceTypes, ICollection<Type> additionalInterfaceTypes)
         {
-            return new TypeReflector(declaringType, parentType, interfaceTypes);
+			return new TypeReflector(declaringType, parentType, additionalInterfaceTypes);
         }
 
         #endregion
