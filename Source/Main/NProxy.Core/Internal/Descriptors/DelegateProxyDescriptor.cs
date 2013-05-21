@@ -122,6 +122,14 @@ namespace NProxy.Core.Internal.Descriptors
         #region IProxyDescriptor Members
 
         /// <inheritdoc/>
+        public override TInterface AdaptInstance<TInterface>(object instance)
+        {
+            var delegateInstance = (Delegate) instance;
+
+            return (TInterface) delegateInstance.Target;
+        }
+
+        /// <inheritdoc/>
         public override object CreateInstance(Type type, object[] arguments)
         {
             var instance = Activator.CreateInstance(type, arguments);

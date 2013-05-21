@@ -36,6 +36,14 @@ namespace NProxy.Core.Internal.Descriptors
         Type ParentType { get; }
 
         /// <summary>
+        /// Adapts an instance to the specified interface type.
+        /// </summary>
+        /// <typeparam name="TInterface">The interface type.</typeparam>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The object, of the specified interface type, to which the instance has been adapted.</returns>
+        TInterface AdaptInstance<TInterface>(object instance);
+
+        /// <summary>
         /// Creates an instance of the specified type.
         /// </summary>
         /// <param name="type">The type.</param>

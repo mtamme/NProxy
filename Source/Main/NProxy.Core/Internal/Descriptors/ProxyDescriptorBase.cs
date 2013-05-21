@@ -170,6 +170,9 @@ namespace NProxy.Core.Internal.Descriptors
         }
 
         /// <inheritdoc/>
+        public abstract TInterface AdaptInstance<TInterface>(object instance);
+
+        /// <inheritdoc/>
         public abstract object CreateInstance(Type type, object[] arguments);
 
         /// <inheritdoc/>
