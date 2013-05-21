@@ -80,7 +80,7 @@ namespace NProxy.Core.Internal.Descriptors
                 if (visitor == null)
                     throw new ArgumentNullException("visitor");
 
-                // Visit additional interface methods.
+                // Visit interface methods.
                 _interfaceTypes.Visit(t => t.VisitMethods(visitor));
 
                 // Visit declaring type method.
