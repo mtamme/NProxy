@@ -89,16 +89,17 @@ namespace NProxy.Core.Internal.Descriptors
         private static void AddInterfaces(Type type, ISet<Type> interfaceTypes)
         {
             if (type == null)
-                throw new ArgumentNullException("type");
+				throw new ArgumentNullException("Interface type must not be null");
 
             if (!type.IsInterface)
-                throw new ArgumentException(String.Format("Type '{0}' is not an interface type", type), "type");
+				throw new ArgumentException(String.Format("Type '{0}' is not an interface type", type));
 
             if (type.IsGenericTypeDefinition)
-                throw new ArgumentException("Interface type must not be a generic type definition", "type");
+				throw new ArgumentException(String.Format("Interface type '{0}' must not be a generic type definition", type));
 
             // Add interface type.
-            interfaceTypes.Add(type);
+			if (!interfaceTypes.Add(type))
+				return;
 
             // Add inherited interface types.
             var inheritedInterfaceTypes = type.GetInterfaces();
