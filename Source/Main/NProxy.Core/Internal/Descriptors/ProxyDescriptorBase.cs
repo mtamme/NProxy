@@ -112,7 +112,7 @@ namespace NProxy.Core.Internal.Descriptors
         /// <summary>
         /// Adds additional interface types.
         /// </summary>
-        /// <param name="type">The interface type.</param>
+		/// <param name="interfaceType">The interface type.</param>
 		/// <param name="declaringInterfaceTypes">The declaring interface types.</param>
 		/// <param name="additionalInterfaceTypes">The additional interface types.</param>
 		private static void AddAdditionalInterfaces(Type interfaceType, ICollection<Type> declaringInterfaceTypes, ISet<Type> additionalInterfaceTypes)
