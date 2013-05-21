@@ -131,37 +131,24 @@ namespace NProxy.Core.Test.Types
         }
     }
 
-	internal class Base : IBase
-	{
-		#region IBase Members
+    internal class Other : IOther
+    {
+        #region IOther Members
 
-		public event Action BaseEvent;
+#pragma warning disable 0067
 
-		public void BaseMethod ()
-		{
-		}
+        public event Action OtherEvent;
 
-		public int BaseGetProperty { get; set; }
+#pragma warning restore 0067
 
-		public int BaseSetProperty { get; set; }
+        public void OtherMethod()
+        {
+        }
 
-		#endregion
-	}
+        public int OtherGetProperty { get; set; }
 
-	internal class Other : IOther
-	{
-		#region IOther Members
+        public int OtherSetProperty { get; set; }
 
-		public event Action OtherEvent;
-
-		public void OtherMethod ()
-		{
-		}
-
-		public int OtherGetProperty { get; set; }
-
-		public int OtherSetProperty { get; set; }
-
-		#endregion
-	}
+        #endregion
+    }
 }

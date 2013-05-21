@@ -38,14 +38,14 @@ namespace NProxy.Core.Internal.Descriptors
         private readonly Type _parentType;
 
         /// <summary>
-		/// The declaring interface types.
+        /// The declaring interface types.
         /// </summary>
         private readonly HashSet<Type> _declaringInterfaceTypes;
 
-		/// <summary>
-		/// The additional interface types.
-		/// </summary>
-		private readonly HashSet<Type> _additionalInterfaceTypes;
+        /// <summary>
+        /// The additional interface types.
+        /// </summary>
+        private readonly HashSet<Type> _additionalInterfaceTypes;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyDescriptorBase"/> class.
@@ -66,44 +66,44 @@ namespace NProxy.Core.Internal.Descriptors
 
             _declaringType = declaringType;
             _parentType = parentType;
-			_declaringInterfaceTypes = ExtractInterfaces(declaringType);
-			_additionalInterfaceTypes = ExtractAdditionalInterfaces(interfaceTypes, _declaringInterfaceTypes);
+            _declaringInterfaceTypes = ExtractInterfaces(declaringType);
+            _additionalInterfaceTypes = ExtractAdditionalInterfaces(interfaceTypes, _declaringInterfaceTypes);
         }
 
-		/// <summary>
-		/// Extracts all interface types for the specified type.
-		/// </summary>
-		/// <param name="type">The type.</param>
-		/// <returns>The interface types.</returns>
-		private static HashSet<Type> ExtractInterfaces(Type type)
-		{
-			var interfaceTypes = new HashSet<Type>();
+        /// <summary>
+        /// Extracts all interface types for the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>The interface types.</returns>
+        private static HashSet<Type> ExtractInterfaces(Type type)
+        {
+            var interfaceTypes = new HashSet<Type>();
 
-			// Add interface type.
-			if (type.IsInterface)
-				interfaceTypes.Add (type);
+            // Add interface type.
+            if (type.IsInterface)
+                interfaceTypes.Add(type);
 
-			// Add inherited interface types.
-			var inheritedInterfaceTypes = type.GetInterfaces();
-			
-			interfaceTypes.UnionWith(inheritedInterfaceTypes);
+            // Add inherited interface types.
+            var inheritedInterfaceTypes = type.GetInterfaces();
 
-			return interfaceTypes;
-		}
+            interfaceTypes.UnionWith(inheritedInterfaceTypes);
+
+            return interfaceTypes;
+        }
 
         /// <summary>
-		/// Extracts all additional interface types.
+        /// Extracts all additional interface types.
         /// </summary>
-		/// <param name="interfaceTypes">The interface types.</param>
-		/// <param name="declaringInterfaceTypes">The declaring interface types.</param>
+        /// <param name="interfaceTypes">The interface types.</param>
+        /// <param name="declaringInterfaceTypes">The declaring interface types.</param>
         /// <returns>The additional interface types.</returns>
-		private static HashSet<Type> ExtractAdditionalInterfaces(IEnumerable<Type> interfaceTypes, ICollection<Type> declaringInterfaceTypes)
+        private static HashSet<Type> ExtractAdditionalInterfaces(IEnumerable<Type> interfaceTypes, ICollection<Type> declaringInterfaceTypes)
         {
-			var additionalInterfaceTypes = new HashSet<Type>();
+            var additionalInterfaceTypes = new HashSet<Type>();
 
-			foreach (var interfaceType in interfaceTypes)
+            foreach (var interfaceType in interfaceTypes)
             {
-				AddAdditionalInterfaces(interfaceType, declaringInterfaceTypes, additionalInterfaceTypes);
+                AddAdditionalInterfaces(interfaceType, declaringInterfaceTypes, additionalInterfaceTypes);
             }
 
             return additionalInterfaceTypes;
@@ -112,37 +112,37 @@ namespace NProxy.Core.Internal.Descriptors
         /// <summary>
         /// Adds additional interface types.
         /// </summary>
-		/// <param name="interfaceType">The interface type.</param>
-		/// <param name="declaringInterfaceTypes">The declaring interface types.</param>
-		/// <param name="additionalInterfaceTypes">The additional interface types.</param>
-		private static void AddAdditionalInterfaces(Type interfaceType, ICollection<Type> declaringInterfaceTypes, ISet<Type> additionalInterfaceTypes)
+        /// <param name="interfaceType">The interface type.</param>
+        /// <param name="declaringInterfaceTypes">The declaring interface types.</param>
+        /// <param name="additionalInterfaceTypes">The additional interface types.</param>
+        private static void AddAdditionalInterfaces(Type interfaceType, ICollection<Type> declaringInterfaceTypes, ISet<Type> additionalInterfaceTypes)
         {
-			if (interfaceType == null)
-				throw new ArgumentNullException("Interface type must not be null");
+            if (interfaceType == null)
+                throw new ArgumentException("Interface type must not be null");
 
-			if (!interfaceType.IsInterface)
-				throw new ArgumentException(String.Format("Type '{0}' is not an interface type", interfaceType));
+            if (!interfaceType.IsInterface)
+                throw new ArgumentException(String.Format("Type '{0}' is not an interface type", interfaceType));
 
-			if (interfaceType.IsGenericTypeDefinition)
-				throw new ArgumentException(String.Format("Interface type '{0}' must not be a generic type definition", interfaceType));
+            if (interfaceType.IsGenericTypeDefinition)
+                throw new ArgumentException(String.Format("Interface type '{0}' must not be a generic type definition", interfaceType));
 
             // Add interface type.
-			if (declaringInterfaceTypes.Contains(interfaceType))
-				return;
+            if (declaringInterfaceTypes.Contains(interfaceType))
+                return;
 
-			if (!additionalInterfaceTypes.Add(interfaceType))
-				return;
+            if (!additionalInterfaceTypes.Add(interfaceType))
+                return;
 
             // Add inherited interface types.
-			var inheritedInterfaceTypes = interfaceType.GetInterfaces();
+            var inheritedInterfaceTypes = interfaceType.GetInterfaces();
 
-			foreach (var inheritedInterfaceType in inheritedInterfaceTypes)
-			{
-				if (declaringInterfaceTypes.Contains(inheritedInterfaceType))
-					continue;
+            foreach (var inheritedInterfaceType in inheritedInterfaceTypes)
+            {
+                if (declaringInterfaceTypes.Contains(inheritedInterfaceType))
+                    continue;
 
-				additionalInterfaceTypes.Add(inheritedInterfaceType);
-			}
+                additionalInterfaceTypes.Add(inheritedInterfaceType);
+            }
         }
 
         /// <summary>
@@ -150,10 +150,10 @@ namespace NProxy.Core.Internal.Descriptors
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="parentType">The parent type.</param>
-		/// <param name="declaringInterfaceTypes">The declaring interface types.</param>
-		/// <param name="additionalInterfaceTypes">The additional interface types.</param>
+        /// <param name="declaringInterfaceTypes">The declaring interface types.</param>
+        /// <param name="additionalInterfaceTypes">The additional interface types.</param>
         /// <returns></returns>
-		protected abstract ITypeReflector CreateReflector(Type declaringType, Type parentType, ICollection<Type> declaringInterfaceTypes, ICollection<Type> additionalInterfaceTypes);
+        protected abstract ITypeReflector CreateReflector(Type declaringType, Type parentType, ICollection<Type> declaringInterfaceTypes, ICollection<Type> additionalInterfaceTypes);
 
         #region IProxyDescriptor Members
 
@@ -197,12 +197,12 @@ namespace NProxy.Core.Internal.Descriptors
                 return false;
 
             // Compare additional interface types.
-			var additionalInterfaceTypes = other._additionalInterfaceTypes;
+            var additionalInterfaceTypes = other._additionalInterfaceTypes;
 
-			if (additionalInterfaceTypes.Count != _additionalInterfaceTypes.Count)
+            if (additionalInterfaceTypes.Count != _additionalInterfaceTypes.Count)
                 return false;
 
-			return additionalInterfaceTypes.All(_additionalInterfaceTypes.Contains);
+            return additionalInterfaceTypes.All(_additionalInterfaceTypes.Contains);
         }
 
         #endregion

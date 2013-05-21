@@ -32,7 +32,7 @@ namespace NProxy.Core.Test.Internal.Descriptors
         public void CreateReflectorTest()
         {
             // Arrange
-			var proxyDescriptor = new ClassProxyDescriptor(typeof (Other), new[] {typeof (IOne), typeof (ITwo), typeof (IOneTwo)});
+            var proxyDescriptor = new ClassProxyDescriptor(typeof (Other), new[] {typeof (IOne), typeof (ITwo), typeof (IOneTwo)});
 
             // Act
             var typeReflector = proxyDescriptor.CreateReflector();
@@ -54,42 +54,42 @@ namespace NProxy.Core.Test.Internal.Descriptors
         public void EqualsWithoutInterfacesTest()
         {
             // Arrange
-			var firstProxyDescriptor = new ClassProxyDescriptor(typeof (Other), Type.EmptyTypes);
-			var secondProxyDescriptor = new ClassProxyDescriptor(typeof (Other), Type.EmptyTypes);
+            var firstProxyDescriptor = new ClassProxyDescriptor(typeof (Other), Type.EmptyTypes);
+            var secondProxyDescriptor = new ClassProxyDescriptor(typeof (Other), Type.EmptyTypes);
 
             // Act
-			var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
+            var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
 
             // Assert
-			Assert.That(equals, Is.True);
+            Assert.That(equals, Is.True);
         }
 
         [Test]
         public void EqualsWithSwappedInterfacesTest()
         {
             // Arrange
-			var firstProxyDescriptor = new ClassProxyDescriptor(typeof (Other), new[] {typeof (IOne), typeof (ITwo)});
-			var secondProxyDescriptor = new ClassProxyDescriptor(typeof (Other), new[] {typeof (ITwo), typeof (IOne)});
+            var firstProxyDescriptor = new ClassProxyDescriptor(typeof (Other), new[] {typeof (IOne), typeof (ITwo)});
+            var secondProxyDescriptor = new ClassProxyDescriptor(typeof (Other), new[] {typeof (ITwo), typeof (IOne)});
 
             // Act
-			var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
+            var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
 
             // Assert
-			Assert.That(equals, Is.True);
+            Assert.That(equals, Is.True);
         }
 
-		[Test]
-		public void EqualsWithDeclaringInterfaceTest()
-		{
-			// Arrange
-			var firstProxyDescriptor = new ClassProxyDescriptor(typeof (Other), new[] {typeof (IOther)});
-			var secondProxyDescriptor = new ClassProxyDescriptor(typeof (Other), Type.EmptyTypes);
-			
-			// Act
-			var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
-			
-			// Assert
-			Assert.That(equals, Is.True);
-		}
+        [Test]
+        public void EqualsWithDeclaringInterfaceTest()
+        {
+            // Arrange
+            var firstProxyDescriptor = new ClassProxyDescriptor(typeof (Other), new[] {typeof (IOther)});
+            var secondProxyDescriptor = new ClassProxyDescriptor(typeof (Other), Type.EmptyTypes);
+
+            // Act
+            var equals = firstProxyDescriptor.Equals(secondProxyDescriptor);
+
+            // Assert
+            Assert.That(equals, Is.True);
+        }
     }
 }

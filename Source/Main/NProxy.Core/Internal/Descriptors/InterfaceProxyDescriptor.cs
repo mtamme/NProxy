@@ -37,7 +37,7 @@ namespace NProxy.Core.Internal.Descriptors
             /// <summary>
             /// The interface types.
             /// </summary>
-			private readonly ICollection<Type> _interfaceTypes;
+            private readonly ICollection<Type> _interfaceTypes;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="TypeReflector"/> class.
@@ -48,7 +48,7 @@ namespace NProxy.Core.Internal.Descriptors
             public TypeReflector(Type declaringType, Type parentType, ICollection<Type> interfaceTypes)
                 : base(declaringType, parentType)
             {
-				_interfaceTypes = interfaceTypes;
+                _interfaceTypes = interfaceTypes;
             }
 
             #region ITypeReflector Members
@@ -106,14 +106,14 @@ namespace NProxy.Core.Internal.Descriptors
         #region ProxyDescriptorBase Members
 
         /// <inheritdoc/>
-		protected override ITypeReflector CreateReflector(Type declaringType, Type parentType, ICollection<Type> declaringInterfaceTypes, ICollection<Type> additionalInterfaceTypes)
+        protected override ITypeReflector CreateReflector(Type declaringType, Type parentType, ICollection<Type> declaringInterfaceTypes, ICollection<Type> additionalInterfaceTypes)
         {
-			var interfaceTypes = new List<Type>();
+            var interfaceTypes = new List<Type>();
 
-			interfaceTypes.AddRange(declaringInterfaceTypes);
-			interfaceTypes.AddRange(additionalInterfaceTypes);
+            interfaceTypes.AddRange(declaringInterfaceTypes);
+            interfaceTypes.AddRange(additionalInterfaceTypes);
 
-			return new TypeReflector(declaringType, parentType, interfaceTypes);
+            return new TypeReflector(declaringType, parentType, interfaceTypes);
         }
 
         #endregion
