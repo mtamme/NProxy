@@ -34,9 +34,9 @@ namespace NProxy.Core.Test.Internal.Descriptors
 
             // Act
             var typeVisitor = new CollectingTypeVisitor();
-            
+
             proxyDescriptor.Accept(typeVisitor);
-            
+
             // Assert
             Assert.That(typeVisitor.InterfaceTypes.Count, Is.EqualTo(4));
             Assert.That(typeVisitor.InterfaceTypes, Contains.Item(typeof (IBase)));

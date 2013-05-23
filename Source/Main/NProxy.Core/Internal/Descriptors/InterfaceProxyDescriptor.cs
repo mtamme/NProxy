@@ -45,7 +45,7 @@ namespace NProxy.Core.Internal.Descriptors
 
             // Visit declaring interface types.
             typeVisitor.VisitInterfaces(DeclaringInterfaceTypes);
-            
+
             // Visit parent type members.
             typeVisitor.VisitMembers(ParentType);
         }

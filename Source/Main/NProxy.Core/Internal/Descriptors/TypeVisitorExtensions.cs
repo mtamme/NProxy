@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -38,7 +38,7 @@ namespace NProxy.Core.Internal.Descriptors
             foreach (var interfaceType in interfaceTypes)
             {
                 typeVisitor.VisitInterface(interfaceType);
-                
+
                 typeVisitor.VisitMembers(interfaceType);
             }
         }
@@ -55,9 +55,9 @@ namespace NProxy.Core.Internal.Descriptors
 
             if (type == null)
                 throw new ArgumentNullException("type");
-            
+
             var constructorInfos = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-            
+
             foreach (var constructorInfo in constructorInfos)
             {
                 typeVisitor.VisitConstructor(constructorInfo);
@@ -73,10 +73,10 @@ namespace NProxy.Core.Internal.Descriptors
         {
             // Visit events.
             typeVisitor.VisitEvents(type);
-            
+
             // Visit properties.
             typeVisitor.VisitProperties(type);
-            
+
             // Visit methods.
             typeVisitor.VisitMethods(type);
         }
@@ -93,16 +93,16 @@ namespace NProxy.Core.Internal.Descriptors
 
             if (type == null)
                 throw new ArgumentNullException("type");
-            
+
             // Only visit instance events.
             var eventInfos = type.GetEvents(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-            
+
             foreach (var eventInfo in eventInfos)
             {
                 typeVisitor.VisitEvent(eventInfo);
             }
         }
-        
+
         /// <summary>
         /// Visits all properties of the specified type.
         /// </summary>
@@ -115,16 +115,16 @@ namespace NProxy.Core.Internal.Descriptors
 
             if (type == null)
                 throw new ArgumentNullException("type");
-            
+
             // Only visit instance properties.
             var propertyInfos = type.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-            
+
             foreach (var propertyInfo in propertyInfos)
             {
                 typeVisitor.VisitProperty(propertyInfo);
             }
         }
-        
+
         /// <summary>
         /// Visits all methods of the specified type.
         /// </summary>
@@ -137,11 +137,11 @@ namespace NProxy.Core.Internal.Descriptors
 
             if (type == null)
                 throw new ArgumentNullException("type");
-            
+
             // Only visit non-accessor instance methods.
             var methodInfos = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                .Where(m => !m.IsSpecialName);
-            
+                                  .Where(m => !m.IsSpecialName);
+
             foreach (var methodInfo in methodInfos)
             {
                 typeVisitor.VisitMethod(methodInfo);

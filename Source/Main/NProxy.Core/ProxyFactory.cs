@@ -98,7 +98,7 @@ namespace NProxy.Core
 
         /// <summary>
         /// Generates a proxy.
-        /// </summary
+        /// </summary>
         /// <param name="proxyDescriptor">The proxy descriptor.</param>
         /// <returns>The proxy type.</returns>
         private IProxy GenerateProxy(IProxyDescriptor proxyDescriptor)

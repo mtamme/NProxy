@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -43,13 +43,13 @@ namespace NProxy.Core.Internal.Descriptors
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
         void VisitEvent(EventInfo eventInfo);
-        
+
         /// <summary>
         /// Visits the specified property information.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
         void VisitProperty(PropertyInfo propertyInfo);
-        
+
         /// <summary>
         /// Visits the specified method information.
         /// </summary>

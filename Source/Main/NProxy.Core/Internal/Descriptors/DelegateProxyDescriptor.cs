@@ -53,7 +53,7 @@ namespace NProxy.Core.Internal.Descriptors
             var methodInfo = DeclaringType.GetMethod(
                 DelegateMethodName,
                 BindingFlags.Public | BindingFlags.Instance);
-            
+
             typeVisitor.VisitMethod(methodInfo);
         }
 
