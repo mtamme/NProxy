@@ -18,7 +18,7 @@
 
 using System;
 
-namespace NProxy.Core.Internal.Common
+namespace NProxy.Core.Internal.Caching
 {
     /// <summary>
     /// Represents an anonymous disposable.

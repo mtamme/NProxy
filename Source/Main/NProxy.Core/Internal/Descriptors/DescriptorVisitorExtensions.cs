@@ -24,34 +24,34 @@ using System.Reflection;
 namespace NProxy.Core.Internal.Descriptors
 {
     /// <summary>
-    /// Represents type visitor extensions.
+    /// Represents descriptor visitor extensions.
     /// </summary>
-    internal static class TypeVisitorExtensions
+    internal static class DescriptorVisitorExtensions
     {
         /// <summary>
         /// Visits all specified interface types.
         /// </summary>
-        /// <param name="typeVisitor">The type visitor.</param>
+        /// <param name="descriptorVisitor">The descriptor visitor.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        public static void VisitInterfaces(this ITypeVisitor typeVisitor, IEnumerable<Type> interfaceTypes)
+        public static void VisitInterfaces(this IDescriptorVisitor descriptorVisitor, IEnumerable<Type> interfaceTypes)
         {
             foreach (var interfaceType in interfaceTypes)
             {
-                typeVisitor.VisitInterface(interfaceType);
+                descriptorVisitor.VisitInterface(interfaceType);
 
-                typeVisitor.VisitMembers(interfaceType);
+                descriptorVisitor.VisitMembers(interfaceType);
             }
         }
 
         /// <summary>
         /// Visits all constructors of the specified type.
         /// </summary>
-        /// <param name="typeVisitor">The type visitor.</param>
+        /// <param name="descriptorVisitor">The descriptor visitor.</param>
         /// <param name="type">The type.</param>
-        public static void VisitConstructors(this ITypeVisitor typeVisitor, Type type)
+        public static void VisitConstructors(this IDescriptorVisitor descriptorVisitor, Type type)
         {
-            if (typeVisitor == null)
-                throw new ArgumentNullException("typeVisitor");
+            if (descriptorVisitor == null)
+                throw new ArgumentNullException("descriptorVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -60,36 +60,36 @@ namespace NProxy.Core.Internal.Descriptors
 
             foreach (var constructorInfo in constructorInfos)
             {
-                typeVisitor.VisitConstructor(constructorInfo);
+                descriptorVisitor.VisitConstructor(constructorInfo);
             }
         }
 
         /// <summary>
         /// Visits all members of the specified type.
         /// </summary>
-        /// <param name="typeVisitor">The type visitor.</param>
+        /// <param name="descriptorVisitor">The descriptor visitor.</param>
         /// <param name="type">The type.</param>
-        public static void VisitMembers(this ITypeVisitor typeVisitor, Type type)
+        public static void VisitMembers(this IDescriptorVisitor descriptorVisitor, Type type)
         {
             // Visit events.
-            typeVisitor.VisitEvents(type);
+            descriptorVisitor.VisitEvents(type);
 
             // Visit properties.
-            typeVisitor.VisitProperties(type);
+            descriptorVisitor.VisitProperties(type);
 
             // Visit methods.
-            typeVisitor.VisitMethods(type);
+            descriptorVisitor.VisitMethods(type);
         }
 
         /// <summary>
         /// Visits all events of the specified type.
         /// </summary>
-        /// <param name="typeVisitor">The type visitor.</param>
+        /// <param name="descriptorVisitor">The descriptor visitor.</param>
         /// <param name="type">The type.</param>
-        private static void VisitEvents(this ITypeVisitor typeVisitor, Type type)
+        private static void VisitEvents(this IDescriptorVisitor descriptorVisitor, Type type)
         {
-            if (typeVisitor == null)
-                throw new ArgumentNullException("typeVisitor");
+            if (descriptorVisitor == null)
+                throw new ArgumentNullException("descriptorVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -99,19 +99,19 @@ namespace NProxy.Core.Internal.Descriptors
 
             foreach (var eventInfo in eventInfos)
             {
-                typeVisitor.VisitEvent(eventInfo);
+                descriptorVisitor.VisitEvent(eventInfo);
             }
         }
 
         /// <summary>
         /// Visits all properties of the specified type.
         /// </summary>
-        /// <param name="typeVisitor">The type visitor.</param>
+        /// <param name="descriptorVisitor">The descriptor visitor.</param>
         /// <param name="type">The type.</param>
-        private static void VisitProperties(this ITypeVisitor typeVisitor, Type type)
+        private static void VisitProperties(this IDescriptorVisitor descriptorVisitor, Type type)
         {
-            if (typeVisitor == null)
-                throw new ArgumentNullException("typeVisitor");
+            if (descriptorVisitor == null)
+                throw new ArgumentNullException("descriptorVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -121,19 +121,19 @@ namespace NProxy.Core.Internal.Descriptors
 
             foreach (var propertyInfo in propertyInfos)
             {
-                typeVisitor.VisitProperty(propertyInfo);
+                descriptorVisitor.VisitProperty(propertyInfo);
             }
         }
 
         /// <summary>
         /// Visits all methods of the specified type.
         /// </summary>
-        /// <param name="typeVisitor">The type visitor.</param>
+        /// <param name="descriptorVisitor">The descriptor visitor.</param>
         /// <param name="type">The type.</param>
-        private static void VisitMethods(this ITypeVisitor typeVisitor, Type type)
+        private static void VisitMethods(this IDescriptorVisitor descriptorVisitor, Type type)
         {
-            if (typeVisitor == null)
-                throw new ArgumentNullException("typeVisitor");
+            if (descriptorVisitor == null)
+                throw new ArgumentNullException("descriptorVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -144,7 +144,7 @@ namespace NProxy.Core.Internal.Descriptors
 
             foreach (var methodInfo in methodInfos)
             {
-                typeVisitor.VisitMethod(methodInfo);
+                descriptorVisitor.VisitMethod(methodInfo);
             }
         }
     }

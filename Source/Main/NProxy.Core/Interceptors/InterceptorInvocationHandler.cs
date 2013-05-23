@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Internal.Reflection;
-using NProxy.Core.Internal.Common;
 
 namespace NProxy.Core.Interceptors
 {
@@ -57,34 +56,37 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// Applies all interceptors for the specified type.
         /// </summary>
-        /// <param name="type">The type.</param>
+        /// <param name="proxy">The proxy.</param>
         /// <param name="inherit">A value indicating whether to search the type's inheritance chain to find interception behaviors.</param>
         /// <param name="interceptors">The interceptors.</param>
-        public void ApplyInterceptors(Type type, bool inherit, IEnumerable<IInterceptor> interceptors)
+        public void ApplyInterceptors(IProxy proxy, bool inherit, IEnumerable<IInterceptor> interceptors)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
+            if (proxy == null)
+                throw new ArgumentNullException("proxy");
 
             if (interceptors == null)
                 throw new ArgumentNullException("interceptors");
 
             // Apply type interception behaviors.
-            var typeInterceptors = ApplyInterceptionBehaviors(type, inherit, interceptors);
+            var typeInterceptors = ApplyInterceptionBehaviors(proxy.DeclaringType, inherit, interceptors);
 
             // Apply event interception behaviors.
-            var eventVisitor = Visitor.Create<EventInfo>(e => ApplyInterceptors(e, inherit, typeInterceptors));
-
-            type.VisitEvents(eventVisitor);
+            foreach (var eventInfo in proxy.GetInterceptedEvents())
+            {
+                ApplyInterceptors(eventInfo, inherit, typeInterceptors);
+            }
 
             // Apply property interception behaviors.
-            var propertyVisitor = Visitor.Create<PropertyInfo>(p => ApplyInterceptors(p, inherit, typeInterceptors));
-
-            type.VisitProperties(propertyVisitor);
+            foreach (var propertyInfo in proxy.GetInterceptedProperties())
+            {
+                ApplyInterceptors(propertyInfo, inherit, typeInterceptors);
+            }
 
             // Apply method interception behaviors.
-            var methodVisitor = Visitor.Create<MethodInfo>(m => ApplyInterceptors(m, inherit, typeInterceptors));
-
-            type.VisitMethods(methodVisitor);
+            foreach (var methodInfo in proxy.GetInterceptedMethods())
+            {
+                ApplyInterceptors(methodInfo, inherit, typeInterceptors);
+            }
         }
 
         /// <summary>

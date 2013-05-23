@@ -39,6 +39,11 @@ namespace NProxy.Core
             typeof (object), typeof (MethodInfo), typeof (object[]));
 
         /// <summary>
+        /// The type repository.
+        /// </summary>
+        private readonly ITypeRepository _typeRepository;
+
+        /// <summary>
         /// The parent type.
         /// </summary>
         private readonly Type _parentType;
@@ -47,11 +52,6 @@ namespace NProxy.Core
         /// The type builder.
         /// </summary>
         private readonly TypeBuilder _typeBuilder;
-
-        /// <summary>
-        /// The method information type provider.
-        /// </summary>
-        private readonly ITypeProvider<MethodInfo> _methodInfoTypeProvider;
 
         /// <summary>
         /// The invocation handler field information.
@@ -66,11 +66,13 @@ namespace NProxy.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyTypeBuilder"/> class.
         /// </summary>
+        /// <param name="typeRepository">The type repository.</param>
         /// <param name="parentType">The parent type.</param>
-        /// <param name="typeEmitter">The type emitter.</param>
-        /// <param name="methodInfoTypeProvider">The method information type provider.</param>
-        public ProxyTypeBuilder(Type parentType, ITypeEmitter typeEmitter, ITypeProvider<MethodInfo> methodInfoTypeProvider)
+        public ProxyTypeBuilder(ITypeRepository typeRepository, Type parentType)
         {
+            if (typeRepository == null)
+                throw new ArgumentNullException("typeRepository");
+
             if (parentType == null)
                 throw new ArgumentNullException("parentType");
 
@@ -80,16 +82,10 @@ namespace NProxy.Core
             if (parentType.IsGenericTypeDefinition)
                 throw new ArgumentException("Parent type must not be a generic type definition", "parentType");
 
-            if (typeEmitter == null)
-                throw new ArgumentNullException("typeEmitter");
-
-            if (methodInfoTypeProvider == null)
-                throw new ArgumentNullException("methodInfoTypeProvider");
-
+            _typeRepository = typeRepository;
             _parentType = parentType;
-            _methodInfoTypeProvider = methodInfoTypeProvider;
 
-            _typeBuilder = typeEmitter.DefineType("Proxy", parentType);
+            _typeBuilder = typeRepository.DefineType("Proxy", parentType);
 
             _invocationHandlerFieldInfo = _typeBuilder.DefineField(
                 "_invocationHandler",
@@ -142,7 +138,7 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ldarg_0);
 
             // Get method information constructor.
-            var methodInfoConstructorInfo = GetMethodInfoConstructor(declaringMethodInfo, genericParameterTypes);
+            var methodInfoConstructorInfo = _typeRepository.GetConstructor(declaringMethodInfo, genericParameterTypes);
 
             // Create and load method information.
             ilGenerator.Emit(OpCodes.Ldarg_0);
@@ -169,26 +165,6 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ret);
 
             return methodBuilder;
-        }
-
-        /// <summary>
-        /// Returns a method information constructor for the specified declaring method information.
-        /// </summary>
-        /// <param name="declaringMethodInfo">The declaring method information.</param>
-        /// <param name="genericParameterTypes">The generic parameter types.</param>
-        /// <returns>The method information constructor information.</returns>
-        private ConstructorInfo GetMethodInfoConstructor(MethodInfo declaringMethodInfo, Type[] genericParameterTypes)
-        {
-            var type = _methodInfoTypeProvider.GetType(declaringMethodInfo);
-            var constructorInfo = type.GetConstructor(BindingFlags.Public | BindingFlags.Instance,
-                                                      typeof (object), typeof (bool));
-
-            if (!type.IsGenericTypeDefinition)
-                return constructorInfo;
-
-            var genericType = type.MakeGenericType(genericParameterTypes);
-
-            return TypeBuilder.GetConstructor(genericType, constructorInfo);
         }
 
         /// <summary>

@@ -18,7 +18,6 @@
 
 using System;
 using System.Collections.Generic;
-using NProxy.Core.Internal.Common;
 
 namespace NProxy.Core.Internal.Caching
 {

@@ -19,8 +19,6 @@
 using System;
 using System.Collections.Generic;
 using NProxy.Core.Interceptors.Language;
-using NProxy.Core.Internal.Common;
-using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core.Interceptors
 {
@@ -82,10 +80,13 @@ namespace NProxy.Core.Interceptors
         /// <param name="mixin">The mixin object.</param>
         private void AddMixin(object mixin)
         {
-            var interfaceVisitor = Visitor.Create<Type>(t => AddMixin(t, mixin));
             var mixinType = mixin.GetType();
+            var interfaceTypes = mixinType.GetInterfaces();
 
-            mixinType.VisitInterfaces(interfaceVisitor);
+            foreach (var interfaceType in interfaceTypes)
+            {
+                AddMixin(interfaceType, mixin);
+            }
         }
 
         /// <summary>
@@ -119,18 +120,8 @@ namespace NProxy.Core.Interceptors
         private IInvocationHandler CreateInvocationHandler(IProxy proxy, params IInterceptor[] defaultInterceptors)
         {
             var invocationHandler = new InterceptorInvocationHandler(defaultInterceptors);
-            var declaringType = proxy.DeclaringType;
 
-            if (declaringType.IsInterface)
-            {
-                var interfaceVisitor = Visitor.Create<Type>(t => invocationHandler.ApplyInterceptors(t, false, _interceptors));
-
-                declaringType.VisitInterfaces(interfaceVisitor);
-            }
-            else
-            {
-                invocationHandler.ApplyInterceptors(declaringType, true, _interceptors);
-            }
+            invocationHandler.ApplyInterceptors(proxy, true, _interceptors);
 
             if (_mixins.Count > 0)
                 return new MixinInvocationHandler(_mixins, invocationHandler);

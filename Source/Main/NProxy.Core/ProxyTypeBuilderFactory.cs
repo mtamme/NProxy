@@ -23,6 +23,7 @@ using System.Reflection.Emit;
 using System.Resources;
 using System.Threading;
 using NProxy.Core.Internal.Builders;
+using NProxy.Core.Internal.Caching;
 using NProxy.Core.Internal.Reflection;
 using MethodToken = NProxy.Core.Internal.Reflection.MethodToken;
 
@@ -31,7 +32,7 @@ namespace NProxy.Core
     /// <summary>
     /// Represents a proxy type builder factory.
     /// </summary>
-    internal sealed class ProxyTypeBuilderFactory : ITypeBuilderFactory, ITypeEmitter
+    internal sealed class ProxyTypeBuilderFactory : ITypeBuilderFactory, ITypeRepository
     {
         /// <summary>
         /// The dynamic assembly name.
@@ -64,9 +65,14 @@ namespace NProxy.Core
         private readonly ModuleBuilder _moduleBuilder;
 
         /// <summary>
-        /// The method information type provider.
+        /// The method information type factory.
         /// </summary>
-        private readonly ITypeProvider<MethodInfo> _methodInfoTypeProvider;
+        private readonly MethodInfoTypeFactory _methodInfoTypeFactory;
+
+        /// <summary>
+        /// The method information type cache.
+        /// </summary>
+        private readonly ICache<MethodToken, Type> _methodInfoTypeCache;
 
         /// <summary>
         /// The next type identifier.
@@ -83,9 +89,8 @@ namespace NProxy.Core
             _assemblyBuilder = DefineDynamicAssembly(DynamicAssemblyName, strongNamedAssembly, canSaveAssembly);
             _moduleBuilder = _assemblyBuilder.DefineDynamicModule(DynamicModuleName);
 
-            var methodInfoTypeProvider = new MethodInfoTypeGenerator(this);
-
-            _methodInfoTypeProvider = new TypeCache<MethodInfo, MethodToken>(m => m.GetToken(), methodInfoTypeProvider);
+            _methodInfoTypeFactory = new MethodInfoTypeFactory(this);
+            _methodInfoTypeCache = new Cache<MethodToken, Type>();
 
             _nextTypeId = -1;
         }
@@ -190,11 +195,17 @@ namespace NProxy.Core
             _assemblyBuilder.Save(path);
         }
 
-        #region ITypeEmitter Members
+        #region ITypeRepository Members
 
         /// <inheritdoc/>
         public TypeBuilder DefineType(string typeName, Type parentType)
         {
+            if (typeName == null)
+                throw new ArgumentNullException("typeName");
+
+            if (parentType == null)
+                throw new ArgumentNullException("parentType");
+
             var typeId = Interlocked.Increment(ref _nextTypeId);
             var uniqueTypeName = String.Format("{0}{1}{2}${3:x}", DynamicDefaultNamespace, Type.Delimiter, typeName, typeId);
 
@@ -202,6 +213,27 @@ namespace NProxy.Core
                 uniqueTypeName,
                 TypeAttributes.Class | TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.Serializable | TypeAttributes.BeforeFieldInit,
                 parentType);
+        }
+
+        /// <inheritdoc/>
+        public ConstructorInfo GetConstructor(MethodInfo methodInfo, Type[] genericParameterTypes)
+        {
+            if (methodInfo == null)
+                throw new ArgumentNullException("methodInfo");
+
+            if (genericParameterTypes == null)
+                throw new ArgumentNullException("genericParameterTypes");
+
+            var type = _methodInfoTypeCache.GetOrAdd(methodInfo.GetToken(), _ => _methodInfoTypeFactory.CreateType(methodInfo));
+            var constructorInfo = type.GetConstructor(BindingFlags.Public | BindingFlags.Instance,
+                                                      typeof (object), typeof (bool));
+
+            if (!type.IsGenericTypeDefinition)
+                return constructorInfo;
+
+            var genericType = type.MakeGenericType(genericParameterTypes);
+
+            return TypeBuilder.GetConstructor(genericType, constructorInfo);
         }
 
         #endregion
@@ -214,7 +246,7 @@ namespace NProxy.Core
             if (parentType == null)
                 throw new ArgumentNullException("parentType");
 
-            return new ProxyTypeBuilder(parentType, this, _methodInfoTypeProvider);
+            return new ProxyTypeBuilder(this, parentType);
         }
 
         #endregion

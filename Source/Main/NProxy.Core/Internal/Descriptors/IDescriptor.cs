@@ -17,43 +17,44 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace NProxy.Core.Internal.Descriptors
 {
     /// <summary>
-    /// Defines a type visitor.
+    /// Defines a descriptor.
     /// </summary>
-    internal interface ITypeVisitor
+    internal interface IDescriptor
     {
         /// <summary>
-        /// Visits the specified interface typo.
+        /// Returns the declaring type.
         /// </summary>
-        /// <param name="interfaceType">The interface type.</param>
-        void VisitInterface(Type interfaceType);
+        Type DeclaringType { get; }
 
         /// <summary>
-        /// Visits the specified constructor information.
+        /// Returns the parent type.
         /// </summary>
-        /// <param name="constructorInfo">The constructor information.</param>
-        void VisitConstructor(ConstructorInfo constructorInfo);
+        Type ParentType { get; }
 
         /// <summary>
-        /// Visits the specified event information.
+        /// Accepts the specified descriptor visitor.
         /// </summary>
-        /// <param name="eventInfo">The event information.</param>
-        void VisitEvent(EventInfo eventInfo);
+        /// <param name="descriptorVisitor">The descriptor visitor.</param>
+        void Accept(IDescriptorVisitor descriptorVisitor);
 
         /// <summary>
-        /// Visits the specified property information.
+        /// Casts an instance to the specified interface type.
         /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        void VisitProperty(PropertyInfo propertyInfo);
+        /// <typeparam name="TInterface">The interface type.</typeparam>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The object, of the specified interface type, to which the instance has been casted.</returns>
+        TInterface Cast<TInterface>(object instance) where TInterface : class;
 
         /// <summary>
-        /// Visits the specified method information.
+        /// Creates an instance of the specified type.
         /// </summary>
-        /// <param name="methodInfo">The method information.</param>
-        void VisitMethod(MethodInfo methodInfo);
+        /// <param name="type">The type.</param>
+        /// <param name="arguments">The constructor arguments.</param>
+        /// <returns>The instance.</returns>
+        object CreateInstance(Type type, object[] arguments);
     }
 }

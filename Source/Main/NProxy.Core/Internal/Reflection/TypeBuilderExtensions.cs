@@ -104,6 +104,9 @@ namespace NProxy.Core.Internal.Reflection
             if (parameterNames == null)
                 throw new ArgumentNullException("parameterNames");
 
+            if (parameterTypes.Length != parameterNames.Length)
+                throw new ArgumentException("Number of parameter types and parameter names must be equal");
+
             // Define constructor.
             var constructorBuilder = typeBuilder.DefineConstructor(
                 methodAttributes,

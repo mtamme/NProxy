@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using NProxy.Core.Internal.Descriptors;
 
 namespace NProxy.Core
@@ -30,7 +31,7 @@ namespace NProxy.Core
         /// <summary>
         /// The proxy descriptor.
         /// </summary>
-        private readonly IProxyDescriptor _proxyDescriptor;
+        private readonly IDescriptor _descriptor;
 
         /// <summary>
         /// The type.
@@ -38,20 +39,41 @@ namespace NProxy.Core
         private readonly Type _type;
 
         /// <summary>
+        /// The event informations.
+        /// </summary>
+        private readonly ICollection<EventInfo> _eventInfos;
+
+        /// <summary>
+        /// The property informations.
+        /// </summary>
+        private readonly ICollection<PropertyInfo> _propertyInfos;
+
+        /// <summary>
+        /// The method informations.
+        /// </summary>
+        private readonly ICollection<MethodInfo> _methodInfos;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Proxy"/> class.
         /// </summary>
-        /// <param name="proxyDescriptor">The proxy descriptor.</param>
+        /// <param name="descriptor">The proxy descriptor.</param>
         /// <param name="type">The type.</param>
-        public Proxy(IProxyDescriptor proxyDescriptor, Type type)
+        /// <param name="eventInfos">The event informations.</param>
+        /// <param name="propertyInfos">The property informations.</param>
+        /// <param name="methodInfos">The method informations.</param>
+        public Proxy(IDescriptor descriptor, Type type, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
         {
-            if (proxyDescriptor == null)
-                throw new ArgumentNullException("proxyDescriptor");
+            if (descriptor == null)
+                throw new ArgumentNullException("descriptor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            _proxyDescriptor = proxyDescriptor;
+            _descriptor = descriptor;
             _type = type;
+            _eventInfos = eventInfos;
+            _propertyInfos = propertyInfos;
+            _methodInfos = methodInfos;
         }
 
         #region IProxy Members
@@ -59,13 +81,13 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public Type DeclaringType
         {
-            get { return _proxyDescriptor.DeclaringType; }
+            get { return _descriptor.DeclaringType; }
         }
 
         /// <inheritdoc/>
-        public TInterface Adapt<TInterface>(object instance)
+        public TInterface Cast<TInterface>(object instance) where TInterface : class
         {
-            return _proxyDescriptor.AdaptInstance<TInterface>(instance);
+            return _descriptor.Cast<TInterface>(instance);
         }
 
         /// <inheritdoc/>
@@ -81,7 +103,25 @@ namespace NProxy.Core
 
             constructorArguments.AddRange(arguments);
 
-            return _proxyDescriptor.CreateInstance(_type, constructorArguments.ToArray());
+            return _descriptor.CreateInstance(_type, constructorArguments.ToArray());
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<EventInfo> GetInterceptedEvents()
+        {
+            return _eventInfos;
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<PropertyInfo> GetInterceptedProperties()
+        {
+            return _propertyInfos;
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<MethodInfo> GetInterceptedMethods()
+        {
+            return _methodInfos;
         }
 
         #endregion
@@ -119,15 +159,33 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public TInterface Adapt<TInterface>(object instance)
+        public TInterface Cast<TInterface>(object instance) where TInterface : class
         {
-            return _proxy.Adapt<TInterface>(instance);
+            return _proxy.Cast<TInterface>(instance);
         }
 
         /// <inheritdoc/>
         object IProxy.CreateInstance(IInvocationHandler invocationHandler, params object[] arguments)
         {
             return _proxy.CreateInstance(invocationHandler, arguments);
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<EventInfo> GetInterceptedEvents()
+        {
+            return _proxy.GetInterceptedEvents();
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<PropertyInfo> GetInterceptedProperties()
+        {
+            return _proxy.GetInterceptedProperties();
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<MethodInfo> GetInterceptedMethods()
+        {
+            return _proxy.GetInterceptedMethods();
         }
 
         #endregion

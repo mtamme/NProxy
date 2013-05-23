@@ -37,6 +37,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Internal\Caching\CacheTestFixture.cs" />
+    <Compile Include="ObjectExtensionsTestFixture.cs" />
     <Compile Include="TargetInvocationHandler.cs" />
     <Compile Include="GetParametersInvocationHandler.cs" />
     <Compile Include="SetParametersInvocationHandler.cs" />
@@ -83,7 +85,7 @@
     <Compile Include="Interceptors\Types\IEmployee.cs" />
     <Compile Include="Interceptors\Types\IPerson.cs" />
     <Compile Include="Interceptors\Types\Person.cs" />
-    <Compile Include="ObjectExtensionsTestFixture.cs" />
+    <Compile Include="ProxyTestFixture.cs" />
     <Compile Include="Interceptors\Types\IFoo.cs" />
     <Compile Include="Interceptors\Types\FooBase.cs" />
     <Compile Include="Interceptors\Types\Foo.cs" />
@@ -106,9 +108,8 @@
     <Compile Include="Interceptors\ILazy.cs" />
     <Compile Include="Internal\Descriptors\DelegateProxyDescriptorTestFixture.cs" />
     <Compile Include="Internal\Descriptors\InterfaceProxyDescriptorTestFixture.cs" />
-    <Compile Include="Internal\Descriptors\CollectingTypeVisitor.cs" />
-    <Compile Include="Internal\Builders\TypeCacheTestFixture.cs" />
-    <Compile Include="Internal\Builders\MockTypeProvider.cs" />
+    <Compile Include="Internal\Descriptors\CollectingDescriptorVisitor.cs" />
+    <Compile Include="Internal\Caching\InterlockedCacheTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

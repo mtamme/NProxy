@@ -1,4 +1,4 @@
-﻿//
+//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -17,40 +17,30 @@
 //
 
 using System;
+using System.Reflection;
+using System.Reflection.Emit;
 
-namespace NProxy.Core.Internal.Common
+namespace NProxy.Core.Internal.Builders
 {
     /// <summary>
-    /// Represents an anonymous visitor.
+    /// Defines a type repository.
     /// </summary>
-    /// <typeparam name="TElement">The element type.</typeparam>
-    internal sealed class AnonymousVisitor<TElement> : IVisitor<TElement>
+    internal interface ITypeRepository
     {
         /// <summary>
-        /// The visit action.
+        /// Constructs a type builder.
         /// </summary>
-        private readonly Action<TElement> _visit;
+        /// <param name="typeName">The type name.</param>
+        /// <param name="parentType">The parent type.</param>
+        /// <returns>The type builder.</returns>
+        TypeBuilder DefineType(string typeName, Type parentType);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnonymousVisitor{TElement}"/> class.
+        /// Returns a constructor information for the specified method information.
         /// </summary>
-        /// <param name="visit">The visit action.</param>
-        public AnonymousVisitor(Action<TElement> visit)
-        {
-            if (visit == null)
-                throw new ArgumentNullException("visit");
-
-            _visit = visit;
-        }
-
-        #region IVisitor<TElement> Members
-
-        /// <inheritdoc/>
-        public void Visit(TElement element)
-        {
-            _visit(element);
-        }
-
-        #endregion
+        /// <param name="methodInfo">The method information.</param>
+        /// <param name="genericParameterTypes">The generic parameter types.</param>
+        /// <returns>The constructor information.</returns>
+        ConstructorInfo GetConstructor(MethodInfo methodInfo, Type[] genericParameterTypes);
     }
 }

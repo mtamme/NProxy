@@ -19,7 +19,7 @@
 using System;
 using System.Threading;
 
-namespace NProxy.Core.Internal.Common
+namespace NProxy.Core.Internal.Caching
 {
     /// <summary>
     /// Represents a read write lock.

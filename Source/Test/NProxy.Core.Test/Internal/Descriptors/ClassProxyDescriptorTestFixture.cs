@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -33,7 +33,7 @@ namespace NProxy.Core.Test.Internal.Descriptors
             var proxyDescriptor = new ClassProxyDescriptor(typeof (Other), new[] {typeof (IOne), typeof (ITwo), typeof (IOneTwo)});
 
             // Act
-            var typeVisitor = new CollectingTypeVisitor();
+            var typeVisitor = new CollectingDescriptorVisitor();
 
             proxyDescriptor.Accept(typeVisitor);
 

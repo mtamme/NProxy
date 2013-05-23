@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -17,76 +17,64 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Internal.Descriptors;
 
-namespace NProxy.Core.Internal.Builders
+namespace NProxy.Core.Test.Internal.Descriptors
 {
     /// <summary>
-    /// Represents a type builder adapter.
+    /// Represents a collecting type visitor.
     /// </summary>
-    internal sealed class TypeBuilderAdapter : ITypeVisitor
+    internal sealed class CollectingDescriptorVisitor : IDescriptorVisitor
     {
         /// <summary>
-        /// The type builder.
+        /// The interface types.
         /// </summary>
-        private readonly ITypeBuilder _typeBuilder;
+        private readonly List<Type> _interfaceTypes;
 
         /// <summary>
-        /// The interception filter.
+        /// Initializes a new instance of the <see cref="CollectingDescriptorVisitor"/> class.
         /// </summary>
-        private readonly IInterceptionFilter _interceptionFilter;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TypeBuilderAdapter"/> class.
-        /// </summary>
-        /// <param name="typeBuilder">The type builder.</param>
-        /// <param name="interceptionFilter">The interception filter.</param>
-        public TypeBuilderAdapter(ITypeBuilder typeBuilder, IInterceptionFilter interceptionFilter)
+        public CollectingDescriptorVisitor()
         {
-            if (typeBuilder == null)
-                throw new ArgumentNullException("typeBuilder");
-
-            if (interceptionFilter == null)
-                throw new ArgumentNullException("interceptionFilter");
-
-            _typeBuilder = typeBuilder;
-            _interceptionFilter = interceptionFilter;
+            _interfaceTypes = new List<Type>();
         }
 
-        #region ITypeVisitor Members
+        /// <summary>
+        /// Returns the interface types.
+        /// </summary>
+        public ICollection<Type> InterfaceTypes
+        {
+            get { return _interfaceTypes; }
+        }
+
+        #region IDescriptorVisitor Members
 
         /// <inheritdoc/>
         public void VisitInterface(Type interfaceType)
         {
-            _typeBuilder.AddInterface(interfaceType);
+            _interfaceTypes.Add(interfaceType);
         }
 
         /// <inheritdoc/>
         public void VisitConstructor(ConstructorInfo constructorInfo)
         {
-            _typeBuilder.BuildConstructor(constructorInfo);
         }
 
         /// <inheritdoc/>
         public void VisitEvent(EventInfo eventInfo)
         {
-            if (_interceptionFilter.AcceptEvent(eventInfo))
-                _typeBuilder.BuildEvent(eventInfo);
         }
 
         /// <inheritdoc/>
         public void VisitProperty(PropertyInfo propertyInfo)
         {
-            if (_interceptionFilter.AcceptProperty(propertyInfo))
-                _typeBuilder.BuildProperty(propertyInfo);
         }
 
         /// <inheritdoc/>
         public void VisitMethod(MethodInfo methodInfo)
         {
-            if (_interceptionFilter.AcceptMethod(methodInfo))
-                _typeBuilder.BuildMethod(methodInfo);
         }
 
         #endregion

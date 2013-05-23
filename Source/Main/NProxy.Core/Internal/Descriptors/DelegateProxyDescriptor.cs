@@ -42,32 +42,46 @@ namespace NProxy.Core.Internal.Descriptors
         {
         }
 
-        #region IProxyDescriptor Members
+        #region IDescriptor Members
 
         /// <inheritdoc/>
-        public override void Accept(ITypeVisitor typeVisitor)
+        public override void Accept(IDescriptorVisitor descriptorVisitor)
         {
-            base.Accept(typeVisitor);
+            base.Accept(descriptorVisitor);
 
             // Visit declaring type method.
             var methodInfo = DeclaringType.GetMethod(
                 DelegateMethodName,
                 BindingFlags.Public | BindingFlags.Instance);
 
-            typeVisitor.VisitMethod(methodInfo);
+            descriptorVisitor.VisitMethod(methodInfo);
         }
 
         /// <inheritdoc/>
-        public override TInterface AdaptInstance<TInterface>(object instance)
+        public override TInterface Cast<TInterface>(object instance)
         {
-            var delegateInstance = (Delegate) instance;
+            if (instance == null)
+                throw new ArgumentNullException("instance");
 
-            return (TInterface) delegateInstance.Target;
+            var interfaceType = typeof (TInterface);
+
+            if (!interfaceType.IsInterface)
+                throw new ArgumentException(String.Format("Type '{0}' is not an interface type", interfaceType));
+
+            var target = ((Delegate) instance).Target;
+
+            return (TInterface) target;
         }
 
         /// <inheritdoc/>
         public override object CreateInstance(Type type, object[] arguments)
         {
+            if (type == null)
+                throw new ArgumentNullException("type");
+
+            if (arguments == null)
+                throw new ArgumentNullException("arguments");
+
             var instance = Activator.CreateInstance(type, arguments);
 
             return Delegate.CreateDelegate(DeclaringType, instance, DelegateMethodName);

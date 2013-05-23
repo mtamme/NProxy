@@ -17,9 +17,7 @@
 //
 
 using System;
-using System.Linq;
 using System.Reflection;
-using NProxy.Core.Internal.Common;
 
 namespace NProxy.Core.Internal.Reflection
 {
@@ -178,91 +176,6 @@ namespace NProxy.Core.Internal.Reflection
             var genericArguments = type.GetGenericArguments();
 
             return Array.ConvertAll(genericArguments, t => t.MapGenericType(genericTypes));
-        }
-
-        /// <summary>
-        /// Visits all interfaces of the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="visitor">The visitor.</param>
-        public static void VisitInterfaces(this Type type, IVisitor<Type> visitor)
-        {
-            if (type == null)
-                throw new ArgumentNullException("type");
-
-            if (visitor == null)
-                throw new ArgumentNullException("visitor");
-
-            if (type.IsInterface)
-                visitor.Visit(type);
-
-            var interfaceTypes = type.GetInterfaces();
-
-            interfaceTypes.Visit(visitor);
-        }
-
-        /// <summary>
-        /// Visits all constructors of the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="visitor">The visitor.</param>
-        public static void VisitConstructors(this Type type, IVisitor<ConstructorInfo> visitor)
-        {
-            if (type == null)
-                throw new ArgumentNullException("type");
-
-            var constructorInfos = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-
-            constructorInfos.Visit(visitor);
-        }
-
-        /// <summary>
-        /// Visits all events of the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="visitor">The visitor.</param>
-        public static void VisitEvents(this Type type, IVisitor<EventInfo> visitor)
-        {
-            if (type == null)
-                throw new ArgumentNullException("type");
-
-            // Only visit instance events.
-            var eventInfos = type.GetEvents(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-
-            eventInfos.Visit(visitor);
-        }
-
-        /// <summary>
-        /// Visits all properties of the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="visitor">The visitor.</param>
-        public static void VisitProperties(this Type type, IVisitor<PropertyInfo> visitor)
-        {
-            if (type == null)
-                throw new ArgumentNullException("type");
-
-            // Only visit instance properties.
-            var propertyInfos = type.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-
-            propertyInfos.Visit(visitor);
-        }
-
-        /// <summary>
-        /// Visits all methods of the specified type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="visitor">The visitor.</param>
-        public static void VisitMethods(this Type type, IVisitor<MethodInfo> visitor)
-        {
-            if (type == null)
-                throw new ArgumentNullException("type");
-
-            // Only visit non-accessor instance methods.
-            var methodInfos = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                                  .Where(m => !m.IsSpecialName);
-
-            methodInfos.Visit(visitor);
         }
     }
 }

@@ -18,7 +18,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using NProxy.Core.Internal.Builders;
 using NProxy.Core.Internal.Caching;
 using NProxy.Core.Internal.Descriptors;
@@ -32,12 +31,6 @@ namespace NProxy.Core
     public sealed class ProxyFactory : IProxyFactory
     {
         /// <summary>
-        /// The <see cref="ProxyAttribute"/> constructor information.
-        /// </summary>
-        private static readonly ConstructorInfo ProxyAttributeConstructorInfo = typeof (ProxyAttribute).GetConstructor(
-            BindingFlags.Public | BindingFlags.Instance);
-
-        /// <summary>
         /// The type builder factory.
         /// </summary>
         private readonly ITypeBuilderFactory _typeBuilderFactory;
@@ -50,7 +43,7 @@ namespace NProxy.Core
         /// <summary>
         /// The cache.
         /// </summary>
-        private readonly ICache<IProxyDescriptor, IProxy> _cache;
+        private readonly ICache<IDescriptor, IProxy> _cache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyFactory"/> class.
@@ -76,16 +69,16 @@ namespace NProxy.Core
             _typeBuilderFactory = typeBuilderFactory;
             _interceptionFilter = interceptionFilter;
 
-            _cache = new InterlockedCache<IProxyDescriptor, IProxy>();
+            _cache = new InterlockedCache<IDescriptor, IProxy>();
         }
 
         /// <summary>
-        /// Returns a proxy descriptor for the specified declaring type.
+        /// Returns a descriptor for the specified declaring type.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        /// <returns>The type definition.</returns>
-        private static IProxyDescriptor CreateDescriptor(Type declaringType, IEnumerable<Type> interfaceTypes)
+        /// <returns>The descriptor.</returns>
+        private static IDescriptor CreateDescriptor(Type declaringType, IEnumerable<Type> interfaceTypes)
         {
             if (declaringType.IsDelegate())
                 return new DelegateProxyDescriptor(declaringType, interfaceTypes);
@@ -99,24 +92,14 @@ namespace NProxy.Core
         /// <summary>
         /// Generates a proxy.
         /// </summary>
-        /// <param name="proxyDescriptor">The proxy descriptor.</param>
-        /// <returns>The proxy type.</returns>
-        private IProxy GenerateProxy(IProxyDescriptor proxyDescriptor)
+        /// <param name="descriptor">The descriptor.</param>
+        /// <returns>The proxy.</returns>
+        private IProxy GenerateProxy(IDescriptor descriptor)
         {
-            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDescriptor.ParentType);
+            var typeBuilder = _typeBuilderFactory.CreateBuilder(descriptor.ParentType);
+            var proxyBuilder = new ProxyGenerator(typeBuilder, _interceptionFilter);
 
-            // Add custom attribute.
-            typeBuilder.AddCustomAttribute(ProxyAttributeConstructorInfo);
-
-            // Build type.
-            var typeVisitor = new TypeBuilderAdapter(typeBuilder, _interceptionFilter);
-
-            proxyDescriptor.Accept(typeVisitor);
-
-            // Create type.
-            var type = typeBuilder.CreateType();
-
-            return new Proxy(proxyDescriptor, type);
+            return proxyBuilder.GenerateProxy(descriptor);
         }
 
         #region IProxyFactory Members
@@ -130,11 +113,11 @@ namespace NProxy.Core
             if (interfaceTypes == null)
                 throw new ArgumentNullException("interfaceTypes");
 
-            // Create proxy descriptor.
-            var proxyDescriptor = CreateDescriptor(declaringType, interfaceTypes);
+            // Create descriptor.
+            var descriptor = CreateDescriptor(declaringType, interfaceTypes);
 
             // Get or generate proxy.
-            return _cache.GetOrAdd(proxyDescriptor, GenerateProxy);
+            return _cache.GetOrAdd(descriptor, GenerateProxy);
         }
 
         /// <inheritdoc/>

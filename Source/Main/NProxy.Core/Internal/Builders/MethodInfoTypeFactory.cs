@@ -25,9 +25,9 @@ using NProxy.Core.Internal.Reflection;
 namespace NProxy.Core.Internal.Builders
 {
     /// <summary>
-    /// Represents a method information type generator.
+    /// Represents a method information type factory.
     /// </summary>
-    internal sealed class MethodInfoTypeGenerator : ITypeProvider<MethodInfo>
+    internal sealed class MethodInfoTypeFactory
     {
         /// <summary>
         /// The <see cref="MethodBase.GetMethodFromHandle(RuntimeMethodHandle,RuntimeTypeHandle)"/> method information.
@@ -61,20 +61,20 @@ namespace NProxy.Core.Internal.Builders
             typeof (object), typeof (object[]));
 
         /// <summary>
-        /// The type emitter.
+        /// The type repository.
         /// </summary>
-        private readonly ITypeEmitter _typeEmitter;
+        private readonly ITypeRepository _typeRepository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MethodInfoTypeGenerator"/> class.
+        /// Initializes a new instance of the <see cref="MethodInfoTypeFactory"/> class.
         /// </summary>
-        /// <param name="typeEmitter">The type emitter.</param>
-        public MethodInfoTypeGenerator(ITypeEmitter typeEmitter)
+        /// <param name="typeRepository">The type repository.</param>
+        public MethodInfoTypeFactory(ITypeRepository typeRepository)
         {
-            if (typeEmitter == null)
-                throw new ArgumentNullException("typeEmitter");
+            if (typeRepository == null)
+                throw new ArgumentNullException("typeRepository");
 
-            _typeEmitter = typeEmitter;
+            _typeRepository = typeRepository;
         }
 
         /// <summary>
@@ -259,16 +259,18 @@ namespace NProxy.Core.Internal.Builders
             }
         }
 
-        #region ITypeProvider<MethodInfo> Members
-
-        /// <inheritdoc/>
-        public Type GetType(MethodInfo declaringMethodInfo)
+        /// <summary>
+        /// Creates a method information type.
+        /// </summary>
+        /// <param name="declaringMethodInfo">The declaring method information.</param>
+        /// <returns>The method information type.</returns>
+        public Type CreateType(MethodInfo declaringMethodInfo)
         {
             if (declaringMethodInfo == null)
                 throw new ArgumentNullException("declaringMethodInfo");
 
             // Define type.
-            var typeBuilder = _typeEmitter.DefineType("MethodInfo", typeof (MethodInfoBase));
+            var typeBuilder = _typeRepository.DefineType("MethodInfo", typeof (MethodInfoBase));
 
             // Define generic parameters.
             var genericParameterTypes = typeBuilder.DefineGenericParameters(declaringMethodInfo.GetGenericArguments());
@@ -294,7 +296,5 @@ namespace NProxy.Core.Internal.Builders
 
             return typeBuilder.CreateType();
         }
-
-        #endregion
     }
 }

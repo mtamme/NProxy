@@ -17,6 +17,8 @@
 //
 
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace NProxy.Core
 {
@@ -31,12 +33,30 @@ namespace NProxy.Core
         Type DeclaringType { get; }
 
         /// <summary>
-        /// Adapts an instance to the specified interface type.
+        /// Returns all intercepted event informations.
+        /// </summary>
+        /// <returns>All intercepted event informations.</returns>
+        IEnumerable<EventInfo> GetInterceptedEvents();
+
+        /// <summary>
+        /// Returns all intercepted property informations.
+        /// </summary>
+        /// <returns>All intercepted property informations.</returns>
+        IEnumerable<PropertyInfo> GetInterceptedProperties();
+
+        /// <summary>
+        /// Returns all intercepted method informations.
+        /// </summary>
+        /// <returns>All intercepted method informations.</returns>
+        IEnumerable<MethodInfo> GetInterceptedMethods();
+
+        /// <summary>
+        /// Casts an instance to the specified interface type.
         /// </summary>
         /// <typeparam name="TInterface">The interface type.</typeparam>
         /// <param name="instance">The instance.</param>
-        /// <returns>The object, of the specified interface type, to which the instance has been adapted.</returns>
-        TInterface Adapt<TInterface>(object instance);
+        /// <returns>The object, of the specified interface type, to which the instance has been casted.</returns>
+        TInterface Cast<TInterface>(object instance) where TInterface : class;
 
         /// <summary>
         /// Creates a new instance.
