@@ -19,7 +19,7 @@
 using System;
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Generators
+namespace NProxy.Core.Internal.Builders
 {
     /// <summary>
     /// Defines a type builder.

@@ -44,9 +44,7 @@
     <Compile Include="Internal\Descriptors\DelegateProxyDescriptor.cs" />
     <Compile Include="Internal\Descriptors\InterfaceProxyDescriptor.cs" />
     <Compile Include="Internal\Descriptors\IProxyDescriptor.cs" />
-    <Compile Include="Internal\Descriptors\ITypeReflector.cs" />
     <Compile Include="Internal\Descriptors\ProxyDescriptorBase.cs" />
-    <Compile Include="Internal\Descriptors\TypeReflectorBase.cs" />
     <Compile Include="Internal\Reflection\MethodToken.cs" />
     <Compile Include="Internal\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Internal\Reflection\MethodBuilderExtensions.cs" />
@@ -76,15 +74,6 @@
     <Compile Include="Interceptors\InvocationTargetInterceptor.cs" />
     <Compile Include="Internal\Common\AnonymousDisposable.cs" />
     <Compile Include="Internal\Common\ReadWriteLock.cs" />
-    <Compile Include="Internal\Generators\ITypeBuilder.cs" />
-    <Compile Include="Internal\Generators\ITypeBuilderFactory.cs" />
-    <Compile Include="Internal\Generators\ITypeEmitter.cs" />
-    <Compile Include="Internal\Generators\MethodInfoBase.cs" />
-    <Compile Include="Internal\Generators\MethodInfoTypeGenerator.cs" />
-    <Compile Include="Internal\Generators\TypeCache.cs" />
-    <Compile Include="Internal\Generators\ITypeProvider.cs" />
-    <Compile Include="Internal\Generators\IInterceptionFilter.cs" />
-    <Compile Include="Internal\Generators\ProxyTypeGenerator.cs" />
     <Compile Include="Interceptors\MixinInvocationHandler.cs" />
     <Compile Include="Interceptors\Language\IFluent.cs" />
     <Compile Include="Interceptors\Language\IExtends.cs" />
@@ -97,7 +86,6 @@
     <Compile Include="NonInterceptedAttribute.cs" />
     <Compile Include="Interceptors\InterceptorInvocationHandler.cs" />
     <Compile Include="ObjectExtensions.cs" />
-    <Compile Include="Internal\Generators\ProxyAttribute.cs" />
     <Compile Include="Proxy.cs" />
     <Compile Include="IProxy.cs" />
     <Compile Include="Internal\Caching\Cache.cs" />
@@ -106,6 +94,18 @@
     <Compile Include="Internal\Caching\ICache.cs" />
     <Compile Include="Internal\Caching\ICacheFactory.cs" />
     <Compile Include="Internal\Caching\InterlockedCache.cs" />
+    <Compile Include="Internal\Descriptors\ITypeVisitor.cs" />
+    <Compile Include="Internal\Descriptors\TypeVisitorExtensions.cs" />
+    <Compile Include="Internal\Builders\ITypeBuilder.cs" />
+    <Compile Include="Internal\Builders\ITypeBuilderFactory.cs" />
+    <Compile Include="Internal\Builders\ITypeEmitter.cs" />
+    <Compile Include="Internal\Builders\MethodInfoBase.cs" />
+    <Compile Include="Internal\Builders\MethodInfoTypeGenerator.cs" />
+    <Compile Include="Internal\Builders\TypeCache.cs" />
+    <Compile Include="Internal\Builders\ITypeProvider.cs" />
+    <Compile Include="Internal\Builders\IInterceptionFilter.cs" />
+    <Compile Include="Internal\Builders\TypeBuilderAdapter.cs" />
+    <Compile Include="ProxyAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

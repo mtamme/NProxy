@@ -18,14 +18,19 @@
 
 using System;
 
-namespace NProxy.Core.Internal.Generators
+namespace NProxy.Core.Internal.Builders
 {
     /// <summary>
-    /// Represents an attribute which indicates that a class is a proxy.
+    /// Defines a type provider.
     /// </summary>
-    [Serializable]
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public sealed class ProxyAttribute : Attribute
+    /// <typeparam name="TDefinition">The definition type.</typeparam>
+    internal interface ITypeProvider<in TDefinition>
     {
+        /// <summary>
+        /// Returns a type based on the specified definition.
+        /// </summary>
+        /// <param name="definition">The definition.</param>
+        /// <returns>The type.</returns>
+        Type GetType(TDefinition definition);
     }
 }

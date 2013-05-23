@@ -31,6 +31,14 @@ namespace NProxy.Core
         Type DeclaringType { get; }
 
         /// <summary>
+        /// Adapts an instance to the specified interface type.
+        /// </summary>
+        /// <typeparam name="TInterface">The interface type.</typeparam>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The object, of the specified interface type, to which the instance has been adapted.</returns>
+        TInterface Adapt<TInterface>(object instance);
+
+        /// <summary>
         /// Creates a new instance.
         /// </summary>
         /// <param name="invocationHandler">The invocation handler.</param>

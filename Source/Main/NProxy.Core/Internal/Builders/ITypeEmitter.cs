@@ -17,20 +17,21 @@
 //
 
 using System;
+using System.Reflection.Emit;
 
-namespace NProxy.Core.Internal.Generators
+namespace NProxy.Core.Internal.Builders
 {
     /// <summary>
-    /// Defines a type provider.
+    /// Defines a type emitter.
     /// </summary>
-    /// <typeparam name="TDefinition">The definition type.</typeparam>
-    internal interface ITypeProvider<in TDefinition>
+    internal interface ITypeEmitter
     {
         /// <summary>
-        /// Returns a type based on the specified definition.
+        /// Constructs a type builder.
         /// </summary>
-        /// <param name="definition">The definition.</param>
-        /// <returns>The type.</returns>
-        Type GetType(TDefinition definition);
+        /// <param name="typeName">The type name.</param>
+        /// <param name="parentType">The parent type.</param>
+        /// <returns>The type builder.</returns>
+        TypeBuilder DefineType(string typeName, Type parentType);
     }
 }

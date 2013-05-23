@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-using NProxy.Core.Internal.Generators;
+using NProxy.Core.Internal.Builders;
 using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core

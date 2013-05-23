@@ -36,6 +36,12 @@ namespace NProxy.Core.Internal.Descriptors
         Type ParentType { get; }
 
         /// <summary>
+        /// Accepts the specified type visitor.
+        /// </summary>
+        /// <param name="typeVisitor">Type visitor.</param>
+        void Accept(ITypeVisitor typeVisitor);
+
+        /// <summary>
         /// Adapts an instance to the specified interface type.
         /// </summary>
         /// <typeparam name="TInterface">The interface type.</typeparam>
@@ -50,11 +56,5 @@ namespace NProxy.Core.Internal.Descriptors
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The instance.</returns>
         object CreateInstance(Type type, object[] arguments);
-
-        /// <summary>
-        /// Creates a type reflector.
-        /// </summary>
-        /// <returns>The type reflector.</returns>
-        ITypeReflector CreateReflector();
     }
 }

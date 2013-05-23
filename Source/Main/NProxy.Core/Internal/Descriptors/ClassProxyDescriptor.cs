@@ -18,9 +18,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using NProxy.Core.Internal.Common;
-using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core.Internal.Descriptors
 {
@@ -29,70 +26,6 @@ namespace NProxy.Core.Internal.Descriptors
     /// </summary>
     internal sealed class ClassProxyDescriptor : ProxyDescriptorBase
     {
-        /// <summary>
-        /// Represents a class proxy type reflector.
-        /// </summary>
-        private sealed class TypeReflector : TypeReflectorBase
-        {
-            /// <summary>
-            /// The interface types.
-            /// </summary>
-            private readonly ICollection<Type> _interfaceTypes;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="TypeReflector"/> class.
-            /// </summary>
-            /// <param name="declaringType">The declaring type.</param>
-            /// <param name="parentType">The parent type.</param>
-            /// <param name="interfaceTypes">The interface types.</param>
-            public TypeReflector(Type declaringType, Type parentType, ICollection<Type> interfaceTypes)
-                : base(declaringType, parentType)
-            {
-                _interfaceTypes = interfaceTypes;
-            }
-
-            #region ITypeReflector Members
-
-            /// <inheritdoc/>
-            public override void VisitInterfaces(IVisitor<Type> visitor)
-            {
-                // Visit interfaces.
-                _interfaceTypes.Visit(visitor);
-            }
-
-            /// <inheritdoc/>
-            public override void VisitEvents(IVisitor<EventInfo> visitor)
-            {
-                // Visit interface events.
-                _interfaceTypes.Visit(t => t.VisitEvents(visitor));
-
-                // Visit declaring type events.
-                DeclaringType.VisitEvents(visitor);
-            }
-
-            /// <inheritdoc/>
-            public override void VisitProperties(IVisitor<PropertyInfo> visitor)
-            {
-                // Visit interface properties.
-                _interfaceTypes.Visit(t => t.VisitProperties(visitor));
-
-                // Visit declaring type properties.
-                DeclaringType.VisitProperties(visitor);
-            }
-
-            /// <inheritdoc/>
-            public override void VisitMethods(IVisitor<MethodInfo> visitor)
-            {
-                // Visit interface methods.
-                _interfaceTypes.Visit(t => t.VisitMethods(visitor));
-
-                // Visit declaring type methods.
-                DeclaringType.VisitMethods(visitor);
-            }
-
-            #endregion
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClassProxyDescriptor"/> class.
         /// </summary>
@@ -103,17 +36,16 @@ namespace NProxy.Core.Internal.Descriptors
         {
         }
 
-        #region ProxyDescriptorBase Members
+        #region IProxyDescriptor Members
 
         /// <inheritdoc/>
-        protected override ITypeReflector CreateReflector(Type declaringType, Type parentType, ICollection<Type> declaringInterfaceTypes, ICollection<Type> additionalInterfaceTypes)
+        public override void Accept(ITypeVisitor typeVisitor)
         {
-            return new TypeReflector(declaringType, parentType, additionalInterfaceTypes);
+            base.Accept(typeVisitor);
+
+            // Visit declaring type members.
+            typeVisitor.VisitMembers(DeclaringType);
         }
-
-        #endregion
-
-        #region IProxyDescriptor Members
 
         /// <inheritdoc/>
         public override TInterface AdaptInstance<TInterface>(object instance)

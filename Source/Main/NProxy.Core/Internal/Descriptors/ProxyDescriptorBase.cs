@@ -146,14 +146,12 @@ namespace NProxy.Core.Internal.Descriptors
         }
 
         /// <summary>
-        /// Creates a type reflector.
+        /// Returns all declaring interface types.
         /// </summary>
-        /// <param name="declaringType">The declaring type.</param>
-        /// <param name="parentType">The parent type.</param>
-        /// <param name="declaringInterfaceTypes">The declaring interface types.</param>
-        /// <param name="additionalInterfaceTypes">The additional interface types.</param>
-        /// <returns></returns>
-        protected abstract ITypeReflector CreateReflector(Type declaringType, Type parentType, ICollection<Type> declaringInterfaceTypes, ICollection<Type> additionalInterfaceTypes);
+        protected IEnumerable<Type> DeclaringInterfaceTypes
+        {
+            get { return _declaringInterfaceTypes; }
+        }
 
         #region IProxyDescriptor Members
 
@@ -170,16 +168,20 @@ namespace NProxy.Core.Internal.Descriptors
         }
 
         /// <inheritdoc/>
+        public virtual void Accept(ITypeVisitor typeVisitor)
+        {
+            // Visit additional interface types.
+            typeVisitor.VisitInterfaces(_additionalInterfaceTypes);
+
+            // Visit parent type constructors.
+            typeVisitor.VisitConstructors(_parentType);
+        }
+
+        /// <inheritdoc/>
         public abstract TInterface AdaptInstance<TInterface>(object instance);
 
         /// <inheritdoc/>
         public abstract object CreateInstance(Type type, object[] arguments);
-
-        /// <inheritdoc/>
-        public ITypeReflector CreateReflector()
-        {
-            return CreateReflector(_declaringType, _parentType, _declaringInterfaceTypes, _additionalInterfaceTypes);
-        }
 
         #endregion
 

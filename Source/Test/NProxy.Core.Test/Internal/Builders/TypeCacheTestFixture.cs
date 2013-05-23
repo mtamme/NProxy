@@ -19,10 +19,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using NProxy.Core.Internal.Generators;
+using NProxy.Core.Internal.Builders;
 using NUnit.Framework;
 
-namespace NProxy.Core.Test.Internal.Generators
+namespace NProxy.Core.Test.Internal.Builders
 {
     [TestFixture]
     public sealed class TypeCacheTestFixture

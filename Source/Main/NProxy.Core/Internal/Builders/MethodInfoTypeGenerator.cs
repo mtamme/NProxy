@@ -22,7 +22,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using NProxy.Core.Internal.Reflection;
 
-namespace NProxy.Core.Internal.Generators
+namespace NProxy.Core.Internal.Builders
 {
     /// <summary>
     /// Represents a method information type generator.

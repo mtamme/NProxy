@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Generators
+namespace NProxy.Core.Internal.Builders
 {
     /// <summary>
     /// Represents the method information base class.

@@ -22,7 +22,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Resources;
 using System.Threading;
-using NProxy.Core.Internal.Generators;
+using NProxy.Core.Internal.Builders;
 using NProxy.Core.Internal.Reflection;
 using MethodToken = NProxy.Core.Internal.Reflection.MethodToken;
 

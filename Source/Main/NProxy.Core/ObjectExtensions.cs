@@ -17,7 +17,6 @@
 //
 
 using System;
-using NProxy.Core.Internal.Generators;
 using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core

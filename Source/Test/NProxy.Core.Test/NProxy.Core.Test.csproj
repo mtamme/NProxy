@@ -74,8 +74,6 @@
     <Compile Include="Types\OutConstructorBase.cs" />
     <Compile Include="Types\RefConstructorBase.cs" />
     <Compile Include="MemberAssert.cs" />
-    <Compile Include="Internal\Generators\TypeCacheTestFixture.cs" />
-    <Compile Include="Internal\Generators\MockTypeProvider.cs" />
     <Compile Include="Interceptors\ProxyFactoryTestFixture.cs" />
     <Compile Include="Types\NonIntercepted.cs" />
     <Compile Include="Types\INonIntercepted.cs" />
@@ -108,6 +106,9 @@
     <Compile Include="Interceptors\ILazy.cs" />
     <Compile Include="Internal\Descriptors\DelegateProxyDescriptorTestFixture.cs" />
     <Compile Include="Internal\Descriptors\InterfaceProxyDescriptorTestFixture.cs" />
+    <Compile Include="Internal\Descriptors\CollectingTypeVisitor.cs" />
+    <Compile Include="Internal\Builders\TypeCacheTestFixture.cs" />
+    <Compile Include="Internal\Builders\MockTypeProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

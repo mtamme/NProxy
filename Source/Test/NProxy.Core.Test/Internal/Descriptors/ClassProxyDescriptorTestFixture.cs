@@ -17,8 +17,6 @@
 //
 
 using System;
-using System.Collections.Generic;
-using NProxy.Core.Internal.Common;
 using NProxy.Core.Internal.Descriptors;
 using NProxy.Core.Test.Types;
 using NUnit.Framework;
@@ -29,25 +27,22 @@ namespace NProxy.Core.Test.Internal.Descriptors
     public sealed class ClassProxyDescriptorTestFixture
     {
         [Test]
-        public void CreateReflectorTest()
+        public void AcceptTest()
         {
             // Arrange
             var proxyDescriptor = new ClassProxyDescriptor(typeof (Other), new[] {typeof (IOne), typeof (ITwo), typeof (IOneTwo)});
 
             // Act
-            var typeReflector = proxyDescriptor.CreateReflector();
+            var typeVisitor = new CollectingTypeVisitor();
+
+            proxyDescriptor.Accept(typeVisitor);
 
             // Assert
-            var interfaceTypes = new List<Type>();
-            var visitor = Visitor.Create<Type>(interfaceTypes.Add);
-
-            typeReflector.VisitInterfaces(visitor);
-
-            Assert.That(interfaceTypes.Count, Is.EqualTo(4));
-            Assert.That(interfaceTypes, Contains.Item(typeof (IBase)));
-            Assert.That(interfaceTypes, Contains.Item(typeof (IOne)));
-            Assert.That(interfaceTypes, Contains.Item(typeof (ITwo)));
-            Assert.That(interfaceTypes, Contains.Item(typeof (IOneTwo)));
+            Assert.That(typeVisitor.InterfaceTypes.Count, Is.EqualTo(4));
+            Assert.That(typeVisitor.InterfaceTypes, Contains.Item(typeof (IBase)));
+            Assert.That(typeVisitor.InterfaceTypes, Contains.Item(typeof (IOne)));
+            Assert.That(typeVisitor.InterfaceTypes, Contains.Item(typeof (ITwo)));
+            Assert.That(typeVisitor.InterfaceTypes, Contains.Item(typeof (IOneTwo)));
         }
 
         [Test]

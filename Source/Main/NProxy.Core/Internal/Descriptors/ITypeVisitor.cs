@@ -16,34 +16,44 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Generators
+namespace NProxy.Core.Internal.Descriptors
 {
     /// <summary>
-    /// Defines an interception filter.
+    /// Defines a type visitor.
     /// </summary>
-    internal interface IInterceptionFilter
+    internal interface ITypeVisitor
     {
         /// <summary>
-        /// Accepts the specified event information.
+        /// Visits the specified interface typo.
+        /// </summary>
+        /// <param name="interfaceType">The interface type.</param>
+        void VisitInterface(Type interfaceType);
+
+        /// <summary>
+        /// Visits the specified constructor information.
+        /// </summary>
+        /// <param name="constructorInfo">The constructor information.</param>
+        void VisitConstructor(ConstructorInfo constructorInfo);
+
+        /// <summary>
+        /// Visits the specified event information.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
-        /// <returns>A value indicating weather the specified event information is accepted.</returns>
-        bool AcceptEvent(EventInfo eventInfo);
-
+        void VisitEvent(EventInfo eventInfo);
+        
         /// <summary>
-        /// Accepts the specified property information.
+        /// Visits the specified property information.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <returns>A value indicating weather the specified property information is accepted.</returns>
-        bool AcceptProperty(PropertyInfo propertyInfo);
-
+        void VisitProperty(PropertyInfo propertyInfo);
+        
         /// <summary>
-        /// Accepts the specified method information.
+        /// Visits the specified method information.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
-        /// <returns>A value indicating weather the specified method information is accepted.</returns>
-        bool AcceptMethod(MethodInfo methodInfo);
+        void VisitMethod(MethodInfo methodInfo);
     }
 }

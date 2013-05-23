@@ -17,21 +17,15 @@
 //
 
 using System;
-using System.Reflection.Emit;
 
-namespace NProxy.Core.Internal.Generators
+namespace NProxy.Core
 {
     /// <summary>
-    /// Defines a type emitter.
+    /// Represents an attribute which indicates that a class is a proxy.
     /// </summary>
-    internal interface ITypeEmitter
+    [Serializable]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    public sealed class ProxyAttribute : Attribute
     {
-        /// <summary>
-        /// Constructs a type builder.
-        /// </summary>
-        /// <param name="typeName">The type name.</param>
-        /// <param name="parentType">The parent type.</param>
-        /// <returns>The type builder.</returns>
-        TypeBuilder DefineType(string typeName, Type parentType);
     }
 }
