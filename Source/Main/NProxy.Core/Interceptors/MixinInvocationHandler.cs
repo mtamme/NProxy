@@ -60,15 +60,15 @@ namespace NProxy.Core.Interceptors
         #region IInvocationHandler Members
 
         /// <inheritdoc/>
-        public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
+        public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
         {
             var declaringType = methodInfo.GetDeclaringType();
-            object target;
+            object mixin;
 
-            if (_mixins.TryGetValue(declaringType, out target))
-                return methodInfo.Invoke(target, parameters);
+            if (_mixins.TryGetValue(declaringType, out mixin))
+                return methodInfo.Invoke(mixin, parameters);
 
-            return _invocationHandler.Invoke(proxy, methodInfo, parameters);
+            return _invocationHandler.Invoke(target, methodInfo, parameters);
         }
 
         #endregion

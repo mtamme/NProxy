@@ -178,10 +178,10 @@ namespace NProxy.Core.Interceptors
         #region IInvocationHandler Members
 
         /// <inheritdoc/>
-        public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
+        public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
         {
             var interceptors = GetInterceptors(methodInfo);
-            var invocationContext = new InvocationContext(proxy, methodInfo, parameters, interceptors);
+            var invocationContext = new InvocationContext(target, methodInfo, parameters, interceptors);
 
             return invocationContext.Proceed();
         }

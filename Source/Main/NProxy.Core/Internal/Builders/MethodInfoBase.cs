@@ -30,9 +30,9 @@ namespace NProxy.Core.Internal.Builders
     internal abstract class MethodInfoBase : MethodInfo
     {
         /// <summary>
-        /// The proxy object.
+        /// The instance object.
         /// </summary>
-        private readonly object _proxy;
+        private readonly object _instance;
 
         /// <summary>
         /// The declaring method information.
@@ -47,18 +47,18 @@ namespace NProxy.Core.Internal.Builders
         /// <summary>
         /// Initializes a new instance of the <see cref="MethodInfoBase"/> class.
         /// </summary>
-        /// <param name="proxy">The proxy object.</param>
+        /// <param name="instance">The instance object.</param>
         /// <param name="methodInfo">The declaring method information.</param>
         /// <param name="isOverride">A value indicating weather the specified method is overridden.</param>
-        protected MethodInfoBase(object proxy, MethodInfo methodInfo, bool isOverride)
+        protected MethodInfoBase(object instance, MethodInfo methodInfo, bool isOverride)
         {
-            if (proxy == null)
-                throw new ArgumentNullException("proxy");
+            if (instance == null)
+                throw new ArgumentNullException("instance");
 
             if (methodInfo == null)
                 throw new ArgumentNullException("methodInfo");
 
-            _proxy = proxy;
+            _instance = instance;
             _methodInfo = methodInfo;
             _isOverride = isOverride;
         }
@@ -198,7 +198,7 @@ namespace NProxy.Core.Internal.Builders
                 throw new TargetException("Method is not declared or inherited by target object");
 
             // Check target object.
-            if (!ReferenceEquals(target, _proxy))
+            if (!ReferenceEquals(target, _instance))
                 return VirtualInvoke(target, parameters);
 
             if (!_isOverride)
