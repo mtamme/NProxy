@@ -37,7 +37,9 @@ namespace NProxy.Core.Internal.Reflection
         /// <returns>The custom attribute.</returns>
         public static TAttribute GetCustomAttribute<TAttribute>(this MemberInfo memberInfo, bool inherit)
         {
-            return memberInfo.GetCustomAttributes<TAttribute>(inherit).FirstOrDefault();
+            var customAttributes = memberInfo.GetCustomAttributes<TAttribute>(inherit);
+
+            return customAttributes.FirstOrDefault();
         }
 
         /// <summary>
