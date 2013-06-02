@@ -36,7 +36,7 @@ namespace NProxy.Core.Internal.Descriptors
         Type ParentType { get; }
 
         /// <summary>
-        /// Accepts the specified descriptor visitor.
+        /// Dispatches to the specific visit method for each member.
         /// </summary>
         /// <param name="descriptorVisitor">The descriptor visitor.</param>
         void Accept(IDescriptorVisitor descriptorVisitor);

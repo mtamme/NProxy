@@ -27,7 +27,7 @@ namespace NProxy.Core.Internal.Descriptors
     internal interface IDescriptorVisitor
     {
         /// <summary>
-        /// Visits the specified interface typo.
+        /// Visits the specified interface type.
         /// </summary>
         /// <param name="interfaceType">The interface type.</param>
         void VisitInterface(Type interfaceType);
