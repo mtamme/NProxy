@@ -35,11 +35,11 @@ namespace NProxy.Core.Test
 
         #region IInvocationHandler Members
 
-        public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
+        public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
         {
-            var target = _targetFactory(proxy);
+            var newTarget = _targetFactory(target);
 
-            return methodInfo.Invoke(target, parameters);
+            return methodInfo.Invoke(newTarget, parameters);
         }
 
         #endregion

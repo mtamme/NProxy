@@ -31,7 +31,7 @@ namespace NProxy.Core.Test
 
         #region IInvocationHandler Members
 
-        public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
+        public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
         {
             return _returnValue;
         }
