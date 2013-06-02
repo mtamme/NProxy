@@ -714,7 +714,7 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void CreateProxyFromInterfaceWithRankJaggedArrayReturnValueTest()
+        public void CreateProxyFromInterfaceWithGenericRankJaggedArrayReturnValueTest()
         {
             // Arrange
             var invocationHandler = new SetReturnValueInvocationHandler(new[,] {{"Two", "Two"}});
