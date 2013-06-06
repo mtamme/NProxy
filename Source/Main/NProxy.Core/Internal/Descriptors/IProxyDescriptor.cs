@@ -42,18 +42,18 @@ namespace NProxy.Core.Internal.Descriptors
         void Accept(IProxyDescriptorVisitor proxyDescriptorVisitor);
 
         /// <summary>
-        /// Returns the proxy object for the specified instance.
+        /// Returns the proxy instance for the specified instance.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>The proxy object for the specified instance.</returns>
-        object GetProxy(object instance);
+        /// <returns>The proxy instance for the specified instance.</returns>
+        object GetProxyInstance(object instance);
 
         /// <summary>
         /// Creates an instance of the specified type.
         /// </summary>
-        /// <param name="type">The type.</param>
+        /// <param name="proxyType">The proxy type.</param>
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The instance.</returns>
-        object CreateInstance(Type type, object[] arguments);
+        object CreateInstance(Type proxyType, object[] arguments);
     }
 }

@@ -58,26 +58,29 @@ namespace NProxy.Core.Internal.Descriptors
         }
 
         /// <inheritdoc/>
-        public override object GetProxy(object instance)
+        public override object GetProxyInstance(object instance)
         {
             if (instance == null)
                 throw new ArgumentNullException("instance");
 
-            var target = ((Delegate) instance).Target;
+            var delegateInstance = instance as Delegate;
 
-            return target;
+            if (delegateInstance == null)
+                throw new InvalidOperationException("Object is not a proxy");
+
+            return delegateInstance.Target;
         }
 
         /// <inheritdoc/>
-        public override object CreateInstance(Type type, object[] arguments)
+        public override object CreateInstance(Type proxyType, object[] arguments)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
+            if (proxyType == null)
+                throw new ArgumentNullException("proxyType");
 
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            var instance = Activator.CreateInstance(type, arguments);
+            var instance = Activator.CreateInstance(proxyType, arguments);
 
             return Delegate.CreateDelegate(DeclaringType, instance, DelegateMethodName);
         }

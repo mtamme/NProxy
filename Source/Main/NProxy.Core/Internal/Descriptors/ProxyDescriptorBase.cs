@@ -181,10 +181,10 @@ namespace NProxy.Core.Internal.Descriptors
         }
 
         /// <inheritdoc/>
-        public abstract object GetProxy(object instance);
+        public abstract object GetProxyInstance(object instance);
 
         /// <inheritdoc/>
-        public abstract object CreateInstance(Type type, object[] arguments);
+        public abstract object CreateInstance(Type proxyType, object[] arguments);
 
         #endregion
 

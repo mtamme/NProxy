@@ -141,13 +141,13 @@ namespace NProxy.Core
             // Add custom attribute.
             _typeBuilder.AddCustomAttribute(ProxyAttributeConstructorInfo);
 
-            // Build type.
+            // Build proxy type.
             proxyDescriptor.Accept(this);
 
-            // Create type.
-            var type = _typeBuilder.CreateType();
+            // Create proxy type.
+            var proxyType = _typeBuilder.CreateType();
 
-            return new Proxy(proxyDescriptor, type, _eventInfos, _propertyInfos, _methodInfos);
+            return new Proxy(proxyDescriptor, proxyType, _eventInfos, _propertyInfos, _methodInfos);
         }
     }
 }

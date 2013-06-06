@@ -48,7 +48,7 @@ namespace NProxy.Core.Internal.Descriptors
         }
 
         /// <inheritdoc/>
-        public override object GetProxy(object instance)
+        public override object GetProxyInstance(object instance)
         {
             if (instance == null)
                 throw new ArgumentNullException("instance");
@@ -57,15 +57,15 @@ namespace NProxy.Core.Internal.Descriptors
         }
 
         /// <inheritdoc/>
-        public override object CreateInstance(Type type, object[] arguments)
+        public override object CreateInstance(Type proxyType, object[] arguments)
         {
-            if (type == null)
-                throw new ArgumentNullException("type");
+            if (proxyType == null)
+                throw new ArgumentNullException("proxyType");
 
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            return Activator.CreateInstance(type, arguments);
+            return Activator.CreateInstance(proxyType, arguments);
         }
 
         #endregion
