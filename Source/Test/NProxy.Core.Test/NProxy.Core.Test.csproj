@@ -108,7 +108,7 @@
     <Compile Include="Interceptors\ILazy.cs" />
     <Compile Include="Internal\Descriptors\DelegateProxyDescriptorTestFixture.cs" />
     <Compile Include="Internal\Descriptors\InterfaceProxyDescriptorTestFixture.cs" />
-    <Compile Include="Internal\Descriptors\CollectingDescriptorVisitor.cs" />
+    <Compile Include="Internal\Descriptors\CollectingProxyDescriptorVisitor.cs" />
     <Compile Include="Internal\Caching\InterlockedCacheTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>

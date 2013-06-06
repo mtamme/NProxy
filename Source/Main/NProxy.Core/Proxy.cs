@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Internal.Descriptors;
+using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core
 {
@@ -31,7 +32,7 @@ namespace NProxy.Core
         /// <summary>
         /// The proxy descriptor.
         /// </summary>
-        private readonly IDescriptor _descriptor;
+        private readonly IProxyDescriptor _proxyDescriptor;
 
         /// <summary>
         /// The type.
@@ -56,20 +57,20 @@ namespace NProxy.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="Proxy"/> class.
         /// </summary>
-        /// <param name="descriptor">The proxy descriptor.</param>
+        /// <param name="proxyDescriptor">The proxy descriptor.</param>
         /// <param name="type">The type.</param>
         /// <param name="eventInfos">The event informations.</param>
         /// <param name="propertyInfos">The property informations.</param>
         /// <param name="methodInfos">The method informations.</param>
-        public Proxy(IDescriptor descriptor, Type type, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
+        public Proxy(IProxyDescriptor proxyDescriptor, Type type, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
         {
-            if (descriptor == null)
-                throw new ArgumentNullException("descriptor");
+            if (proxyDescriptor == null)
+                throw new ArgumentNullException("proxyDescriptor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            _descriptor = descriptor;
+            _proxyDescriptor = proxyDescriptor;
             _type = type;
             _eventInfos = eventInfos;
             _propertyInfos = propertyInfos;
@@ -81,13 +82,24 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public Type DeclaringType
         {
-            get { return _descriptor.DeclaringType; }
+            get { return _proxyDescriptor.DeclaringType; }
         }
 
         /// <inheritdoc/>
         public TInterface Cast<TInterface>(object instance) where TInterface : class
         {
-            return _descriptor.Cast<TInterface>(instance);
+            var interfaceType = typeof (TInterface);
+
+            if (!interfaceType.IsInterface)
+                throw new InvalidOperationException(String.Format("Type '{0}' is not an interface type", interfaceType));
+
+            var proxy = _proxyDescriptor.GetProxy(instance);
+            var proxyType = proxy.GetType();
+
+            if (!proxyType.IsDefined<ProxyAttribute>(false))
+                throw new InvalidOperationException("Instance is not a proxy object");
+
+            return (TInterface) proxy;
         }
 
         /// <inheritdoc/>
@@ -103,7 +115,7 @@ namespace NProxy.Core
 
             constructorArguments.AddRange(arguments);
 
-            return _descriptor.CreateInstance(_type, constructorArguments.ToArray());
+            return _proxyDescriptor.CreateInstance(_type, constructorArguments.ToArray());
         }
 
         /// <inheritdoc/>

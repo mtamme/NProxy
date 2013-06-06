@@ -42,7 +42,7 @@
     <Compile Include="Internal\Descriptors\ClassProxyDescriptor.cs" />
     <Compile Include="Internal\Descriptors\DelegateProxyDescriptor.cs" />
     <Compile Include="Internal\Descriptors\InterfaceProxyDescriptor.cs" />
-    <Compile Include="Internal\Descriptors\IDescriptor.cs" />
+    <Compile Include="Internal\Descriptors\IProxyDescriptor.cs" />
     <Compile Include="Internal\Descriptors\ProxyDescriptorBase.cs" />
     <Compile Include="Internal\Reflection\MethodToken.cs" />
     <Compile Include="Internal\Reflection\MemberInfoExtensions.cs" />
@@ -86,8 +86,8 @@
     <Compile Include="Internal\Caching\Cache.cs" />
     <Compile Include="Internal\Caching\ICache.cs" />
     <Compile Include="Internal\Caching\InterlockedCache.cs" />
-    <Compile Include="Internal\Descriptors\IDescriptorVisitor.cs" />
-    <Compile Include="Internal\Descriptors\DescriptorVisitorExtensions.cs" />
+    <Compile Include="Internal\Descriptors\IProxyDescriptorVisitor.cs" />
+    <Compile Include="Internal\Descriptors\ProxyDescriptorVisitorExtensions.cs" />
     <Compile Include="Internal\Builders\ITypeBuilder.cs" />
     <Compile Include="Internal\Builders\ITypeBuilderFactory.cs" />
     <Compile Include="Internal\Builders\ITypeRepository.cs" />

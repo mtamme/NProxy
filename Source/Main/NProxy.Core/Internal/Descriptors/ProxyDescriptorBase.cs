@@ -25,7 +25,7 @@ namespace NProxy.Core.Internal.Descriptors
     /// <summary>
     /// Represents the proxy descriptor base class.
     /// </summary>
-    internal abstract class ProxyDescriptorBase : IDescriptor, IEquatable<ProxyDescriptorBase>
+    internal abstract class ProxyDescriptorBase : IProxyDescriptor, IEquatable<ProxyDescriptorBase>
     {
         /// <summary>
         /// The declaring type.
@@ -153,7 +153,7 @@ namespace NProxy.Core.Internal.Descriptors
             get { return _declaringInterfaceTypes; }
         }
 
-        #region IDescriptor Members
+        #region IProxyDescriptor Members
 
         /// <inheritdoc/>
         public Type DeclaringType
@@ -168,20 +168,20 @@ namespace NProxy.Core.Internal.Descriptors
         }
 
         /// <inheritdoc/>
-        public virtual void Accept(IDescriptorVisitor descriptorVisitor)
+        public virtual void Accept(IProxyDescriptorVisitor proxyDescriptorVisitor)
         {
-            if (descriptorVisitor == null)
-                throw new ArgumentNullException("descriptorVisitor");
+            if (proxyDescriptorVisitor == null)
+                throw new ArgumentNullException("proxyDescriptorVisitor");
 
             // Visit parent type constructors.
-            descriptorVisitor.VisitConstructors(_parentType);
+            proxyDescriptorVisitor.VisitConstructors(_parentType);
 
             // Visit additional interface types.
-            descriptorVisitor.VisitInterfaces(_additionalInterfaceTypes);
+            proxyDescriptorVisitor.VisitInterfaces(_additionalInterfaceTypes);
         }
 
         /// <inheritdoc/>
-        public abstract TInterface Cast<TInterface>(object instance) where TInterface : class;
+        public abstract object GetProxy(object instance);
 
         /// <inheritdoc/>
         public abstract object CreateInstance(Type type, object[] arguments);

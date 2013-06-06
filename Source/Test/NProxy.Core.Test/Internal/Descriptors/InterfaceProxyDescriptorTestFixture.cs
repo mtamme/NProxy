@@ -33,7 +33,7 @@ namespace NProxy.Core.Test.Internal.Descriptors
             var proxyDescriptor = new InterfaceProxyDescriptor(typeof (IOne), new[] {typeof (ITwo), typeof (IOneTwo)});
 
             // Act
-            var typeVisitor = new CollectingDescriptorVisitor();
+            var typeVisitor = new CollectingProxyDescriptorVisitor();
 
             proxyDescriptor.Accept(typeVisitor);
 

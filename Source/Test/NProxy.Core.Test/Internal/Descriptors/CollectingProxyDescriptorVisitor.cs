@@ -26,7 +26,7 @@ namespace NProxy.Core.Test.Internal.Descriptors
     /// <summary>
     /// Represents a collecting type visitor.
     /// </summary>
-    internal sealed class CollectingDescriptorVisitor : IDescriptorVisitor
+    internal sealed class CollectingProxyDescriptorVisitor : IProxyDescriptorVisitor
     {
         /// <summary>
         /// The interface types.
@@ -34,9 +34,9 @@ namespace NProxy.Core.Test.Internal.Descriptors
         private readonly List<Type> _interfaceTypes;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CollectingDescriptorVisitor"/> class.
+        /// Initializes a new instance of the <see cref="CollectingProxyDescriptorVisitor"/> class.
         /// </summary>
-        public CollectingDescriptorVisitor()
+        public CollectingProxyDescriptorVisitor()
         {
             _interfaceTypes = new List<Type>();
         }
@@ -49,7 +49,7 @@ namespace NProxy.Core.Test.Internal.Descriptors
             get { return _interfaceTypes; }
         }
 
-        #region IDescriptorVisitor Members
+        #region IProxyDescriptorVisitor Members
 
         /// <inheritdoc/>
         public void VisitInterface(Type interfaceType)

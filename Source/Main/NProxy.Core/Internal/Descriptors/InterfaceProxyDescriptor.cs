@@ -36,32 +36,27 @@ namespace NProxy.Core.Internal.Descriptors
         {
         }
 
-        #region IDescriptor Members
+        #region IProxyDescriptor Members
 
         /// <inheritdoc/>
-        public override void Accept(IDescriptorVisitor descriptorVisitor)
+        public override void Accept(IProxyDescriptorVisitor proxyDescriptorVisitor)
         {
-            base.Accept(descriptorVisitor);
+            base.Accept(proxyDescriptorVisitor);
 
             // Visit declaring interface types.
-            descriptorVisitor.VisitInterfaces(DeclaringInterfaceTypes);
+            proxyDescriptorVisitor.VisitInterfaces(DeclaringInterfaceTypes);
 
             // Visit parent type members.
-            descriptorVisitor.VisitMembers(ParentType);
+            proxyDescriptorVisitor.VisitMembers(ParentType);
         }
 
         /// <inheritdoc/>
-        public override TInterface Cast<TInterface>(object instance)
+        public override object GetProxy(object instance)
         {
             if (instance == null)
                 throw new ArgumentNullException("instance");
 
-            var interfaceType = typeof (TInterface);
-
-            if (!interfaceType.IsInterface)
-                throw new ArgumentException(String.Format("Type '{0}' is not an interface type", interfaceType));
-
-            return (TInterface) instance;
+            return instance;
         }
 
         /// <inheritdoc/>
