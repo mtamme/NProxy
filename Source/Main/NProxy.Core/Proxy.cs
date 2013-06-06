@@ -95,7 +95,7 @@ namespace NProxy.Core
             var proxyInstance = _proxyDescriptor.GetProxyInstance(instance);
             var proxyType = proxyInstance.GetType();
 
-            if (proxyType == _proxyType)
+            if (proxyType != _proxyType)
                 throw new InvalidOperationException("Object is not a proxy");
 
             return (TInterface) proxyInstance;

@@ -150,7 +150,7 @@ namespace NProxy.Core.Test
 
             // Act
             // Assert
-            Assert.Throws<InvalidCastException>(() => proxy.Cast<IStringParameter>(instance));
+            Assert.Throws<InvalidOperationException>(() => proxy.Cast<IStringParameter>(instance));
         }
     }
 }
