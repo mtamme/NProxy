@@ -173,11 +173,11 @@ namespace NProxy.Core.Internal.Descriptors
             if (descriptorVisitor == null)
                 throw new ArgumentNullException("descriptorVisitor");
 
-            // Visit additional interface types.
-            descriptorVisitor.VisitInterfaces(_additionalInterfaceTypes);
-
             // Visit parent type constructors.
             descriptorVisitor.VisitConstructors(_parentType);
+
+            // Visit additional interface types.
+            descriptorVisitor.VisitInterfaces(_additionalInterfaceTypes);
         }
 
         /// <inheritdoc/>
