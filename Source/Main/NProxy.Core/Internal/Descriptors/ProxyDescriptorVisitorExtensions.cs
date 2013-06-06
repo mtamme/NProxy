@@ -29,6 +29,21 @@ namespace NProxy.Core.Internal.Descriptors
     internal static class ProxyDescriptorVisitorExtensions
     {
         /// <summary>
+        /// Visits all specified interface types.
+        /// </summary>
+        /// <param name="proxyDescriptorVisitor">The proxy descriptor visitor.</param>
+        /// <param name="interfaceTypes">The interface types.</param>
+        public static void VisitInterfaces(this IProxyDescriptorVisitor proxyDescriptorVisitor, IEnumerable<Type> interfaceTypes)
+        {
+            foreach (var interfaceType in interfaceTypes)
+            {
+                proxyDescriptorVisitor.VisitInterface(interfaceType);
+
+                proxyDescriptorVisitor.VisitMembers(interfaceType);
+            }
+        }
+
+        /// <summary>
         /// Visits all constructors of the specified type.
         /// </summary>
         /// <param name="proxyDescriptorVisitor">The proxy descriptor visitor.</param>
@@ -46,21 +61,6 @@ namespace NProxy.Core.Internal.Descriptors
             foreach (var constructorInfo in constructorInfos)
             {
                 proxyDescriptorVisitor.VisitConstructor(constructorInfo);
-            }
-        }
-
-        /// <summary>
-        /// Visits all specified interface types.
-        /// </summary>
-        /// <param name="proxyDescriptorVisitor">The proxy descriptor visitor.</param>
-        /// <param name="interfaceTypes">The interface types.</param>
-        public static void VisitInterfaces(this IProxyDescriptorVisitor proxyDescriptorVisitor, IEnumerable<Type> interfaceTypes)
-        {
-            foreach (var interfaceType in interfaceTypes)
-            {
-                proxyDescriptorVisitor.VisitInterface(interfaceType);
-
-                proxyDescriptorVisitor.VisitMembers(interfaceType);
             }
         }
 
