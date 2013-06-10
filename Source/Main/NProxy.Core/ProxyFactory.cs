@@ -97,9 +97,9 @@ namespace NProxy.Core
         private IProxy GenerateProxy(IProxyDefinition proxyDefinition)
         {
             var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDefinition.ParentType);
-            var proxyBuilder = new ProxyGenerator(typeBuilder, _interceptionFilter);
+            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter);
 
-            return proxyBuilder.GenerateProxy(proxyDefinition);
+            return proxyGenerator.GenerateProxy(proxyDefinition);
         }
 
         #region IProxyFactory Members
