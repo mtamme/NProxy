@@ -82,6 +82,28 @@ namespace NProxy.Core
             _methodInfos = new List<MethodInfo>();
         }
 
+        /// <summary>
+        /// Generates a proxy.
+        /// </summary>
+        /// <param name="proxyDefinition">The proxy definition.</param>
+        /// <returns>The proxy.</returns>
+        public IProxy GenerateProxy(IProxyDefinition proxyDefinition)
+        {
+            if (proxyDefinition == null)
+                throw new ArgumentNullException("proxyDefinition");
+
+            // Add custom attribute.
+            _typeBuilder.AddCustomAttribute(ProxyAttributeConstructorInfo);
+
+            // Build proxy type.
+            proxyDefinition.AcceptVisitor(this);
+
+            // Create proxy type.
+            var proxyType = _typeBuilder.CreateType();
+
+            return new Proxy(proxyDefinition, proxyType, _eventInfos, _propertyInfos, _methodInfos);
+        }
+
         #region IProxyDefinitionVisitor Members
 
         /// <inheritdoc/>
@@ -127,27 +149,5 @@ namespace NProxy.Core
         }
 
         #endregion
-
-        /// <summary>
-        /// Generates a proxy.
-        /// </summary>
-        /// <param name="proxyDefinition">The proxy definition.</param>
-        /// <returns>The proxy.</returns>
-        public IProxy GenerateProxy(IProxyDefinition proxyDefinition)
-        {
-            if (proxyDefinition == null)
-                throw new ArgumentNullException("proxyDefinition");
-
-            // Add custom attribute.
-            _typeBuilder.AddCustomAttribute(ProxyAttributeConstructorInfo);
-
-            // Build proxy type.
-            proxyDefinition.AcceptVisitor(this);
-
-            // Create proxy type.
-            var proxyType = _typeBuilder.CreateType();
-
-            return new Proxy(proxyDefinition, proxyType, _eventInfos, _propertyInfos, _methodInfos);
-        }
     }
 }
