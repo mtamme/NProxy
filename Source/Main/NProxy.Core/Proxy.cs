@@ -69,6 +69,15 @@ namespace NProxy.Core
             if (proxyType == null)
                 throw new ArgumentNullException("proxyType");
 
+            if (eventInfos == null)
+                throw new ArgumentNullException("eventInfos");
+
+            if (propertyInfos == null)
+                throw new ArgumentNullException("propertyInfos");
+
+            if (methodInfos == null)
+                throw new ArgumentNullException("methodInfos");
+
             _proxyDefinition = proxyDefinition;
             _proxyType = proxyType;
             _eventInfos = eventInfos;
