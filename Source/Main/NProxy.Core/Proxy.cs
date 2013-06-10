@@ -85,6 +85,24 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
+        public IEnumerable<EventInfo> GetInterceptedEvents()
+        {
+            return _eventInfos;
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<PropertyInfo> GetInterceptedProperties()
+        {
+            return _propertyInfos;
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<MethodInfo> GetInterceptedMethods()
+        {
+            return _methodInfos;
+        }
+
+        /// <inheritdoc/>
         public TInterface Cast<TInterface>(object instance) where TInterface : class
         {
             var interfaceType = typeof (TInterface);
@@ -115,24 +133,6 @@ namespace NProxy.Core
             constructorArguments.AddRange(arguments);
 
             return _proxyDefinition.CreateInstance(_proxyType, constructorArguments.ToArray());
-        }
-
-        /// <inheritdoc/>
-        public IEnumerable<EventInfo> GetInterceptedEvents()
-        {
-            return _eventInfos;
-        }
-
-        /// <inheritdoc/>
-        public IEnumerable<PropertyInfo> GetInterceptedProperties()
-        {
-            return _propertyInfos;
-        }
-
-        /// <inheritdoc/>
-        public IEnumerable<MethodInfo> GetInterceptedMethods()
-        {
-            return _methodInfos;
         }
 
         #endregion
@@ -170,18 +170,6 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public TInterface Cast<TInterface>(object instance) where TInterface : class
-        {
-            return _proxy.Cast<TInterface>(instance);
-        }
-
-        /// <inheritdoc/>
-        object IProxy.CreateInstance(IInvocationHandler invocationHandler, params object[] arguments)
-        {
-            return _proxy.CreateInstance(invocationHandler, arguments);
-        }
-
-        /// <inheritdoc/>
         public IEnumerable<EventInfo> GetInterceptedEvents()
         {
             return _proxy.GetInterceptedEvents();
@@ -197,6 +185,18 @@ namespace NProxy.Core
         public IEnumerable<MethodInfo> GetInterceptedMethods()
         {
             return _proxy.GetInterceptedMethods();
+        }
+
+        /// <inheritdoc/>
+        public TInterface Cast<TInterface>(object instance) where TInterface : class
+        {
+            return _proxy.Cast<TInterface>(instance);
+        }
+
+        /// <inheritdoc/>
+        object IProxy.CreateInstance(IInvocationHandler invocationHandler, params object[] arguments)
+        {
+            return _proxy.CreateInstance(invocationHandler, arguments);
         }
 
         #endregion
