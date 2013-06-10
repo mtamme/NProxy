@@ -21,37 +21,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Descriptors
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Represents proxy descriptor visitor extensions.
+    /// Represents proxy definition visitor extensions.
     /// </summary>
-    internal static class ProxyDescriptorVisitorExtensions
+    internal static class ProxyDefinitionVisitorExtensions
     {
         /// <summary>
         /// Visits all specified interface types.
         /// </summary>
-        /// <param name="proxyDescriptorVisitor">The proxy descriptor visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        public static void VisitInterfaces(this IProxyDescriptorVisitor proxyDescriptorVisitor, IEnumerable<Type> interfaceTypes)
+        public static void VisitInterfaces(this IProxyDefinitionVisitor proxyDefinitionVisitor, IEnumerable<Type> interfaceTypes)
         {
             foreach (var interfaceType in interfaceTypes)
             {
-                proxyDescriptorVisitor.VisitInterface(interfaceType);
+                proxyDefinitionVisitor.VisitInterface(interfaceType);
 
-                proxyDescriptorVisitor.VisitMembers(interfaceType);
+                proxyDefinitionVisitor.VisitMembers(interfaceType);
             }
         }
 
         /// <summary>
         /// Visits all constructors of the specified type.
         /// </summary>
-        /// <param name="proxyDescriptorVisitor">The proxy descriptor visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="type">The type.</param>
-        public static void VisitConstructors(this IProxyDescriptorVisitor proxyDescriptorVisitor, Type type)
+        public static void VisitConstructors(this IProxyDefinitionVisitor proxyDefinitionVisitor, Type type)
         {
-            if (proxyDescriptorVisitor == null)
-                throw new ArgumentNullException("proxyDescriptorVisitor");
+            if (proxyDefinitionVisitor == null)
+                throw new ArgumentNullException("proxyDefinitionVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -60,36 +60,36 @@ namespace NProxy.Core.Internal.Descriptors
 
             foreach (var constructorInfo in constructorInfos)
             {
-                proxyDescriptorVisitor.VisitConstructor(constructorInfo);
+                proxyDefinitionVisitor.VisitConstructor(constructorInfo);
             }
         }
 
         /// <summary>
         /// Visits all members of the specified type.
         /// </summary>
-        /// <param name="proxyDescriptorVisitor">The proxy descriptor visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="type">The type.</param>
-        public static void VisitMembers(this IProxyDescriptorVisitor proxyDescriptorVisitor, Type type)
+        public static void VisitMembers(this IProxyDefinitionVisitor proxyDefinitionVisitor, Type type)
         {
             // Visit events.
-            proxyDescriptorVisitor.VisitEvents(type);
+            proxyDefinitionVisitor.VisitEvents(type);
 
             // Visit properties.
-            proxyDescriptorVisitor.VisitProperties(type);
+            proxyDefinitionVisitor.VisitProperties(type);
 
             // Visit methods.
-            proxyDescriptorVisitor.VisitMethods(type);
+            proxyDefinitionVisitor.VisitMethods(type);
         }
 
         /// <summary>
         /// Visits all events of the specified type.
         /// </summary>
-        /// <param name="proxyDescriptorVisitor">The proxy descriptor visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="type">The type.</param>
-        private static void VisitEvents(this IProxyDescriptorVisitor proxyDescriptorVisitor, Type type)
+        private static void VisitEvents(this IProxyDefinitionVisitor proxyDefinitionVisitor, Type type)
         {
-            if (proxyDescriptorVisitor == null)
-                throw new ArgumentNullException("proxyDescriptorVisitor");
+            if (proxyDefinitionVisitor == null)
+                throw new ArgumentNullException("proxyDefinitionVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -99,19 +99,19 @@ namespace NProxy.Core.Internal.Descriptors
 
             foreach (var eventInfo in eventInfos)
             {
-                proxyDescriptorVisitor.VisitEvent(eventInfo);
+                proxyDefinitionVisitor.VisitEvent(eventInfo);
             }
         }
 
         /// <summary>
         /// Visits all properties of the specified type.
         /// </summary>
-        /// <param name="proxyDescriptorVisitor">The proxy descriptor visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="type">The type.</param>
-        private static void VisitProperties(this IProxyDescriptorVisitor proxyDescriptorVisitor, Type type)
+        private static void VisitProperties(this IProxyDefinitionVisitor proxyDefinitionVisitor, Type type)
         {
-            if (proxyDescriptorVisitor == null)
-                throw new ArgumentNullException("proxyDescriptorVisitor");
+            if (proxyDefinitionVisitor == null)
+                throw new ArgumentNullException("proxyDefinitionVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -121,19 +121,19 @@ namespace NProxy.Core.Internal.Descriptors
 
             foreach (var propertyInfo in propertyInfos)
             {
-                proxyDescriptorVisitor.VisitProperty(propertyInfo);
+                proxyDefinitionVisitor.VisitProperty(propertyInfo);
             }
         }
 
         /// <summary>
         /// Visits all methods of the specified type.
         /// </summary>
-        /// <param name="proxyDescriptorVisitor">The proxy descriptor visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="type">The type.</param>
-        private static void VisitMethods(this IProxyDescriptorVisitor proxyDescriptorVisitor, Type type)
+        private static void VisitMethods(this IProxyDefinitionVisitor proxyDefinitionVisitor, Type type)
         {
-            if (proxyDescriptorVisitor == null)
-                throw new ArgumentNullException("proxyDescriptorVisitor");
+            if (proxyDefinitionVisitor == null)
+                throw new ArgumentNullException("proxyDefinitionVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -144,7 +144,7 @@ namespace NProxy.Core.Internal.Descriptors
 
             foreach (var methodInfo in methodInfos)
             {
-                proxyDescriptorVisitor.VisitMethod(methodInfo);
+                proxyDefinitionVisitor.VisitMethod(methodInfo);
             }
         }
     }

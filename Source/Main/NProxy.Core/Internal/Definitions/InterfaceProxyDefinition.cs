@@ -19,32 +19,35 @@
 using System;
 using System.Collections.Generic;
 
-namespace NProxy.Core.Internal.Descriptors
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Represents a class proxy descriptor.
+    /// Represents an interface proxy definition.
     /// </summary>
-    internal sealed class ClassProxyDescriptor : ProxyDescriptorBase
+    internal sealed class InterfaceProxyDefinition : ProxyDefinitionBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClassProxyDescriptor"/> class.
+        /// Initializes a new instance of the <see cref="InterfaceProxyDefinition"/> class.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        public ClassProxyDescriptor(Type declaringType, IEnumerable<Type> interfaceTypes)
-            : base(declaringType, declaringType, interfaceTypes)
+        public InterfaceProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes)
+            : base(declaringType, typeof (object), interfaceTypes)
         {
         }
 
-        #region IProxyDescriptor Members
+        #region IProxyDefinition Members
 
         /// <inheritdoc/>
-        public override void Accept(IProxyDescriptorVisitor proxyDescriptorVisitor)
+        public override void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)
         {
-            base.Accept(proxyDescriptorVisitor);
+            base.AcceptVisitor(proxyDefinitionVisitor);
 
-            // Visit declaring type members.
-            proxyDescriptorVisitor.VisitMembers(DeclaringType);
+            // Visit declaring interface types.
+            proxyDefinitionVisitor.VisitInterfaces(DeclaringInterfaceTypes);
+
+            // Visit parent type members.
+            proxyDefinitionVisitor.VisitMembers(ParentType);
         }
 
         /// <inheritdoc/>

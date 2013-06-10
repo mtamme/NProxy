@@ -18,43 +18,33 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 
-namespace NProxy.Core.Internal.Descriptors
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Represents a delegate proxy descriptor.
+    /// Represents a class proxy definition.
     /// </summary>
-    internal sealed class DelegateProxyDescriptor : ProxyDescriptorBase
+    internal sealed class ClassProxyDefinition : ProxyDefinitionBase
     {
         /// <summary>
-        /// The name of the delegate method.
-        /// </summary>
-        private const string DelegateMethodName = "Invoke";
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateProxyDescriptor"/> class.
+        /// Initializes a new instance of the <see cref="ClassProxyDefinition"/> class.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        public DelegateProxyDescriptor(Type declaringType, IEnumerable<Type> interfaceTypes)
-            : base(declaringType, typeof (object), interfaceTypes)
+        public ClassProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes)
+            : base(declaringType, declaringType, interfaceTypes)
         {
         }
 
-        #region IProxyDescriptor Members
+        #region IProxyDefinition Members
 
         /// <inheritdoc/>
-        public override void Accept(IProxyDescriptorVisitor proxyDescriptorVisitor)
+        public override void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)
         {
-            base.Accept(proxyDescriptorVisitor);
+            base.AcceptVisitor(proxyDefinitionVisitor);
 
-            // Visit declaring type method.
-            var methodInfo = DeclaringType.GetMethod(
-                DelegateMethodName,
-                BindingFlags.Public | BindingFlags.Instance);
-
-            proxyDescriptorVisitor.VisitMethod(methodInfo);
+            // Visit declaring type members.
+            proxyDefinitionVisitor.VisitMembers(DeclaringType);
         }
 
         /// <inheritdoc/>
@@ -63,12 +53,7 @@ namespace NProxy.Core.Internal.Descriptors
             if (instance == null)
                 throw new ArgumentNullException("instance");
 
-            var delegateInstance = instance as Delegate;
-
-            if (delegateInstance == null)
-                throw new InvalidOperationException("Object is not a proxy");
-
-            return delegateInstance.Target;
+            return instance;
         }
 
         /// <inheritdoc/>
@@ -80,9 +65,7 @@ namespace NProxy.Core.Internal.Descriptors
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            var instance = Activator.CreateInstance(proxyType, arguments);
-
-            return Delegate.CreateDelegate(DeclaringType, instance, DelegateMethodName);
+            return Activator.CreateInstance(proxyType, arguments);
         }
 
         #endregion

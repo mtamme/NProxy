@@ -39,11 +39,11 @@
     <Compile Include="Interceptors\IInterceptionBehavior.cs" />
     <Compile Include="Interceptors\TargetInterceptor.cs" />
     <Compile Include="Interceptors\SingleInvocationTarget.cs" />
-    <Compile Include="Internal\Descriptors\ClassProxyDescriptor.cs" />
-    <Compile Include="Internal\Descriptors\DelegateProxyDescriptor.cs" />
-    <Compile Include="Internal\Descriptors\InterfaceProxyDescriptor.cs" />
-    <Compile Include="Internal\Descriptors\IProxyDescriptor.cs" />
-    <Compile Include="Internal\Descriptors\ProxyDescriptorBase.cs" />
+    <Compile Include="Internal\Definitions\ClassProxyDefinition.cs" />
+    <Compile Include="Internal\Definitions\DelegateProxyDefinition.cs" />
+    <Compile Include="Internal\Definitions\InterfaceProxyDefinition.cs" />
+    <Compile Include="Internal\Definitions\IProxyDefinition.cs" />
+    <Compile Include="Internal\Definitions\ProxyDefinitionBase.cs" />
     <Compile Include="Internal\Reflection\MethodToken.cs" />
     <Compile Include="Internal\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Internal\Reflection\MethodBuilderExtensions.cs" />
@@ -86,8 +86,8 @@
     <Compile Include="Internal\Caching\Cache.cs" />
     <Compile Include="Internal\Caching\ICache.cs" />
     <Compile Include="Internal\Caching\InterlockedCache.cs" />
-    <Compile Include="Internal\Descriptors\IProxyDescriptorVisitor.cs" />
-    <Compile Include="Internal\Descriptors\ProxyDescriptorVisitorExtensions.cs" />
+    <Compile Include="Internal\Definitions\IProxyDefinitionVisitor.cs" />
+    <Compile Include="Internal\Definitions\ProxyDefinitionVisitorExtensions.cs" />
     <Compile Include="Internal\Builders\ITypeBuilder.cs" />
     <Compile Include="Internal\Builders\ITypeBuilderFactory.cs" />
     <Compile Include="Internal\Builders\ITypeRepository.cs" />

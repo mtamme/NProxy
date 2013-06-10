@@ -20,12 +20,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NProxy.Core.Internal.Descriptors
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Represents the proxy descriptor base class.
+    /// Represents the proxy definition base class.
     /// </summary>
-    internal abstract class ProxyDescriptorBase : IProxyDescriptor, IEquatable<ProxyDescriptorBase>
+    internal abstract class ProxyDefinitionBase : IProxyDefinition, IEquatable<ProxyDefinitionBase>
     {
         /// <summary>
         /// The declaring type.
@@ -48,12 +48,12 @@ namespace NProxy.Core.Internal.Descriptors
         private readonly HashSet<Type> _additionalInterfaceTypes;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProxyDescriptorBase"/> class.
+        /// Initializes a new instance of the <see cref="ProxyDefinitionBase"/> class.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="parentType">The parent type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        protected ProxyDescriptorBase(Type declaringType, Type parentType, IEnumerable<Type> interfaceTypes)
+        protected ProxyDefinitionBase(Type declaringType, Type parentType, IEnumerable<Type> interfaceTypes)
         {
             if (declaringType == null)
                 throw new ArgumentNullException("declaringType");
@@ -153,7 +153,7 @@ namespace NProxy.Core.Internal.Descriptors
             get { return _declaringInterfaceTypes; }
         }
 
-        #region IProxyDescriptor Members
+        #region IProxyDefinition Members
 
         /// <inheritdoc/>
         public Type DeclaringType
@@ -168,16 +168,16 @@ namespace NProxy.Core.Internal.Descriptors
         }
 
         /// <inheritdoc/>
-        public virtual void Accept(IProxyDescriptorVisitor proxyDescriptorVisitor)
+        public virtual void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)
         {
-            if (proxyDescriptorVisitor == null)
-                throw new ArgumentNullException("proxyDescriptorVisitor");
+            if (proxyDefinitionVisitor == null)
+                throw new ArgumentNullException("proxyDefinitionVisitor");
 
             // Visit parent type constructors.
-            proxyDescriptorVisitor.VisitConstructors(_parentType);
+            proxyDefinitionVisitor.VisitConstructors(_parentType);
 
             // Visit additional interface types.
-            proxyDescriptorVisitor.VisitInterfaces(_additionalInterfaceTypes);
+            proxyDefinitionVisitor.VisitInterfaces(_additionalInterfaceTypes);
         }
 
         /// <inheritdoc/>
@@ -188,10 +188,10 @@ namespace NProxy.Core.Internal.Descriptors
 
         #endregion
 
-        #region IEquatable<ProxyDescriptorBase> Members
+        #region IEquatable<ProxyDefinitionBase> Members
 
         /// <inheritdoc/>
-        public bool Equals(ProxyDescriptorBase other)
+        public bool Equals(ProxyDefinitionBase other)
         {
             if (other == null)
                 return false;
@@ -220,7 +220,7 @@ namespace NProxy.Core.Internal.Descriptors
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            return (obj is ProxyDescriptorBase) && Equals((ProxyDescriptorBase) obj);
+            return (obj is ProxyDefinitionBase) && Equals((ProxyDefinitionBase) obj);
         }
 
         /// <inheritdoc/>

@@ -19,12 +19,12 @@
 using System;
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Descriptors
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Defines a proxy descriptor visitor.
+    /// Defines a proxy definition visitor.
     /// </summary>
-    internal interface IProxyDescriptorVisitor
+    internal interface IProxyDefinitionVisitor
     {
         /// <summary>
         /// Visits the specified interface type.

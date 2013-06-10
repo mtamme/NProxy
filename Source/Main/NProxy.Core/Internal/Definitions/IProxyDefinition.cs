@@ -18,12 +18,12 @@
 
 using System;
 
-namespace NProxy.Core.Internal.Descriptors
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Defines a proxy descriptor.
+    /// Defines a proxy definition.
     /// </summary>
-    internal interface IProxyDescriptor
+    internal interface IProxyDefinition
     {
         /// <summary>
         /// Returns the declaring type.
@@ -38,8 +38,8 @@ namespace NProxy.Core.Internal.Descriptors
         /// <summary>
         /// Dispatches to the specific visit method for each member.
         /// </summary>
-        /// <param name="proxyDescriptorVisitor">The proxy descriptor visitor.</param>
-        void Accept(IProxyDescriptorVisitor proxyDescriptorVisitor);
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
+        void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor);
 
         /// <summary>
         /// Returns the proxy instance for the specified instance.

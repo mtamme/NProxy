@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Internal.Builders;
-using NProxy.Core.Internal.Descriptors;
+using NProxy.Core.Internal.Definitions;
 using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core
@@ -28,7 +28,7 @@ namespace NProxy.Core
     /// <summary>
     /// Represents the proxy generator.
     /// </summary>
-    internal sealed class ProxyGenerator : IProxyDescriptorVisitor
+    internal sealed class ProxyGenerator : IProxyDefinitionVisitor
     {
         /// <summary>
         /// The <see cref="ProxyAttribute"/> constructor information.
@@ -82,22 +82,22 @@ namespace NProxy.Core
             _methodInfos = new List<MethodInfo>();
         }
 
-        #region IProxyDescriptorVisitor Members
+        #region IProxyDefinitionVisitor Members
 
         /// <inheritdoc/>
-        void IProxyDescriptorVisitor.VisitInterface(Type interfaceType)
+        public void VisitInterface(Type interfaceType)
         {
             _typeBuilder.AddInterface(interfaceType);
         }
 
         /// <inheritdoc/>
-        void IProxyDescriptorVisitor.VisitConstructor(ConstructorInfo constructorInfo)
+        public void VisitConstructor(ConstructorInfo constructorInfo)
         {
             _typeBuilder.BuildConstructor(constructorInfo);
         }
 
         /// <inheritdoc/>
-        void IProxyDescriptorVisitor.VisitEvent(EventInfo eventInfo)
+        public void VisitEvent(EventInfo eventInfo)
         {
             if (!_interceptionFilter.AcceptEvent(eventInfo))
                 return;
@@ -107,7 +107,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        void IProxyDescriptorVisitor.VisitProperty(PropertyInfo propertyInfo)
+        public void VisitProperty(PropertyInfo propertyInfo)
         {
             if (!_interceptionFilter.AcceptProperty(propertyInfo))
                 return;
@@ -117,7 +117,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        void IProxyDescriptorVisitor.VisitMethod(MethodInfo methodInfo)
+        public void VisitMethod(MethodInfo methodInfo)
         {
             if (!_interceptionFilter.AcceptMethod(methodInfo))
                 return;
@@ -131,23 +131,23 @@ namespace NProxy.Core
         /// <summary>
         /// Generates a proxy.
         /// </summary>
-        /// <param name="proxyDescriptor">The proxy descriptor.</param>
+        /// <param name="proxyDefinition">The proxy definition.</param>
         /// <returns>The proxy.</returns>
-        public IProxy GenerateProxy(IProxyDescriptor proxyDescriptor)
+        public IProxy GenerateProxy(IProxyDefinition proxyDefinition)
         {
-            if (proxyDescriptor == null)
-                throw new ArgumentNullException("proxyDescriptor");
+            if (proxyDefinition == null)
+                throw new ArgumentNullException("proxyDefinition");
 
             // Add custom attribute.
             _typeBuilder.AddCustomAttribute(ProxyAttributeConstructorInfo);
 
             // Build proxy type.
-            proxyDescriptor.Accept(this);
+            proxyDefinition.AcceptVisitor(this);
 
             // Create proxy type.
             var proxyType = _typeBuilder.CreateType();
 
-            return new Proxy(proxyDescriptor, proxyType, _eventInfos, _propertyInfos, _methodInfos);
+            return new Proxy(proxyDefinition, proxyType, _eventInfos, _propertyInfos, _methodInfos);
         }
     }
 }
