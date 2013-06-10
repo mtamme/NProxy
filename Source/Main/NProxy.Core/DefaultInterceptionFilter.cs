@@ -38,9 +38,6 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public bool AcceptEvent(EventInfo eventInfo)
         {
-            if (!eventInfo.CanOverride())
-                return false;
-
             if (eventInfo.IsAbstract())
                 return true;
 
@@ -50,9 +47,6 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public bool AcceptProperty(PropertyInfo propertyInfo)
         {
-            if (!propertyInfo.CanOverride())
-                return false;
-
             if (propertyInfo.IsAbstract())
                 return true;
 
@@ -62,9 +56,6 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public bool AcceptMethod(MethodInfo methodInfo)
         {
-            if (!methodInfo.CanOverride())
-                return false;
-
             if (methodInfo.IsAbstract)
                 return true;
 

@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core.Internal.Definitions
 {
@@ -94,8 +95,9 @@ namespace NProxy.Core.Internal.Definitions
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            // Only visit instance events.
-            var eventInfos = type.GetEvents(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            // Visit only overridable instance events.
+            var eventInfos = type.GetEvents(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                                 .Where(e => e.CanOverride());
 
             foreach (var eventInfo in eventInfos)
             {
@@ -116,8 +118,9 @@ namespace NProxy.Core.Internal.Definitions
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            // Only visit instance properties.
-            var propertyInfos = type.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            // Visit only overridable instance properties.
+            var propertyInfos = type.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                                    .Where(p => p.CanOverride());
 
             foreach (var propertyInfo in propertyInfos)
             {
@@ -138,9 +141,9 @@ namespace NProxy.Core.Internal.Definitions
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            // Only visit non-accessor instance methods.
+            // Visit only non-accessor overridable instance methods.
             var methodInfos = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                                  .Where(m => !m.IsSpecialName);
+                                  .Where(m => !m.IsSpecialName && m.CanOverride());
 
             foreach (var methodInfo in methodInfos)
             {

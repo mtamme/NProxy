@@ -46,11 +46,11 @@ namespace NProxy.Core.Test.Internal.Definitions
 
             Assert.That(proxyDefinitionVisitor.ConstructorInfos.Count, Is.EqualTo(1));
 
-            Assert.That(proxyDefinitionVisitor.EventInfos.Count, Is.EqualTo(4));
+            Assert.That(proxyDefinitionVisitor.EventInfos.Count, Is.EqualTo(3));
 
-            Assert.That(proxyDefinitionVisitor.PropertyInfos.Count, Is.EqualTo(8));
+            Assert.That(proxyDefinitionVisitor.PropertyInfos.Count, Is.EqualTo(6));
 
-            Assert.That(proxyDefinitionVisitor.MethodInfos.Count, Is.EqualTo(10));
+            Assert.That(proxyDefinitionVisitor.MethodInfos.Count, Is.EqualTo(7));
         }
 
         [Test]
