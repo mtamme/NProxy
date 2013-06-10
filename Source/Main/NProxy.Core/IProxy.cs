@@ -33,21 +33,21 @@ namespace NProxy.Core
         Type DeclaringType { get; }
 
         /// <summary>
-        /// Returns all intercepted event informations.
+        /// Returns all intercepted events.
         /// </summary>
-        /// <returns>All intercepted event informations.</returns>
+        /// <returns>All intercepted events.</returns>
         IEnumerable<EventInfo> GetInterceptedEvents();
 
         /// <summary>
-        /// Returns all intercepted property informations.
+        /// Returns all intercepted properties.
         /// </summary>
-        /// <returns>All intercepted property informations.</returns>
+        /// <returns>All intercepted properties.</returns>
         IEnumerable<PropertyInfo> GetInterceptedProperties();
 
         /// <summary>
-        /// Returns all intercepted method informations.
+        /// Returns all intercepted methods.
         /// </summary>
-        /// <returns>All intercepted method informations.</returns>
+        /// <returns>All intercepted methods.</returns>
         IEnumerable<MethodInfo> GetInterceptedMethods();
 
         /// <summary>
