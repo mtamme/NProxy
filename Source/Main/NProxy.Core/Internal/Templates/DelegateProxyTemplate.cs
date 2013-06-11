@@ -55,6 +55,9 @@ namespace NProxy.Core.Internal.Templates
                 BindingFlags.Public | BindingFlags.Instance);
 
             proxyTemplateVisitor.VisitMethod(methodInfo);
+
+            // Visit parent type members.
+            proxyTemplateVisitor.VisitMembers(ParentType);
         }
 
         /// <inheritdoc/>

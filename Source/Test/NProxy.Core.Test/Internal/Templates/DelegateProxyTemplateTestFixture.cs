@@ -50,7 +50,7 @@ namespace NProxy.Core.Test.Internal.Templates
 
             Assert.That(proxyTemplateVisitor.PropertyInfos.Count, Is.EqualTo(6));
 
-            Assert.That(proxyTemplateVisitor.MethodInfos.Count, Is.EqualTo(4));
+            Assert.That(proxyTemplateVisitor.MethodInfos.Count, Is.EqualTo(8));
         }
 
         [Test]
