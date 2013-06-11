@@ -69,4 +69,4 @@ All tests have been performed under Microsoft .NET 4.0.30319 and can be found [h
 
 From performance point of view NProxy beats the other dynamic proxy libraries in almost all scenarios. Only LinFu performs better
 in terms of proxy instantiation. The main reason why LinFu performs better is that LinFu only supports the instantiation of class proxies
-with a default constructor and the LinFu interceptor is not injected via the constructor but set explicitly inside LinFu.
+with a default constructor and the LinFu interceptor is not injected via a constructor but a property inside LinFu.
