@@ -20,12 +20,12 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Definitions
+namespace NProxy.Core.Internal.Templates
 {
     /// <summary>
-    /// Represents a delegate proxy definition.
+    /// Represents a delegate proxy template.
     /// </summary>
-    internal sealed class DelegateProxyDefinition : ProxyDefinitionBase
+    internal sealed class DelegateProxyTemplate : ProxyTemplateBase
     {
         /// <summary>
         /// The name of the delegate method.
@@ -33,28 +33,28 @@ namespace NProxy.Core.Internal.Definitions
         private const string DelegateMethodName = "Invoke";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DelegateProxyDefinition"/> class.
+        /// Initializes a new instance of the <see cref="DelegateProxyTemplate"/> class.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        public DelegateProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes)
+        public DelegateProxyTemplate(Type declaringType, IEnumerable<Type> interfaceTypes)
             : base(declaringType, typeof (object), interfaceTypes)
         {
         }
 
-        #region IProxyDefinition Members
+        #region IProxyTemplate Members
 
         /// <inheritdoc/>
-        public override void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)
+        public override void AcceptVisitor(IProxyTemplateVisitor proxyTemplateVisitor)
         {
-            base.AcceptVisitor(proxyDefinitionVisitor);
+            base.AcceptVisitor(proxyTemplateVisitor);
 
             // Visit declaring type method.
             var methodInfo = DeclaringType.GetMethod(
                 DelegateMethodName,
                 BindingFlags.Public | BindingFlags.Instance);
 
-            proxyDefinitionVisitor.VisitMethod(methodInfo);
+            proxyTemplateVisitor.VisitMethod(methodInfo);
         }
 
         /// <inheritdoc/>

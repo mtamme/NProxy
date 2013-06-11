@@ -17,43 +17,43 @@
 //
 
 using System;
+using System.Reflection;
 
-namespace NProxy.Core.Internal.Definitions
+namespace NProxy.Core.Internal.Templates
 {
     /// <summary>
-    /// Defines a proxy definition.
+    /// Defines a proxy template visitor.
     /// </summary>
-    internal interface IProxyDefinition
+    internal interface IProxyTemplateVisitor
     {
         /// <summary>
-        /// Returns the declaring type.
+        /// Visits the specified interface type.
         /// </summary>
-        Type DeclaringType { get; }
+        /// <param name="interfaceType">The interface type.</param>
+        void VisitInterface(Type interfaceType);
 
         /// <summary>
-        /// Returns the parent type.
+        /// Visits the specified constructor information.
         /// </summary>
-        Type ParentType { get; }
+        /// <param name="constructorInfo">The constructor information.</param>
+        void VisitConstructor(ConstructorInfo constructorInfo);
 
         /// <summary>
-        /// Dispatches to the specific visit method for each member.
+        /// Visits the specified event information.
         /// </summary>
-        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
-        void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor);
+        /// <param name="eventInfo">The event information.</param>
+        void VisitEvent(EventInfo eventInfo);
 
         /// <summary>
-        /// Returns the proxy instance for the specified instance.
+        /// Visits the specified property information.
         /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <returns>The proxy instance for the specified instance.</returns>
-        object GetProxyInstance(object instance);
+        /// <param name="propertyInfo">The property information.</param>
+        void VisitProperty(PropertyInfo propertyInfo);
 
         /// <summary>
-        /// Creates an instance of the specified type.
+        /// Visits the specified method information.
         /// </summary>
-        /// <param name="proxyType">The proxy type.</param>
-        /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The instance.</returns>
-        object CreateInstance(Type proxyType, object[] arguments);
+        /// <param name="methodInfo">The method information.</param>
+        void VisitMethod(MethodInfo methodInfo);
     }
 }

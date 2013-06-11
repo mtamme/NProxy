@@ -100,15 +100,15 @@
     <Compile Include="Types\Class.cs" />
     <Compile Include="Types\Interface.cs" />
     <Compile Include="ProxyTypeBuilderTestFixture.cs" />
-    <Compile Include="Internal\Definitions\ClassProxyDefinitionTestFixture.cs" />
+    <Compile Include="Internal\Templates\ClassProxyTemplateTestFixture.cs" />
     <Compile Include="Internal\Reflection\MethodTokenTestFixture.cs" />
     <Compile Include="Interceptors\LazyAttribute.cs" />
     <Compile Include="Interceptors\LazyInterceptor.cs" />
     <Compile Include="Interceptors\LazyMixin.cs" />
     <Compile Include="Interceptors\ILazy.cs" />
-    <Compile Include="Internal\Definitions\DelegateProxyDefinitionTestFixture.cs" />
-    <Compile Include="Internal\Definitions\InterfaceProxyDefinitionTestFixture.cs" />
-    <Compile Include="Internal\Definitions\CollectingProxyDefinitionVisitor.cs" />
+    <Compile Include="Internal\Templates\DelegateProxyTemplateTestFixture.cs" />
+    <Compile Include="Internal\Templates\InterfaceProxyTemplateTestFixture.cs" />
+    <Compile Include="Internal\Templates\CollectingProxyTemplateVisitor.cs" />
     <Compile Include="Internal\Caching\InterlockedCacheTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
