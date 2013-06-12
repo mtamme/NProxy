@@ -4,7 +4,7 @@
 
 * Separated proxy creation from proxy instantiation.
 * Exposed interception metadata via proxy interface.
-* Removed obsolete proxy interface adaption method.
+* Removed obsolete proxy adaption method.
 
 ## Version 1.2.1
 
