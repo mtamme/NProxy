@@ -221,7 +221,9 @@ namespace NProxy.Core
             if (methodInfo == null)
                 throw new ArgumentNullException("methodInfo");
 
-            return _methodInfoTypeCache.GetOrAdd(methodInfo.GetToken(), _ => _methodInfoTypeFactory.CreateType(methodInfo));
+            var methodToken = methodInfo.GetToken();
+
+            return _methodInfoTypeCache.GetOrAdd(methodToken, _ => _methodInfoTypeFactory.CreateType(methodInfo));
         }
 
         #endregion
