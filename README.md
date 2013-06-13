@@ -27,17 +27,17 @@ At the heart of the dynamic proxy mechanism is the `IInvocationHandler` interfac
 ```csharp
 public interface IInvocationHandler
 {
-    object Invoke(object proxy, MethodInfo methodInfo, object[] parameters);
+    object Invoke(object target, MethodInfo methodInfo, object[] parameters);
 }
 ```
 
 The job of an invocation handler is to actually perform the requested method invocation on behalf of a dynamic
-proxy. The invocation handler is passed a proxy object, a `MethodInfo` object (from the `System.Reflection` namespace)
+proxy. The invocation handler is passed a target object, a `MethodInfo` object (from the `System.Reflection` namespace)
 and an array of parameters; in the simplest case, it could simply call the method `MethodInfo.Invoke()` and return the
 result. `MethodInfo.Invoke()` directly invokes the target method without utilizing reflection.
 
 Every proxy has an associated invocation handler that is called whenever one of the proxy's methods is called.
-Proxy objects can be created from unsealed classes, abstract classes, interfaces and delegates, and can implement
+Proxies can be created from unsealed classes, abstract classes, interfaces and delegates, and can implement
 an arbitrary number of interfaces. All interfaces are implemented explicitly to avoid member name conflicts.
 
 To exclude events, properties and methods from beeing intercepted just apply the `NonInterceptedAttribute` on the
@@ -98,7 +98,7 @@ public interface IInterceptionBehavior
 {
     void Apply(MemberInfo memberInfo, ICollection<IInterceptor> interceptors);
 	
-	void Validate(MemberInfo memberInfo);
+    void Validate(MemberInfo memberInfo);
 }
 ```
 

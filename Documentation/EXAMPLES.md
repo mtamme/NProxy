@@ -18,13 +18,13 @@ public sealed class LoggingInvocationHandler : IInvocationHandler
 {
     #region IInvocationHandler Members
 
-    public object Invoke(object proxy, MethodInfo methodInfo, object[] parameters)
+    public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
     {
         Console.WriteLine("Before invoke: {0}", methodInfo);
 
         try
         {
-            return methodInfo.Invoke(proxy, parameters);
+            return methodInfo.Invoke(target, parameters);
         }
         finally
         {
