@@ -36,11 +36,10 @@ namespace NProxy.Core.Internal.Builders
         TypeBuilder DefineType(string typeName, Type parentType);
 
         /// <summary>
-        /// Returns a constructor information for the specified method information.
+        /// Returns a type for the specified method information.
         /// </summary>
-        /// <param name="methodInfo">The method information.</param>
-        /// <param name="genericParameterTypes">The generic parameter types.</param>
-        /// <returns>The constructor information.</returns>
-        ConstructorInfo GetConstructor(MethodInfo methodInfo, Type[] genericParameterTypes);
+        /// <param name="memberInfo">The method information.</param>
+        /// <returns>The type.</returns>
+        Type GetType(MethodInfo methodInfo);
     }
 }

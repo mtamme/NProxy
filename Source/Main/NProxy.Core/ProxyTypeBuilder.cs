@@ -138,7 +138,7 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ldarg_0);
 
             // Get method information constructor.
-            var methodInfoConstructorInfo = _typeRepository.GetConstructor(declaringMethodInfo, genericParameterTypes);
+            var methodInfoConstructorInfo = GetMethodInfoConstructor(declaringMethodInfo, genericParameterTypes);
 
             // Create and load method information.
             ilGenerator.Emit(OpCodes.Ldarg_0);
@@ -165,6 +165,26 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ret);
 
             return methodBuilder;
+        }
+
+        /// <summary>
+        /// Returns a constructor information for the specified method information.
+        /// </summary>
+        /// <param name="methodInfo">The method information.</param>
+        /// <param name="genericParameterTypes">The generic parameter types.</param>
+        /// <returns>The constructor information.</returns>
+        private ConstructorInfo GetMethodInfoConstructor(MethodInfo methodInfo, Type[] genericParameterTypes)
+        {
+            var type = _typeRepository.GetType(methodInfo);
+            var constructorInfo = type.GetConstructor(BindingFlags.Public | BindingFlags.Instance,
+                                                      typeof (object), typeof (bool));
+
+            if (!type.IsGenericTypeDefinition)
+                return constructorInfo;
+
+            var genericType = type.MakeGenericType(genericParameterTypes);
+
+            return TypeBuilder.GetConstructor(genericType, constructorInfo);
         }
 
         /// <summary>

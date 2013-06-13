@@ -216,24 +216,12 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public ConstructorInfo GetConstructor(MethodInfo methodInfo, Type[] genericParameterTypes)
+        public Type GetType(MethodInfo methodInfo)
         {
             if (methodInfo == null)
                 throw new ArgumentNullException("methodInfo");
 
-            if (genericParameterTypes == null)
-                throw new ArgumentNullException("genericParameterTypes");
-
-            var type = _methodInfoTypeCache.GetOrAdd(methodInfo.GetToken(), _ => _methodInfoTypeFactory.CreateType(methodInfo));
-            var constructorInfo = type.GetConstructor(BindingFlags.Public | BindingFlags.Instance,
-                                                      typeof (object), typeof (bool));
-
-            if (!type.IsGenericTypeDefinition)
-                return constructorInfo;
-
-            var genericType = type.MakeGenericType(genericParameterTypes);
-
-            return TypeBuilder.GetConstructor(genericType, constructorInfo);
+            return _methodInfoTypeCache.GetOrAdd(methodInfo.GetToken(), _ => _methodInfoTypeFactory.CreateType(methodInfo));
         }
 
         #endregion
