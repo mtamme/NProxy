@@ -38,7 +38,7 @@ namespace NProxy.Core.Internal.Builders
         /// <summary>
         /// Returns a type for the specified method information.
         /// </summary>
-        /// <param name="memberInfo">The method information.</param>
+        /// <param name="methodInfo">The method information.</param>
         /// <returns>The type.</returns>
         Type GetType(MethodInfo methodInfo);
     }
