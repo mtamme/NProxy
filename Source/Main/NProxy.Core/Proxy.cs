@@ -94,21 +94,21 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public IEnumerable<EventInfo> GetInterceptedEvents()
+        public IEnumerable<EventInfo> InterceptedEvents
         {
-            return _eventInfos;
+            get { return _eventInfos; }
         }
 
         /// <inheritdoc/>
-        public IEnumerable<PropertyInfo> GetInterceptedProperties()
+        public IEnumerable<PropertyInfo> InterceptedProperties
         {
-            return _propertyInfos;
+            get { return _propertyInfos; }
         }
 
         /// <inheritdoc/>
-        public IEnumerable<MethodInfo> GetInterceptedMethods()
+        public IEnumerable<MethodInfo> InterceptedMethods
         {
-            return _methodInfos;
+            get { return _methodInfos; }
         }
 
         /// <inheritdoc/>
@@ -179,21 +179,21 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public IEnumerable<EventInfo> GetInterceptedEvents()
+        public IEnumerable<EventInfo> InterceptedEvents
         {
-            return _proxy.GetInterceptedEvents();
+            get { return _proxy.InterceptedEvents; }
         }
 
         /// <inheritdoc/>
-        public IEnumerable<PropertyInfo> GetInterceptedProperties()
+        public IEnumerable<PropertyInfo> InterceptedProperties
         {
-            return _proxy.GetInterceptedProperties();
+            get { return _proxy.InterceptedProperties; }
         }
 
         /// <inheritdoc/>
-        public IEnumerable<MethodInfo> GetInterceptedMethods()
+        public IEnumerable<MethodInfo> InterceptedMethods
         {
-            return _proxy.GetInterceptedMethods();
+            get { return _proxy.InterceptedMethods; }
         }
 
         /// <inheritdoc/>

@@ -35,20 +35,17 @@ namespace NProxy.Core
         /// <summary>
         /// Returns all intercepted events.
         /// </summary>
-        /// <returns>All intercepted events.</returns>
-        IEnumerable<EventInfo> GetInterceptedEvents();
+        IEnumerable<EventInfo> InterceptedEvents { get; }
 
         /// <summary>
         /// Returns all intercepted properties.
         /// </summary>
-        /// <returns>All intercepted properties.</returns>
-        IEnumerable<PropertyInfo> GetInterceptedProperties();
+        IEnumerable<PropertyInfo> InterceptedProperties { get; }
 
         /// <summary>
         /// Returns all intercepted methods.
         /// </summary>
-        /// <returns>All intercepted methods.</returns>
-        IEnumerable<MethodInfo> GetInterceptedMethods();
+        IEnumerable<MethodInfo> InterceptedMethods { get; }
 
         /// <summary>
         /// Casts an instance to the specified interface type.

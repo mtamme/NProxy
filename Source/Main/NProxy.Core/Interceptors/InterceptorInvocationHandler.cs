@@ -71,19 +71,19 @@ namespace NProxy.Core.Interceptors
             var typeInterceptors = ApplyInterceptionBehaviors(proxy.DeclaringType, inherit, interceptors);
 
             // Apply event interception behaviors.
-            foreach (var eventInfo in proxy.GetInterceptedEvents())
+            foreach (var eventInfo in proxy.InterceptedEvents)
             {
                 ApplyInterceptors(eventInfo, inherit, typeInterceptors);
             }
 
             // Apply property interception behaviors.
-            foreach (var propertyInfo in proxy.GetInterceptedProperties())
+            foreach (var propertyInfo in proxy.InterceptedProperties)
             {
                 ApplyInterceptors(propertyInfo, inherit, typeInterceptors);
             }
 
             // Apply method interception behaviors.
-            foreach (var methodInfo in proxy.GetInterceptedMethods())
+            foreach (var methodInfo in proxy.InterceptedMethods)
             {
                 ApplyInterceptors(methodInfo, inherit, typeInterceptors);
             }
