@@ -122,8 +122,8 @@ namespace NProxy.Core
             var proxyInstance = _proxyTemplate.GetProxyInstance(instance);
             var proxyType = proxyInstance.GetType();
 
-            if (proxyType != _proxyType)
-                throw new InvalidOperationException("Object is not a proxy");
+            if ((proxyType != _proxyType) || !(proxyInstance is TInterface))
+                throw new InvalidCastException("Cannot cast instance to interface type");
 
             return (TInterface) proxyInstance;
         }

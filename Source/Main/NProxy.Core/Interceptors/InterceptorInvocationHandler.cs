@@ -122,23 +122,23 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <summary>
-        /// Applies all interceptors for the specified method.
+        /// Applies all interceptors for the specified member.
         /// </summary>
-        /// <param name="methodInfo">The method information.</param>
-        /// <param name="inherit">A value indicating whether to search the method's inheritance chain to find interception behaviors.</param>
+        /// <param name="memberInfo">The member information.</param>
+        /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find interception behaviors.</param>
         /// <param name="interceptors">The interceptors.</param>
-        private void ApplyInterceptors(MethodInfo methodInfo, bool inherit, IEnumerable<IInterceptor> interceptors)
+        private void ApplyInterceptors(MemberInfo memberInfo, bool inherit, IEnumerable<IInterceptor> interceptors)
         {
-            var methodInterceptors = ApplyInterceptionBehaviors(methodInfo, inherit, interceptors);
+            var memberInterceptors = ApplyInterceptionBehaviors(memberInfo, inherit, interceptors);
 
-            if (methodInterceptors.Count == 0)
+            if (memberInterceptors.Count == 0)
                 return;
 
-            methodInterceptors.AddRange(_defaultInterceptors);
+            memberInterceptors.AddRange(_defaultInterceptors);
 
-            var memberToken = methodInfo.GetToken();
+            var memberToken = memberInfo.GetToken();
 
-            _interceptors.Add(memberToken, methodInterceptors.ToArray());
+            _interceptors.Add(memberToken, memberInterceptors.ToArray());
         }
 
         /// <summary>
@@ -163,13 +163,13 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <summary>
-        /// Returns all interceptors for the specified method.
+        /// Returns all interceptors for the specified member.
         /// </summary>
-        /// <param name="methodInfo">The method information.</param>
+        /// <param name="memberInfo">The member information.</param>
         /// <returns>The interceptors.</returns>
-        private IInterceptor[] GetInterceptors(MethodInfo methodInfo)
+        private IInterceptor[] GetInterceptors(MemberInfo memberInfo)
         {
-            var memberToken = methodInfo.GetToken();
+            var memberToken = memberInfo.GetToken();
             IInterceptor[] interceptors;
 
             return _interceptors.TryGetValue(memberToken, out interceptors) ? interceptors : _defaultInterceptors;
