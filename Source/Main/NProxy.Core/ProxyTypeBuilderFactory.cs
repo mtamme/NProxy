@@ -25,7 +25,6 @@ using System.Threading;
 using NProxy.Core.Internal.Builders;
 using NProxy.Core.Internal.Caching;
 using NProxy.Core.Internal.Reflection;
-using MethodToken = NProxy.Core.Internal.Reflection.MethodToken;
 
 namespace NProxy.Core
 {
@@ -72,7 +71,7 @@ namespace NProxy.Core
         /// <summary>
         /// The method information type cache.
         /// </summary>
-        private readonly ICache<MethodToken, Type> _methodInfoTypeCache;
+        private readonly ICache<MemberToken, Type> _methodInfoTypeCache;
 
         /// <summary>
         /// The next type identifier.
@@ -90,7 +89,7 @@ namespace NProxy.Core
             _moduleBuilder = _assemblyBuilder.DefineDynamicModule(DynamicModuleName);
 
             _methodInfoTypeFactory = new MethodInfoTypeFactory(this);
-            _methodInfoTypeCache = new Cache<MethodToken, Type>();
+            _methodInfoTypeCache = new Cache<MemberToken, Type>();
 
             _nextTypeId = -1;
         }
@@ -221,9 +220,9 @@ namespace NProxy.Core
             if (methodInfo == null)
                 throw new ArgumentNullException("methodInfo");
 
-            var methodToken = methodInfo.GetToken();
+            var memberToken = methodInfo.GetToken();
 
-            return _methodInfoTypeCache.GetOrAdd(methodToken, _ => _methodInfoTypeFactory.CreateType(methodInfo));
+            return _methodInfoTypeCache.GetOrAdd(memberToken, _ => _methodInfoTypeFactory.CreateType(methodInfo));
         }
 
         #endregion

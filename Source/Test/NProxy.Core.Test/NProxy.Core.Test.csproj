@@ -101,7 +101,7 @@
     <Compile Include="Types\Interface.cs" />
     <Compile Include="ProxyTypeBuilderTestFixture.cs" />
     <Compile Include="Internal\Templates\ClassProxyTemplateTestFixture.cs" />
-    <Compile Include="Internal\Reflection\MethodTokenTestFixture.cs" />
+    <Compile Include="Internal\Reflection\MemberTokenTestFixture.cs" />
     <Compile Include="Interceptors\LazyAttribute.cs" />
     <Compile Include="Interceptors\LazyInterceptor.cs" />
     <Compile Include="Interceptors\LazyMixin.cs" />

@@ -26,17 +26,17 @@ using NUnit.Framework;
 namespace NProxy.Core.Test.Internal.Reflection
 {
     [TestFixture]
-    public class MethodTokenTestFixture
+    public class MemberTokenTestFixture
     {
         [Test]
         public void EqualsWithGetHashCodeMethodTest()
         {
             // Arrange
-            var firstMethodToken = new MethodToken(typeof (object).GetMethod("GetHashCode"));
-            var secondMethodToken = new MethodToken(typeof (GenericReturnValue).GetMethod("GetHashCode"));
+            var firstMemberToken = new MemberToken(typeof (object).GetMethod("GetHashCode"));
+            var secondMemberToken = new MemberToken(typeof (GenericReturnValue).GetMethod("GetHashCode"));
 
             // Act
-            var isEqual = firstMethodToken.Equals(secondMethodToken);
+            var isEqual = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
             Assert.That(isEqual, Is.True);
@@ -46,11 +46,11 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void EqualsWithEqualsMethodTest()
         {
             // Arrange
-            var firstMethodToken = new MethodToken(typeof (object).GetMethod("Equals", new[] {typeof (object)}));
-            var secondMethodToken = new MethodToken(typeof (GenericReturnValue).GetMethod("Equals", new[] {typeof (object)}));
+            var firstMemberToken = new MemberToken(typeof (object).GetMethod("Equals", new[] {typeof (object)}));
+            var secondMemberToken = new MemberToken(typeof (GenericReturnValue).GetMethod("Equals", new[] {typeof (object)}));
 
             // Act
-            var isEqual = firstMethodToken.Equals(secondMethodToken);
+            var isEqual = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
             Assert.That(isEqual, Is.True);
@@ -60,11 +60,11 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void EqualsWithToStringMethodTest()
         {
             // Arrange
-            var firstMethodToken = new MethodToken(typeof (object).GetMethod("ToString"));
-            var secondMethodToken = new MethodToken(typeof (GenericReturnValue).GetMethod("ToString"));
+            var firstMemberToken = new MemberToken(typeof (object).GetMethod("ToString"));
+            var secondMemberToken = new MemberToken(typeof (GenericReturnValue).GetMethod("ToString"));
 
             // Act
-            var isEqual = firstMethodToken.Equals(secondMethodToken);
+            var isEqual = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
             Assert.That(isEqual, Is.True);
@@ -74,11 +74,11 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void EqualsWithGenericReturnValueTest()
         {
             // Arrange
-            var firstMethodToken = new MethodToken(typeof (IGenericParameter).GetMethod("Method"));
-            var secondMethodToken = new MethodToken(typeof (IGenericParameter).GetMethod("Method"));
+            var firstMemberToken = new MemberToken(typeof (IGenericParameter).GetMethod("Method"));
+            var secondMemberToken = new MemberToken(typeof (IGenericParameter).GetMethod("Method"));
 
             // Act
-            var isEqual = firstMethodToken.Equals(secondMethodToken);
+            var isEqual = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
             Assert.That(isEqual, Is.True);
@@ -88,11 +88,11 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void EqualsWithGenericReturnValueMethodTest()
         {
             // Arrange
-            var firstMethodToken = new MethodToken(typeof (IGenericReturnValue).GetMethod("Method"));
-            var secondMethodToken = new MethodToken(typeof (IGenericReturnValue).GetMethod("Method"));
+            var firstMemberToken = new MemberToken(typeof (IGenericReturnValue).GetMethod("Method"));
+            var secondMemberToken = new MemberToken(typeof (IGenericReturnValue).GetMethod("Method"));
 
             // Act
-            var isEqual = firstMethodToken.Equals(secondMethodToken);
+            var isEqual = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
             Assert.That(isEqual, Is.True);
@@ -102,11 +102,11 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void EqualsWithGenericAddEventMethodTest()
         {
             // Arrange
-            var firstMethodToken = new MethodToken(typeof (IGenericEvent<int>).GetMethod("add_Event"));
-            var secondMethodToken = new MethodToken(typeof (IGenericEvent<string>).GetMethod("add_Event"));
+            var firstMemberToken = new MemberToken(typeof (IGenericEvent<int>).GetMethod("add_Event"));
+            var secondMemberToken = new MemberToken(typeof (IGenericEvent<string>).GetMethod("add_Event"));
 
             // Act
-            var isEqual = firstMethodToken.Equals(secondMethodToken);
+            var isEqual = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
             Assert.That(isEqual, Is.False);
@@ -116,11 +116,11 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void EqualsWithGenericGetPropertyMethodTest()
         {
             // Arrange
-            var firstMethodToken = new MethodToken(typeof (IGenericProperty<int>).GetMethod("get_Property"));
-            var secondMethodToken = new MethodToken(typeof (IGenericProperty<string>).GetMethod("get_Property"));
+            var firstMemberToken = new MemberToken(typeof (IGenericProperty<int>).GetMethod("get_Property"));
+            var secondMemberToken = new MemberToken(typeof (IGenericProperty<string>).GetMethod("get_Property"));
 
             // Act
-            var isEqual = firstMethodToken.Equals(secondMethodToken);
+            var isEqual = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
             Assert.That(isEqual, Is.False);
@@ -130,11 +130,11 @@ namespace NProxy.Core.Test.Internal.Reflection
         public void EqualsWithGenericMethodTest()
         {
             // Arrange
-            var firstMethodToken = new MethodToken(typeof (IGenericMethod<int>).GetMethod("Method"));
-            var secondMethodToken = new MethodToken(typeof (IGenericMethod<string>).GetMethod("Method"));
+            var firstMemberToken = new MemberToken(typeof (IGenericMethod<int>).GetMethod("Method"));
+            var secondMemberToken = new MemberToken(typeof (IGenericMethod<string>).GetMethod("Method"));
 
             // Act
-            var isEqual = firstMethodToken.Equals(secondMethodToken);
+            var isEqual = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
             Assert.That(isEqual, Is.False);
@@ -145,7 +145,7 @@ namespace NProxy.Core.Test.Internal.Reflection
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var metadataTokensByModule = new Dictionary<Module, HashSet<int>>();
-            var methodTokens = new HashSet<MethodToken>();
+            var memberTokens = new HashSet<MemberToken>();
 
             foreach (var assembly in assemblies)
             {
@@ -187,11 +187,11 @@ namespace NProxy.Core.Test.Internal.Reflection
                         if (!metadataTokens.Add(methodInfo.MetadataToken))
                             continue;
 
-                        var methodToken = new MethodToken(methodInfo);
+                        var memberToken = new MemberToken(methodInfo);
 
                         // Act
                         // Implicitly check equality.
-                        var isEqual = !methodTokens.Add(methodToken);
+                        var isEqual = !memberTokens.Add(memberToken);
 
                         // Assert
                         Assert.That(isEqual, Is.False);

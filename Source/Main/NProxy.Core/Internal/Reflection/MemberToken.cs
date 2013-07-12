@@ -23,9 +23,9 @@ using System.Text;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Represents a value which uniquely identifies a method.
+    /// Represents a value which uniquely identifies a member.
     /// </summary>
-    internal struct MethodToken : IEquatable<MethodToken>
+    internal struct MemberToken : IEquatable<MemberToken>
     {
         /// <summary>
         /// The declaring type.
@@ -38,22 +38,22 @@ namespace NProxy.Core.Internal.Reflection
         private readonly int _metadataToken;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MethodToken"/> struct.
+        /// Initializes a new instance of the <see cref="MemberToken"/> struct.
         /// </summary>
-        /// <param name="methodInfo">The method information.</param>
-        public MethodToken(MethodInfo methodInfo)
+        /// <param name="memberInfo">The member information.</param>
+        public MemberToken(MemberInfo memberInfo)
         {
-            if (methodInfo == null)
-                throw new ArgumentNullException("methodInfo");
+            if (memberInfo == null)
+                throw new ArgumentNullException("memberInfo");
 
-            _declaringType = methodInfo.DeclaringType;
-            _metadataToken = methodInfo.MetadataToken;
+            _declaringType = memberInfo.DeclaringType;
+            _metadataToken = memberInfo.MetadataToken;
         }
 
-        #region IEquatable<MethodToken> Members
+        #region IEquatable<MemberToken> Members
 
         /// <inheritdoc/>
-        public bool Equals(MethodToken other)
+        public bool Equals(MemberToken other)
         {
             if (other._declaringType != _declaringType)
                 return false;
@@ -74,7 +74,7 @@ namespace NProxy.Core.Internal.Reflection
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            return (obj is MethodToken) && Equals((MethodToken) obj);
+            return (obj is MemberToken) && Equals((MemberToken) obj);
         }
 
         /// <inheritdoc/>

@@ -92,5 +92,15 @@ namespace NProxy.Core.Internal.Reflection
 
             return declaringType;
         }
+
+        /// <summary>
+        /// Returns a value which uniquely identifies a member.
+        /// </summary>
+        /// <param name="memberInfo">The member information.</param>
+        /// <returns>A value which uniquely identifies a member.</returns>
+        public static MemberToken GetToken(this MemberInfo memberInfo)
+        {
+            return new MemberToken(memberInfo);
+        }
     }
 }

@@ -44,7 +44,7 @@
     <Compile Include="Internal\Templates\InterfaceProxyTemplate.cs" />
     <Compile Include="Internal\Templates\IProxyTemplate.cs" />
     <Compile Include="Internal\Templates\ProxyTemplateBase.cs" />
-    <Compile Include="Internal\Reflection\MethodToken.cs" />
+    <Compile Include="Internal\Reflection\MemberToken.cs" />
     <Compile Include="Internal\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Internal\Reflection\MethodBuilderExtensions.cs" />
     <Compile Include="Internal\Reflection\MethodInfoExtensions.cs" />

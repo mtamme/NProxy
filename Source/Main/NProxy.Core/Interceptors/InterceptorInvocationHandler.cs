@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -37,7 +37,7 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// The interceptors.
         /// </summary>
-        private readonly Dictionary<MethodToken, IInterceptor[]> _interceptors;
+        private readonly Dictionary<MemberToken, IInterceptor[]> _interceptors;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InterceptorInvocationHandler"/> class.
@@ -50,7 +50,7 @@ namespace NProxy.Core.Interceptors
 
             _defaultInterceptors = defaultInterceptors;
 
-            _interceptors = new Dictionary<MethodToken, IInterceptor[]>();
+            _interceptors = new Dictionary<MemberToken, IInterceptor[]>();
         }
 
         /// <summary>
@@ -136,9 +136,9 @@ namespace NProxy.Core.Interceptors
 
             methodInterceptors.AddRange(_defaultInterceptors);
 
-            var methodToken = methodInfo.GetToken();
+            var memberToken = methodInfo.GetToken();
 
-            _interceptors.Add(methodToken, methodInterceptors.ToArray());
+            _interceptors.Add(memberToken, methodInterceptors.ToArray());
         }
 
         /// <summary>
@@ -169,10 +169,10 @@ namespace NProxy.Core.Interceptors
         /// <returns>The interceptors.</returns>
         private IInterceptor[] GetInterceptors(MethodInfo methodInfo)
         {
-            var methodToken = methodInfo.GetToken();
+            var memberToken = methodInfo.GetToken();
             IInterceptor[] interceptors;
 
-            return _interceptors.TryGetValue(methodToken, out interceptors) ? interceptors : _defaultInterceptors;
+            return _interceptors.TryGetValue(memberToken, out interceptors) ? interceptors : _defaultInterceptors;
         }
 
         #region IInvocationHandler Members
