@@ -121,7 +121,7 @@ namespace NProxy.Core.Interceptors
         {
             var invocationHandler = new InterceptorInvocationHandler(defaultInterceptors);
 
-            invocationHandler.ApplyInterceptors(proxy, true, _interceptors);
+            invocationHandler.ApplyInterceptors(proxy, _interceptors);
 
             if (_mixins.Count > 0)
                 return new MixinInvocationHandler(_mixins, invocationHandler);

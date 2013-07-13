@@ -42,7 +42,7 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// Initializes a new instance of the <see cref="InterceptorInvocationHandler"/> class.
         /// </summary>
-        /// <param name="defaultInterceptors">The default interceptor.</param>
+        /// <param name="defaultInterceptors">The default interceptors.</param>
         public InterceptorInvocationHandler(IInterceptor[] defaultInterceptors)
         {
             if (defaultInterceptors == null)
@@ -57,9 +57,8 @@ namespace NProxy.Core.Interceptors
         /// Applies all interceptors for the specified type.
         /// </summary>
         /// <param name="proxy">The proxy.</param>
-        /// <param name="inherit">A value indicating whether to search the type's inheritance chain to find interception behaviors.</param>
         /// <param name="interceptors">The interceptors.</param>
-        public void ApplyInterceptors(IProxy proxy, bool inherit, IEnumerable<IInterceptor> interceptors)
+        public void ApplyInterceptors(IProxy proxy, IEnumerable<IInterceptor> interceptors)
         {
             if (proxy == null)
                 throw new ArgumentNullException("proxy");
@@ -68,24 +67,24 @@ namespace NProxy.Core.Interceptors
                 throw new ArgumentNullException("interceptors");
 
             // Apply type interception behaviors.
-            var typeInterceptors = ApplyInterceptionBehaviors(proxy.DeclaringType, inherit, interceptors);
+            var typeInterceptors = ApplyInterceptionBehaviors(proxy.DeclaringType, interceptors);
 
             // Apply event interception behaviors.
             foreach (var eventInfo in proxy.InterceptedEvents)
             {
-                ApplyInterceptors(eventInfo, inherit, typeInterceptors);
+                ApplyInterceptors(eventInfo, typeInterceptors);
             }
 
             // Apply property interception behaviors.
             foreach (var propertyInfo in proxy.InterceptedProperties)
             {
-                ApplyInterceptors(propertyInfo, inherit, typeInterceptors);
+                ApplyInterceptors(propertyInfo, typeInterceptors);
             }
 
             // Apply method interception behaviors.
             foreach (var methodInfo in proxy.InterceptedMethods)
             {
-                ApplyInterceptors(methodInfo, inherit, typeInterceptors);
+                ApplyInterceptors(methodInfo, typeInterceptors);
             }
         }
 
@@ -93,15 +92,14 @@ namespace NProxy.Core.Interceptors
         /// Applies all interceptors for the specified event.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
-        /// <param name="inherit">A value indicating whether to search the event's inheritance chain to find interception behaviors.</param>
         /// <param name="interceptors">The interceptors.</param>
-        private void ApplyInterceptors(EventInfo eventInfo, bool inherit, IEnumerable<IInterceptor> interceptors)
+        private void ApplyInterceptors(EventInfo eventInfo, IEnumerable<IInterceptor> interceptors)
         {
-            var eventInterceptors = ApplyInterceptionBehaviors(eventInfo, inherit, interceptors);
+            var eventInterceptors = ApplyInterceptionBehaviors(eventInfo, interceptors);
 
             foreach (var methodInfo in eventInfo.GetAccessorMethods())
             {
-                ApplyInterceptors(methodInfo, inherit, eventInterceptors);
+                ApplyInterceptors(methodInfo, eventInterceptors);
             }
         }
 
@@ -109,15 +107,14 @@ namespace NProxy.Core.Interceptors
         /// Applies all interceptors for the specified property.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <param name="inherit">A value indicating whether to search the property's inheritance chain to find interception behaviors.</param>
         /// <param name="interceptors">The interceptors.</param>
-        private void ApplyInterceptors(PropertyInfo propertyInfo, bool inherit, IEnumerable<IInterceptor> interceptors)
+        private void ApplyInterceptors(PropertyInfo propertyInfo, IEnumerable<IInterceptor> interceptors)
         {
-            var propertyInterceptors = ApplyInterceptionBehaviors(propertyInfo, inherit, interceptors);
+            var propertyInterceptors = ApplyInterceptionBehaviors(propertyInfo, interceptors);
 
             foreach (var methodInfo in propertyInfo.GetAccessorMethods())
             {
-                ApplyInterceptors(methodInfo, inherit, propertyInterceptors);
+                ApplyInterceptors(methodInfo, propertyInterceptors);
             }
         }
 
@@ -125,11 +122,10 @@ namespace NProxy.Core.Interceptors
         /// Applies all interceptors for the specified member.
         /// </summary>
         /// <param name="memberInfo">The member information.</param>
-        /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find interception behaviors.</param>
         /// <param name="interceptors">The interceptors.</param>
-        private void ApplyInterceptors(MemberInfo memberInfo, bool inherit, IEnumerable<IInterceptor> interceptors)
+        private void ApplyInterceptors(MemberInfo memberInfo, IEnumerable<IInterceptor> interceptors)
         {
-            var memberInterceptors = ApplyInterceptionBehaviors(memberInfo, inherit, interceptors);
+            var memberInterceptors = ApplyInterceptionBehaviors(memberInfo, interceptors);
 
             if (memberInterceptors.Count == 0)
                 return;
@@ -145,12 +141,11 @@ namespace NProxy.Core.Interceptors
         /// Applies the interception behaviors for the specified member.
         /// </summary>
         /// <param name="memberInfo">The member information.</param>
-        /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find interception behaviors.</param>
         /// <param name="interceptors">The interceptors.</param>
         /// <returns>The member interceptors.</returns>
-        private static List<IInterceptor> ApplyInterceptionBehaviors(MemberInfo memberInfo, bool inherit, IEnumerable<IInterceptor> interceptors)
+        private static List<IInterceptor> ApplyInterceptionBehaviors(MemberInfo memberInfo, IEnumerable<IInterceptor> interceptors)
         {
-            var interceptionBehaviors = memberInfo.GetCustomAttributes<IInterceptionBehavior>(inherit);
+            var interceptionBehaviors = memberInfo.GetCustomAttributes<IInterceptionBehavior>(true);
             var memberInterceptors = new List<IInterceptor>(interceptors);
 
             foreach (var interceptionBehavior in interceptionBehaviors)
