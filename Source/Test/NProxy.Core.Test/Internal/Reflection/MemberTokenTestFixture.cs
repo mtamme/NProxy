@@ -36,10 +36,10 @@ namespace NProxy.Core.Test.Internal.Reflection
             var secondMemberToken = new MemberToken(typeof (GenericReturnValue).GetMethod("GetHashCode"));
 
             // Act
-            var isEqual = firstMemberToken.Equals(secondMemberToken);
+            var equals = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
-            Assert.That(isEqual, Is.True);
+            Assert.That(equals, Is.True);
         }
 
         [Test]
@@ -50,10 +50,10 @@ namespace NProxy.Core.Test.Internal.Reflection
             var secondMemberToken = new MemberToken(typeof (GenericReturnValue).GetMethod("Equals", new[] {typeof (object)}));
 
             // Act
-            var isEqual = firstMemberToken.Equals(secondMemberToken);
+            var equals = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
-            Assert.That(isEqual, Is.True);
+            Assert.That(equals, Is.True);
         }
 
         [Test]
@@ -64,10 +64,10 @@ namespace NProxy.Core.Test.Internal.Reflection
             var secondMemberToken = new MemberToken(typeof (GenericReturnValue).GetMethod("ToString"));
 
             // Act
-            var isEqual = firstMemberToken.Equals(secondMemberToken);
+            var equals = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
-            Assert.That(isEqual, Is.True);
+            Assert.That(equals, Is.True);
         }
 
         [Test]
@@ -78,10 +78,10 @@ namespace NProxy.Core.Test.Internal.Reflection
             var secondMemberToken = new MemberToken(typeof (IGenericParameter).GetMethod("Method"));
 
             // Act
-            var isEqual = firstMemberToken.Equals(secondMemberToken);
+            var equals = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
-            Assert.That(isEqual, Is.True);
+            Assert.That(equals, Is.True);
         }
 
         [Test]
@@ -92,10 +92,10 @@ namespace NProxy.Core.Test.Internal.Reflection
             var secondMemberToken = new MemberToken(typeof (IGenericReturnValue).GetMethod("Method"));
 
             // Act
-            var isEqual = firstMemberToken.Equals(secondMemberToken);
+            var equals = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
-            Assert.That(isEqual, Is.True);
+            Assert.That(equals, Is.True);
         }
 
         [Test]
@@ -106,10 +106,10 @@ namespace NProxy.Core.Test.Internal.Reflection
             var secondMemberToken = new MemberToken(typeof (IGenericEvent<string>).GetMethod("add_Event"));
 
             // Act
-            var isEqual = firstMemberToken.Equals(secondMemberToken);
+            var equals = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
-            Assert.That(isEqual, Is.False);
+            Assert.That(equals, Is.False);
         }
 
         [Test]
@@ -120,10 +120,10 @@ namespace NProxy.Core.Test.Internal.Reflection
             var secondMemberToken = new MemberToken(typeof (IGenericProperty<string>).GetMethod("get_Property"));
 
             // Act
-            var isEqual = firstMemberToken.Equals(secondMemberToken);
+            var equals = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
-            Assert.That(isEqual, Is.False);
+            Assert.That(equals, Is.False);
         }
 
         [Test]
@@ -134,10 +134,10 @@ namespace NProxy.Core.Test.Internal.Reflection
             var secondMemberToken = new MemberToken(typeof (IGenericMethod<string>).GetMethod("Method"));
 
             // Act
-            var isEqual = firstMemberToken.Equals(secondMemberToken);
+            var equals = firstMemberToken.Equals(secondMemberToken);
 
             // Assert
-            Assert.That(isEqual, Is.False);
+            Assert.That(equals, Is.False);
         }
 
         [Test]
@@ -191,10 +191,10 @@ namespace NProxy.Core.Test.Internal.Reflection
 
                         // Act
                         // Implicitly check equality.
-                        var isEqual = !memberTokens.Add(memberToken);
+                        var equals = !memberTokens.Add(memberToken);
 
                         // Assert
-                        Assert.That(isEqual, Is.False);
+                        Assert.That(equals, Is.False);
                     }
                 }
             }
