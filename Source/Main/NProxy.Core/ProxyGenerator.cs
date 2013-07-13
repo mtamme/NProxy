@@ -121,7 +121,7 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public void VisitEvent(EventInfo eventInfo)
         {
-            if (!_interceptionFilter.AcceptEvent(eventInfo))
+            if (!eventInfo.IsAbstract() && !_interceptionFilter.AcceptEvent(eventInfo))
                 return;
 
             _typeBuilder.BuildEvent(eventInfo);
@@ -131,7 +131,7 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public void VisitProperty(PropertyInfo propertyInfo)
         {
-            if (!_interceptionFilter.AcceptProperty(propertyInfo))
+            if (!propertyInfo.IsAbstract() && !_interceptionFilter.AcceptProperty(propertyInfo))
                 return;
 
             _typeBuilder.BuildProperty(propertyInfo);
@@ -141,7 +141,7 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public void VisitMethod(MethodInfo methodInfo)
         {
-            if (!_interceptionFilter.AcceptMethod(methodInfo))
+            if (!methodInfo.IsAbstract && !_interceptionFilter.AcceptMethod(methodInfo))
                 return;
 
             _typeBuilder.BuildMethod(methodInfo);

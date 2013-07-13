@@ -24,9 +24,9 @@ using NProxy.Core.Internal.Reflection;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Represents the default interception filter.
+    /// Represents an attribute interception filter.
     /// </summary>
-    internal sealed class DefaultInterceptionFilter : IInterceptionFilter
+    internal sealed class AttributeInterceptionFilter : IInterceptionFilter
     {
         /// <summary>
         /// The name of the destructor method.
@@ -38,27 +38,18 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public bool AcceptEvent(EventInfo eventInfo)
         {
-            if (eventInfo.IsAbstract())
-                return true;
-
             return !eventInfo.IsDefined<NonInterceptedAttribute>(false);
         }
 
         /// <inheritdoc/>
         public bool AcceptProperty(PropertyInfo propertyInfo)
         {
-            if (propertyInfo.IsAbstract())
-                return true;
-
             return !propertyInfo.IsDefined<NonInterceptedAttribute>(false);
         }
 
         /// <inheritdoc/>
         public bool AcceptMethod(MethodInfo methodInfo)
         {
-            if (methodInfo.IsAbstract)
-                return true;
-
             if (methodInfo.IsDefined<NonInterceptedAttribute>(false))
                 return false;
 
