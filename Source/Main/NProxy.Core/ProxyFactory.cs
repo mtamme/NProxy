@@ -120,14 +120,6 @@ namespace NProxy.Core
             return _proxyCache.GetOrAdd(proxyTemplate, GenerateProxy);
         }
 
-        /// <inheritdoc/>
-        public IProxy<T> CreateProxy<T>(IEnumerable<Type> interfaceTypes) where T : class
-        {
-            var proxy = CreateProxy(typeof (T), interfaceTypes);
-
-            return new Proxy<T>(proxy);
-        }
-
         #endregion
     }
 }

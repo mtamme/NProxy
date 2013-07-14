@@ -27,6 +27,20 @@ namespace NProxy.Core
     public static class ProxyFactoryExtensions
     {
         /// <summary>
+        /// Creates a proxy.
+        /// </summary>
+        /// <typeparam name="T">The declaring type.</typeparam>
+        /// <param name="proxyFactory">The proxy factory.</param>
+        /// <param name="interfaceTypes">The additional interface types.</param>
+        /// <returns>The proxy.</returns>
+        public static IProxy<T> CreateProxy<T>(this IProxyFactory proxyFactory, IEnumerable<Type> interfaceTypes) where T : class
+        {
+            var proxy = proxyFactory.CreateProxy(typeof (T), interfaceTypes);
+
+            return new Proxy<T>(proxy);
+        }
+
+        /// <summary>
         /// Creates a proxy object.
         /// </summary>
         /// <param name="proxyFactory">The proxy factory.</param>

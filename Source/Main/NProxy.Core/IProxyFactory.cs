@@ -31,15 +31,7 @@ namespace NProxy.Core
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
-        /// <returns>The proxy object.</returns>
+        /// <returns>The proxy.</returns>
         IProxy CreateProxy(Type declaringType, IEnumerable<Type> interfaceTypes);
-
-        /// <summary>
-        /// Creates a proxy.
-        /// </summary>
-        /// <typeparam name="T">The declaring type.</typeparam>
-        /// <param name="interfaceTypes">The additional interface types.</param>
-        /// <returns>The proxy object.</returns>
-        IProxy<T> CreateProxy<T>(IEnumerable<Type> interfaceTypes) where T : class;
     }
 }
