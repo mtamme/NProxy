@@ -226,7 +226,7 @@ namespace NProxy.Core.Internal.Templates
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return DeclaringType.GetHashCode();
+            return _declaringType.GetHashCode();
         }
 
         #endregion
