@@ -53,7 +53,7 @@ namespace NProxy.Core
         /// <typeparam name="TInterface">The interface type.</typeparam>
         /// <param name="instance">The instance.</param>
         /// <returns>The object, of the specified interface type, to which the instance has been casted.</returns>
-        TInterface Cast<TInterface>(object instance) where TInterface : class;
+        TInterface CastInstance<TInterface>(object instance) where TInterface : class;
 
         /// <summary>
         /// Creates a new instance.

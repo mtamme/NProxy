@@ -112,7 +112,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public TInterface Cast<TInterface>(object instance) where TInterface : class
+        public TInterface CastInstance<TInterface>(object instance) where TInterface : class
         {
             var interfaceType = typeof (TInterface);
 
@@ -197,9 +197,9 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public TInterface Cast<TInterface>(object instance) where TInterface : class
+        public TInterface CastInstance<TInterface>(object instance) where TInterface : class
         {
-            return _proxy.Cast<TInterface>(instance);
+            return _proxy.CastInstance<TInterface>(instance);
         }
 
         /// <inheritdoc/>

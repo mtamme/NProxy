@@ -54,7 +54,7 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <summary>
-        /// Applies all interceptors for the specified type.
+        /// Applies all interceptors for the specified proxy.
         /// </summary>
         /// <param name="proxy">The proxy.</param>
         /// <param name="interceptors">The interceptors.</param>
