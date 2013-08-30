@@ -71,12 +71,12 @@ namespace NProxy.Core.Internal.Templates
             if (delegateInstance == null)
                 throw new InvalidOperationException("Invalid instance type");
 
-            var target = delegateInstance.Target;
+            var proxyInstance = delegateInstance.Target;
 
-            if (target == null)
+            if (proxyInstance == null)
                 throw new InvalidOperationException("Invalid instance type");
 
-            return target;
+            return proxyInstance;
         }
 
         /// <inheritdoc/>
@@ -88,9 +88,9 @@ namespace NProxy.Core.Internal.Templates
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            var instance = Activator.CreateInstance(proxyType, arguments);
+            var proxyInstance = Activator.CreateInstance(proxyType, arguments);
 
-            return Delegate.CreateDelegate(DeclaringType, instance, DelegateMethodName);
+            return Delegate.CreateDelegate(DeclaringType, proxyInstance, DelegateMethodName);
         }
 
         #endregion
