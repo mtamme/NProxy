@@ -119,7 +119,7 @@ namespace NProxy.Core
             if (!interfaceType.IsInterface)
                 throw new ArgumentException(String.Format("Type '{0}' is not an interface type", interfaceType));
 
-            var proxyInstance = _proxyTemplate.GetProxyInstance(instance);
+            var proxyInstance = _proxyTemplate.UnwrapInstance(instance);
             var proxyType = proxyInstance.GetType();
 
             if ((proxyType != _proxyType) || !(proxyInstance is TInterface))

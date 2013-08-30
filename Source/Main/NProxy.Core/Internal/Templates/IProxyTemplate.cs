@@ -42,11 +42,11 @@ namespace NProxy.Core.Internal.Templates
         void AcceptVisitor(IProxyTemplateVisitor proxyTemplateVisitor);
 
         /// <summary>
-        /// Returns the proxy instance for the specified instance.
+        /// Returns the wrapped proxy instance.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        /// <returns>The proxy instance for the specified instance.</returns>
-        object GetProxyInstance(object instance);
+        /// <returns>The wrapped proxy instance.</returns>
+        object UnwrapInstance(object instance);
 
         /// <summary>
         /// Creates an instance of the specified type.

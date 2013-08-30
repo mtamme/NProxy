@@ -48,7 +48,7 @@ namespace NProxy.Core.Internal.Templates
         }
 
         /// <inheritdoc/>
-        public override object GetProxyInstance(object instance)
+        public override object UnwrapInstance(object instance)
         {
             if (instance == null)
                 throw new ArgumentNullException("instance");

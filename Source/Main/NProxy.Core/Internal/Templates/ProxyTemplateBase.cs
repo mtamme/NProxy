@@ -181,7 +181,7 @@ namespace NProxy.Core.Internal.Templates
         }
 
         /// <inheritdoc/>
-        public abstract object GetProxyInstance(object instance);
+        public abstract object UnwrapInstance(object instance);
 
         /// <inheritdoc/>
         public abstract object CreateInstance(Type proxyType, object[] arguments);
