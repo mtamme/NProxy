@@ -48,12 +48,12 @@ namespace NProxy.Core
         IEnumerable<MethodInfo> InterceptedMethods { get; }
 
         /// <summary>
-        /// Casts an instance to the specified interface type.
+        /// Adapts an instance to the specified interface type.
         /// </summary>
         /// <typeparam name="TInterface">The interface type.</typeparam>
         /// <param name="instance">The instance.</param>
-        /// <returns>The object, of the specified interface type, to which the instance has been casted.</returns>
-        TInterface CastInstance<TInterface>(object instance) where TInterface : class;
+        /// <returns>The object, of the specified interface type, to which the instance has been adapted.</returns>
+        TInterface AdaptInstance<TInterface>(object instance) where TInterface : class;
 
         /// <summary>
         /// Creates a new instance.
