@@ -17,7 +17,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 
@@ -267,12 +266,6 @@ namespace NProxy.Core.Internal.Builders
         public override sealed Type ReflectedType
         {
             get { return _methodInfo.ReflectedType; }
-        }
-
-        /// <inheritdoc/>
-        public override sealed IList<CustomAttributeData> GetCustomAttributesData()
-        {
-            return _methodInfo.GetCustomAttributesData();
         }
 
         #endregion

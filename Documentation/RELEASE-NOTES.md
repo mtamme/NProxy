@@ -2,6 +2,7 @@
 
 ## Version TBA
 
+* Changed target framework to .NET 3.5.
 * Separated proxy creation from proxy instantiation.
 * Exposed interception metadata via proxy interface.
 * Removed obsolete proxy adaption method.

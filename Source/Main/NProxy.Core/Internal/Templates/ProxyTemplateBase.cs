@@ -115,7 +115,7 @@ namespace NProxy.Core.Internal.Templates
         /// <param name="interfaceType">The interface type.</param>
         /// <param name="declaringInterfaceTypes">The declaring interface types.</param>
         /// <param name="additionalInterfaceTypes">The additional interface types.</param>
-        private static void AddAdditionalInterfaces(Type interfaceType, ICollection<Type> declaringInterfaceTypes, ISet<Type> additionalInterfaceTypes)
+        private static void AddAdditionalInterfaces(Type interfaceType, ICollection<Type> declaringInterfaceTypes, HashSet<Type> additionalInterfaceTypes)
         {
             if (interfaceType == null)
                 throw new ArgumentException("Interface type must not be null");

@@ -270,9 +270,7 @@ namespace NProxy.Core.Test
             Assert.That(actual.IsPrimitive, Is.EqualTo(expected.IsPrimitive));
             Assert.That(actual.IsPublic, Is.EqualTo(expected.IsPublic));
             Assert.That(actual.IsSealed, Is.EqualTo(expected.IsSealed));
-            Assert.That(actual.IsSecurityCritical, Is.EqualTo(expected.IsSecurityCritical));
             Assert.That(actual.IsSecuritySafeCritical, Is.EqualTo(expected.IsSecuritySafeCritical));
-            Assert.That(actual.IsSecurityTransparent, Is.EqualTo(expected.IsSecurityTransparent));
             Assert.That(actual.IsSerializable, Is.EqualTo(expected.IsSerializable));
             Assert.That(actual.IsSpecialName, Is.EqualTo(expected.IsSpecialName));
             Assert.That(actual.IsUnicodeClass, Is.EqualTo(expected.IsUnicodeClass));
@@ -282,6 +280,10 @@ namespace NProxy.Core.Test
             Assert.That(actual.Name, Is.EqualTo(expected.Name));
             Assert.That(actual.StructLayoutAttribute, Is.EqualTo(expected.StructLayoutAttribute));
             Assert.That(actual.IsGenericType, Is.EqualTo(expected.IsGenericType));
+
+            // Ignore .NET Framework 4 properties.
+            //Assert.That(actual.IsSecurityCritical, Is.EqualTo(expected.IsSecurityCritical));
+            //Assert.That(actual.IsSecurityTransparent, Is.EqualTo(expected.IsSecurityTransparent));
 
             // Check type attributes.
             Assert.That(actual.Attributes, Is.EqualTo(expected.Attributes));
