@@ -112,9 +112,10 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public TInterface AdaptInstance<TInterface>(object instance) where TInterface : class
+        public object AdaptInstance(Type interfaceType, object instance)
         {
-            var interfaceType = typeof (TInterface);
+            if (interfaceType == null)
+                throw new ArgumentNullException("interfaceType");
 
             if (!interfaceType.IsInterface)
                 throw new ArgumentException(String.Format("Type '{0}' is not an interface type", interfaceType));
@@ -122,10 +123,10 @@ namespace NProxy.Core
             var proxyInstance = _proxyTemplate.UnwrapInstance(instance);
             var proxyType = proxyInstance.GetType();
 
-            if ((proxyType != _proxyType) || !(proxyInstance is TInterface))
+            if ((proxyType != _proxyType) || !interfaceType.IsAssignableFrom(proxyType))
                 throw new InvalidCastException("Cannot cast instance to interface type");
 
-            return (TInterface) proxyInstance;
+            return proxyInstance;
         }
 
         /// <inheritdoc/>
@@ -197,9 +198,9 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public TInterface AdaptInstance<TInterface>(object instance) where TInterface : class
+        public object AdaptInstance(Type interfaceType, object instance)
         {
-            return _proxy.AdaptInstance<TInterface>(instance);
+            return _proxy.AdaptInstance(interfaceType, instance);
         }
 
         /// <inheritdoc/>

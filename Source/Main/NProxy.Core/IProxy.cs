@@ -50,10 +50,10 @@ namespace NProxy.Core
         /// <summary>
         /// Adapts an instance to the specified interface type.
         /// </summary>
-        /// <typeparam name="TInterface">The interface type.</typeparam>
+        /// <param name="interfaceType">The interface type.</param>
         /// <param name="instance">The instance.</param>
         /// <returns>The object, of the specified interface type, to which the instance has been adapted.</returns>
-        TInterface AdaptInstance<TInterface>(object instance) where TInterface : class;
+        object AdaptInstance(Type interfaceType, object instance);
 
         /// <summary>
         /// Creates a new instance.
