@@ -124,7 +124,7 @@ namespace NProxy.Core
             var proxyType = proxyInstance.GetType();
 
             if ((proxyType != _proxyType) || !interfaceType.IsAssignableFrom(proxyType))
-                throw new InvalidCastException("Cannot cast instance to interface type");
+                throw new InvalidOperationException("Cannot adapt instance to interface type");
 
             return proxyInstance;
         }

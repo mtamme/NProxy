@@ -102,7 +102,7 @@ namespace NProxy.Core.Test
 
             // Act
             // Assert
-            Assert.Throws<InvalidCastException>(() => proxy.AdaptInstance<IEnumParameter>(instance));
+            Assert.Throws<InvalidOperationException>(() => proxy.AdaptInstance<IEnumParameter>(instance));
         }
 
         [Test]
@@ -114,7 +114,7 @@ namespace NProxy.Core.Test
 
             // Act
             // Assert
-            Assert.Throws<InvalidCastException>(() => proxy.AdaptInstance<IEnumParameter>(instance));
+            Assert.Throws<InvalidOperationException>(() => proxy.AdaptInstance<IEnumParameter>(instance));
         }
 
         [Test]
@@ -126,7 +126,7 @@ namespace NProxy.Core.Test
 
             // Act
             // Assert
-            Assert.Throws<InvalidCastException>(() => proxy.AdaptInstance<IEnumParameter>(instance));
+            Assert.Throws<InvalidOperationException>(() => proxy.AdaptInstance<IEnumParameter>(instance));
         }
 
         [Test]
@@ -138,7 +138,7 @@ namespace NProxy.Core.Test
 
             // Act
             // Assert
-            Assert.Throws<InvalidCastException>(() => proxy.AdaptInstance<IEnumParameter>(instance));
+            Assert.Throws<InvalidOperationException>(() => proxy.AdaptInstance<IEnumParameter>(instance));
         }
 
         [Test]
