@@ -99,6 +99,7 @@
     <Compile Include="ProxyAttribute.cs" />
     <Compile Include="AttributeInterceptionFilter.cs" />
     <Compile Include="ProxyExtensions.cs" />
+    <Compile Include="Internal\Caching\ConcurrentCache.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
