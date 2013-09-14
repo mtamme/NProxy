@@ -100,14 +100,11 @@ internal sealed class LazyInterceptor : IInterceptor
     {
         var lazy = invocationContext.Target as ILazy;
 
-        if (lazy != null)
+        if ((lazy != null) && !lazy.Loaded)
         {
-            if (!lazy.Loaded)
-            {
-                lazy.Loaded = true;
+            lazy.Loaded = true;
 
-                // Perform lazy loading...
-            }
+            // Perform lazy loading...
         }
 
         return invocationContext.Proceed();
