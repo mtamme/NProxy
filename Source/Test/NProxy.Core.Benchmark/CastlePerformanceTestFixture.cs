@@ -19,6 +19,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using Castle.DynamicProxy;
+using NProxy.Core.Benchmark.Reporting;
 using NProxy.Core.Benchmark.Types;
 using NUnit.Framework;
 
