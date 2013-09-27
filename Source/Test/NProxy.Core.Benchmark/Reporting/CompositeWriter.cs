@@ -32,7 +32,7 @@ namespace NProxy.Core.Benchmark.Reporting
             _writers = writers;
         }
 
-        private void Do(Action<IWriter> action)
+        private void ForEachWriter(Action<IWriter> action)
         {
             foreach (var writer in _writers)
             {
@@ -44,17 +44,17 @@ namespace NProxy.Core.Benchmark.Reporting
 
         public void Close()
         {
-            Do(w => w.Close());
+            ForEachWriter(w => w.Close());
         }
 
         public void WriteHeader()
         {
-            Do(w => w.WriteHeader());
+            ForEachWriter(w => w.WriteHeader());
         }
 
         public void WriteRow(string typeName, string version, Scenario scenario, int iterations, TimeSpan elapsedTime)
         {
-            Do(w => w.WriteRow(typeName, version, scenario, iterations, elapsedTime));
+            ForEachWriter(w => w.WriteRow(typeName, version, scenario, iterations, elapsedTime));
         }
 
         #endregion
