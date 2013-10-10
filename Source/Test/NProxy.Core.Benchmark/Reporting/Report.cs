@@ -28,7 +28,7 @@ namespace NProxy.Core.Benchmark.Reporting
 
         private Lazy<IWriter> _writer;
 
-        public Report()
+        private Report()
         {
             _writer = new Lazy<IWriter>(CreateWriter);
         }
