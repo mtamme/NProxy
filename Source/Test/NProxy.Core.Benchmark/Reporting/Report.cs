@@ -26,7 +26,7 @@ namespace NProxy.Core.Benchmark.Reporting
     {
         public static Report Instance = new Report();
 
-        private Lazy<IWriter> _writer;
+        private readonly Lazy<IWriter> _writer;
 
         private Report()
         {
