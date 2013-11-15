@@ -1,14 +1,3 @@
-# Building NProxy
-
-Install the dependent NuGet packages.
-
-```
-> cd Lib\
-> nuget install packages.config
-```
-
-Build the project with your preferred tool.
-
 # Packaging NProxy
 
 Create the NuGet package.
