@@ -22,4 +22,4 @@ _ReSharper*/
 [Tt]est-[Rr]esult*/
 
 # NuGet
-Lib/*/
+/Source/packages
