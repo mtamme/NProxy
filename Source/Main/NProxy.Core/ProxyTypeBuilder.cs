@@ -77,10 +77,10 @@ namespace NProxy.Core
                 throw new ArgumentNullException("parentType");
 
             if (parentType.IsSealed)
-                throw new ArgumentException("Parent type must not be sealed", "parentType");
+                throw new ArgumentException(Resources.Error_ParentTypeMustNotBeSealed, "parentType");
 
             if (parentType.IsGenericTypeDefinition)
-                throw new ArgumentException("Parent type must not be a generic type definition", "parentType");
+                throw new ArgumentException(Resources.Error_ParentTypeMustNotBeAGenericTypeDefinition, "parentType");
 
             _typeRepository = typeRepository;
             _parentType = parentType;
@@ -104,7 +104,7 @@ namespace NProxy.Core
         private MethodBuilder BuildInterceptedMethod(MethodInfo declaringMethodInfo, bool isExplicit)
         {
             if (!declaringMethodInfo.CanOverride())
-                throw new InvalidOperationException(String.Format("Method '{0}' is not overridable", declaringMethodInfo.Name));
+                throw new InvalidOperationException(String.Format(Resources.Error_MethodNotOverridable, declaringMethodInfo.Name));
 
             var isOverride = IsOverrideMethod(declaringMethodInfo);
 
@@ -298,10 +298,10 @@ namespace NProxy.Core
                 throw new ArgumentNullException("interfaceType");
 
             if (!interfaceType.IsInterface)
-                throw new ArgumentException(String.Format("Type '{0}' is not an interface type", interfaceType), "interfaceType");
+                throw new ArgumentException(String.Format(Resources.Error_TypeNotAnInterfaceType, interfaceType));
 
             if (interfaceType.IsGenericTypeDefinition)
-                throw new ArgumentException("Interface type must not be a generic type definition", "interfaceType");
+                throw new ArgumentException(String.Format(Resources.Error_InterfaceTypeMustNotBeAGenericTypeDefinition, interfaceType));
 
             _typeBuilder.AddInterfaceImplementation(interfaceType);
 

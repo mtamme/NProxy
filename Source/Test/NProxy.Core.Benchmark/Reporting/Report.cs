@@ -18,13 +18,12 @@
 
 using System;
 using System.Reflection;
-using NProxy.Core.Benchmark.Reporting;
 
 namespace NProxy.Core.Benchmark.Reporting
 {
     internal sealed class Report
     {
-        public static Report Instance = new Report();
+        public static readonly Report Instance = new Report();
 
         private readonly Lazy<IWriter> _writer;
 

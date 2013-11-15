@@ -70,7 +70,7 @@ namespace NProxy.Core.Internal.Reflection
             var constructorInfo = type.GetConstructor(bindingFlags, null, parameterTypes, null);
 
             if (constructorInfo == null)
-                throw new MissingMethodException(String.Format("Constructor on type '{0}' not found", type));
+                throw new MissingMethodException(String.Format(Resources.Error_ConstructorOnTypeNotFound, type));
 
             return constructorInfo;
         }
@@ -97,7 +97,7 @@ namespace NProxy.Core.Internal.Reflection
             var methodInfo = type.GetMethod(methodName, bindingFlags, null, parameterTypes, null);
 
             if (methodInfo == null)
-                throw new MissingMethodException(String.Format("Method '{0}' on type '{1}' not found", methodName, type));
+                throw new MissingMethodException(String.Format(Resources.Error_MethodOnTypeNotFound, methodName, type));
 
             return methodInfo;
         }

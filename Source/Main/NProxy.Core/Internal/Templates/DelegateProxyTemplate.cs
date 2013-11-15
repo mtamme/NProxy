@@ -69,12 +69,12 @@ namespace NProxy.Core.Internal.Templates
             var delegateInstance = instance as Delegate;
 
             if (delegateInstance == null)
-                throw new InvalidOperationException("Invalid instance type");
+                throw new InvalidOperationException(Resources.Error_InvalidInstanceType);
 
             var proxyInstance = delegateInstance.Target;
 
             if (proxyInstance == null)
-                throw new InvalidOperationException("Invalid instance type");
+                throw new InvalidOperationException(Resources.Error_InvalidInstanceType);
 
             return proxyInstance;
         }

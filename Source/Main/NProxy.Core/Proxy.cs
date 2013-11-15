@@ -118,13 +118,13 @@ namespace NProxy.Core
                 throw new ArgumentNullException("interfaceType");
 
             if (!interfaceType.IsInterface)
-                throw new ArgumentException(String.Format("Type '{0}' is not an interface type", interfaceType));
+                throw new ArgumentException(String.Format(Resources.Error_TypeNotAnInterfaceType, interfaceType));
 
             var proxyInstance = _proxyTemplate.UnwrapInstance(instance);
             var proxyType = proxyInstance.GetType();
 
             if ((proxyType != _proxyType) || !interfaceType.IsAssignableFrom(proxyType))
-                throw new InvalidOperationException("Cannot adapt instance to interface type");
+                throw new InvalidOperationException(Resources.Error_CannotAdaptInstance);
 
             return proxyInstance;
         }

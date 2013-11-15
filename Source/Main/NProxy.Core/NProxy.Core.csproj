@@ -100,6 +100,11 @@
     <Compile Include="AttributeInterceptionFilter.cs" />
     <Compile Include="ProxyExtensions.cs" />
     <Compile Include="Internal\Caching\ConcurrentCache.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -111,6 +116,10 @@
   -->
   <ItemGroup>
     <EmbeddedResource Include="Internal\Dynamic.snk" />
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

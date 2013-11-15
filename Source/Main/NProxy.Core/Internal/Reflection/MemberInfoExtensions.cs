@@ -88,7 +88,7 @@ namespace NProxy.Core.Internal.Reflection
             var declaringType = memberInfo.DeclaringType;
 
             if (declaringType == null)
-                throw new InvalidOperationException("Member has no declaring type");
+                throw new InvalidOperationException(Resources.Error_MemberHasNoDeclaringType);
 
             return declaringType;
         }
