@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using NProxy.Core.Interceptors.Language;
+using NProxy.Core.Internal;
 
 namespace NProxy.Core.Interceptors
 {

@@ -26,7 +26,7 @@ namespace NProxy.Core.Internal.Caching
     /// </summary>
     /// <typeparam name="TKey">The key type.</typeparam>
     /// <typeparam name="TValue">The value type.</typeparam>
-    internal sealed class InterlockedCache<TKey, TValue> : ICache<TKey, TValue>
+    internal sealed class InterlockedCache<TKey, TValue> : ICache<TKey, TValue>, IDisposable
     {
         /// <summary>
         /// The values.
@@ -39,12 +39,43 @@ namespace NProxy.Core.Internal.Caching
         private readonly ReadWriteLock _lock;
 
         /// <summary>
+        /// A value indicating weather this <see cref="InterlockedCache{TKey, TValue}"/> was already disposed.
+        /// </summary>
+        private bool _disposed;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="InterlockedCache{TKey, TValue}"/> class.
         /// </summary>
         public InterlockedCache()
         {
             _values = new Dictionary<TKey, TValue>();
             _lock = new ReadWriteLock();
+
+            _disposed = false;
+        }
+
+        /// <summary>
+        /// Releases unmanaged resources and performs other cleanup operations before the
+        /// <see cref="InterlockedCache{TKey, TValue}"/> is reclaimed by garbage collection.
+        /// </summary>
+        ~InterlockedCache()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// Dispose this <see cref="InterlockedCache{TKey, TValue}"/>.
+        /// </summary>
+        /// <param name="disposing">A value indicating weather disposing is in progress.</param>
+        private void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+                _lock.Dispose();
+
+            _disposed = true;
         }
 
         #region ICache<TKey, TValue> Members
@@ -70,6 +101,17 @@ namespace NProxy.Core.Internal.Caching
             }
 
             return value;
+        }
+
+        #endregion
+
+        #region IDisposable Members
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion

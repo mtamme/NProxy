@@ -100,7 +100,7 @@
     <Compile Include="AttributeInterceptionFilter.cs" />
     <Compile Include="ProxyExtensions.cs" />
     <Compile Include="Internal\Caching\ConcurrentCache.cs" />
-    <Compile Include="Resources.Designer.cs">
+    <Compile Include="Internal\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -116,7 +116,7 @@
   -->
   <ItemGroup>
     <EmbeddedResource Include="Internal\Dynamic.snk" />
-    <EmbeddedResource Include="Resources.resx">
+    <EmbeddedResource Include="Internal\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>

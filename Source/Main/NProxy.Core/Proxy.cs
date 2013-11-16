@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using NProxy.Core.Internal;
 using NProxy.Core.Internal.Templates;
 
 namespace NProxy.Core

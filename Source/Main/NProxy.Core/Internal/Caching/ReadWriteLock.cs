@@ -24,7 +24,7 @@ namespace NProxy.Core.Internal.Caching
     /// <summary>
     /// Represents a read write lock.
     /// </summary>
-    internal sealed class ReadWriteLock
+    internal sealed class ReadWriteLock : IDisposable
     {
         /// <summary>
         /// The reader writer lock.
@@ -32,11 +32,42 @@ namespace NProxy.Core.Internal.Caching
         private readonly ReaderWriterLockSlim _lock;
 
         /// <summary>
+        /// A value indicating weather this <see cref="ReadWriteLock"/> was already disposed.
+        /// </summary>
+        private bool _disposed;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ReadWriteLock"/> class.
         /// </summary>
         public ReadWriteLock()
         {
             _lock = new ReaderWriterLockSlim();
+
+            _disposed = false;
+        }
+
+        /// <summary>
+        /// Releases unmanaged resources and performs other cleanup operations before the
+        /// <see cref="ReadWriteLock"/> is reclaimed by garbage collection.
+        /// </summary>
+        ~ReadWriteLock()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// Dispose this <see cref="AnonymousDisposable"/>.
+        /// </summary>
+        /// <param name="disposing">A value indicating weather disposing is in progress.</param>
+        private void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+                _lock.Dispose();
+
+            _disposed = true;
         }
 
         /// <summary>
@@ -71,5 +102,16 @@ namespace NProxy.Core.Internal.Caching
 
             return new AnonymousDisposable(_ => _lock.ExitWriteLock());
         }
+
+        #region IDisposable Members
+
+        /// <inheritdoc/>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
     }
 }
