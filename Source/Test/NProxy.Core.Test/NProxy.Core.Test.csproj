@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internal\Caching\CacheTestFixture.cs" />
-    <Compile Include="ObjectExtensionsTestFixture.cs" />
+    <Compile Include="Interceptors\ObjectExtensionsTestFixture.cs" />
     <Compile Include="TargetInvocationHandler.cs" />
     <Compile Include="GetParametersInvocationHandler.cs" />
     <Compile Include="SetParametersInvocationHandler.cs" />

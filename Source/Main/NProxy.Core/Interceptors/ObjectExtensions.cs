@@ -19,7 +19,7 @@
 using System;
 using NProxy.Core.Internal.Reflection;
 
-namespace NProxy.Core
+namespace NProxy.Core.Interceptors
 {
     /// <summary>
     /// Provides object extensions.

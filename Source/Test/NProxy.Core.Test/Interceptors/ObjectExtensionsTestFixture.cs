@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -17,10 +17,11 @@
 //
 
 using System;
+using NProxy.Core.Interceptors;
 using NProxy.Core.Test.Types;
 using NUnit.Framework;
 
-namespace NProxy.Core.Test
+namespace NProxy.Core.Test.Interceptors
 {
     [TestFixture]
     internal sealed class ObjectExtensionsTestFixture
