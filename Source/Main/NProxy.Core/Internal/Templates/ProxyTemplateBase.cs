@@ -118,13 +118,13 @@ namespace NProxy.Core.Internal.Templates
         private static void AddAdditionalInterfaces(Type interfaceType, ICollection<Type> declaringInterfaceTypes, HashSet<Type> additionalInterfaceTypes)
         {
             if (interfaceType == null)
-				throw new ArgumentException(Resources.Error_InterfaceTypeMustNotBeNull, "interfaceType");
+                throw new ArgumentException(Resources.Error_InterfaceTypeMustNotBeNull, "interfaceType");
 
             if (!interfaceType.IsInterface)
-				throw new ArgumentException(String.Format(Resources.Error_TypeNotAnInterfaceType, interfaceType), "interfaceType");
+                throw new ArgumentException(String.Format(Resources.Error_TypeNotAnInterfaceType, interfaceType), "interfaceType");
 
             if (interfaceType.IsGenericTypeDefinition)
-				throw new ArgumentException(String.Format(Resources.Error_InterfaceTypeMustNotBeAGenericTypeDefinition, interfaceType), "interfaceType");
+                throw new ArgumentException(String.Format(Resources.Error_InterfaceTypeMustNotBeAGenericTypeDefinition, interfaceType), "interfaceType");
 
             // Add interface type.
             if (declaringInterfaceTypes.Contains(interfaceType))

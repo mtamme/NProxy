@@ -299,10 +299,10 @@ namespace NProxy.Core
                 throw new ArgumentNullException("interfaceType");
 
             if (!interfaceType.IsInterface)
-				throw new ArgumentException(String.Format(Resources.Error_TypeNotAnInterfaceType, interfaceType), "interfaceType");
+                throw new ArgumentException(String.Format(Resources.Error_TypeNotAnInterfaceType, interfaceType), "interfaceType");
 
             if (interfaceType.IsGenericTypeDefinition)
-				throw new ArgumentException(String.Format(Resources.Error_InterfaceTypeMustNotBeAGenericTypeDefinition, interfaceType), "interfaceType");
+                throw new ArgumentException(String.Format(Resources.Error_InterfaceTypeMustNotBeAGenericTypeDefinition, interfaceType), "interfaceType");
 
             _typeBuilder.AddInterfaceImplementation(interfaceType);
 

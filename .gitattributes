@@ -1,0 +1,2 @@
+# This setting will tell git to handle the files specified automatically. This is a good default option.
+* text=auto
