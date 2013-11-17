@@ -24,6 +24,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+using System.Resources;
 
 [assembly: AssemblyTitle("NProxy.Core")]
 [assembly: AssemblyDescription("NProxy is a library for the .NET framework to create lightweight dynamic proxies.")]
@@ -60,5 +61,6 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 
 [assembly: AssemblyVersion("2.0.0.*")]
+[assembly: NeutralResourcesLanguage("en-US")]
 [assembly: InternalsVisibleTo("NProxy.Core.Test")]
 [assembly: InternalsVisibleTo("NProxy.Dynamic")]
