@@ -61,7 +61,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot adapt instance to interface type.
+        ///   Looks up a localized string similar to Cannot adapt instance to interface type..
         /// </summary>
         internal static string CannotAdaptInstance {
             get {
@@ -70,7 +70,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Constructor on type &apos;{0}&apos; not found.
+        ///   Looks up a localized string similar to Constructor on type &apos;{0}&apos; not found..
         /// </summary>
         internal static string ConstructorOnTypeNotFound {
             get {
@@ -79,7 +79,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dynamic assembly key pair is missing.
+        ///   Looks up a localized string similar to Dynamic assembly key pair is missing..
         /// </summary>
         internal static string DynamicAssemblyKeyPairIsMissing {
             get {
@@ -88,7 +88,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interface type &apos;{0}&apos; must not be a generic type definition.
+        ///   Looks up a localized string similar to Interface type &apos;{0}&apos; must not be a generic type definition..
         /// </summary>
         internal static string InterfaceTypeMustNotBeAGenericTypeDefinition {
             get {
@@ -97,7 +97,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interface type must not be null.
+        ///   Looks up a localized string similar to Interface type must not be null..
         /// </summary>
         internal static string InterfaceTypeMustNotBeNull {
             get {
@@ -106,7 +106,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interface type {0} was already added.
+        ///   Looks up a localized string similar to Interface type {0} was already added..
         /// </summary>
         internal static string InterfaceTypeWasAlreadyAdded {
             get {
@@ -115,7 +115,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid instance type.
+        ///   Looks up a localized string similar to Invalid instance type..
         /// </summary>
         internal static string InvalidInstanceType {
             get {
@@ -124,7 +124,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Member has no declaring type.
+        ///   Looks up a localized string similar to Member has no declaring type..
         /// </summary>
         internal static string MemberHasNoDeclaringType {
             get {
@@ -133,7 +133,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Method is not declared or inherited by target object.
+        ///   Looks up a localized string similar to Method is not declared or inherited by target object..
         /// </summary>
         internal static string MethodNotDeclaredOrInherited {
             get {
@@ -142,7 +142,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Method is not implemented or inherited by target object.
+        ///   Looks up a localized string similar to Method is not implemented or inherited by target object..
         /// </summary>
         internal static string MethodNotImplementedOrInherited {
             get {
@@ -151,7 +151,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Method is not inherited by target object.
+        ///   Looks up a localized string similar to Method is not inherited by target object..
         /// </summary>
         internal static string MethodNotInherited {
             get {
@@ -160,7 +160,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Method &apos;{0}&apos; is not overridable.
+        ///   Looks up a localized string similar to Method &apos;{0}&apos; is not overridable..
         /// </summary>
         internal static string MethodNotOverridable {
             get {
@@ -169,7 +169,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Method &apos;{0}&apos; on type &apos;{1}&apos; not found.
+        ///   Looks up a localized string similar to Method &apos;{0}&apos; on type &apos;{1}&apos; not found..
         /// </summary>
         internal static string MethodOnTypeNotFound {
             get {
@@ -178,7 +178,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Method requires a target object.
+        ///   Looks up a localized string similar to Method requires a target object..
         /// </summary>
         internal static string MethodRequiresATargetObject {
             get {
@@ -187,7 +187,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No more interceptors in the interceptor chain.
+        ///   Looks up a localized string similar to No more interceptors in the interceptor chain..
         /// </summary>
         internal static string NoMoreInterceptorsInTheInterceptorChain {
             get {
@@ -196,7 +196,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of parameter types and parameter names must be equal.
+        ///   Looks up a localized string similar to Number of parameter types and parameter names must be equal..
         /// </summary>
         internal static string NumberOfParameterTypesAndParameterNamesMustBeEqual {
             get {
@@ -205,7 +205,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parent type must not be a generic type definition.
+        ///   Looks up a localized string similar to Parent type must not be a generic type definition..
         /// </summary>
         internal static string ParentTypeMustNotBeAGenericTypeDefinition {
             get {
@@ -214,7 +214,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parent type must not be sealed.
+        ///   Looks up a localized string similar to Parent type must not be sealed..
         /// </summary>
         internal static string ParentTypeMustNotBeSealed {
             get {
@@ -223,7 +223,7 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type &apos;{0}&apos; is not an interface type.
+        ///   Looks up a localized string similar to Type &apos;{0}&apos; is not an interface type..
         /// </summary>
         internal static string TypeNotAnInterfaceType {
             get {
