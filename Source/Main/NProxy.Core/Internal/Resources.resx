@@ -117,61 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error_CannotAdaptInstance" xml:space="preserve">
+  <data name="CannotAdaptInstance" xml:space="preserve">
     <value>Cannot adapt instance to interface type</value>
   </data>
-  <data name="Error_InvalidInstanceType" xml:space="preserve">
+  <data name="InvalidInstanceType" xml:space="preserve">
     <value>Invalid instance type</value>
   </data>
-  <data name="Error_TypeNotAnInterfaceType" xml:space="preserve">
+  <data name="TypeNotAnInterfaceType" xml:space="preserve">
     <value>Type '{0}' is not an interface type</value>
   </data>
-  <data name="Error_ParentTypeMustNotBeSealed" xml:space="preserve">
+  <data name="ParentTypeMustNotBeSealed" xml:space="preserve">
     <value>Parent type must not be sealed</value>
   </data>
-  <data name="Error_ParentTypeMustNotBeAGenericTypeDefinition" xml:space="preserve">
+  <data name="ParentTypeMustNotBeAGenericTypeDefinition" xml:space="preserve">
     <value>Parent type must not be a generic type definition</value>
   </data>
-  <data name="Error_MethodNotOverridable" xml:space="preserve">
+  <data name="MethodNotOverridable" xml:space="preserve">
     <value>Method '{0}' is not overridable</value>
   </data>
-  <data name="Error_InterfaceTypeMustNotBeAGenericTypeDefinition" xml:space="preserve">
+  <data name="InterfaceTypeMustNotBeAGenericTypeDefinition" xml:space="preserve">
     <value>Interface type '{0}' must not be a generic type definition</value>
   </data>
-  <data name="Error_ConstructorOnTypeNotFound" xml:space="preserve">
+  <data name="ConstructorOnTypeNotFound" xml:space="preserve">
     <value>Constructor on type '{0}' not found</value>
   </data>
-  <data name="Error_DynamicAssemblyKeyPairIsMissing" xml:space="preserve">
+  <data name="DynamicAssemblyKeyPairIsMissing" xml:space="preserve">
     <value>Dynamic assembly key pair is missing</value>
   </data>
-  <data name="Error_InterfaceTypeMustNotBeNull" xml:space="preserve">
+  <data name="InterfaceTypeMustNotBeNull" xml:space="preserve">
     <value>Interface type must not be null</value>
   </data>
-  <data name="Error_InterfaceTypeWasAlreadyAdded" xml:space="preserve">
+  <data name="InterfaceTypeWasAlreadyAdded" xml:space="preserve">
     <value>Interface type {0} was already added</value>
   </data>
-  <data name="Error_MemberHasNoDeclaringType" xml:space="preserve">
+  <data name="MemberHasNoDeclaringType" xml:space="preserve">
     <value>Member has no declaring type</value>
   </data>
-  <data name="Error_MethodNotDeclaredOrInherited" xml:space="preserve">
+  <data name="MethodNotDeclaredOrInherited" xml:space="preserve">
     <value>Method is not declared or inherited by target object</value>
   </data>
-  <data name="Error_MethodNotImplementedOrInherited" xml:space="preserve">
+  <data name="MethodNotImplementedOrInherited" xml:space="preserve">
     <value>Method is not implemented or inherited by target object</value>
   </data>
-  <data name="Error_MethodNotInherited" xml:space="preserve">
+  <data name="MethodNotInherited" xml:space="preserve">
     <value>Method is not inherited by target object</value>
   </data>
-  <data name="Error_MethodOnTypeNotFound" xml:space="preserve">
+  <data name="MethodOnTypeNotFound" xml:space="preserve">
     <value>Method '{0}' on type '{1}' not found</value>
   </data>
-  <data name="Error_MethodRequiresATargetObject" xml:space="preserve">
+  <data name="MethodRequiresATargetObject" xml:space="preserve">
     <value>Method requires a target object</value>
   </data>
-  <data name="Error_NoMoreInterceptorsInTheInterceptorChain" xml:space="preserve">
+  <data name="NoMoreInterceptorsInTheInterceptorChain" xml:space="preserve">
     <value>No more interceptors in the interceptor chain</value>
   </data>
-  <data name="Error_NumberOfParameterTypesAndParameterNamesMustBeEqual" xml:space="preserve">
+  <data name="NumberOfParameterTypesAndParameterNamesMustBeEqual" xml:space="preserve">
     <value>Number of parameter types and parameter names must be equal</value>
   </data>
 </root>

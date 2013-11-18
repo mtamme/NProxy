@@ -89,7 +89,7 @@ namespace NProxy.Core.Interceptors
         private IInterceptor GetNextInterceptor()
         {
             if (_nextInterceptorIndex >= _interceptors.Length)
-                throw new InvalidOperationException(Resources.Error_NoMoreInterceptorsInTheInterceptorChain);
+                throw new InvalidOperationException(Resources.NoMoreInterceptorsInTheInterceptorChain);
 
             return _interceptors[_nextInterceptorIndex++];
         }

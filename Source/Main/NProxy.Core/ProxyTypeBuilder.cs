@@ -78,10 +78,10 @@ namespace NProxy.Core
                 throw new ArgumentNullException("parentType");
 
             if (parentType.IsSealed)
-                throw new ArgumentException(Resources.Error_ParentTypeMustNotBeSealed, "parentType");
+                throw new ArgumentException(Resources.ParentTypeMustNotBeSealed, "parentType");
 
             if (parentType.IsGenericTypeDefinition)
-                throw new ArgumentException(Resources.Error_ParentTypeMustNotBeAGenericTypeDefinition, "parentType");
+                throw new ArgumentException(Resources.ParentTypeMustNotBeAGenericTypeDefinition, "parentType");
 
             _typeRepository = typeRepository;
             _parentType = parentType;
@@ -105,7 +105,7 @@ namespace NProxy.Core
         private MethodBuilder BuildInterceptedMethod(MethodInfo declaringMethodInfo, bool isExplicit)
         {
             if (!declaringMethodInfo.CanOverride())
-                throw new InvalidOperationException(String.Format(Resources.Error_MethodNotOverridable, declaringMethodInfo.Name));
+                throw new InvalidOperationException(String.Format(Resources.MethodNotOverridable, declaringMethodInfo.Name));
 
             var isOverride = IsOverrideMethod(declaringMethodInfo);
 
@@ -299,10 +299,10 @@ namespace NProxy.Core
                 throw new ArgumentNullException("interfaceType");
 
             if (!interfaceType.IsInterface)
-                throw new ArgumentException(String.Format(Resources.Error_TypeNotAnInterfaceType, interfaceType), "interfaceType");
+                throw new ArgumentException(String.Format(Resources.TypeNotAnInterfaceType, interfaceType), "interfaceType");
 
             if (interfaceType.IsGenericTypeDefinition)
-                throw new ArgumentException(String.Format(Resources.Error_InterfaceTypeMustNotBeAGenericTypeDefinition, interfaceType), "interfaceType");
+                throw new ArgumentException(String.Format(Resources.InterfaceTypeMustNotBeAGenericTypeDefinition, interfaceType), "interfaceType");
 
             _typeBuilder.AddInterfaceImplementation(interfaceType);
 

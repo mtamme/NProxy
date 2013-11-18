@@ -70,7 +70,7 @@ namespace NProxy.Core.Internal.Builders
         /// <returns>The return value.</returns>
         protected virtual object BaseInvoke(object target, object[] parameters)
         {
-            throw new TargetException(Resources.Error_MethodNotImplementedOrInherited);
+            throw new TargetException(Resources.MethodNotImplementedOrInherited);
         }
 
         /// <summary>
@@ -187,21 +187,21 @@ namespace NProxy.Core.Internal.Builders
         public override sealed object Invoke(object target, BindingFlags bindingFlags, Binder binder, object[] parameters, CultureInfo cultureInfo)
         {
             if (target == null)
-                throw new TargetException(Resources.Error_MethodRequiresATargetObject);
+                throw new TargetException(Resources.MethodRequiresATargetObject);
 
             // Check target type.
             var declaringType = DeclaringType;
             var targetType = target.GetType();
 
             if ((declaringType == null) || !declaringType.IsAssignableFrom(targetType))
-                throw new TargetException(Resources.Error_MethodNotDeclaredOrInherited);
+                throw new TargetException(Resources.MethodNotDeclaredOrInherited);
 
             // Check target object.
             if (!ReferenceEquals(target, _instance))
                 return VirtualInvoke(target, parameters);
 
             if (!_isOverride)
-                throw new TargetException(Resources.Error_MethodNotInherited);
+                throw new TargetException(Resources.MethodNotInherited);
 
             return BaseInvoke(target, parameters);
         }

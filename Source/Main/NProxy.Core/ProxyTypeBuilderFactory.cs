@@ -121,7 +121,7 @@ namespace NProxy.Core
             using (var stream = assembly.GetManifestResourceStream(DynamicAssemblyKeyPairResourceName))
             {
                 if (stream == null)
-                    throw new MissingManifestResourceException(Resources.Error_DynamicAssemblyKeyPairIsMissing);
+                    throw new MissingManifestResourceException(Resources.DynamicAssemblyKeyPairIsMissing);
 
                 var keyPair = ReadToEnd(stream);
 

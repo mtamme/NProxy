@@ -119,13 +119,13 @@ namespace NProxy.Core
                 throw new ArgumentNullException("interfaceType");
 
             if (!interfaceType.IsInterface)
-                throw new ArgumentException(String.Format(Resources.Error_TypeNotAnInterfaceType, interfaceType), "interfaceType");
+                throw new ArgumentException(String.Format(Resources.TypeNotAnInterfaceType, interfaceType), "interfaceType");
 
             var proxyInstance = _proxyTemplate.UnwrapInstance(instance);
             var proxyType = proxyInstance.GetType();
 
             if ((proxyType != _proxyType) || !interfaceType.IsAssignableFrom(proxyType))
-                throw new InvalidOperationException(Resources.Error_CannotAdaptInstance);
+                throw new InvalidOperationException(Resources.CannotAdaptInstance);
 
             return proxyInstance;
         }

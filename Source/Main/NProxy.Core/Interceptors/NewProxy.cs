@@ -109,7 +109,7 @@ namespace NProxy.Core.Interceptors
         private void AddInterface(Type interfaceType)
         {
             if (!_interfaceTypes.Add(interfaceType))
-                throw new InvalidOperationException(String.Format(Resources.Error_InterfaceTypeWasAlreadyAdded, interfaceType));
+                throw new InvalidOperationException(String.Format(Resources.InterfaceTypeWasAlreadyAdded, interfaceType));
         }
 
         /// <summary>

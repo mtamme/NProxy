@@ -63,171 +63,171 @@ namespace NProxy.Core.Internal {
         /// <summary>
         ///   Looks up a localized string similar to Cannot adapt instance to interface type.
         /// </summary>
-        internal static string Error_CannotAdaptInstance {
+        internal static string CannotAdaptInstance {
             get {
-                return ResourceManager.GetString("Error_CannotAdaptInstance", resourceCulture);
+                return ResourceManager.GetString("CannotAdaptInstance", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Constructor on type &apos;{0}&apos; not found.
         /// </summary>
-        internal static string Error_ConstructorOnTypeNotFound {
+        internal static string ConstructorOnTypeNotFound {
             get {
-                return ResourceManager.GetString("Error_ConstructorOnTypeNotFound", resourceCulture);
+                return ResourceManager.GetString("ConstructorOnTypeNotFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Dynamic assembly key pair is missing.
         /// </summary>
-        internal static string Error_DynamicAssemblyKeyPairIsMissing {
+        internal static string DynamicAssemblyKeyPairIsMissing {
             get {
-                return ResourceManager.GetString("Error_DynamicAssemblyKeyPairIsMissing", resourceCulture);
+                return ResourceManager.GetString("DynamicAssemblyKeyPairIsMissing", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Interface type &apos;{0}&apos; must not be a generic type definition.
         /// </summary>
-        internal static string Error_InterfaceTypeMustNotBeAGenericTypeDefinition {
+        internal static string InterfaceTypeMustNotBeAGenericTypeDefinition {
             get {
-                return ResourceManager.GetString("Error_InterfaceTypeMustNotBeAGenericTypeDefinition", resourceCulture);
+                return ResourceManager.GetString("InterfaceTypeMustNotBeAGenericTypeDefinition", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Interface type must not be null.
         /// </summary>
-        internal static string Error_InterfaceTypeMustNotBeNull {
+        internal static string InterfaceTypeMustNotBeNull {
             get {
-                return ResourceManager.GetString("Error_InterfaceTypeMustNotBeNull", resourceCulture);
+                return ResourceManager.GetString("InterfaceTypeMustNotBeNull", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Interface type {0} was already added.
         /// </summary>
-        internal static string Error_InterfaceTypeWasAlreadyAdded {
+        internal static string InterfaceTypeWasAlreadyAdded {
             get {
-                return ResourceManager.GetString("Error_InterfaceTypeWasAlreadyAdded", resourceCulture);
+                return ResourceManager.GetString("InterfaceTypeWasAlreadyAdded", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Invalid instance type.
         /// </summary>
-        internal static string Error_InvalidInstanceType {
+        internal static string InvalidInstanceType {
             get {
-                return ResourceManager.GetString("Error_InvalidInstanceType", resourceCulture);
+                return ResourceManager.GetString("InvalidInstanceType", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Member has no declaring type.
         /// </summary>
-        internal static string Error_MemberHasNoDeclaringType {
+        internal static string MemberHasNoDeclaringType {
             get {
-                return ResourceManager.GetString("Error_MemberHasNoDeclaringType", resourceCulture);
+                return ResourceManager.GetString("MemberHasNoDeclaringType", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Method is not declared or inherited by target object.
         /// </summary>
-        internal static string Error_MethodNotDeclaredOrInherited {
+        internal static string MethodNotDeclaredOrInherited {
             get {
-                return ResourceManager.GetString("Error_MethodNotDeclaredOrInherited", resourceCulture);
+                return ResourceManager.GetString("MethodNotDeclaredOrInherited", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Method is not implemented or inherited by target object.
         /// </summary>
-        internal static string Error_MethodNotImplementedOrInherited {
+        internal static string MethodNotImplementedOrInherited {
             get {
-                return ResourceManager.GetString("Error_MethodNotImplementedOrInherited", resourceCulture);
+                return ResourceManager.GetString("MethodNotImplementedOrInherited", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Method is not inherited by target object.
         /// </summary>
-        internal static string Error_MethodNotInherited {
+        internal static string MethodNotInherited {
             get {
-                return ResourceManager.GetString("Error_MethodNotInherited", resourceCulture);
+                return ResourceManager.GetString("MethodNotInherited", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Method &apos;{0}&apos; is not overridable.
         /// </summary>
-        internal static string Error_MethodNotOverridable {
+        internal static string MethodNotOverridable {
             get {
-                return ResourceManager.GetString("Error_MethodNotOverridable", resourceCulture);
+                return ResourceManager.GetString("MethodNotOverridable", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Method &apos;{0}&apos; on type &apos;{1}&apos; not found.
         /// </summary>
-        internal static string Error_MethodOnTypeNotFound {
+        internal static string MethodOnTypeNotFound {
             get {
-                return ResourceManager.GetString("Error_MethodOnTypeNotFound", resourceCulture);
+                return ResourceManager.GetString("MethodOnTypeNotFound", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Method requires a target object.
         /// </summary>
-        internal static string Error_MethodRequiresATargetObject {
+        internal static string MethodRequiresATargetObject {
             get {
-                return ResourceManager.GetString("Error_MethodRequiresATargetObject", resourceCulture);
+                return ResourceManager.GetString("MethodRequiresATargetObject", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No more interceptors in the interceptor chain.
         /// </summary>
-        internal static string Error_NoMoreInterceptorsInTheInterceptorChain {
+        internal static string NoMoreInterceptorsInTheInterceptorChain {
             get {
-                return ResourceManager.GetString("Error_NoMoreInterceptorsInTheInterceptorChain", resourceCulture);
+                return ResourceManager.GetString("NoMoreInterceptorsInTheInterceptorChain", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Number of parameter types and parameter names must be equal.
         /// </summary>
-        internal static string Error_NumberOfParameterTypesAndParameterNamesMustBeEqual {
+        internal static string NumberOfParameterTypesAndParameterNamesMustBeEqual {
             get {
-                return ResourceManager.GetString("Error_NumberOfParameterTypesAndParameterNamesMustBeEqual", resourceCulture);
+                return ResourceManager.GetString("NumberOfParameterTypesAndParameterNamesMustBeEqual", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Parent type must not be a generic type definition.
         /// </summary>
-        internal static string Error_ParentTypeMustNotBeAGenericTypeDefinition {
+        internal static string ParentTypeMustNotBeAGenericTypeDefinition {
             get {
-                return ResourceManager.GetString("Error_ParentTypeMustNotBeAGenericTypeDefinition", resourceCulture);
+                return ResourceManager.GetString("ParentTypeMustNotBeAGenericTypeDefinition", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Parent type must not be sealed.
         /// </summary>
-        internal static string Error_ParentTypeMustNotBeSealed {
+        internal static string ParentTypeMustNotBeSealed {
             get {
-                return ResourceManager.GetString("Error_ParentTypeMustNotBeSealed", resourceCulture);
+                return ResourceManager.GetString("ParentTypeMustNotBeSealed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Type &apos;{0}&apos; is not an interface type.
         /// </summary>
-        internal static string Error_TypeNotAnInterfaceType {
+        internal static string TypeNotAnInterfaceType {
             get {
-                return ResourceManager.GetString("Error_TypeNotAnInterfaceType", resourceCulture);
+                return ResourceManager.GetString("TypeNotAnInterfaceType", resourceCulture);
             }
         }
     }
