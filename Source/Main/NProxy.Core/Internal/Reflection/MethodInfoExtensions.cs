@@ -22,7 +22,7 @@ using System.Reflection;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Provides method information extensions.
+	/// Provides <see cref="MethodInfo"/> extension methods.
     /// </summary>
     internal static class MethodInfoExtensions
     {

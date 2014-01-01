@@ -24,7 +24,7 @@ using System.Reflection.Emit;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Provides method builder extensions.
+	/// Provides <see cref="MethodBuilder"/> extension methods.
     /// </summary>
     internal static class MethodBuilderExtensions
     {

@@ -23,7 +23,7 @@ using System.Reflection.Emit;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Provides intermediate language generator extensions.
+	/// Provides <see cref="ILGenerator"/> extension methods.
     /// </summary>
     internal static class ILGeneratorExtensions
     {

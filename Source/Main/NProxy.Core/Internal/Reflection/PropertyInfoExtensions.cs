@@ -25,7 +25,7 @@ using System.Text;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Provides property information extensions.
+	/// Provides <see cref="PropertyInfo"/> extension methods.
     /// </summary>
     internal static class PropertyInfoExtensions
     {

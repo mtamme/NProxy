@@ -22,7 +22,7 @@ using System.Reflection;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-    /// Provides type extensions.
+	/// Provides <see cref="Type"/> extension methods.
     /// </summary>
     internal static class TypeExtensions
     {
