@@ -24,7 +24,7 @@ using System.Reflection;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-	/// Provides <see cref="MemberInfo"/> extension methods.
+    /// Provides <see cref="MemberInfo"/> extension methods.
     /// </summary>
     internal static class MemberInfoExtensions
     {

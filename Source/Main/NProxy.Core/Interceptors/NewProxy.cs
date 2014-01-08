@@ -204,7 +204,7 @@ namespace NProxy.Core.Interceptors
         #region ITargets<T, IInvocationTarget> Members
 
         /// <inheritdoc/>
-        public T Targets<TTarget>() where TTarget : class, new()
+        public IActivator<T> Targets<TTarget>() where TTarget : class, new()
         {
             var target = new TTarget();
 
@@ -212,7 +212,7 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <inheritdoc/>
-        public T Targets(object target)
+        public IActivator<T> Targets(object target)
         {
             var invocationTarget = new SingleInvocationTarget(target);
 
@@ -220,7 +220,7 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <inheritdoc/>
-        public T Targets(T target)
+        public IActivator<T> Targets(T target)
         {
             var invocationTarget = new SingleInvocationTarget(target);
 
@@ -228,21 +228,21 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <inheritdoc/>
-        public T Targets(IInvocationTarget invocationTarget)
+        public IActivator<T> Targets(IInvocationTarget invocationTarget)
         {
             var proxy = _proxyFactory.CreateProxy<T>(_interfaceTypes);
             var invocationHandler = CreateInvocationHandler(proxy, new InvocationTargetInterceptor(invocationTarget));
 
-            return proxy.CreateInstance(invocationHandler, _arguments);
+            return new Activator<T>(proxy, invocationHandler, _arguments);
         }
 
         /// <inheritdoc/>
-        public T TargetsSelf()
+        public IActivator<T> TargetsSelf()
         {
             var proxy = _proxyFactory.CreateProxy<T>(_interfaceTypes);
             var invocationHandler = CreateInvocationHandler(proxy, TargetInterceptor.Instance);
 
-            return proxy.CreateInstance(invocationHandler, _arguments);
+            return new Activator<T>(proxy, invocationHandler, _arguments);
         }
 
         #endregion

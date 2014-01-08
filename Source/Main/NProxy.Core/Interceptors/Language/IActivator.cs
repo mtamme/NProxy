@@ -16,23 +16,26 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-namespace NProxy.Core.Interceptors
+namespace NProxy.Core.Interceptors.Language
 {
     /// <summary>
-    /// Provides <see cref="IProxyFactory"/> extension methods.
+    /// Defines an activator.
     /// </summary>
-    public static class ProxyFactoryExtensions
+    /// <typeparam name="T">The declaring type.</typeparam>
+    public interface IActivator<out T> where T : class
     {
         /// <summary>
-        /// Returns a fluent interface for configuring a new proxy.
+        /// Adapts an instance to the specified interface type.
         /// </summary>
-        /// <typeparam name="T">The declaring type.</typeparam>
-        /// <param name="proxyFactory">The proxy factory.</param>
-        /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>A fluent interface for configuring a new proxy.</returns>
-        public static INewProxy<T> NewProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
-        {
-            return new NewProxy<T>(proxyFactory, arguments);
-        }
+        /// <typeparam name="TInterface">The interface type.</typeparam>
+        /// <param name="instance">The instance.</param>
+        /// <returns>The object, of the specified interface type, to which the instance has been adapted.</returns>
+        TInterface AdaptInstance<TInterface>(object instance) where TInterface : class;
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <returns>The new instance.</returns>
+        T CreateInstance();
     }
 }

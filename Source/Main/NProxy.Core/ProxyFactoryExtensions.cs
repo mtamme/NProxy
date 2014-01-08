@@ -22,7 +22,7 @@ using System.Collections.Generic;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Provides proxy factory extensions.
+    /// Provides <see cref="IProxyFactory"/> extension methods.
     /// </summary>
     public static class ProxyFactoryExtensions
     {

@@ -25,7 +25,7 @@ using NProxy.Core.Internal.Reflection;
 namespace NProxy.Core.Internal.Templates
 {
     /// <summary>
-	/// Provides <see cref="IProxyTemplateVisitor"/> extension methods.
+    /// Provides <see cref="IProxyTemplateVisitor"/> extension methods.
     /// </summary>
     internal static class ProxyTemplateVisitorExtensions
     {

@@ -38,7 +38,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interceptors\Activator.cs" />
     <Compile Include="Interceptors\IInterceptionBehavior.cs" />
+    <Compile Include="Interceptors\Language\IActivator.cs" />
     <Compile Include="Interceptors\TargetInterceptor.cs" />
     <Compile Include="Interceptors\SingleInvocationTarget.cs" />
     <Compile Include="Internal\Templates\ClassProxyTemplate.cs" />
@@ -81,7 +83,6 @@
     <Compile Include="Interceptors\NewProxy.cs" />
     <Compile Include="NonInterceptedAttribute.cs" />
     <Compile Include="Interceptors\InterceptorInvocationHandler.cs" />
-    <Compile Include="Interceptors\ObjectExtensions.cs" />
     <Compile Include="Proxy.cs" />
     <Compile Include="IProxy.cs" />
     <Compile Include="Internal\Caching\Cache.cs" />

@@ -25,7 +25,7 @@ using System.Text;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-	/// Provides <see cref="EventInfo"/> extension methods.
+    /// Provides <see cref="EventInfo"/> extension methods.
     /// </summary>
     internal static class EventInfoExtensions
     {

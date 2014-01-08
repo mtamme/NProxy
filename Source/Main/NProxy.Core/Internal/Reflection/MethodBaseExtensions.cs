@@ -23,7 +23,7 @@ using System.Text;
 namespace NProxy.Core.Internal.Reflection
 {
     /// <summary>
-	/// Provides <see cref="MethodBase"/> extension methods.
+    /// Provides <see cref="MethodBase"/> extension methods.
     /// </summary>
     internal static class MethodBaseExtensions
     {

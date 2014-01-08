@@ -19,7 +19,7 @@
 namespace NProxy.Core
 {
     /// <summary>
-    /// Provides proxy extensions.
+    /// Provides <see cref="IProxy"/> extension methods.
     /// </summary>
     public static class ProxyExtensions
     {

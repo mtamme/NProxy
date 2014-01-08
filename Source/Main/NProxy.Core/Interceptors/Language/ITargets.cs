@@ -29,34 +29,34 @@ namespace NProxy.Core.Interceptors.Language
         /// Specifies an invocation target.
         /// </summary>
         /// <typeparam name="TTarget">The target type.</typeparam>
-        /// <returns>The proxy object.</returns>
-        T Targets<TTarget>() where TTarget : class, new();
+        /// <returns>The activator.</returns>
+        IActivator<T> Targets<TTarget>() where TTarget : class, new();
 
         /// <summary>
         /// Specifies an invocation target.
         /// </summary>
         /// <param name="target">The target object.</param>
-        /// <returns>The proxy object.</returns>
-        T Targets(object target);
+        /// <returns>The activator.</returns>
+        IActivator<T> Targets(object target);
 
         /// <summary>
         /// Specifies an invocation target.
         /// </summary>
         /// <param name="target">The target object.</param>
-        /// <returns>The proxy object.</returns>
-        T Targets(T target);
+        /// <returns>The activator.</returns>
+        IActivator<T> Targets(T target);
 
         /// <summary>
         /// Specifies an invocation target.
         /// </summary>
         /// <param name="invocationTarget">The invocation target.</param>
-        /// <returns>The proxy object.</returns>
-        T Targets(TInvocationTarget invocationTarget);
+        /// <returns>The activator.</returns>
+        IActivator<T> Targets(TInvocationTarget invocationTarget);
 
         /// <summary>
         /// Specifies an invocation target.
         /// </summary>
-        /// <returns>The proxy object.</returns>
-        T TargetsSelf();
+        /// <returns>The activator.</returns>
+        IActivator<T> TargetsSelf();
     }
 }
