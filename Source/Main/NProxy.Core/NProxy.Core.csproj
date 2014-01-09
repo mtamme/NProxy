@@ -97,7 +97,6 @@
     <Compile Include="Internal\Builders\MethodInfoTypeFactory.cs" />
     <Compile Include="Internal\Builders\IInterceptionFilter.cs" />
     <Compile Include="ProxyGenerator.cs" />
-    <Compile Include="ProxyAttribute.cs" />
     <Compile Include="NonInterceptedInterceptionFilter.cs" />
     <Compile Include="ProxyExtensions.cs" />
     <Compile Include="Internal\Caching\ConcurrentCache.cs" />

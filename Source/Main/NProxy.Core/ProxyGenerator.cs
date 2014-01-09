@@ -31,12 +31,6 @@ namespace NProxy.Core
     internal sealed class ProxyGenerator : IProxyTemplateVisitor
     {
         /// <summary>
-        /// The <see cref="ProxyAttribute"/> constructor information.
-        /// </summary>
-        private static readonly ConstructorInfo ProxyAttributeConstructorInfo = typeof (ProxyAttribute).GetConstructor(
-            BindingFlags.Public | BindingFlags.Instance);
-
-        /// <summary>
         /// The type builder.
         /// </summary>
         private readonly ITypeBuilder _typeBuilder;
@@ -91,9 +85,6 @@ namespace NProxy.Core
         {
             if (proxyTemplate == null)
                 throw new ArgumentNullException("proxyTemplate");
-
-            // Add custom attribute.
-            _typeBuilder.AddCustomAttribute(ProxyAttributeConstructorInfo);
 
             // Build proxy type.
             proxyTemplate.AcceptVisitor(this);
