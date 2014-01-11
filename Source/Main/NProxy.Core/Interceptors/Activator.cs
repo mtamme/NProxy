@@ -28,9 +28,9 @@ namespace NProxy.Core.Interceptors
     internal sealed class Activator<T> : IActivator<T> where T : class
     {
         /// <summary>
-        /// The proxy.
+        /// The proxy template.
         /// </summary>
-        private readonly IProxy<T> _proxy;
+        private readonly IProxyTemplate<T> _proxyTemplate;
 
         /// <summary>
         /// The invocation handler.
@@ -45,21 +45,21 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// Initializes a new instance of the <see cref="Activator{T}"/> class.
         /// </summary>
-        /// <param name="proxy">The proxy.</param>
+        /// <param name="proxyTemplate">The proxy template.</param>
         /// <param name="invocationHandler">The invocation handler.</param>
         /// <param name="arguments">The arguments.</param>
-        public Activator(IProxy<T> proxy, IInvocationHandler invocationHandler, object[] arguments)
+        public Activator(IProxyTemplate<T> proxyTemplate, IInvocationHandler invocationHandler, object[] arguments)
         {
-            if (proxy == null)
-                throw new ArgumentNullException("proxy");
+            if (proxyTemplate == null)
+                throw new ArgumentNullException("proxyTemplate");
 
             if (invocationHandler == null)
                 throw new ArgumentNullException("invocationHandler");
 
             if (arguments == null)
-                throw new ArgumentNullException("proxy");
+                throw new ArgumentNullException("proxyTemplate");
 
-            _proxy = proxy;
+            _proxyTemplate = proxyTemplate;
             _invocationHandler = invocationHandler;
             _arguments = arguments;
         }
@@ -69,13 +69,13 @@ namespace NProxy.Core.Interceptors
         /// <inheritdoc/>
         public TInterface AdaptInstance<TInterface>(object instance) where TInterface : class
         {
-            return _proxy.AdaptInstance<TInterface>(instance);
+            return _proxyTemplate.AdaptInstance<TInterface>(instance);
         }
 
         /// <inheritdoc/>
         public T CreateInstance()
         {
-            return _proxy.CreateInstance(_invocationHandler, _arguments);
+            return _proxyTemplate.CreateInstance(_invocationHandler, _arguments);
         }
 
         #endregion

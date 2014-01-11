@@ -83,8 +83,8 @@
     <Compile Include="Interceptors\NewProxy.cs" />
     <Compile Include="NonInterceptedAttribute.cs" />
     <Compile Include="Interceptors\InterceptorInvocationHandler.cs" />
-    <Compile Include="Proxy.cs" />
-    <Compile Include="IProxy.cs" />
+    <Compile Include="ProxyTemplate.cs" />
+    <Compile Include="IProxyTemplate.cs" />
     <Compile Include="Internal\Caching\Cache.cs" />
     <Compile Include="Internal\Caching\ICache.cs" />
     <Compile Include="Internal\Caching\InterlockedCache.cs" />
@@ -98,7 +98,7 @@
     <Compile Include="Internal\Builders\IInterceptionFilter.cs" />
     <Compile Include="ProxyGenerator.cs" />
     <Compile Include="NonInterceptedInterceptionFilter.cs" />
-    <Compile Include="ProxyExtensions.cs" />
+    <Compile Include="ProxyTemplateExtensions.cs" />
     <Compile Include="Internal\Caching\ConcurrentCache.cs" />
     <Compile Include="Internal\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

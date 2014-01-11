@@ -25,9 +25,9 @@ using NProxy.Core.Internal.Definitions;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Represents a proxy.
+    /// Represents a proxy template.
     /// </summary>
-    internal class Proxy : IProxy
+    internal class ProxyTemplate : IProxyTemplate
     {
         /// <summary>
         /// The proxy definition.
@@ -55,14 +55,14 @@ namespace NProxy.Core
         private readonly ICollection<MethodInfo> _methodInfos;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Proxy"/> class.
+        /// Initializes a new instance of the <see cref="ProxyTemplate"/> class.
         /// </summary>
         /// <param name="proxyDefinition">The proxy definition.</param>
         /// <param name="proxyType">The proxy type.</param>
         /// <param name="eventInfos">The event informations.</param>
         /// <param name="propertyInfos">The property informations.</param>
         /// <param name="methodInfos">The method informations.</param>
-        public Proxy(IProxyDefinition proxyDefinition, Type proxyType, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
+        public ProxyTemplate(IProxyDefinition proxyDefinition, Type proxyType, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
         {
             if (proxyDefinition == null)
                 throw new ArgumentNullException("proxyDefinition");
@@ -86,7 +86,7 @@ namespace NProxy.Core
             _methodInfos = methodInfos;
         }
 
-        #region IProxy Members
+        #region IProxyTemplate Members
 
         /// <inheritdoc/>
         public Type DeclaringType
@@ -156,80 +156,80 @@ namespace NProxy.Core
     }
 
     /// <summary>
-    /// Represents a proxy.
+    /// Represents a proxy template.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    internal sealed class Proxy<T> : IProxy<T> where T : class
+    internal sealed class ProxyTemplate<T> : IProxyTemplate<T> where T : class
     {
         /// <summary>
         /// The proxy.
         /// </summary>
-        private readonly IProxy _proxy;
+        private readonly IProxyTemplate _proxyTemplate;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Proxy{T}"/> class.
+        /// Initializes a new instance of the <see cref="proxyTemplateTemplate{T}"/> class.
         /// </summary>
-        /// <param name="proxy">The proxy.</param>
-        public Proxy(IProxy proxy)
+        /// <param name="proxyTemplate">The proxy.</param>
+        public ProxyTemplate(IProxyTemplate proxyTemplate)
         {
-            if (proxy == null)
-                throw new ArgumentNullException("proxy");
+            if (proxyTemplate == null)
+                throw new ArgumentNullException("proxyTemplate");
 
-            _proxy = proxy;
+            _proxyTemplate = proxyTemplate;
         }
 
-        #region IProxy Members
+        #region IProxyTemplate Members
 
         /// <inheritdoc/>
         public Type DeclaringType
         {
-            get { return _proxy.DeclaringType; }
+            get { return _proxyTemplate.DeclaringType; }
         }
 
         /// <inheritdoc/>
         public IEnumerable<Type> ImplementedInterfaces
         {
-            get { return _proxy.ImplementedInterfaces; }
+            get { return _proxyTemplate.ImplementedInterfaces; }
         }
 
         /// <inheritdoc/>
         public IEnumerable<EventInfo> InterceptedEvents
         {
-            get { return _proxy.InterceptedEvents; }
+            get { return _proxyTemplate.InterceptedEvents; }
         }
 
         /// <inheritdoc/>
         public IEnumerable<PropertyInfo> InterceptedProperties
         {
-            get { return _proxy.InterceptedProperties; }
+            get { return _proxyTemplate.InterceptedProperties; }
         }
 
         /// <inheritdoc/>
         public IEnumerable<MethodInfo> InterceptedMethods
         {
-            get { return _proxy.InterceptedMethods; }
+            get { return _proxyTemplate.InterceptedMethods; }
         }
 
         /// <inheritdoc/>
         public object AdaptInstance(Type interfaceType, object instance)
         {
-            return _proxy.AdaptInstance(interfaceType, instance);
+            return _proxyTemplate.AdaptInstance(interfaceType, instance);
         }
 
         /// <inheritdoc/>
-        object IProxy.CreateInstance(IInvocationHandler invocationHandler, params object[] arguments)
+        object IProxyTemplate.CreateInstance(IInvocationHandler invocationHandler, params object[] arguments)
         {
-            return _proxy.CreateInstance(invocationHandler, arguments);
+            return _proxyTemplate.CreateInstance(invocationHandler, arguments);
         }
 
         #endregion
 
-        #region IProxy<T> Members
+        #region IProxyTemplate<T> Members
 
         /// <inheritdoc/>
         public T CreateInstance(IInvocationHandler invocationHandler, params object[] arguments)
         {
-            return (T) _proxy.CreateInstance(invocationHandler, arguments);
+            return (T) _proxyTemplate.CreateInstance(invocationHandler, arguments);
         }
 
         #endregion

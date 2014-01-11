@@ -115,14 +115,14 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// Creates an invocation handler.
         /// </summary>
-        /// <param name="proxy">The proxy.</param>
+        /// <param name="proxyTemplate">The proxy.</param>
         /// <param name="defaultInterceptors">The default interceptors.</param>
         /// <returns>The invocation handler.</returns>
-        private IInvocationHandler CreateInvocationHandler(IProxy proxy, params IInterceptor[] defaultInterceptors)
+        private IInvocationHandler CreateInvocationHandler(IProxyTemplate proxyTemplate, params IInterceptor[] defaultInterceptors)
         {
             var invocationHandler = new InterceptorInvocationHandler(defaultInterceptors);
 
-            invocationHandler.ApplyInterceptors(proxy, _interceptors);
+            invocationHandler.ApplyInterceptors(proxyTemplate, _interceptors);
 
             if (_mixins.Count > 0)
                 return new MixinInvocationHandler(_mixins, invocationHandler);
@@ -230,19 +230,19 @@ namespace NProxy.Core.Interceptors
         /// <inheritdoc/>
         public IActivator<T> Targets(IInvocationTarget invocationTarget)
         {
-            var proxy = _proxyFactory.GetProxy<T>(_interfaceTypes);
-            var invocationHandler = CreateInvocationHandler(proxy, new InvocationTargetInterceptor(invocationTarget));
+            var proxyTemplate = _proxyFactory.GetProxyTemplate<T>(_interfaceTypes);
+            var invocationHandler = CreateInvocationHandler(proxyTemplate, new InvocationTargetInterceptor(invocationTarget));
 
-            return new Activator<T>(proxy, invocationHandler, _arguments);
+            return new Activator<T>(proxyTemplate, invocationHandler, _arguments);
         }
 
         /// <inheritdoc/>
         public IActivator<T> TargetsSelf()
         {
-            var proxy = _proxyFactory.GetProxy<T>(_interfaceTypes);
-            var invocationHandler = CreateInvocationHandler(proxy, TargetInterceptor.Instance);
+            var proxyTemplate = _proxyFactory.GetProxyTemplate<T>(_interfaceTypes);
+            var invocationHandler = CreateInvocationHandler(proxyTemplate, TargetInterceptor.Instance);
 
-            return new Activator<T>(proxy, invocationHandler, _arguments);
+            return new Activator<T>(proxyTemplate, invocationHandler, _arguments);
         }
 
         #endregion

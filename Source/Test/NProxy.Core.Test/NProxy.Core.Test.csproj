@@ -87,7 +87,7 @@
     <Compile Include="Interceptors\Types\IEmployee.cs" />
     <Compile Include="Interceptors\Types\IPerson.cs" />
     <Compile Include="Interceptors\Types\Person.cs" />
-    <Compile Include="ProxyTestFixture.cs" />
+    <Compile Include="ProxyTemplateTestFixture.cs" />
     <Compile Include="Interceptors\Types\IFoo.cs" />
     <Compile Include="Interceptors\Types\FooBase.cs" />
     <Compile Include="Interceptors\Types\Foo.cs" />

@@ -77,11 +77,11 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Generates a proxy.
+        /// Generates a proxy template.
         /// </summary>
         /// <param name="proxyDefinition">The proxy definition.</param>
-        /// <returns>The proxy.</returns>
-        public IProxy GenerateProxy(IProxyDefinition proxyDefinition)
+        /// <returns>The proxy template.</returns>
+        public IProxyTemplate GenerateProxyTemplate(IProxyDefinition proxyDefinition)
         {
             if (proxyDefinition == null)
                 throw new ArgumentNullException("proxyDefinition");
@@ -92,7 +92,7 @@ namespace NProxy.Core
             // Create proxy type.
             var proxyType = _typeBuilder.CreateType();
 
-            return new Proxy(proxyDefinition, proxyType, _eventInfos, _propertyInfos, _methodInfos);
+            return new ProxyTemplate(proxyDefinition, proxyType, _eventInfos, _propertyInfos, _methodInfos);
         }
 
         #region IProxyDefinitionVisitor Members

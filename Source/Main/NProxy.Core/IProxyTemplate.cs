@@ -23,9 +23,9 @@ using System.Reflection;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Defines a proxy.
+    /// Defines a proxy template.
     /// </summary>
-    public interface IProxy
+    public interface IProxyTemplate
     {
         /// <summary>
         /// Returns the declaring type.
@@ -70,10 +70,10 @@ namespace NProxy.Core
     }
 
     /// <summary>
-    /// Defines a proxy.
+    /// Defines a proxy template.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface IProxy<out T> : IProxy where T : class
+    public interface IProxyTemplate<out T> : IProxyTemplate where T : class
     {
         /// <summary>
         /// Creates a new instance.

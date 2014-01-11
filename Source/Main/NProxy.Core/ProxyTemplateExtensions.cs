@@ -19,22 +19,22 @@
 namespace NProxy.Core
 {
     /// <summary>
-    /// Provides <see cref="IProxy"/> extension methods.
+    /// Provides <see cref="IProxyTemplate"/> extension methods.
     /// </summary>
-    public static class ProxyExtensions
+    public static class ProxyTemplateExtensions
     {
         /// <summary>
         /// Adapts an instance to the specified interface type.
         /// </summary>
         /// <typeparam name="TInterface">The interface type.</typeparam>
-        /// <param name="proxy">The proxy.</param>
+        /// <param name="proxyTemplate">The proxy template.</param>
         /// <param name="instance">The instance.</param>
         /// <returns>The object, of the specified interface type, to which the instance has been adapted.</returns>
-        public static TInterface AdaptInstance<TInterface>(this IProxy proxy, object instance) where TInterface : class
+        public static TInterface AdaptInstance<TInterface>(this IProxyTemplate proxyTemplate, object instance) where TInterface : class
         {
             var interfaceType = typeof (TInterface);
 
-            return (TInterface) proxy.AdaptInstance(interfaceType, instance);
+            return (TInterface) proxyTemplate.AdaptInstance(interfaceType, instance);
         }
     }
 }

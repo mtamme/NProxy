@@ -27,17 +27,17 @@ namespace NProxy.Core
     public static class ProxyFactoryExtensions
     {
         /// <summary>
-        /// Returns a proxy.
+        /// Returns a proxy template.
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
-        /// <returns>The proxy.</returns>
-        public static IProxy<T> GetProxy<T>(this IProxyFactory proxyFactory, IEnumerable<Type> interfaceTypes) where T : class
+        /// <returns>The proxy template.</returns>
+        public static IProxyTemplate<T> GetProxyTemplate<T>(this IProxyFactory proxyFactory, IEnumerable<Type> interfaceTypes) where T : class
         {
-            var proxy = proxyFactory.GetProxy(typeof (T), interfaceTypes);
+            var proxyTemplate = proxyFactory.GetProxyTemplate(typeof (T), interfaceTypes);
 
-            return new Proxy<T>(proxy);
+            return new ProxyTemplate<T>(proxyTemplate);
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace NProxy.Core
             if (proxyFactory == null)
                 throw new ArgumentNullException("proxyFactory");
 
-            var proxy = proxyFactory.GetProxy(declaringType, interfaceTypes);
+            var proxyTemplate = proxyFactory.GetProxyTemplate(declaringType, interfaceTypes);
 
-            return proxy.CreateInstance(invocationHandler, arguments);
+            return proxyTemplate.CreateInstance(invocationHandler, arguments);
         }
 
         /// <summary>
@@ -80,9 +80,9 @@ namespace NProxy.Core
             if (proxyFactory == null)
                 throw new ArgumentNullException("proxyFactory");
 
-            var proxy = proxyFactory.GetProxy<T>(interfaceTypes);
+            var proxyTemplate = proxyFactory.GetProxyTemplate<T>(interfaceTypes);
 
-            return proxy.CreateInstance(invocationHandler, arguments);
+            return proxyTemplate.CreateInstance(invocationHandler, arguments);
         }
     }
 }
