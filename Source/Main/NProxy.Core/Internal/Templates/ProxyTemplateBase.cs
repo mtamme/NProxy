@@ -168,6 +168,12 @@ namespace NProxy.Core.Internal.Templates
         }
 
         /// <inheritdoc/>
+        public IEnumerable<Type> ImplementedInterfaces
+        {
+            get { return _declaringInterfaceTypes.Concat(_additionalInterfaceTypes); }
+        }
+
+        /// <inheritdoc/>
         public virtual void AcceptVisitor(IProxyTemplateVisitor proxyTemplateVisitor)
         {
             if (proxyTemplateVisitor == null)

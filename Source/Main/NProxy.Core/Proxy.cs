@@ -95,6 +95,12 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
+        public IEnumerable<Type> ImplementedInterfaces
+        {
+            get { return _proxyTemplate.ImplementedInterfaces; }
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<EventInfo> InterceptedEvents
         {
             get { return _eventInfos; }
@@ -178,6 +184,12 @@ namespace NProxy.Core
         public Type DeclaringType
         {
             get { return _proxy.DeclaringType; }
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<Type> ImplementedInterfaces
+        {
+            get { return _proxy.ImplementedInterfaces; }
         }
 
         /// <inheritdoc/>

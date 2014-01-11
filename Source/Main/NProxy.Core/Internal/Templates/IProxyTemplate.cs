@@ -17,6 +17,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 namespace NProxy.Core.Internal.Templates
 {
@@ -34,6 +35,11 @@ namespace NProxy.Core.Internal.Templates
         /// Returns the parent type.
         /// </summary>
         Type ParentType { get; }
+
+        /// <summary>
+        /// Returns all implemented interfaces.
+        /// </summary>
+        IEnumerable<Type> ImplementedInterfaces { get; }
 
         /// <summary>
         /// Dispatches to the specific visit method for each member.

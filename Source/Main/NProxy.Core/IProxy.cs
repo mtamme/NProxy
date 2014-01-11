@@ -33,6 +33,11 @@ namespace NProxy.Core
         Type DeclaringType { get; }
 
         /// <summary>
+        /// Returns all implemented interfaces.
+        /// </summary>
+        IEnumerable<Type> ImplementedInterfaces { get; }
+
+        /// <summary>
         /// Returns all intercepted events.
         /// </summary>
         IEnumerable<EventInfo> InterceptedEvents { get; }
