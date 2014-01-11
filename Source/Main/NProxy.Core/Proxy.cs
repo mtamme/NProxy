@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Internal;
-using NProxy.Core.Internal.Templates;
+using NProxy.Core.Internal.Definitions;
 
 namespace NProxy.Core
 {
@@ -30,9 +30,9 @@ namespace NProxy.Core
     internal class Proxy : IProxy
     {
         /// <summary>
-        /// The proxy template.
+        /// The proxy definition.
         /// </summary>
-        private readonly IProxyTemplate _proxyTemplate;
+        private readonly IProxyDefinition _proxyDefinition;
 
         /// <summary>
         /// The proxy type.
@@ -57,15 +57,15 @@ namespace NProxy.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="Proxy"/> class.
         /// </summary>
-        /// <param name="proxyTemplate">The proxy template.</param>
+        /// <param name="proxyDefinition">The proxy definition.</param>
         /// <param name="proxyType">The proxy type.</param>
         /// <param name="eventInfos">The event informations.</param>
         /// <param name="propertyInfos">The property informations.</param>
         /// <param name="methodInfos">The method informations.</param>
-        public Proxy(IProxyTemplate proxyTemplate, Type proxyType, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
+        public Proxy(IProxyDefinition proxyDefinition, Type proxyType, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
         {
-            if (proxyTemplate == null)
-                throw new ArgumentNullException("proxyTemplate");
+            if (proxyDefinition == null)
+                throw new ArgumentNullException("proxyDefinition");
 
             if (proxyType == null)
                 throw new ArgumentNullException("proxyType");
@@ -79,7 +79,7 @@ namespace NProxy.Core
             if (methodInfos == null)
                 throw new ArgumentNullException("methodInfos");
 
-            _proxyTemplate = proxyTemplate;
+            _proxyDefinition = proxyDefinition;
             _proxyType = proxyType;
             _eventInfos = eventInfos;
             _propertyInfos = propertyInfos;
@@ -91,13 +91,13 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public Type DeclaringType
         {
-            get { return _proxyTemplate.DeclaringType; }
+            get { return _proxyDefinition.DeclaringType; }
         }
 
         /// <inheritdoc/>
         public IEnumerable<Type> ImplementedInterfaces
         {
-            get { return _proxyTemplate.ImplementedInterfaces; }
+            get { return _proxyDefinition.ImplementedInterfaces; }
         }
 
         /// <inheritdoc/>
@@ -127,7 +127,7 @@ namespace NProxy.Core
             if (!interfaceType.IsInterface)
                 throw new ArgumentException(String.Format(Resources.TypeNotAnInterfaceType, interfaceType), "interfaceType");
 
-            var proxyInstance = _proxyTemplate.UnwrapInstance(instance);
+            var proxyInstance = _proxyDefinition.UnwrapInstance(instance);
             var proxyType = proxyInstance.GetType();
 
             if ((proxyType != _proxyType) || !interfaceType.IsAssignableFrom(proxyType))
@@ -149,7 +149,7 @@ namespace NProxy.Core
 
             constructorArguments.AddRange(arguments);
 
-            return _proxyTemplate.CreateInstance(_proxyType, constructorArguments.ToArray());
+            return _proxyDefinition.CreateInstance(_proxyType, constructorArguments.ToArray());
         }
 
         #endregion

@@ -19,12 +19,12 @@
 using System;
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Templates
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Defines a proxy template visitor.
+    /// Defines a proxy definition visitor.
     /// </summary>
-    internal interface IProxyTemplateVisitor
+    internal interface IProxyDefinitionVisitor
     {
         /// <summary>
         /// Visits the specified interface type.

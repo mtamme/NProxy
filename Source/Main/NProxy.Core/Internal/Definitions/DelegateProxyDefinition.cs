@@ -18,36 +18,46 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
-namespace NProxy.Core.Internal.Templates
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Represents an interface proxy template.
+    /// Represents a delegate proxy definition.
     /// </summary>
-    internal sealed class InterfaceProxyTemplate : ProxyTemplateBase
+    internal sealed class DelegateProxyDefinition : ProxyDefinitionBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InterfaceProxyTemplate"/> class.
+        /// The name of the delegate method.
+        /// </summary>
+        private const string DelegateMethodName = "Invoke";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DelegateProxyDefinition"/> class.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        public InterfaceProxyTemplate(Type declaringType, IEnumerable<Type> interfaceTypes)
+        public DelegateProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes)
             : base(declaringType, typeof (object), interfaceTypes)
         {
         }
 
-        #region IProxyTemplate Members
+        #region IProxyDefinition Members
 
         /// <inheritdoc/>
-        public override void AcceptVisitor(IProxyTemplateVisitor proxyTemplateVisitor)
+        public override void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)
         {
-            base.AcceptVisitor(proxyTemplateVisitor);
+            base.AcceptVisitor(proxyDefinitionVisitor);
 
-            // Visit declaring interface types.
-            proxyTemplateVisitor.VisitInterfaces(DeclaringInterfaceTypes);
+            // Visit declaring type method.
+            var methodInfo = DeclaringType.GetMethod(
+                DelegateMethodName,
+                BindingFlags.Public | BindingFlags.Instance);
+
+            proxyDefinitionVisitor.VisitMethod(methodInfo);
 
             // Visit parent type members.
-            proxyTemplateVisitor.VisitMembers(ParentType);
+            proxyDefinitionVisitor.VisitMembers(ParentType);
         }
 
         /// <inheritdoc/>
@@ -56,7 +66,17 @@ namespace NProxy.Core.Internal.Templates
             if (instance == null)
                 throw new ArgumentNullException("instance");
 
-            return instance;
+            var delegateInstance = instance as Delegate;
+
+            if (delegateInstance == null)
+                throw new InvalidOperationException(Resources.InvalidInstanceType);
+
+            var proxyInstance = delegateInstance.Target;
+
+            if (proxyInstance == null)
+                throw new InvalidOperationException(Resources.InvalidInstanceType);
+
+            return proxyInstance;
         }
 
         /// <inheritdoc/>
@@ -68,7 +88,9 @@ namespace NProxy.Core.Internal.Templates
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            return Activator.CreateInstance(proxyType, arguments);
+            var proxyInstance = Activator.CreateInstance(proxyType, arguments);
+
+            return Delegate.CreateDelegate(DeclaringType, proxyInstance, DelegateMethodName);
         }
 
         #endregion

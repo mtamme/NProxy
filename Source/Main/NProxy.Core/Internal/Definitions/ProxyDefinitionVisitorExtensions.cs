@@ -22,37 +22,37 @@ using System.Linq;
 using System.Reflection;
 using NProxy.Core.Internal.Reflection;
 
-namespace NProxy.Core.Internal.Templates
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Provides <see cref="IProxyTemplateVisitor"/> extension methods.
+    /// Provides <see cref="IProxyDefinitionVisitor"/> extension methods.
     /// </summary>
-    internal static class ProxyTemplateVisitorExtensions
+    internal static class ProxyDefinitionVisitorExtensions
     {
         /// <summary>
         /// Visits all specified interface types.
         /// </summary>
-        /// <param name="proxyTemplateVisitor">The proxy template visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        public static void VisitInterfaces(this IProxyTemplateVisitor proxyTemplateVisitor, IEnumerable<Type> interfaceTypes)
+        public static void VisitInterfaces(this IProxyDefinitionVisitor proxyDefinitionVisitor, IEnumerable<Type> interfaceTypes)
         {
             foreach (var interfaceType in interfaceTypes)
             {
-                proxyTemplateVisitor.VisitInterface(interfaceType);
+                proxyDefinitionVisitor.VisitInterface(interfaceType);
 
-                proxyTemplateVisitor.VisitMembers(interfaceType);
+                proxyDefinitionVisitor.VisitMembers(interfaceType);
             }
         }
 
         /// <summary>
         /// Visits all constructors of the specified type.
         /// </summary>
-        /// <param name="proxyTemplateVisitor">The proxy template visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="type">The type.</param>
-        public static void VisitConstructors(this IProxyTemplateVisitor proxyTemplateVisitor, Type type)
+        public static void VisitConstructors(this IProxyDefinitionVisitor proxyDefinitionVisitor, Type type)
         {
-            if (proxyTemplateVisitor == null)
-                throw new ArgumentNullException("proxyTemplateVisitor");
+            if (proxyDefinitionVisitor == null)
+                throw new ArgumentNullException("proxyDefinitionVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -61,36 +61,36 @@ namespace NProxy.Core.Internal.Templates
 
             foreach (var constructorInfo in constructorInfos)
             {
-                proxyTemplateVisitor.VisitConstructor(constructorInfo);
+                proxyDefinitionVisitor.VisitConstructor(constructorInfo);
             }
         }
 
         /// <summary>
         /// Visits all members of the specified type.
         /// </summary>
-        /// <param name="proxyTemplateVisitor">The proxy template visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="type">The type.</param>
-        public static void VisitMembers(this IProxyTemplateVisitor proxyTemplateVisitor, Type type)
+        public static void VisitMembers(this IProxyDefinitionVisitor proxyDefinitionVisitor, Type type)
         {
             // Visit events.
-            proxyTemplateVisitor.VisitEvents(type);
+            proxyDefinitionVisitor.VisitEvents(type);
 
             // Visit properties.
-            proxyTemplateVisitor.VisitProperties(type);
+            proxyDefinitionVisitor.VisitProperties(type);
 
             // Visit methods.
-            proxyTemplateVisitor.VisitMethods(type);
+            proxyDefinitionVisitor.VisitMethods(type);
         }
 
         /// <summary>
         /// Visits all events of the specified type.
         /// </summary>
-        /// <param name="proxyTemplateVisitor">The proxy template visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="type">The type.</param>
-        private static void VisitEvents(this IProxyTemplateVisitor proxyTemplateVisitor, Type type)
+        private static void VisitEvents(this IProxyDefinitionVisitor proxyDefinitionVisitor, Type type)
         {
-            if (proxyTemplateVisitor == null)
-                throw new ArgumentNullException("proxyTemplateVisitor");
+            if (proxyDefinitionVisitor == null)
+                throw new ArgumentNullException("proxyDefinitionVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -101,19 +101,19 @@ namespace NProxy.Core.Internal.Templates
 
             foreach (var eventInfo in eventInfos)
             {
-                proxyTemplateVisitor.VisitEvent(eventInfo);
+                proxyDefinitionVisitor.VisitEvent(eventInfo);
             }
         }
 
         /// <summary>
         /// Visits all properties of the specified type.
         /// </summary>
-        /// <param name="proxyTemplateVisitor">The proxy template visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="type">The type.</param>
-        private static void VisitProperties(this IProxyTemplateVisitor proxyTemplateVisitor, Type type)
+        private static void VisitProperties(this IProxyDefinitionVisitor proxyDefinitionVisitor, Type type)
         {
-            if (proxyTemplateVisitor == null)
-                throw new ArgumentNullException("proxyTemplateVisitor");
+            if (proxyDefinitionVisitor == null)
+                throw new ArgumentNullException("proxyDefinitionVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -124,19 +124,19 @@ namespace NProxy.Core.Internal.Templates
 
             foreach (var propertyInfo in propertyInfos)
             {
-                proxyTemplateVisitor.VisitProperty(propertyInfo);
+                proxyDefinitionVisitor.VisitProperty(propertyInfo);
             }
         }
 
         /// <summary>
         /// Visits all methods of the specified type.
         /// </summary>
-        /// <param name="proxyTemplateVisitor">The proxy template visitor.</param>
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
         /// <param name="type">The type.</param>
-        private static void VisitMethods(this IProxyTemplateVisitor proxyTemplateVisitor, Type type)
+        private static void VisitMethods(this IProxyDefinitionVisitor proxyDefinitionVisitor, Type type)
         {
-            if (proxyTemplateVisitor == null)
-                throw new ArgumentNullException("proxyTemplateVisitor");
+            if (proxyDefinitionVisitor == null)
+                throw new ArgumentNullException("proxyDefinitionVisitor");
 
             if (type == null)
                 throw new ArgumentNullException("type");
@@ -147,7 +147,7 @@ namespace NProxy.Core.Internal.Templates
 
             foreach (var methodInfo in methodInfos)
             {
-                proxyTemplateVisitor.VisitMethod(methodInfo);
+                proxyDefinitionVisitor.VisitMethod(methodInfo);
             }
         }
     }

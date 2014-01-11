@@ -20,15 +20,15 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Internal.Builders;
+using NProxy.Core.Internal.Definitions;
 using NProxy.Core.Internal.Reflection;
-using NProxy.Core.Internal.Templates;
 
 namespace NProxy.Core
 {
     /// <summary>
     /// Represents the proxy generator.
     /// </summary>
-    internal sealed class ProxyGenerator : IProxyTemplateVisitor
+    internal sealed class ProxyGenerator : IProxyDefinitionVisitor
     {
         /// <summary>
         /// The type builder.
@@ -79,23 +79,23 @@ namespace NProxy.Core
         /// <summary>
         /// Generates a proxy.
         /// </summary>
-        /// <param name="proxyTemplate">The proxy template.</param>
+        /// <param name="proxyDefinition">The proxy definition.</param>
         /// <returns>The proxy.</returns>
-        public IProxy GenerateProxy(IProxyTemplate proxyTemplate)
+        public IProxy GenerateProxy(IProxyDefinition proxyDefinition)
         {
-            if (proxyTemplate == null)
-                throw new ArgumentNullException("proxyTemplate");
+            if (proxyDefinition == null)
+                throw new ArgumentNullException("proxyDefinition");
 
             // Build proxy type.
-            proxyTemplate.AcceptVisitor(this);
+            proxyDefinition.AcceptVisitor(this);
 
             // Create proxy type.
             var proxyType = _typeBuilder.CreateType();
 
-            return new Proxy(proxyTemplate, proxyType, _eventInfos, _propertyInfos, _methodInfos);
+            return new Proxy(proxyDefinition, proxyType, _eventInfos, _propertyInfos, _methodInfos);
         }
 
-        #region IProxyTemplateVisitor Members
+        #region IProxyDefinitionVisitor Members
 
         /// <inheritdoc/>
         public void VisitInterface(Type interfaceType)

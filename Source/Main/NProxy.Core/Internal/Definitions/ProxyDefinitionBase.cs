@@ -20,12 +20,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NProxy.Core.Internal.Templates
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Represents the proxy template base class.
+    /// Represents the proxy definition base class.
     /// </summary>
-    internal abstract class ProxyTemplateBase : IProxyTemplate, IEquatable<ProxyTemplateBase>
+    internal abstract class ProxyDefinitionBase : IProxyDefinition, IEquatable<ProxyDefinitionBase>
     {
         /// <summary>
         /// The declaring type.
@@ -48,12 +48,12 @@ namespace NProxy.Core.Internal.Templates
         private readonly HashSet<Type> _additionalInterfaceTypes;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProxyTemplateBase"/> class.
+        /// Initializes a new instance of the <see cref="ProxyDefinitionBase"/> class.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="parentType">The parent type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        protected ProxyTemplateBase(Type declaringType, Type parentType, IEnumerable<Type> interfaceTypes)
+        protected ProxyDefinitionBase(Type declaringType, Type parentType, IEnumerable<Type> interfaceTypes)
         {
             if (declaringType == null)
                 throw new ArgumentNullException("declaringType");
@@ -153,7 +153,7 @@ namespace NProxy.Core.Internal.Templates
             get { return _declaringInterfaceTypes; }
         }
 
-        #region IProxyTemplate Members
+        #region IProxyDefinition Members
 
         /// <inheritdoc/>
         public Type DeclaringType
@@ -174,16 +174,16 @@ namespace NProxy.Core.Internal.Templates
         }
 
         /// <inheritdoc/>
-        public virtual void AcceptVisitor(IProxyTemplateVisitor proxyTemplateVisitor)
+        public virtual void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)
         {
-            if (proxyTemplateVisitor == null)
-                throw new ArgumentNullException("proxyTemplateVisitor");
+            if (proxyDefinitionVisitor == null)
+                throw new ArgumentNullException("proxyDefinitionVisitor");
 
             // Visit parent type constructors.
-            proxyTemplateVisitor.VisitConstructors(_parentType);
+            proxyDefinitionVisitor.VisitConstructors(_parentType);
 
             // Visit additional interface types.
-            proxyTemplateVisitor.VisitInterfaces(_additionalInterfaceTypes);
+            proxyDefinitionVisitor.VisitInterfaces(_additionalInterfaceTypes);
         }
 
         /// <inheritdoc/>
@@ -194,10 +194,10 @@ namespace NProxy.Core.Internal.Templates
 
         #endregion
 
-        #region IEquatable<ProxyTemplateBase> Members
+        #region IEquatable<ProxyDefinitionBase> Members
 
         /// <inheritdoc/>
-        public bool Equals(ProxyTemplateBase other)
+        public bool Equals(ProxyDefinitionBase other)
         {
             if (other == null)
                 return false;
@@ -226,7 +226,7 @@ namespace NProxy.Core.Internal.Templates
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            return (obj is ProxyTemplateBase) && Equals((ProxyTemplateBase) obj);
+            return (obj is ProxyDefinitionBase) && Equals((ProxyDefinitionBase) obj);
         }
 
         /// <inheritdoc/>

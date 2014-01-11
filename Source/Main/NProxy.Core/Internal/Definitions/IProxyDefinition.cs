@@ -19,12 +19,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace NProxy.Core.Internal.Templates
+namespace NProxy.Core.Internal.Definitions
 {
     /// <summary>
-    /// Defines a proxy template.
+    /// Defines a proxy definition.
     /// </summary>
-    internal interface IProxyTemplate
+    internal interface IProxyDefinition
     {
         /// <summary>
         /// Returns the declaring type.
@@ -44,8 +44,8 @@ namespace NProxy.Core.Internal.Templates
         /// <summary>
         /// Dispatches to the specific visit method for each member.
         /// </summary>
-        /// <param name="proxyTemplateVisitor">The proxy template visitor.</param>
-        void AcceptVisitor(IProxyTemplateVisitor proxyTemplateVisitor);
+        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
+        void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor);
 
         /// <summary>
         /// Returns the wrapped proxy instance.
