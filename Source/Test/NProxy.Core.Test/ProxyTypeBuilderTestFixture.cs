@@ -52,18 +52,18 @@ namespace NProxy.Core.Test
             // Act
             typeBuilder.AddInterface(interfaceType);
 
-            var proxyType = typeBuilder.CreateType();
+            var type = typeBuilder.CreateType();
 
             // Assert
-            Assert.DoesNotThrow(() => Activator.CreateInstance(proxyType));
+            Assert.DoesNotThrow(() => Activator.CreateInstance(type));
 
             foreach (var parentInterfaceType in parentType.GetInterfaces())
             {
-                Assert.That(parentInterfaceType.IsAssignableFrom(proxyType), Is.True);
+                Assert.That(parentInterfaceType.IsAssignableFrom(type), Is.True);
             }
 
-            Assert.That(interfaceType.IsAssignableFrom(proxyType), Is.True);
-            Assert.That(parentType.IsAssignableFrom(proxyType), Is.True);
+            Assert.That(interfaceType.IsAssignableFrom(type), Is.True);
+            Assert.That(parentType.IsAssignableFrom(type), Is.True);
         }
 
         #region Build Constructor From Abstract Class Test Cases
@@ -169,18 +169,18 @@ namespace NProxy.Core.Test
             // Act
             typeBuilder.BuildConstructor(constructorInfos.First());
 
-            var proxyType = typeBuilder.CreateType();
+            var type = typeBuilder.CreateType();
 
             // Assert
             foreach (var interfaceType in declaringType.GetInterfaces())
             {
-                Assert.That(interfaceType.IsAssignableFrom(proxyType), Is.True);
+                Assert.That(interfaceType.IsAssignableFrom(type), Is.True);
             }
 
-            Assert.That(parentType.IsAssignableFrom(proxyType), Is.True);
-            Assert.That(declaringType.IsAssignableFrom(proxyType), Is.True);
+            Assert.That(parentType.IsAssignableFrom(type), Is.True);
+            Assert.That(declaringType.IsAssignableFrom(type), Is.True);
 
-            var actualConstructorInfos = proxyType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            var actualConstructorInfos = type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
             var expectedConstructorInfos = classType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
 
             Assert.That(actualConstructorInfos.Length, Is.EqualTo(expectedConstructorInfos.Length));
@@ -221,26 +221,26 @@ namespace NProxy.Core.Test
             // Act
             typeBuilder.BuildEvent(eventInfo);
 
-            var proxyType = typeBuilder.CreateType();
+            var type = typeBuilder.CreateType();
 
             // Assert
-            Assert.DoesNotThrow(() => Activator.CreateInstance(proxyType));
+            Assert.DoesNotThrow(() => Activator.CreateInstance(type));
 
             foreach (var interfaceType in declaringType.GetInterfaces())
             {
-                Assert.That(interfaceType.IsAssignableFrom(proxyType), Is.True);
+                Assert.That(interfaceType.IsAssignableFrom(type), Is.True);
             }
 
-            Assert.That(parentType.IsAssignableFrom(proxyType), Is.True);
-            Assert.That(declaringType.IsAssignableFrom(proxyType), Is.True);
+            Assert.That(parentType.IsAssignableFrom(type), Is.True);
+            Assert.That(declaringType.IsAssignableFrom(type), Is.True);
 
             var isExplicit = declaringType.IsInterface;
             EventInfo actual;
 
             if (isExplicit)
-                actual = proxyType.GetEvent(eventInfo.GetFullName(), BindingFlags.NonPublic | BindingFlags.Instance);
+                actual = type.GetEvent(eventInfo.GetFullName(), BindingFlags.NonPublic | BindingFlags.Instance);
             else
-                actual = proxyType.GetEvent(eventInfo.Name);
+                actual = type.GetEvent(eventInfo.Name);
 
             var expected = classType.GetEvent(eventInfo.Name);
 
@@ -286,26 +286,26 @@ namespace NProxy.Core.Test
             // Act
             typeBuilder.BuildProperty(propertyInfo);
 
-            var proxyType = typeBuilder.CreateType();
+            var type = typeBuilder.CreateType();
 
             // Assert
-            Assert.DoesNotThrow(() => Activator.CreateInstance(proxyType));
+            Assert.DoesNotThrow(() => Activator.CreateInstance(type));
 
             foreach (var interfaceType in declaringType.GetInterfaces())
             {
-                Assert.That(interfaceType.IsAssignableFrom(proxyType), Is.True);
+                Assert.That(interfaceType.IsAssignableFrom(type), Is.True);
             }
 
-            Assert.That(parentType.IsAssignableFrom(proxyType), Is.True);
-            Assert.That(declaringType.IsAssignableFrom(proxyType), Is.True);
+            Assert.That(parentType.IsAssignableFrom(type), Is.True);
+            Assert.That(declaringType.IsAssignableFrom(type), Is.True);
 
             var isExplicit = declaringType.IsInterface;
             PropertyInfo actual;
 
             if (isExplicit)
-                actual = proxyType.GetProperty(propertyInfo.GetFullName(), BindingFlags.NonPublic | BindingFlags.Instance);
+                actual = type.GetProperty(propertyInfo.GetFullName(), BindingFlags.NonPublic | BindingFlags.Instance);
             else
-                actual = proxyType.GetProperty(propertyInfo.Name);
+                actual = type.GetProperty(propertyInfo.Name);
 
             var expected = classType.GetProperty(propertyInfo.Name);
 
@@ -501,26 +501,26 @@ namespace NProxy.Core.Test
             // Act
             typeBuilder.BuildMethod(methodInfo);
 
-            var proxyType = typeBuilder.CreateType();
+            var type = typeBuilder.CreateType();
 
             // Assert
-            Assert.DoesNotThrow(() => Activator.CreateInstance(proxyType));
+            Assert.DoesNotThrow(() => Activator.CreateInstance(type));
 
             foreach (var interfaceType in declaringType.GetInterfaces())
             {
-                Assert.That(interfaceType.IsAssignableFrom(proxyType), Is.True);
+                Assert.That(interfaceType.IsAssignableFrom(type), Is.True);
             }
 
-            Assert.That(parentType.IsAssignableFrom(proxyType), Is.True);
-            Assert.That(declaringType.IsAssignableFrom(proxyType), Is.True);
+            Assert.That(parentType.IsAssignableFrom(type), Is.True);
+            Assert.That(declaringType.IsAssignableFrom(type), Is.True);
 
             var isExplicit = declaringType.IsInterface;
             MethodInfo actual;
 
             if (isExplicit)
-                actual = proxyType.GetMethod(methodInfo.GetFullName(), BindingFlags.NonPublic | BindingFlags.Instance);
+                actual = type.GetMethod(methodInfo.GetFullName(), BindingFlags.NonPublic | BindingFlags.Instance);
             else
-                actual = proxyType.GetMethod(methodInfo.Name);
+                actual = type.GetMethod(methodInfo.Name);
 
             var expected = classType.GetMethod(methodInfo.Name);
 
@@ -624,11 +624,11 @@ namespace NProxy.Core.Test
             typeBuilder.BuildMethod(methodInfo);
 
             // Assert
-            var proxyType = typeBuilder.CreateType();
+            var type = typeBuilder.CreateType();
 
-            Assert.DoesNotThrow(() => Activator.CreateInstance(proxyType));
+            Assert.DoesNotThrow(() => Activator.CreateInstance(type));
 
-            var actual = proxyType.GetMethod(methodName);
+            var actual = type.GetMethod(methodName);
             var expected = declaringType.GetMethod(methodName);
 
             MemberAssert.AreEquivalent(actual, expected, false);

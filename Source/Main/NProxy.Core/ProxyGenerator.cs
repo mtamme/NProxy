@@ -86,13 +86,13 @@ namespace NProxy.Core
             if (proxyDefinition == null)
                 throw new ArgumentNullException("proxyDefinition");
 
-            // Build proxy type.
+            // Build type.
             proxyDefinition.AcceptVisitor(this);
 
-            // Create proxy type.
-            var proxyType = _typeBuilder.CreateType();
+            // Create type.
+            var type = _typeBuilder.CreateType();
 
-            return new ProxyTemplate(proxyDefinition, proxyType, _eventInfos, _propertyInfos, _methodInfos);
+            return new ProxyTemplate(proxyDefinition, type, _eventInfos, _propertyInfos, _methodInfos);
         }
 
         #region IProxyDefinitionVisitor Members

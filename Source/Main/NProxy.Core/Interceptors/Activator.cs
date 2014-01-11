@@ -69,13 +69,13 @@ namespace NProxy.Core.Interceptors
         /// <inheritdoc/>
         public TInterface AdaptInstance<TInterface>(object instance) where TInterface : class
         {
-            return _proxyTemplate.AdaptInstance<TInterface>(instance);
+            return _proxyTemplate.AdaptProxy<TInterface>(instance);
         }
 
         /// <inheritdoc/>
         public T CreateInstance()
         {
-            return _proxyTemplate.CreateInstance(_invocationHandler, _arguments);
+            return _proxyTemplate.CreateProxy(_invocationHandler, _arguments);
         }
 
         #endregion

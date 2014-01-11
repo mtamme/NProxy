@@ -51,24 +51,24 @@ namespace NProxy.Core.Internal.Definitions
         }
 
         /// <inheritdoc/>
-        public override object UnwrapInstance(object instance)
+        public override object UnwrapProxy(object proxy)
         {
-            if (instance == null)
-                throw new ArgumentNullException("instance");
+            if (proxy == null)
+                throw new ArgumentNullException("proxy");
 
-            return instance;
+            return proxy;
         }
 
         /// <inheritdoc/>
-        public override object CreateInstance(Type proxyType, object[] arguments)
+        public override object CreateProxy(Type type, object[] arguments)
         {
-            if (proxyType == null)
-                throw new ArgumentNullException("proxyType");
+            if (type == null)
+                throw new ArgumentNullException("type");
 
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            return Activator.CreateInstance(proxyType, arguments);
+            return Activator.CreateInstance(type, arguments);
         }
 
         #endregion

@@ -91,13 +91,13 @@ namespace NProxy.Core.Benchmark
             var invocationHandler = new NProxyInvocationHandler(new Standard());
             var proxyFactory = new ProxyFactory();
             var stopwatch = new Stopwatch();
-            var proxy = proxyFactory.GetProxyTemplate<IStandard>(Type.EmptyTypes);
+            var proxyTemplate = proxyFactory.GetProxyTemplate<IStandard>(Type.EmptyTypes);
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxy.CreateInstance(invocationHandler);
+                proxyTemplate.CreateProxy(invocationHandler);
             }
 
             stopwatch.Stop();
@@ -111,13 +111,13 @@ namespace NProxy.Core.Benchmark
             var invocationHandler = new NProxyInvocationHandler(new Generic());
             var proxyFactory = new ProxyFactory();
             var stopwatch = new Stopwatch();
-            var proxy = proxyFactory.GetProxyTemplate<IGeneric>(Type.EmptyTypes);
+            var proxyTemplate = proxyFactory.GetProxyTemplate<IGeneric>(Type.EmptyTypes);
 
             stopwatch.Start();
 
             for (var i = 0; i < iterations; i++)
             {
-                proxy.CreateInstance(invocationHandler);
+                proxyTemplate.CreateProxy(invocationHandler);
             }
 
             stopwatch.Stop();

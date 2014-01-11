@@ -48,18 +48,18 @@ namespace NProxy.Core.Internal.Definitions
         void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor);
 
         /// <summary>
-        /// Returns the wrapped proxy instance.
+        /// Returns the wrapped instance.
         /// </summary>
-        /// <param name="instance">The instance.</param>
-        /// <returns>The wrapped proxy instance.</returns>
-        object UnwrapInstance(object instance);
+        /// <param name="proxy">The proxy.</param>
+        /// <returns>The wrapped instance.</returns>
+        object UnwrapProxy(object proxy);
 
         /// <summary>
-        /// Creates an instance of the specified type.
+        /// Creates a new proxy of the specified type.
         /// </summary>
-        /// <param name="proxyType">The proxy type.</param>
+        /// <param name="type">The type.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The instance.</returns>
-        object CreateInstance(Type proxyType, object[] arguments);
+        /// <returns>The new proxy.</returns>
+        object CreateProxy(Type type, object[] arguments);
     }
 }

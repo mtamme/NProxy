@@ -187,10 +187,10 @@ namespace NProxy.Core.Internal.Definitions
         }
 
         /// <inheritdoc/>
-        public abstract object UnwrapInstance(object instance);
+        public abstract object UnwrapProxy(object proxy);
 
         /// <inheritdoc/>
-        public abstract object CreateInstance(Type proxyType, object[] arguments);
+        public abstract object CreateProxy(Type type, object[] arguments);
 
         #endregion
 

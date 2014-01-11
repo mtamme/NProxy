@@ -34,14 +34,14 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void AdaptInstanceInterfaceProxyTest()
+        public void AdaptProxyInterfaceProxyTest()
         {
             // Arrange
             var proxyTemplate = _proxyFactory.GetProxyTemplate<IIntParameter>(new[] {typeof (IStringParameter)});
-            var instance = proxyTemplate.CreateInstance(new TargetInvocationHandler(_ => null));
+            var proxy = proxyTemplate.CreateProxy(new TargetInvocationHandler(_ => null));
 
             // Act
-            var value = proxyTemplate.AdaptInstance<IStringParameter>(instance);
+            var value = proxyTemplate.AdaptProxy<IStringParameter>(proxy);
 
             // Assert
             Assert.That(value, Is.Not.Null);
@@ -49,14 +49,14 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void AdaptInstanceAbstractClassProxyTest()
+        public void AdaptProxyAbstractClassProxyTest()
         {
             // Arrange
             var proxyTemplate = _proxyFactory.GetProxyTemplate<IntParameterBase>(new[] {typeof (IStringParameter)});
-            var instance = proxyTemplate.CreateInstance(new TargetInvocationHandler(_ => null));
+            var proxy = proxyTemplate.CreateProxy(new TargetInvocationHandler(_ => null));
 
             // Act
-            var value = proxyTemplate.AdaptInstance<IStringParameter>(instance);
+            var value = proxyTemplate.AdaptProxy<IStringParameter>(proxy);
 
             // Assert
             Assert.That(value, Is.Not.Null);
@@ -64,14 +64,14 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void AdaptInstanceClassProxyTest()
+        public void AdaptProxyClassProxyTest()
         {
             // Arrange
             var proxyTemplate = _proxyFactory.GetProxyTemplate<IntParameter>(new[] {typeof (IStringParameter)});
-            var instance = proxyTemplate.CreateInstance(new TargetInvocationHandler(_ => null));
+            var proxy = proxyTemplate.CreateProxy(new TargetInvocationHandler(_ => null));
 
             // Act
-            var value = proxyTemplate.AdaptInstance<IStringParameter>(instance);
+            var value = proxyTemplate.AdaptProxy<IStringParameter>(proxy);
 
             // Assert
             Assert.That(value, Is.Not.Null);
@@ -83,10 +83,10 @@ namespace NProxy.Core.Test
         {
             // Arrange
             var proxyTemplate = _proxyFactory.GetProxyTemplate<Action<int>>(new[] {typeof (IStringParameter)});
-            var instance = proxyTemplate.CreateInstance(new TargetInvocationHandler(_ => null));
+            var proxy = proxyTemplate.CreateProxy(new TargetInvocationHandler(_ => null));
 
             // Act
-            var value = proxyTemplate.AdaptInstance<IStringParameter>(instance);
+            var value = proxyTemplate.AdaptProxy<IStringParameter>(proxy);
 
             // Assert
             Assert.That(value, Is.Not.Null);
@@ -94,63 +94,63 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void AdaptInstanceInterfaceProxyToInvalidInterfaceTypeTest()
+        public void AdaptProxyInterfaceProxyToInvalidInterfaceTypeTest()
         {
             // Arrange
             var proxyTemplate = _proxyFactory.GetProxyTemplate<IIntParameter>(new[] {typeof (IStringParameter)});
-            var instance = proxyTemplate.CreateInstance(new TargetInvocationHandler(_ => null));
+            var proxy = proxyTemplate.CreateProxy(new TargetInvocationHandler(_ => null));
 
             // Act
             // Assert
-            Assert.Throws<InvalidOperationException>(() => proxyTemplate.AdaptInstance<IEnumParameter>(instance));
+            Assert.Throws<InvalidOperationException>(() => proxyTemplate.AdaptProxy<IEnumParameter>(proxy));
         }
 
         [Test]
-        public void AdaptInstanceAbstractClassProxyToInvalidInterfaceTypeTest()
+        public void AdaptProxyAbstractClassProxyToInvalidInterfaceTypeTest()
         {
             // Arrange
             var proxyTemplate = _proxyFactory.GetProxyTemplate<IntParameterBase>(new[] {typeof (IStringParameter)});
-            var instance = proxyTemplate.CreateInstance(new TargetInvocationHandler(_ => null));
+            var proxy = proxyTemplate.CreateProxy(new TargetInvocationHandler(_ => null));
 
             // Act
             // Assert
-            Assert.Throws<InvalidOperationException>(() => proxyTemplate.AdaptInstance<IEnumParameter>(instance));
+            Assert.Throws<InvalidOperationException>(() => proxyTemplate.AdaptProxy<IEnumParameter>(proxy));
         }
 
         [Test]
-        public void AdaptInstanceClassProxyToInvalidInterfaceTypeTest()
+        public void AdaptProxyClassProxyToInvalidInterfaceTypeTest()
         {
             // Arrange
             var proxyTemplate = _proxyFactory.GetProxyTemplate<IntParameter>(new[] {typeof (IStringParameter)});
-            var instance = proxyTemplate.CreateInstance(new TargetInvocationHandler(_ => null));
+            var proxy = proxyTemplate.CreateProxy(new TargetInvocationHandler(_ => null));
 
             // Act
             // Assert
-            Assert.Throws<InvalidOperationException>(() => proxyTemplate.AdaptInstance<IEnumParameter>(instance));
+            Assert.Throws<InvalidOperationException>(() => proxyTemplate.AdaptProxy<IEnumParameter>(proxy));
         }
 
         [Test]
-        public void AdaptInstanceDelegateProxyToInvalidInterfaceTypeTest()
+        public void AdaptProxyDelegateProxyToInvalidInterfaceTypeTest()
         {
             // Arrange
             var proxyTemplate = _proxyFactory.GetProxyTemplate<Action<int>>(new[] {typeof (IStringParameter)});
-            var instance = proxyTemplate.CreateInstance(new TargetInvocationHandler(_ => null));
+            var proxy = proxyTemplate.CreateProxy(new TargetInvocationHandler(_ => null));
 
             // Act
             // Assert
-            Assert.Throws<InvalidOperationException>(() => proxyTemplate.AdaptInstance<IEnumParameter>(instance));
+            Assert.Throws<InvalidOperationException>(() => proxyTemplate.AdaptProxy<IEnumParameter>(proxy));
         }
 
         [Test]
-        public void AdaptInstanceNonProxyTest()
+        public void AdaptProxyNonProxyTest()
         {
             // Arrange
             var proxyTemplate = _proxyFactory.GetProxyTemplate<Action<int>>(new[] {typeof (IStringParameter)});
-            var instance = new StringParameter();
+            var proxy = new StringParameter();
 
             // Act
             // Assert
-            Assert.Throws<InvalidOperationException>(() => proxyTemplate.AdaptInstance<IStringParameter>(instance));
+            Assert.Throws<InvalidOperationException>(() => proxyTemplate.AdaptProxy<IStringParameter>(proxy));
         }
     }
 }

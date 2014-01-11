@@ -61,36 +61,36 @@ namespace NProxy.Core.Internal.Definitions
         }
 
         /// <inheritdoc/>
-        public override object UnwrapInstance(object instance)
+        public override object UnwrapProxy(object proxy)
         {
-            if (instance == null)
-                throw new ArgumentNullException("instance");
+            if (proxy == null)
+                throw new ArgumentNullException("proxy");
 
-            var delegateInstance = instance as Delegate;
+            var delegateProxy = proxy as Delegate;
 
-            if (delegateInstance == null)
-                throw new InvalidOperationException(Resources.InvalidInstanceType);
+            if (delegateProxy == null)
+                throw new InvalidOperationException(Resources.InvalidProxyType);
 
-            var proxyInstance = delegateInstance.Target;
+            var target = delegateProxy.Target;
 
-            if (proxyInstance == null)
-                throw new InvalidOperationException(Resources.InvalidInstanceType);
+            if (target == null)
+                throw new InvalidOperationException(Resources.InvalidProxyType);
 
-            return proxyInstance;
+            return target;
         }
 
         /// <inheritdoc/>
-        public override object CreateInstance(Type proxyType, object[] arguments)
+        public override object CreateProxy(Type type, object[] arguments)
         {
-            if (proxyType == null)
-                throw new ArgumentNullException("proxyType");
+            if (type == null)
+                throw new ArgumentNullException("type");
 
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            var proxyInstance = Activator.CreateInstance(proxyType, arguments);
+            var target = Activator.CreateInstance(type, arguments);
 
-            return Delegate.CreateDelegate(DeclaringType, proxyInstance, DelegateMethodName);
+            return Delegate.CreateDelegate(DeclaringType, target, DelegateMethodName);
         }
 
         #endregion

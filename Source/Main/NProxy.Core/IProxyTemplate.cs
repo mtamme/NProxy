@@ -53,20 +53,20 @@ namespace NProxy.Core
         IEnumerable<MethodInfo> InterceptedMethods { get; }
 
         /// <summary>
-        /// Adapts an instance to the specified interface type.
+        /// Adapts a proxy to the specified interface type.
         /// </summary>
         /// <param name="interfaceType">The interface type.</param>
-        /// <param name="instance">The instance.</param>
-        /// <returns>The object, of the specified interface type, to which the instance has been adapted.</returns>
-        object AdaptInstance(Type interfaceType, object instance);
+        /// <param name="proxy">The proxy.</param>
+        /// <returns>The object, of the specified interface type, to which the proxy has been adapted.</returns>
+        object AdaptProxy(Type interfaceType, object proxy);
 
         /// <summary>
-        /// Creates a new instance.
+        /// Creates a new proxy.
         /// </summary>
         /// <param name="invocationHandler">The invocation handler.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The new instance.</returns>
-        object CreateInstance(IInvocationHandler invocationHandler, params object[] arguments);
+        /// <returns>The new proxy.</returns>
+        object CreateProxy(IInvocationHandler invocationHandler, params object[] arguments);
     }
 
     /// <summary>
@@ -76,11 +76,11 @@ namespace NProxy.Core
     public interface IProxyTemplate<out T> : IProxyTemplate where T : class
     {
         /// <summary>
-        /// Creates a new instance.
+        /// Creates a new proxy.
         /// </summary>
         /// <param name="invocationHandler">The invocation handler.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The new instance.</returns>
-        new T CreateInstance(IInvocationHandler invocationHandler, params object[] arguments);
+        /// <returns>The new proxy.</returns>
+        new T CreateProxy(IInvocationHandler invocationHandler, params object[] arguments);
     }
 }

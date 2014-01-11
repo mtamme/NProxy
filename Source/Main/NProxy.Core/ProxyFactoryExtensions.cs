@@ -41,14 +41,14 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Creates a proxy object.
+        /// Creates a new proxy.
         /// </summary>
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
         /// <param name="invocationHandler">The invocation handler.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The proxy object.</returns>
+        /// <returns>The new proxy.</returns>
         public static object CreateProxy(this IProxyFactory proxyFactory,
                                          Type declaringType,
                                          IEnumerable<Type> interfaceTypes,
@@ -60,18 +60,18 @@ namespace NProxy.Core
 
             var proxyTemplate = proxyFactory.GetProxyTemplate(declaringType, interfaceTypes);
 
-            return proxyTemplate.CreateInstance(invocationHandler, arguments);
+            return proxyTemplate.CreateProxy(invocationHandler, arguments);
         }
 
         /// <summary>
-        /// Creates a proxy object.
+        /// Creates a new proxy.
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
         /// <param name="invocationHandler">The invocation handler.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The proxy object.</returns>
+        /// <returns>The new proxy.</returns>
         public static T CreateProxy<T>(this IProxyFactory proxyFactory,
                                        IEnumerable<Type> interfaceTypes,
                                        IInvocationHandler invocationHandler,
@@ -82,7 +82,7 @@ namespace NProxy.Core
 
             var proxyTemplate = proxyFactory.GetProxyTemplate<T>(interfaceTypes);
 
-            return proxyTemplate.CreateInstance(invocationHandler, arguments);
+            return proxyTemplate.CreateProxy(invocationHandler, arguments);
         }
     }
 }
