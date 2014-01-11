@@ -230,7 +230,7 @@ namespace NProxy.Core.Interceptors
         /// <inheritdoc/>
         public IActivator<T> Targets(IInvocationTarget invocationTarget)
         {
-            var proxy = _proxyFactory.CreateProxy<T>(_interfaceTypes);
+            var proxy = _proxyFactory.GetProxy<T>(_interfaceTypes);
             var invocationHandler = CreateInvocationHandler(proxy, new InvocationTargetInterceptor(invocationTarget));
 
             return new Activator<T>(proxy, invocationHandler, _arguments);
@@ -239,7 +239,7 @@ namespace NProxy.Core.Interceptors
         /// <inheritdoc/>
         public IActivator<T> TargetsSelf()
         {
-            var proxy = _proxyFactory.CreateProxy<T>(_interfaceTypes);
+            var proxy = _proxyFactory.GetProxy<T>(_interfaceTypes);
             var invocationHandler = CreateInvocationHandler(proxy, TargetInterceptor.Instance);
 
             return new Activator<T>(proxy, invocationHandler, _arguments);

@@ -105,7 +105,7 @@ namespace NProxy.Core
         #region IProxyFactory Members
 
         /// <inheritdoc/>
-        public IProxy CreateProxy(Type declaringType, IEnumerable<Type> interfaceTypes)
+        public IProxy GetProxy(Type declaringType, IEnumerable<Type> interfaceTypes)
         {
             if (declaringType == null)
                 throw new ArgumentNullException("declaringType");

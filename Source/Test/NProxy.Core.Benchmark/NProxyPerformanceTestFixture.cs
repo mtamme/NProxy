@@ -58,7 +58,7 @@ namespace NProxy.Core.Benchmark
 
                 stopwatch.Start();
 
-                proxyFactory.CreateProxy<IStandard>(Type.EmptyTypes);
+                proxyFactory.GetProxy<IStandard>(Type.EmptyTypes);
 
                 stopwatch.Stop();
             }
@@ -77,7 +77,7 @@ namespace NProxy.Core.Benchmark
 
                 stopwatch.Start();
 
-                proxyFactory.CreateProxy<IGeneric>(Type.EmptyTypes);
+                proxyFactory.GetProxy<IGeneric>(Type.EmptyTypes);
 
                 stopwatch.Stop();
             }
@@ -91,7 +91,7 @@ namespace NProxy.Core.Benchmark
             var invocationHandler = new NProxyInvocationHandler(new Standard());
             var proxyFactory = new ProxyFactory();
             var stopwatch = new Stopwatch();
-            var proxy = proxyFactory.CreateProxy<IStandard>(Type.EmptyTypes);
+            var proxy = proxyFactory.GetProxy<IStandard>(Type.EmptyTypes);
 
             stopwatch.Start();
 
@@ -111,7 +111,7 @@ namespace NProxy.Core.Benchmark
             var invocationHandler = new NProxyInvocationHandler(new Generic());
             var proxyFactory = new ProxyFactory();
             var stopwatch = new Stopwatch();
-            var proxy = proxyFactory.CreateProxy<IGeneric>(Type.EmptyTypes);
+            var proxy = proxyFactory.GetProxy<IGeneric>(Type.EmptyTypes);
 
             stopwatch.Start();
 

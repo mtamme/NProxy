@@ -27,11 +27,11 @@ namespace NProxy.Core
     public interface IProxyFactory
     {
         /// <summary>
-        /// Creates a proxy.
+        /// Returns a proxy.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
         /// <returns>The proxy.</returns>
-        IProxy CreateProxy(Type declaringType, IEnumerable<Type> interfaceTypes);
+        IProxy GetProxy(Type declaringType, IEnumerable<Type> interfaceTypes);
     }
 }

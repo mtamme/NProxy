@@ -37,7 +37,7 @@ namespace NProxy.Core.Test
         public void AdaptInstanceInterfaceProxyTest()
         {
             // Arrange
-            var proxy = _proxyFactory.CreateProxy<IIntParameter>(new[] {typeof (IStringParameter)});
+            var proxy = _proxyFactory.GetProxy<IIntParameter>(new[] {typeof (IStringParameter)});
             var instance = proxy.CreateInstance(new TargetInvocationHandler(_ => null));
 
             // Act
@@ -52,7 +52,7 @@ namespace NProxy.Core.Test
         public void AdaptInstanceAbstractClassProxyTest()
         {
             // Arrange
-            var proxy = _proxyFactory.CreateProxy<IntParameterBase>(new[] {typeof (IStringParameter)});
+            var proxy = _proxyFactory.GetProxy<IntParameterBase>(new[] {typeof (IStringParameter)});
             var instance = proxy.CreateInstance(new TargetInvocationHandler(_ => null));
 
             // Act
@@ -67,7 +67,7 @@ namespace NProxy.Core.Test
         public void AdaptInstanceClassProxyTest()
         {
             // Arrange
-            var proxy = _proxyFactory.CreateProxy<IntParameter>(new[] {typeof (IStringParameter)});
+            var proxy = _proxyFactory.GetProxy<IntParameter>(new[] {typeof (IStringParameter)});
             var instance = proxy.CreateInstance(new TargetInvocationHandler(_ => null));
 
             // Act
@@ -82,7 +82,7 @@ namespace NProxy.Core.Test
         public void CastDelegateProxyTest()
         {
             // Arrange
-            var proxy = _proxyFactory.CreateProxy<Action<int>>(new[] {typeof (IStringParameter)});
+            var proxy = _proxyFactory.GetProxy<Action<int>>(new[] {typeof (IStringParameter)});
             var instance = proxy.CreateInstance(new TargetInvocationHandler(_ => null));
 
             // Act
@@ -97,7 +97,7 @@ namespace NProxy.Core.Test
         public void AdaptInstanceInterfaceProxyToInvalidInterfaceTypeTest()
         {
             // Arrange
-            var proxy = _proxyFactory.CreateProxy<IIntParameter>(new[] {typeof (IStringParameter)});
+            var proxy = _proxyFactory.GetProxy<IIntParameter>(new[] {typeof (IStringParameter)});
             var instance = proxy.CreateInstance(new TargetInvocationHandler(_ => null));
 
             // Act
@@ -109,7 +109,7 @@ namespace NProxy.Core.Test
         public void AdaptInstanceAbstractClassProxyToInvalidInterfaceTypeTest()
         {
             // Arrange
-            var proxy = _proxyFactory.CreateProxy<IntParameterBase>(new[] {typeof (IStringParameter)});
+            var proxy = _proxyFactory.GetProxy<IntParameterBase>(new[] {typeof (IStringParameter)});
             var instance = proxy.CreateInstance(new TargetInvocationHandler(_ => null));
 
             // Act
@@ -121,7 +121,7 @@ namespace NProxy.Core.Test
         public void AdaptInstanceClassProxyToInvalidInterfaceTypeTest()
         {
             // Arrange
-            var proxy = _proxyFactory.CreateProxy<IntParameter>(new[] {typeof (IStringParameter)});
+            var proxy = _proxyFactory.GetProxy<IntParameter>(new[] {typeof (IStringParameter)});
             var instance = proxy.CreateInstance(new TargetInvocationHandler(_ => null));
 
             // Act
@@ -133,7 +133,7 @@ namespace NProxy.Core.Test
         public void AdaptInstanceDelegateProxyToInvalidInterfaceTypeTest()
         {
             // Arrange
-            var proxy = _proxyFactory.CreateProxy<Action<int>>(new[] {typeof (IStringParameter)});
+            var proxy = _proxyFactory.GetProxy<Action<int>>(new[] {typeof (IStringParameter)});
             var instance = proxy.CreateInstance(new TargetInvocationHandler(_ => null));
 
             // Act
@@ -145,7 +145,7 @@ namespace NProxy.Core.Test
         public void AdaptInstanceNonProxyTest()
         {
             // Arrange
-            var proxy = _proxyFactory.CreateProxy<Action<int>>(new[] {typeof (IStringParameter)});
+            var proxy = _proxyFactory.GetProxy<Action<int>>(new[] {typeof (IStringParameter)});
             var instance = new StringParameter();
 
             // Act

@@ -27,15 +27,15 @@ namespace NProxy.Core
     public static class ProxyFactoryExtensions
     {
         /// <summary>
-        /// Creates a proxy.
+        /// Returns a proxy.
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
         /// <returns>The proxy.</returns>
-        public static IProxy<T> CreateProxy<T>(this IProxyFactory proxyFactory, IEnumerable<Type> interfaceTypes) where T : class
+        public static IProxy<T> GetProxy<T>(this IProxyFactory proxyFactory, IEnumerable<Type> interfaceTypes) where T : class
         {
-            var proxy = proxyFactory.CreateProxy(typeof (T), interfaceTypes);
+            var proxy = proxyFactory.GetProxy(typeof (T), interfaceTypes);
 
             return new Proxy<T>(proxy);
         }
@@ -58,7 +58,7 @@ namespace NProxy.Core
             if (proxyFactory == null)
                 throw new ArgumentNullException("proxyFactory");
 
-            var proxy = proxyFactory.CreateProxy(declaringType, interfaceTypes);
+            var proxy = proxyFactory.GetProxy(declaringType, interfaceTypes);
 
             return proxy.CreateInstance(invocationHandler, arguments);
         }
@@ -80,7 +80,7 @@ namespace NProxy.Core
             if (proxyFactory == null)
                 throw new ArgumentNullException("proxyFactory");
 
-            var proxy = proxyFactory.CreateProxy<T>(interfaceTypes);
+            var proxy = proxyFactory.GetProxy<T>(interfaceTypes);
 
             return proxy.CreateInstance(invocationHandler, arguments);
         }
