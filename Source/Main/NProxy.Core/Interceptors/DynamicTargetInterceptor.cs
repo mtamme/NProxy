@@ -21,26 +21,26 @@ using System;
 namespace NProxy.Core.Interceptors
 {
     /// <summary>
-    /// Represents an invocation target interceptor.
+    /// Represents a dynamic target interceptor.
     /// </summary>
     [Serializable]
-    internal sealed class InvocationTargetInterceptor : IInterceptor
+    internal sealed class DynamicTargetInterceptor : IInterceptor
     {
         /// <summary>
-        /// The invocation target.
+        /// The target factory.
         /// </summary>
-        private readonly IInvocationTarget _invocationTarget;
+        private readonly Func<object, object> _targetFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InvocationTargetInterceptor"/> class.
+        /// Initializes a new instance of the <see cref="DynamicTargetInterceptor"/> class.
         /// </summary>
-        /// <param name="invocationTarget">The invocation target.</param>
-        public InvocationTargetInterceptor(IInvocationTarget invocationTarget)
+        /// <param name="targetFactory">The target factory.</param>
+        public DynamicTargetInterceptor(Func<object, object> targetFactory)
         {
-            if (invocationTarget == null)
-                throw new ArgumentNullException("invocationTarget");
+            if (targetFactory == null)
+                throw new ArgumentNullException("targetFactory");
 
-            _invocationTarget = invocationTarget;
+            _targetFactory = targetFactory;
         }
 
         #region IInterceptor Members
@@ -49,7 +49,7 @@ namespace NProxy.Core.Interceptors
         public object Intercept(IInvocationContext invocationContext)
         {
             var methodInfo = invocationContext.Method;
-            var target = _invocationTarget.GetTarget(methodInfo);
+            var target = _targetFactory(invocationContext.Target);
 
             return methodInfo.Invoke(target, invocationContext.Parameters);
         }

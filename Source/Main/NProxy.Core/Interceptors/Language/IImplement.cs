@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -16,15 +16,29 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using NProxy.Core.Interceptors.Language;
+using System;
 
-namespace NProxy.Core.Interceptors
+namespace NProxy.Core.Interceptors.Language
 {
     /// <summary>
-    /// Defines a fluent interface for configuring a new proxy.
+    /// Defines the <c>Implement</c> verb.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface INewProxy<T> : IExtends<T, IInterceptor, IInvocationTarget> where T : class
+    /// <typeparam name="TInterceptor">The interceptor type.</typeparam>
+    public interface IImplement<T, in TInterceptor> : IInterceptBy<T, TInterceptor> where T : class
     {
+        /// <summary>
+        /// Specifies an interface to implement.
+        /// </summary>
+        /// <typeparam name="TInterface">The interface type.</typeparam>
+        /// <returns>The <c>Implement</c> verb.</returns>
+        IImplement<T, TInterceptor> Implement<TInterface>() where TInterface : class;
+
+        /// <summary>
+        /// Specifies interfaces to implement.
+        /// </summary>
+        /// <param name="interfaceTypes">The interface types.</param>
+        /// <returns>The <c>Implement</c> verb.</returns>
+        IImplement<T, TInterceptor> Implement(params Type[] interfaceTypes);
     }
 }

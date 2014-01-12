@@ -16,20 +16,38 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System.Reflection;
+using System;
 
 namespace NProxy.Core.Interceptors
 {
     /// <summary>
-    /// Defines an invocation target.
+    /// Represents a base target interceptor.
     /// </summary>
-    public interface IInvocationTarget
+    [Serializable]
+    internal sealed class BaseTargetInterceptor : IInterceptor
     {
         /// <summary>
-        /// Returns the target object for the specified method.
+        /// The singleton instance.
         /// </summary>
-        /// <param name="methodInfo">The method information.</param>
-        /// <returns>The target object.</returns>
-        object GetTarget(MethodInfo methodInfo);
+        public static readonly BaseTargetInterceptor Instance = new BaseTargetInterceptor();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseTargetInterceptor"/> class.
+        /// </summary>
+        private BaseTargetInterceptor()
+        {
+        }
+
+        #region IInterceptor Members
+
+        /// <inheritdoc/>
+        public object Intercept(IInvocationContext invocationContext)
+        {
+            var methodInfo = invocationContext.Method;
+
+            return methodInfo.Invoke(invocationContext.Target, invocationContext.Parameters);
+        }
+
+        #endregion
     }
 }

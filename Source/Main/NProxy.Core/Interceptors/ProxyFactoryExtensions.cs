@@ -24,15 +24,14 @@ namespace NProxy.Core.Interceptors
     public static class ProxyFactoryExtensions
     {
         /// <summary>
-        /// Returns a fluent interface for configuring a new proxy.
+        /// Returns a fluent interface for creating a new proxy.
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
         /// <param name="proxyFactory">The proxy factory.</param>
-        /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>A fluent interface for configuring a new proxy.</returns>
-        public static INewProxy<T> NewProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
+        /// <returns>A fluent interface for creating a new proxy.</returns>
+        public static ICreateProxy<T> CreateProxy<T>(this IProxyFactory proxyFactory) where T : class
         {
-            return new NewProxy<T>(proxyFactory, arguments);
+            return new CreateProxy<T>(proxyFactory);
         }
     }
 }

@@ -38,11 +38,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interceptors\Activator.cs" />
     <Compile Include="Interceptors\IInterceptionBehavior.cs" />
-    <Compile Include="Interceptors\Language\IActivator.cs" />
-    <Compile Include="Interceptors\TargetInterceptor.cs" />
-    <Compile Include="Interceptors\SingleInvocationTarget.cs" />
+    <Compile Include="Interceptors\BaseTargetInterceptor.cs" />
+    <Compile Include="Interceptors\StaticTargetInterceptor.cs" />
     <Compile Include="Internal\Definitions\ClassProxyDefinition.cs" />
     <Compile Include="Internal\Definitions\DelegateProxyDefinition.cs" />
     <Compile Include="Internal\Definitions\InterfaceProxyDefinition.cs" />
@@ -67,20 +65,19 @@
     <Compile Include="Internal\Reflection\TypeExtensions.cs" />
     <Compile Include="Interceptors\IInterceptor.cs" />
     <Compile Include="Interceptors\IInvocationContext.cs" />
-    <Compile Include="Interceptors\IInvocationTarget.cs" />
     <Compile Include="Interceptors\InvocationContext.cs" />
     <Compile Include="Interceptors\ProxyFactoryExtensions.cs" />
-    <Compile Include="Interceptors\InvocationTargetInterceptor.cs" />
+    <Compile Include="Interceptors\DynamicTargetInterceptor.cs" />
     <Compile Include="Internal\Caching\AnonymousDisposable.cs" />
     <Compile Include="Internal\Caching\ReadWriteLock.cs" />
     <Compile Include="Interceptors\MixinInvocationHandler.cs" />
     <Compile Include="Interceptors\Language\IFluent.cs" />
-    <Compile Include="Interceptors\Language\IExtends.cs" />
-    <Compile Include="Interceptors\Language\IImplements.cs" />
-    <Compile Include="Interceptors\Language\IInvokes.cs" />
-    <Compile Include="Interceptors\Language\ITargets.cs" />
-    <Compile Include="Interceptors\INewProxy.cs" />
-    <Compile Include="Interceptors\NewProxy.cs" />
+    <Compile Include="Interceptors\Language\IExtendWith.cs" />
+    <Compile Include="Interceptors\Language\IImplement.cs" />
+    <Compile Include="Interceptors\Language\IInterceptBy.cs" />
+    <Compile Include="Interceptors\Language\ITarget.cs" />
+    <Compile Include="Interceptors\ICreateProxy.cs" />
+    <Compile Include="Interceptors\CreateProxy.cs" />
     <Compile Include="NonInterceptedAttribute.cs" />
     <Compile Include="Interceptors\InterceptorInvocationHandler.cs" />
     <Compile Include="ProxyTemplate.cs" />

@@ -19,25 +19,17 @@
 namespace NProxy.Core.Interceptors.Language
 {
     /// <summary>
-    /// Defines the <c>Extends</c> verb.
+    /// Defines the <c>InterceptBy</c> verb.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
     /// <typeparam name="TInterceptor">The interceptor type.</typeparam>
-    /// <typeparam name="TInvocationTarget">The invocation target type.</typeparam>
-    public interface IExtends<T, in TInterceptor, in TInvocationTarget> : IImplements<T, TInterceptor, TInvocationTarget> where T : class
+    public interface IInterceptBy<T, in TInterceptor> : ITarget<T> where T : class
     {
         /// <summary>
-        /// Specifies a mixin to extend.
+        /// Specifies interceptors.
         /// </summary>
-        /// <typeparam name="TMixin">The mixin type.</typeparam>
-        /// <returns>The <c>Extends</c> verb.</returns>
-        IExtends<T, TInterceptor, TInvocationTarget> Extends<TMixin>() where TMixin : class, new();
-
-        /// <summary>
-        /// Specifies mixins to extend.
-        /// </summary>
-        /// <param name="mixins">The mixin objects.</param>
-        /// <returns>The <c>Extends</c> verb.</returns>
-        IExtends<T, TInterceptor, TInvocationTarget> Extends(params object[] mixins);
+        /// <param name="interceptors">The interceptors.</param>
+        /// <returns>The <c>Target</c> verb.</returns>
+        ITarget<T> InterceptBy(params TInterceptor[] interceptors);
     }
 }

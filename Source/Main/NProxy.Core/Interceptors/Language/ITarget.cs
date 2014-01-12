@@ -16,47 +16,48 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
+using System;
+
 namespace NProxy.Core.Interceptors.Language
 {
     /// <summary>
-    /// Defines the <c>Targets</c> verb.
+    /// Defines the <c>Target</c> verb.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    /// <typeparam name="TInvocationTarget">The invocation target type.</typeparam>
-    public interface ITargets<T, in TInvocationTarget> : IFluent where T : class
+    public interface ITarget<T> : IFluent where T : class
     {
         /// <summary>
-        /// Specifies an invocation target.
+        /// Specifies a singleton target and returns a new proxy.
         /// </summary>
         /// <typeparam name="TTarget">The target type.</typeparam>
-        /// <returns>The activator.</returns>
-        IActivator<T> Targets<TTarget>() where TTarget : class, new();
+        /// <returns>The new proxy.</returns>
+        T Target<TTarget>() where TTarget : class, new();
 
         /// <summary>
-        /// Specifies an invocation target.
+        /// Specifies a singleton target and returns a new proxy.
         /// </summary>
-        /// <param name="target">The target object.</param>
-        /// <returns>The activator.</returns>
-        IActivator<T> Targets(object target);
+        /// <param name="target">The target.</param>
+        /// <returns>The new proxy.</returns>
+        T Target(T target);
 
         /// <summary>
-        /// Specifies an invocation target.
+        /// Specifies a singleton target and returns a new proxy.
         /// </summary>
-        /// <param name="target">The target object.</param>
-        /// <returns>The activator.</returns>
-        IActivator<T> Targets(T target);
+        /// <param name="target">The target.</param>
+        /// <returns>The new proxy.</returns>
+        T Target(object target);
 
         /// <summary>
-        /// Specifies an invocation target.
+        /// Specifies a target factory and returns a new proxy.
         /// </summary>
-        /// <param name="invocationTarget">The invocation target.</param>
-        /// <returns>The activator.</returns>
-        IActivator<T> Targets(TInvocationTarget invocationTarget);
+        /// <param name="targetFactory">The target factory.</param>
+        /// <returns>The new proxy.</returns>
+        T Target(Func<object, object> targetFactory);
 
         /// <summary>
-        /// Specifies an invocation target.
+        /// Specifies the base class as the target and returns a new proxy.
         /// </summary>
-        /// <returns>The activator.</returns>
-        IActivator<T> TargetsSelf();
+        /// <returns>The new proxy.</returns>
+        T TargetBase();
     }
 }

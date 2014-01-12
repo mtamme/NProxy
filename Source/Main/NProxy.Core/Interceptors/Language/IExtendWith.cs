@@ -16,42 +16,27 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-using System;
-using System.Reflection;
-
-namespace NProxy.Core.Interceptors
+namespace NProxy.Core.Interceptors.Language
 {
     /// <summary>
-    /// Represents a single invocation target.
+    /// Defines the <c>ExtendWith</c> verb.
     /// </summary>
-    [Serializable]
-    internal sealed class SingleInvocationTarget : IInvocationTarget
+    /// <typeparam name="T">The declaring type.</typeparam>
+    /// <typeparam name="TInterceptor">The interceptor type.</typeparam>
+    public interface IExtendWith<T, in TInterceptor> : IImplement<T, TInterceptor> where T : class
     {
         /// <summary>
-        /// The target object.
+        /// Specifies a mixin.
         /// </summary>
-        private readonly object _target;
+        /// <typeparam name="TMixin">The mixin type.</typeparam>
+        /// <returns>The <c>ExtendWith</c> verb.</returns>
+        IExtendWith<T, TInterceptor> ExtendWith<TMixin>() where TMixin : class, new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SingleInvocationTarget"/> class.
+        /// Specifies mixins.
         /// </summary>
-        /// <param name="target"></param>
-        public SingleInvocationTarget(object target)
-        {
-            if (target == null)
-                throw new ArgumentNullException("target");
-
-            _target = target;
-        }
-
-        #region IInvocationTarget Members
-
-        /// <inheritdoc/>
-        public object GetTarget(MethodInfo methodInfo)
-        {
-            return _target;
-        }
-
-        #endregion
+        /// <param name="mixins">The mixins.</param>
+        /// <returns>The <c>ExtendWith</c> verb.</returns>
+        IExtendWith<T, TInterceptor> ExtendWith(params object[] mixins);
     }
 }

@@ -16,26 +16,43 @@
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 
-namespace NProxy.Core.Interceptors.Language
+using System;
+
+namespace NProxy.Core.Interceptors
 {
     /// <summary>
-    /// Defines an activator.
+    /// Represents a static target interceptor.
     /// </summary>
-    /// <typeparam name="T">The declaring type.</typeparam>
-    public interface IActivator<out T> where T : class
+    [Serializable]
+    internal sealed class StaticTargetInterceptor : IInterceptor
     {
         /// <summary>
-        /// Adapts an instance to the specified interface type.
+        /// The target.
         /// </summary>
-        /// <typeparam name="TInterface">The interface type.</typeparam>
-        /// <param name="instance">The instance.</param>
-        /// <returns>The object, of the specified interface type, to which the instance has been adapted.</returns>
-        TInterface AdaptInstance<TInterface>(object instance) where TInterface : class;
+        private readonly object _target;
 
         /// <summary>
-        /// Creates a new instance.
+        /// Initializes a new instance of the <see cref="StaticTargetInterceptor"/> class.
         /// </summary>
-        /// <returns>The new instance.</returns>
-        T CreateInstance();
+        /// <param name="target">The target.</param>
+        public StaticTargetInterceptor(object target)
+        {
+            if (target == null)
+                throw new ArgumentNullException("target");
+
+            _target = target;
+        }
+
+        #region IInterceptor Members
+
+        /// <inheritdoc/>
+        public object Intercept(IInvocationContext invocationContext)
+        {
+            var methodInfo = invocationContext.Method;
+
+            return methodInfo.Invoke(_target, invocationContext.Parameters);
+        }
+
+        #endregion
     }
 }

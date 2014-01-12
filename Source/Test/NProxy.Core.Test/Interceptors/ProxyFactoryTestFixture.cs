@@ -36,176 +36,167 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromInterfaceAndExtendsTest()
+        public void CreateProxyFromInterfaceAndExtendByTest()
         {
             // Arrange
             // Act
-            var activator = _proxyFactory.NewProxy<IFoo>()
-                                         .Extends<Bar>()
-                                         .Targets<Foo>();
-            var proxy = activator.CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<IFoo>()
+                                     .ExtendWith<Bar>()
+                                     .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = activator.AdaptInstance<IBar>(proxy);
+            var bar = (IBar) proxy;
 
             Assert.DoesNotThrow(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromAbstractClassAndExtendsTest()
+        public void CreateProxyFromAbstractClassAndExtendByTest()
         {
             // Arrange
             // Act
-            var activator = _proxyFactory.NewProxy<FooBase>()
-                                         .Extends<Bar>()
-                                         .Targets<Foo>();
-            var proxy = activator.CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<FooBase>()
+                                     .ExtendWith<Bar>()
+                                     .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = activator.AdaptInstance<IBar>(proxy);
+            var bar = (IBar) proxy;
 
             Assert.DoesNotThrow(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromClassAndExtendsTest()
+        public void CreateProxyFromClassAndExtendByTest()
         {
             // Arrange
             // Act
-            var activator = _proxyFactory.NewProxy<Foo>()
-                                         .Extends<Bar>()
-                                         .Targets<Foo>();
-            var proxy = activator.CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<Foo>()
+                                     .ExtendWith<Bar>()
+                                     .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = activator.AdaptInstance<IBar>(proxy);
+            var bar = (IBar) proxy;
 
             Assert.DoesNotThrow(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromDelegateAndExtendsTest()
+        public void CreateProxyFromDelegateAndExtendByTest()
         {
             // Arrange
             // Act
-            var activator = _proxyFactory.NewProxy<Action>()
-                                         .Extends<Bar>()
-                                         .Targets(() => { });
-            var proxy = activator.CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<Action>()
+                                     .ExtendWith<Bar>()
+                                     .Target(() => { });
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
             Assert.DoesNotThrow(() => proxy());
 
             Assert.That(proxy.Target, Is.InstanceOf<IBar>());
-            var bar = activator.AdaptInstance<IBar>(proxy);
+            var bar = (IBar) proxy.Target;
 
             Assert.DoesNotThrow(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromInterfaceAndImplementsTest()
+        public void CreateProxyFromInterfaceAndImplementTest()
         {
             // Arrange
             // Act
-            var activator = _proxyFactory.NewProxy<IFoo>()
-                                         .Implements<IBar>()
-                                         .Targets<FooBar>();
-            var proxy = activator.CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<IFoo>()
+                                     .Implement<IBar>()
+                                     .Target<FooBar>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = activator.AdaptInstance<IBar>(proxy);
+            var bar = (IBar) proxy;
 
             Assert.DoesNotThrow(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromAbstractClassAndImplementsTest()
+        public void CreateProxyFromAbstractClassAndImplementTest()
         {
             // Arrange
             // Act
-            var activator = _proxyFactory.NewProxy<FooBase>()
-                                         .Implements<IBar>()
-                                         .Targets<FooBar>();
-            var proxy = activator.CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<FooBase>()
+                                     .Implement<IBar>()
+                                     .Target<FooBar>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = activator.AdaptInstance<IBar>(proxy);
+            var bar = (IBar) proxy;
 
             Assert.DoesNotThrow(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromClassAndImplementsTest()
+        public void CreateProxyFromClassAndImplementTest()
         {
             // Arrange
             // Act
-            var activator = _proxyFactory.NewProxy<Foo>()
-                                         .Implements<IBar>()
-                                         .Targets<FooBar>();
-            var proxy = activator.CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<Foo>()
+                                     .Implement<IBar>()
+                                     .Target<FooBar>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
             Assert.DoesNotThrow(proxy.Bar);
 
             Assert.That(proxy, Is.InstanceOf<IBar>());
-            var bar = activator.AdaptInstance<IBar>(proxy);
+            var bar = (IBar) proxy;
 
             Assert.DoesNotThrow(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromDelegateAndImplementsTest()
+        public void CreateProxyFromDelegateAndImplementTest()
         {
             // Arrange
             // Act
-            var activator = _proxyFactory.NewProxy<Action>()
-                                         .Implements<IBar>()
-                                         .Targets(() => { });
-            var proxy = activator.CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<Action>()
+                                     .Implement<IBar>()
+                                     .Target(() => { });
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
             Assert.DoesNotThrow(() => proxy());
 
             Assert.That(proxy.Target, Is.InstanceOf<IBar>());
-            var bar = activator.AdaptInstance<IBar>(proxy);
+            var bar = (IBar) proxy.Target;
 
             Assert.Throws<TargetException>(bar.Foo);
         }
 
         [Test]
-        public void NewProxyFromInterfaceAndInvokesTest()
+        public void CreateProxyFromInterfaceAndInterceptByTest()
         {
             // Arrange
             var interceptor = new CountingInterceptor();
 
             // Act
-            var proxy = _proxyFactory.NewProxy<IFoo>()
-                                     .Invokes(interceptor)
-                                     .Targets<Foo>()
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<IFoo>()
+                                     .InterceptBy(interceptor)
+                                     .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
@@ -214,16 +205,15 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromAbstractClassAndInvokesTest()
+        public void CreateProxyFromAbstractClassAndInterceptByTest()
         {
             // Arrange
             var interceptor = new CountingInterceptor();
 
             // Act
-            var proxy = _proxyFactory.NewProxy<FooBase>()
-                                     .Invokes(interceptor)
-                                     .Targets<Foo>()
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<FooBase>()
+                                     .InterceptBy(interceptor)
+                                     .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
@@ -232,16 +222,15 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromClassAndInvokesTest()
+        public void CreateProxyFromClassAndInterceptByTest()
         {
             // Arrange
             var interceptor = new CountingInterceptor();
 
             // Act
-            var proxy = _proxyFactory.NewProxy<Foo>()
-                                     .Invokes(interceptor)
-                                     .Targets<Foo>()
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<Foo>()
+                                     .InterceptBy(interceptor)
+                                     .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
@@ -250,16 +239,15 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromDelegateAndInvokesTest()
+        public void CreateProxyFromDelegateAndInterceptByTest()
         {
             // Arrange
             var interceptor = new CountingInterceptor();
 
             // Act
-            var proxy = _proxyFactory.NewProxy<Action>()
-                                     .Invokes(interceptor)
-                                     .Targets(() => { })
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<Action>()
+                                     .InterceptBy(interceptor)
+                                     .Target(() => { });
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
@@ -268,13 +256,12 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromInterfaceAndTargetsTest()
+        public void CreateProxyFromInterfaceAndTargetTest()
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<IFoo>()
-                                     .Targets<Foo>()
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<IFoo>()
+                                     .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
@@ -282,13 +269,12 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromAbstractClassAndTargetsTest()
+        public void CreateProxyFromAbstractClassAndTargetTest()
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<FooBase>()
-                                     .Targets<Foo>()
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<FooBase>()
+                                     .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
@@ -296,13 +282,12 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromClassAndTargetsTest()
+        public void CreateProxyFromClassAndTargetTest()
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<Foo>()
-                                     .Targets<Foo>()
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<Foo>()
+                                     .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
@@ -310,13 +295,12 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromDelegateAndTargetsTest()
+        public void CreateProxyFromDelegateAndTargetTest()
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<Action>()
-                                     .Targets(() => { })
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<Action>()
+                                     .Target(() => { });
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
@@ -324,13 +308,12 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromInterfaceAndTargetsSelfTest()
+        public void CreateProxyFromInterfaceAndTargetBaseTest()
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<IFoo>()
-                                     .TargetsSelf()
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<IFoo>()
+                                     .TargetBase();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
@@ -338,13 +321,12 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromAbstractClassAndTargetsSelfTest()
+        public void CreateProxyFromAbstractClassAndTargetBaseTest()
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<FooBase>()
-                                     .TargetsSelf()
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<FooBase>()
+                                     .TargetBase();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
@@ -352,13 +334,12 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromClassAndTargetsSelfTest()
+        public void CreateProxyFromClassAndTargetBaseTest()
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<Foo>()
-                                     .TargetsSelf()
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<Foo>()
+                                     .TargetBase();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
@@ -366,13 +347,12 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyFromDelegateAndTargetsSelfTest()
+        public void CreateProxyFromDelegateAndTargetBaseTest()
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.NewProxy<Action>()
-                                     .TargetsSelf()
-                                     .CreateInstance();
+            var proxy = _proxyFactory.CreateProxy<Action>()
+                                     .TargetBase();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
@@ -380,13 +360,12 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void NewProxyWithLazyInterceptorTest()
+        public void CreateProxyWithLazyInterceptorTest()
         {
             // Arrange
-            var employee = _proxyFactory.NewProxy<IEmployee>()
-                                        .Extends<LazyMixin>()
-                                        .Targets<Employee>()
-                                        .CreateInstance();
+            var employee = _proxyFactory.CreateProxy<IEmployee>()
+                                        .ExtendWith<LazyMixin>()
+                                        .Target<Employee>();
 
             // Act
             employee.Name = "Saturnus";
