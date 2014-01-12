@@ -41,9 +41,9 @@ namespace NProxy.Core
         private readonly IInterceptionFilter _interceptionFilter;
 
         /// <summary>
-        /// The proxy cache.
+        /// The proxy template cache.
         /// </summary>
-        private readonly ICache<IProxyDefinition, IProxyTemplate> _proxyCache;
+        private readonly ICache<IProxyDefinition, IProxyTemplate> _proxyTemplateCache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyFactory"/> class.
@@ -69,7 +69,7 @@ namespace NProxy.Core
             _typeBuilderFactory = typeBuilderFactory;
             _interceptionFilter = interceptionFilter;
 
-            _proxyCache = new InterlockedCache<IProxyDefinition, IProxyTemplate>();
+            _proxyTemplateCache = new InterlockedCache<IProxyDefinition, IProxyTemplate>();
         }
 
         /// <summary>
@@ -116,8 +116,8 @@ namespace NProxy.Core
             // Create proxy definition.
             var proxyDefinition = CreateProxyDefinition(declaringType, interfaceTypes);
 
-            // Get or generate proxy.
-            return _proxyCache.GetOrAdd(proxyDefinition, GenerateProxyTemplate);
+            // Get or generate proxy template.
+            return _proxyTemplateCache.GetOrAdd(proxyDefinition, GenerateProxyTemplate);
         }
 
         #endregion
