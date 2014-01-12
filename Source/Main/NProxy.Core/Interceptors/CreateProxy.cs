@@ -40,7 +40,7 @@ namespace NProxy.Core.Interceptors
         private readonly object[] _arguments;
 
         /// <summary>
-        /// The mixins.
+        /// The mixin objects.
         /// </summary>
         private readonly Dictionary<Type, object> _mixins;
 
@@ -78,9 +78,12 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// Adds a mixin.
         /// </summary>
-        /// <param name="mixin">The mixin.</param>
+        /// <param name="mixin">The mixin object.</param>
         private void AddMixin(object mixin)
         {
+            if (mixin == null)
+                throw new ArgumentNullException("mixin");
+
             var mixinType = mixin.GetType();
             var interfaceTypes = mixinType.GetInterfaces();
 
@@ -94,7 +97,7 @@ namespace NProxy.Core.Interceptors
         /// Adds a mixin for the specified interface type.
         /// </summary>
         /// <param name="interfaceType">The interface type.</param>
-        /// <param name="mixin">The mixin.</param>
+        /// <param name="mixin">The mixin object.</param>
         private void AddMixin(Type interfaceType, object mixin)
         {
             AddInterface(interfaceType);

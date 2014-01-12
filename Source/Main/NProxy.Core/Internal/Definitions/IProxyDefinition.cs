@@ -48,10 +48,10 @@ namespace NProxy.Core.Internal.Definitions
         void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor);
 
         /// <summary>
-        /// Returns the wrapped instance.
+        /// Unwraps the specified proxy.
         /// </summary>
         /// <param name="proxy">The proxy object.</param>
-        /// <returns>The wrapped instance.</returns>
+        /// <returns>The wrapped object.</returns>
         object UnwrapProxy(object proxy);
 
         /// <summary>

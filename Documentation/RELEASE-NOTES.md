@@ -1,5 +1,9 @@
 # Release notes
 
+## Version 2.0.1
+
+* Fixed documentation.
+
 ## Version 2.0.0
 
 * Changed target framework to .NET 3.5.

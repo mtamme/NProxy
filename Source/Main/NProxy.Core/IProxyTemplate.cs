@@ -53,7 +53,7 @@ namespace NProxy.Core
         IEnumerable<MethodInfo> InterceptedMethods { get; }
 
         /// <summary>
-        /// Adapts a proxy object to the specified interface type.
+        /// Adapts a proxy to the specified interface type.
         /// </summary>
         /// <param name="interfaceType">The interface type.</param>
         /// <param name="proxy">The proxy object.</param>
