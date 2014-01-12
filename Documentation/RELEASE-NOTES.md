@@ -4,7 +4,7 @@
 
 * Changed target framework to .NET 3.5.
 * Separated proxy creation from proxy instantiation.
-* Exposed interception metadata via IProxyTemplate interface.
+* Exposed interception metadata via `IProxyTemplate` interface.
 * Removed obsolete proxy adaption method.
 
 ## Version 1.2.1
