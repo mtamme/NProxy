@@ -28,8 +28,8 @@ namespace NProxy.Core
         /// </summary>
         /// <typeparam name="TInterface">The interface type.</typeparam>
         /// <param name="proxyTemplate">The proxy template.</param>
-        /// <param name="proxy">The proxy.</param>
-        /// <returns>The object, of the specified interface type, to which the proxy has been adapted.</returns>
+        /// <param name="proxy">The proxy object.</param>
+        /// <returns>The object, of the specified interface type, to which the proxy object has been adapted.</returns>
         public static TInterface AdaptProxy<TInterface>(this IProxyTemplate proxyTemplate, object proxy) where TInterface : class
         {
             var interfaceType = typeof (TInterface);

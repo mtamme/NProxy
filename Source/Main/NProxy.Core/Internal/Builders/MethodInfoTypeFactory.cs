@@ -134,7 +134,7 @@ namespace NProxy.Core.Internal.Builders
             // Load this reference.
             ilGenerator.Emit(OpCodes.Ldarg_0);
 
-            // Load instance object.
+            // Load proxy object.
             ilGenerator.Emit(OpCodes.Ldarg_1);
 
             // Load method information.

@@ -26,7 +26,7 @@ namespace NProxy.Core
     public interface IInvocationHandler
     {
         /// <summary>
-        /// Processes an invocation on a target object.
+        /// Processes an invocation on a target.
         /// </summary>
         /// <param name="target">The target object.</param>
         /// <param name="methodInfo">The method information.</param>

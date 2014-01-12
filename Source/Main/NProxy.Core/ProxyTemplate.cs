@@ -162,14 +162,14 @@ namespace NProxy.Core
     internal sealed class ProxyTemplate<T> : IProxyTemplate<T> where T : class
     {
         /// <summary>
-        /// The proxy.
+        /// The proxy template.
         /// </summary>
         private readonly IProxyTemplate _proxyTemplate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyTemplate{T}"/> class.
         /// </summary>
-        /// <param name="proxyTemplate">The proxy.</param>
+        /// <param name="proxyTemplate">The proxy template.</param>
         public ProxyTemplate(IProxyTemplate proxyTemplate)
         {
             if (proxyTemplate == null)

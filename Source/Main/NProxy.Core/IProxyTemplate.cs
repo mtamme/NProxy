@@ -53,10 +53,10 @@ namespace NProxy.Core
         IEnumerable<MethodInfo> InterceptedMethods { get; }
 
         /// <summary>
-        /// Adapts a proxy to the specified interface type.
+        /// Adapts a proxy object to the specified interface type.
         /// </summary>
         /// <param name="interfaceType">The interface type.</param>
-        /// <param name="proxy">The proxy.</param>
+        /// <param name="proxy">The proxy object.</param>
         /// <returns>The object, of the specified interface type, to which the proxy has been adapted.</returns>
         object AdaptProxy(Type interfaceType, object proxy);
 
@@ -65,7 +65,7 @@ namespace NProxy.Core
         /// </summary>
         /// <param name="invocationHandler">The invocation handler.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The new proxy.</returns>
+        /// <returns>The new proxy object.</returns>
         object CreateProxy(IInvocationHandler invocationHandler, params object[] arguments);
     }
 
@@ -80,7 +80,7 @@ namespace NProxy.Core
         /// </summary>
         /// <param name="invocationHandler">The invocation handler.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The new proxy.</returns>
+        /// <returns>The new proxy object.</returns>
         new T CreateProxy(IInvocationHandler invocationHandler, params object[] arguments);
     }
 }

@@ -27,14 +27,14 @@ namespace NProxy.Core.Interceptors
     internal sealed class StaticTargetInterceptor : IInterceptor
     {
         /// <summary>
-        /// The target.
+        /// The target object.
         /// </summary>
         private readonly object _target;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StaticTargetInterceptor"/> class.
         /// </summary>
-        /// <param name="target">The target.</param>
+        /// <param name="target">The target object.</param>
         public StaticTargetInterceptor(object target)
         {
             if (target == null)

@@ -30,34 +30,34 @@ namespace NProxy.Core.Interceptors.Language
         /// Specifies a singleton target and returns a new proxy.
         /// </summary>
         /// <typeparam name="TTarget">The target type.</typeparam>
-        /// <returns>The new proxy.</returns>
+        /// <returns>The new proxy object.</returns>
         T Target<TTarget>() where TTarget : class, new();
 
         /// <summary>
         /// Specifies a singleton target and returns a new proxy.
         /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns>The new proxy.</returns>
+        /// <param name="target">The target object.</param>
+        /// <returns>The new proxy object.</returns>
         T Target(T target);
 
         /// <summary>
         /// Specifies a singleton target and returns a new proxy.
         /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns>The new proxy.</returns>
+        /// <param name="target">The target object.</param>
+        /// <returns>The new proxy object.</returns>
         T Target(object target);
 
         /// <summary>
         /// Specifies a target factory and returns a new proxy.
         /// </summary>
         /// <param name="targetFactory">The target factory.</param>
-        /// <returns>The new proxy.</returns>
+        /// <returns>The new proxy object.</returns>
         T Target(Func<object, object> targetFactory);
 
         /// <summary>
         /// Specifies the base class as the target and returns a new proxy.
         /// </summary>
-        /// <returns>The new proxy.</returns>
+        /// <returns>The new proxy object.</returns>
         T TargetBase();
     }
 }

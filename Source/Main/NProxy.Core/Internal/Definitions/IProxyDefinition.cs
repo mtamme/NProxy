@@ -50,7 +50,7 @@ namespace NProxy.Core.Internal.Definitions
         /// <summary>
         /// Returns the wrapped instance.
         /// </summary>
-        /// <param name="proxy">The proxy.</param>
+        /// <param name="proxy">The proxy object.</param>
         /// <returns>The wrapped instance.</returns>
         object UnwrapProxy(object proxy);
 
@@ -59,7 +59,7 @@ namespace NProxy.Core.Internal.Definitions
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        /// <returns>The new proxy.</returns>
+        /// <returns>The new proxy object.</returns>
         object CreateProxy(Type type, object[] arguments);
     }
 }

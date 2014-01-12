@@ -115,7 +115,7 @@ namespace NProxy.Core.Interceptors
         /// <summary>
         /// Creates an invocation handler.
         /// </summary>
-        /// <param name="proxyTemplate">The proxy.</param>
+        /// <param name="proxyTemplate">The proxy template.</param>
         /// <param name="defaultInterceptors">The default interceptors.</param>
         /// <returns>The invocation handler.</returns>
         private IInvocationHandler CreateInvocationHandler(IProxyTemplate proxyTemplate, params IInterceptor[] defaultInterceptors)
