@@ -113,4 +113,4 @@ See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BENCHMARKS
 
 # Copyright
 
-Copyright © Martin Tamme. See COPYING and COPYING.LESSER for details.
+Copyright © Martin Tamme. See LICENSE for details.
