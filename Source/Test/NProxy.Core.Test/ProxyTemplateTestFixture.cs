@@ -79,7 +79,7 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void CastDelegateProxyTest()
+		public void AdaptProxyDelegateProxyTest()
         {
             // Arrange
             var proxyTemplate = _proxyFactory.GetProxyTemplate<Action<int>>(new[] {typeof (IStringParameter)});
