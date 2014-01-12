@@ -36,7 +36,7 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void CreateProxyFromInterfaceAndExtendByTest()
+        public void CreateProxyFromInterfaceAndExtendWithTest()
         {
             // Arrange
             // Act
@@ -55,7 +55,7 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void CreateProxyFromAbstractClassAndExtendByTest()
+        public void CreateProxyFromAbstractClassAndExtendWithTest()
         {
             // Arrange
             // Act
@@ -74,7 +74,7 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void CreateProxyFromClassAndExtendByTest()
+        public void CreateProxyFromClassAndExtendWithTest()
         {
             // Arrange
             // Act
@@ -93,7 +93,7 @@ namespace NProxy.Core.Test.Interceptors
         }
 
         [Test]
-        public void CreateProxyFromDelegateAndExtendByTest()
+        public void CreateProxyFromDelegateAndExtendWithTest()
         {
             // Arrange
             // Act
