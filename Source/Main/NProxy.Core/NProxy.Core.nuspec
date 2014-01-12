@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/mtamme/NProxy/</projectUrl>
     <licenseUrl>http://www.gnu.org/licenses/lgpl-3.0.html</licenseUrl>
     <copyright>$copyright$</copyright>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <tags>dynamic proxy dynamicproxy facade bridge interceptor interception decorator adapter aspect oriented programming AOP mixin compact leightweight library</tags>
   </metadata>
   <files>
