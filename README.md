@@ -1,4 +1,4 @@
-# NProxy
+﻿# NProxy
 
 NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 
@@ -56,7 +56,7 @@ is part of the NProxy library and can be depicted as follows.
 
 ![Overview](https://raw.github.com/mtamme/NProxy/master/Documentation/Overview.png "Overview")
 
-At the heart of the interception mechanism is the `IInterceptor`, `IInvocationContext` and `IInvocationTarget` interface,
+At the heart of the interception mechanism is the `IInterceptor` and `IInvocationContext` interface,
 shown below.
 
 ```csharp
@@ -78,15 +78,6 @@ public interface IInvocationContext
     object[] Parameters { get; }
 
     object Proceed();
-}
-```
-
-The `IInvocationTarget` interface enables the functionality to delegate invocations to different target objects at runtime.
-
-```csharp
-public interface IInvocationTarget
-{
-    object GetTarget(MethodInfo methodInfo);
 }
 ```
 

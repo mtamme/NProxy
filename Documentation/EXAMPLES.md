@@ -148,9 +148,9 @@ internal sealed class LazyMixin : ILazy
 Finally we create a proxy with our previously implemented lazy loading mechanism as follows.
 
 ```csharp
-var person = proxyFactory.NewProxy<IPerson>()
-                         .Extends<LazyMixin>()
-                         .Targets<Person>();
+var person = proxyFactory.CreateProxy<IPerson>()
+                         .ExtendWith<LazyMixin>()
+                         .Target<Person>();
 
 
 ```
