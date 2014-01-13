@@ -23,14 +23,14 @@ namespace NProxy.Core.Internal.Builders
     /// <summary>
     /// Defines a type factory.
     /// </summary>
-    /// <typeparam name="T">The declaring type.</typeparam>
-    internal interface ITypeFactory<T>
+    /// <typeparam name="T">The prototype type.</typeparam>
+    internal interface ITypeFactory<in T>
     {
         /// <summary>
         /// Creates a new type.
         /// </summary>
-        /// <param name="definition">The definition.</param>
+        /// <param name="prototype">The prototype.</param>
         /// <returns>The new type.</returns>
-        Type CreateType(T definition);
+        Type CreateType(T prototype);
     }
 }

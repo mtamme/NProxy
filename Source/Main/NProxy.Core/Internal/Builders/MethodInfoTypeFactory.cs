@@ -81,11 +81,11 @@ namespace NProxy.Core.Internal.Builders
         /// Builds the type initializer.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-        /// <param name="declaringMethodInfo">The declaring method information.</param>
+        /// <param name="prototypeMethodInfo">The prototype method information.</param>
         /// <param name="genericParameterTypes">The generic parameter types.</param>
         /// <param name="methodFieldInfo">The method information static field information.</param>
         private static void BuildTypeInitializer(TypeBuilder typeBuilder,
-                                                 MethodInfo declaringMethodInfo,
+                                                 MethodInfo prototypeMethodInfo,
                                                  Type[] genericParameterTypes,
                                                  FieldInfo methodFieldInfo)
         {
@@ -99,7 +99,7 @@ namespace NProxy.Core.Internal.Builders
             var ilGenerator = typeInitializer.GetILGenerator();
 
             // Get and load method information.
-            var methodInfo = declaringMethodInfo.MapGenericMethod(genericParameterTypes);
+            var methodInfo = prototypeMethodInfo.MapGenericMethod(genericParameterTypes);
             var declaringType = methodInfo.GetDeclaringType();
 
             ilGenerator.Emit(OpCodes.Ldtoken, methodInfo);
@@ -153,10 +153,10 @@ namespace NProxy.Core.Internal.Builders
         /// Builds the invoke method.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-        /// <param name="declaringMethodInfo">The declaring method information.</param>
+        /// <param name="prototypeMethodInfo">The prototype method information.</param>
         /// <param name="genericParameterTypes">The generic parameter types.</param>
         /// <param name="isVirtual">A value indicating weather the method should be called virtually.</param>
-        private static void BuildInvokeMethod(TypeBuilder typeBuilder, MethodInfo declaringMethodInfo, Type[] genericParameterTypes, bool isVirtual)
+        private static void BuildInvokeMethod(TypeBuilder typeBuilder, MethodInfo prototypeMethodInfo, Type[] genericParameterTypes, bool isVirtual)
         {
             var invokeMethodInfo = isVirtual ? MethodInfoBaseVirtualInvokeMethodInfo : MethodInfoBaseBaseInvokeMethodInfo;
 
@@ -172,13 +172,13 @@ namespace NProxy.Core.Internal.Builders
             ilGenerator.Emit(OpCodes.Ldarg_1);
 
             // Load arguments.
-            var parameterTypes = declaringMethodInfo.MapGenericParameterTypes(genericParameterTypes);
+            var parameterTypes = prototypeMethodInfo.MapGenericParameterTypes(genericParameterTypes);
             var parameterLocalBuilders = new LocalBuilder[parameterTypes.Length];
 
             LoadArguments(ilGenerator, parameterTypes, parameterLocalBuilders);
 
             // Call target method.
-            var methodInfo = declaringMethodInfo.MapGenericMethod(genericParameterTypes);
+            var methodInfo = prototypeMethodInfo.MapGenericMethod(genericParameterTypes);
 
             if (isVirtual && methodInfo.IsVirtual)
                 ilGenerator.Emit(OpCodes.Callvirt, methodInfo);
@@ -189,7 +189,7 @@ namespace NProxy.Core.Internal.Builders
             RestoreByReferenceArguments(ilGenerator, parameterTypes, parameterLocalBuilders);
 
             // Handle return value.
-            var returnType = declaringMethodInfo.MapGenericReturnType(genericParameterTypes);
+            var returnType = prototypeMethodInfo.MapGenericReturnType(genericParameterTypes);
 
             if (returnType.IsVoid())
                 ilGenerator.Emit(OpCodes.Ldnull);
@@ -262,16 +262,16 @@ namespace NProxy.Core.Internal.Builders
         #region ITypeFactory<MethodInfo> Members
 
         /// <inheritdoc/>
-        public Type CreateType(MethodInfo declaringMethodInfo)
+        public Type CreateType(MethodInfo prototypeMethodInfo)
         {
-            if (declaringMethodInfo == null)
-                throw new ArgumentNullException("declaringMethodInfo");
+            if (prototypeMethodInfo == null)
+                throw new ArgumentNullException("prototypeMethodInfo");
 
             // Define type.
             var typeBuilder = _typeRepository.DefineType("MethodInfo", typeof (MethodInfoBase));
 
             // Define generic parameters.
-            var genericParameterTypes = typeBuilder.DefineGenericParameters(declaringMethodInfo.GetGenericArguments());
+            var genericParameterTypes = typeBuilder.DefineGenericParameters(prototypeMethodInfo.GetGenericArguments());
 
             // Define method information static field.
             var methodFieldInfo = typeBuilder.DefineField(
@@ -280,17 +280,17 @@ namespace NProxy.Core.Internal.Builders
                 FieldAttributes.Private | FieldAttributes.Static | FieldAttributes.InitOnly);
 
             // Build type initializer.
-            BuildTypeInitializer(typeBuilder, declaringMethodInfo, genericParameterTypes, methodFieldInfo);
+            BuildTypeInitializer(typeBuilder, prototypeMethodInfo, genericParameterTypes, methodFieldInfo);
 
             // Build constructor.
             BuildConstructor(typeBuilder, methodFieldInfo);
 
             // Build base invoke method only for non abstract methods.
-            if (!declaringMethodInfo.IsAbstract)
-                BuildInvokeMethod(typeBuilder, declaringMethodInfo, genericParameterTypes, false);
+            if (!prototypeMethodInfo.IsAbstract)
+                BuildInvokeMethod(typeBuilder, prototypeMethodInfo, genericParameterTypes, false);
 
             // Build virtual invoke method.
-            BuildInvokeMethod(typeBuilder, declaringMethodInfo, genericParameterTypes, true);
+            BuildInvokeMethod(typeBuilder, prototypeMethodInfo, genericParameterTypes, true);
 
             return typeBuilder.CreateType();
         }
