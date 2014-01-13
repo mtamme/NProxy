@@ -44,4 +44,31 @@ namespace NProxy.Core.Test.Types
 
         #endregion
     }
+
+	internal abstract class ObjectGetIndexerBase : IObjectGetIndexer
+	{
+		#region IObjectGetIndexer Members
+
+		public abstract object this[int index] { get; }
+
+		#endregion
+	}
+
+	internal abstract class ObjectGetSetIndexerBase : IObjectGetSetIndexer
+	{
+		#region IObjectGetSetIndexer Members
+
+		public abstract object this[int index] { get; set; }
+
+		#endregion
+	}
+
+	internal abstract class ObjectSetIndexerBase : IObjectSetIndexer
+	{
+		#region IObjectSetIndexer Members
+
+		public abstract object this[int index] { set; }
+
+		#endregion
+	}
 }

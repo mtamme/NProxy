@@ -32,4 +32,19 @@ namespace NProxy.Core.Test.Types
     {
         object Property { set; }
     }
+
+	internal interface IObjectGetIndexer
+	{
+		object this[int index] { get; }
+	}
+
+	internal interface IObjectSetIndexer
+	{
+		object this[int index] { set; }
+	}
+
+	internal interface IObjectGetSetIndexer
+	{
+		object this[int index] { get; set; }
+	}
 }

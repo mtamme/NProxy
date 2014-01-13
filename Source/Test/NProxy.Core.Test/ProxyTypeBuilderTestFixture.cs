@@ -249,29 +249,38 @@ namespace NProxy.Core.Test
 
         #region Build Property From Interface Test Cases
 
-        [TestCase(typeof (object), typeof (IObjectGetProperty), typeof (ObjectGetProperty))]
-        [TestCase(typeof (object), typeof (IObjectGetSetProperty), typeof (ObjectGetSetProperty))]
-        [TestCase(typeof (object), typeof (IObjectSetProperty), typeof (ObjectSetProperty))]
+		[TestCase(typeof (object), typeof (IObjectGetProperty), typeof (ObjectGetProperty), "Property")]
+		[TestCase(typeof (object), typeof (IObjectGetSetProperty), typeof (ObjectGetSetProperty), "Property")]
+		[TestCase(typeof (object), typeof (IObjectSetProperty), typeof (ObjectSetProperty), "Property")]
+		[TestCase(typeof (object), typeof (IObjectGetIndexer), typeof (ObjectGetIndexer), "Item")]
+		[TestCase(typeof (object), typeof (IObjectGetSetIndexer), typeof (ObjectGetSetIndexer), "Item")]
+		[TestCase(typeof (object), typeof (IObjectSetIndexer), typeof (ObjectSetIndexer), "Item")]
 
         #endregion
 
         #region Build Property From Abstract Class Test Cases
 
-        [TestCase(typeof (ObjectGetPropertyBase), typeof (ObjectGetPropertyBase), typeof (ObjectGetProperty))]
-        [TestCase(typeof (ObjectGetSetPropertyBase), typeof (ObjectGetSetPropertyBase), typeof (ObjectGetSetProperty))]
-        [TestCase(typeof (ObjectSetPropertyBase), typeof (ObjectSetPropertyBase), typeof (ObjectSetProperty))]
+		[TestCase(typeof (ObjectGetPropertyBase), typeof (ObjectGetPropertyBase), typeof (ObjectGetProperty), "Property")]
+		[TestCase(typeof (ObjectGetSetPropertyBase), typeof (ObjectGetSetPropertyBase), typeof (ObjectGetSetProperty), "Property")]
+		[TestCase(typeof (ObjectSetPropertyBase), typeof (ObjectSetPropertyBase), typeof (ObjectSetProperty), "Property")]
+		[TestCase(typeof (ObjectGetIndexerBase), typeof (ObjectGetIndexerBase), typeof (ObjectGetIndexer), "Item")]
+		[TestCase(typeof (ObjectGetSetIndexerBase), typeof (ObjectGetSetIndexerBase), typeof (ObjectGetSetIndexer), "Item")]
+		[TestCase(typeof (ObjectSetIndexerBase), typeof (ObjectSetIndexerBase), typeof (ObjectSetIndexer), "Item")]
 
         #endregion
 
         #region Build Property From Class Test Cases
 
-        [TestCase(typeof (ObjectGetProperty), typeof (ObjectGetProperty), typeof (ObjectGetProperty))]
-        [TestCase(typeof (ObjectGetSetProperty), typeof (ObjectGetSetProperty), typeof (ObjectGetSetProperty))]
-        [TestCase(typeof (ObjectSetProperty), typeof (ObjectSetProperty), typeof (ObjectSetProperty))]
+		[TestCase(typeof (ObjectGetProperty), typeof (ObjectGetProperty), typeof (ObjectGetProperty), "Property")]
+		[TestCase(typeof (ObjectGetSetProperty), typeof (ObjectGetSetProperty), typeof (ObjectGetSetProperty), "Property")]
+		[TestCase(typeof (ObjectSetProperty), typeof (ObjectSetProperty), typeof (ObjectSetProperty), "Property")]
+		[TestCase(typeof (ObjectGetIndexer), typeof (ObjectGetIndexer), typeof (ObjectGetIndexer), "Item")]
+		[TestCase(typeof (ObjectGetSetIndexer), typeof (ObjectGetSetIndexer), typeof (ObjectGetSetIndexer), "Item")]
+		[TestCase(typeof (ObjectSetIndexer), typeof (ObjectSetIndexer), typeof (ObjectSetIndexer), "Item")]
 
         #endregion
 
-        public void BuildPropertyTest(Type parentType, Type declaringType, Type classType)
+        public void BuildPropertyTest(Type parentType, Type declaringType, Type classType, string propertyName)
         {
             // Arrange
             var typeBuilder = _proxyTypeBuilderFactory.CreateBuilder(parentType);
@@ -279,7 +288,7 @@ namespace NProxy.Core.Test
             if (declaringType.IsInterface)
                 typeBuilder.AddInterface(declaringType);
 
-            var propertyInfo = declaringType.GetProperty("Property");
+			var propertyInfo = declaringType.GetProperty(propertyName);
 
             Assert.That(propertyInfo, Is.Not.Null);
 
