@@ -53,12 +53,7 @@ namespace NProxy.Core
             if (methodInfo.IsDefined<NonInterceptedAttribute>(false))
                 return false;
 
-            var declaringType = methodInfo.DeclaringType;
-
-            if (declaringType == null)
-                return false;
-
-            if (declaringType != typeof (object))
+			if (!Object.Equals(methodInfo.DeclaringType, typeof (object)))
                 return true;
 
             return !String.Equals(methodInfo.Name, DestructorMethodName);
