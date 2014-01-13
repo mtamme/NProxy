@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -53,7 +53,7 @@ namespace NProxy.Core
             if (methodInfo.IsDefined<NonInterceptedAttribute>(false))
                 return false;
 
-			if (!Object.Equals(methodInfo.DeclaringType, typeof (object)))
+            if (methodInfo.DeclaringType != typeof (object))
                 return true;
 
             return !String.Equals(methodInfo.Name, DestructorMethodName);
