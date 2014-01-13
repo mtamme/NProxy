@@ -126,7 +126,7 @@ namespace NProxy.Core.Internal.Builders
                 MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
                 MethodInfoBaseConstructorInfo.CallingConvention,
                 new[] {typeof (object), typeof (bool)},
-                new[] {"instance", "isOverride"});
+                new[] {"proxy", "isOverride"});
 
             // Implement constructor.
             var ilGenerator = constructorBuilder.GetILGenerator();
