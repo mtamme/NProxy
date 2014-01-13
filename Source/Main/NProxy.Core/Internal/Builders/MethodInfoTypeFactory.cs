@@ -259,9 +259,9 @@ namespace NProxy.Core.Internal.Builders
             }
         }
 
-		#region ITypeFactory<MethodInfo> Members
+        #region ITypeFactory<MethodInfo> Members
 
-		/// <inheritdoc/>
+        /// <inheritdoc/>
         public Type CreateType(MethodInfo declaringMethodInfo)
         {
             if (declaringMethodInfo == null)
@@ -295,6 +295,6 @@ namespace NProxy.Core.Internal.Builders
             return typeBuilder.CreateType();
         }
 
-		#endregion
+        #endregion
     }
 }
