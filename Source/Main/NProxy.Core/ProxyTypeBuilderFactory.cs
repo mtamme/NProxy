@@ -67,7 +67,7 @@ namespace NProxy.Core
         /// <summary>
         /// The method information type factory.
         /// </summary>
-        private readonly MethodInfoTypeFactory _methodInfoTypeFactory;
+        private readonly ITypeFactory<MethodInfo> _methodInfoTypeFactory;
 
         /// <summary>
         /// The method information type cache.
