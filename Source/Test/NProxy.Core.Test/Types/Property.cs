@@ -55,40 +55,40 @@ namespace NProxy.Core.Test.Types
         #endregion
     }
 
-	internal class ObjectGetIndexer : IObjectGetIndexer
-	{
-		#region IObjectGetIndexer Members
+    internal class ObjectGetIndexer : IObjectGetIndexer
+    {
+        #region IObjectGetIndexer Members
 
-		public virtual object this[int index]
-		{
-			get { return null; }
-		}
+        public virtual object this[int index]
+        {
+            get { return null; }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 
-	internal class ObjectGetSetIndexer : IObjectGetSetIndexer
-	{
-		#region IObjectGetSetIndexer Members
+    internal class ObjectGetSetIndexer : IObjectGetSetIndexer
+    {
+        #region IObjectGetSetIndexer Members
 
-		public virtual object this[int index]
-		{
-			get { return null; }
-			set { }
-		}
+        public virtual object this[int index]
+        {
+            get { return null; }
+            set { }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 
-	internal class ObjectSetIndexer : IObjectSetIndexer
-	{
-		#region IObjectSetIndexer Members
+    internal class ObjectSetIndexer : IObjectSetIndexer
+    {
+        #region IObjectSetIndexer Members
 
-		public virtual object this[int index]
-		{
-			set { }
-		}
+        public virtual object this[int index]
+        {
+            set { }
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }
