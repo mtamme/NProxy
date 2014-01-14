@@ -171,11 +171,11 @@ namespace NProxy.Core.Internal.Builders
             // Load target object.
             ilGenerator.Emit(OpCodes.Ldarg_1);
 
-            // Load arguments.
+            // Load parameter values.
             var parameterTypes = methodInfo.MapGenericParameterTypes(genericParameterTypes);
-            var parameterLocalBuilders = new LocalBuilder[parameterTypes.Length];
+            var parameterValueLocalBuilders = new LocalBuilder[parameterTypes.Length];
 
-            LoadArguments(ilGenerator, parameterTypes, parameterLocalBuilders);
+            LoadParameterValues(ilGenerator, 2, parameterTypes, parameterValueLocalBuilders);
 
             // Call target method.
             var targetMethodInfo = methodInfo.MapGenericMethod(genericParameterTypes);
@@ -185,8 +185,8 @@ namespace NProxy.Core.Internal.Builders
             else
                 ilGenerator.Emit(OpCodes.Call, targetMethodInfo);
 
-            // Restore by reference arguments.
-            RestoreByReferenceArguments(ilGenerator, parameterTypes, parameterLocalBuilders);
+            // Restore by reference parameter values.
+            RestoreByReferenceParameterValues(ilGenerator, 2, parameterTypes, parameterValueLocalBuilders);
 
             // Handle return value.
             var returnType = methodInfo.MapGenericReturnType(genericParameterTypes);
@@ -200,18 +200,19 @@ namespace NProxy.Core.Internal.Builders
         }
 
         /// <summary>
-        /// Loads the arguments.
+        /// Loads the parameter values onto the stack.
         /// </summary>
         /// <param name="ilGenerator">The intermediate language generator.</param>
+        /// <param name="argumentIndex">The argument index.</param>
         /// <param name="parameterTypes">The parameter types.</param>
-        /// <param name="parameterLocalBuilders">The parameter local builders.</param>
-        private static void LoadArguments(ILGenerator ilGenerator, IList<Type> parameterTypes, IList<LocalBuilder> parameterLocalBuilders)
+        /// <param name="parameterValueLocalBuilders">The parameter value local builders.</param>
+        private static void LoadParameterValues(ILGenerator ilGenerator, int argumentIndex, IList<Type> parameterTypes, IList<LocalBuilder> parameterValueLocalBuilders)
         {
             for (var index = 0; index < parameterTypes.Count; index++)
             {
                 var parameterType = parameterTypes[index];
 
-                ilGenerator.Emit(OpCodes.Ldarg_2);
+                ilGenerator.EmitLoadArgument(argumentIndex);
                 ilGenerator.Emit(OpCodes.Ldc_I4, index);
                 ilGenerator.Emit(OpCodes.Ldelem_Ref);
 
@@ -224,7 +225,7 @@ namespace NProxy.Core.Internal.Builders
                     ilGenerator.Emit(OpCodes.Stloc, parameterLocalBuilder);
                     ilGenerator.Emit(OpCodes.Ldloca, parameterLocalBuilder);
 
-                    parameterLocalBuilders[index] = parameterLocalBuilder;
+                    parameterValueLocalBuilders[index] = parameterLocalBuilder;
                 }
                 else
                 {
@@ -234,12 +235,13 @@ namespace NProxy.Core.Internal.Builders
         }
 
         /// <summary>
-        /// Restores the by reference arguments.
+        /// Restores the by reference parameter values.
         /// </summary>
         /// <param name="ilGenerator">The intermediate language generator.</param>
+        /// <param name="argumentIndex">The argument index.</param>
         /// <param name="parameterTypes">The parameter types.</param>
-        /// <param name="parameterLocalBuilders">The parameter local builders.</param>
-        private static void RestoreByReferenceArguments(ILGenerator ilGenerator, IList<Type> parameterTypes, IList<LocalBuilder> parameterLocalBuilders)
+        /// <param name="parameterValueLocalBuilders">The parameter value local builders.</param>
+        private static void RestoreByReferenceParameterValues(ILGenerator ilGenerator, int argumentIndex, IList<Type> parameterTypes, IList<LocalBuilder> parameterValueLocalBuilders)
         {
             for (var index = 0; index < parameterTypes.Count; index++)
             {
@@ -248,10 +250,10 @@ namespace NProxy.Core.Internal.Builders
                 if (!parameterType.IsByRef)
                     continue;
 
-                var parameterLocalBuilder = parameterLocalBuilders[index];
+                var parameterLocalBuilder = parameterValueLocalBuilders[index];
                 var elementType = parameterType.GetElementType();
 
-                ilGenerator.Emit(OpCodes.Ldarg_2);
+                ilGenerator.EmitLoadArgument(argumentIndex);
                 ilGenerator.Emit(OpCodes.Ldc_I4, index);
                 ilGenerator.Emit(OpCodes.Ldloc, parameterLocalBuilder);
                 ilGenerator.EmitBox(elementType);

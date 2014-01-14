@@ -125,11 +125,11 @@ namespace NProxy.Core
             // Implement method.
             var ilGenerator = methodBuilder.GetILGenerator();
 
-            // Load parameters.
+            // Load arguments.
             var parameterTypes = declaringMethodInfo.MapGenericParameterTypes(genericParameterTypes);
             var parametersLocalBuilder = ilGenerator.NewArray(typeof (object), parameterTypes.Length);
 
-            LoadParameters(ilGenerator, parameterTypes, parametersLocalBuilder);
+            LoadArguments(ilGenerator, parameterTypes, parametersLocalBuilder);
 
             // Load invocation handler.
             ilGenerator.Emit(OpCodes.Ldarg_0);
@@ -152,8 +152,8 @@ namespace NProxy.Core
             // Call invocation handler method.
             ilGenerator.EmitCall(InvocationHandlerInvokeMethodInfo);
 
-            // Restore by reference parameters.
-            RestoreByReferenceParameters(ilGenerator, parameterTypes, parametersLocalBuilder);
+            // Restore by reference arguments.
+            RestoreByReferenceArguments(ilGenerator, parameterTypes, parametersLocalBuilder);
 
             // Handle return value.
             var returnType = declaringMethodInfo.MapGenericReturnType(genericParameterTypes);
@@ -189,12 +189,12 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Loads the parameters.
+        /// Loads the arguments onto the stack.
         /// </summary>
         /// <param name="ilGenerator">The intermediate language generator.</param>
         /// <param name="parameterTypes">The parameter types.</param>
         /// <param name="parametersLocalBuilder">The parameters local builder.</param>
-        private static void LoadParameters(ILGenerator ilGenerator, IList<Type> parameterTypes, LocalBuilder parametersLocalBuilder)
+        private static void LoadArguments(ILGenerator ilGenerator, IList<Type> parameterTypes, LocalBuilder parametersLocalBuilder)
         {
             for (var index = 0; index < parameterTypes.Count; index++)
             {
@@ -221,12 +221,12 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Restores the by reference parameters.
+        /// Restores the by reference arguments.
         /// </summary>
         /// <param name="ilGenerator">The intermediate language generator.</param>
         /// <param name="parameterTypes">The parameter types.</param>
         /// <param name="parametersLocalBuilder">The parameters local builder.</param>
-        private static void RestoreByReferenceParameters(ILGenerator ilGenerator, IList<Type> parameterTypes, LocalBuilder parametersLocalBuilder)
+        private static void RestoreByReferenceArguments(ILGenerator ilGenerator, IList<Type> parameterTypes, LocalBuilder parametersLocalBuilder)
         {
             for (var index = 0; index < parameterTypes.Count; index++)
             {

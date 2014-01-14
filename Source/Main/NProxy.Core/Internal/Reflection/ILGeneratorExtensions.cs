@@ -56,9 +56,36 @@ namespace NProxy.Core.Internal.Reflection
 
             var end = offset + count;
 
-            for (var position = offset; position < end; position++)
+            for (var index = offset; index < end; index++)
             {
-                ilGenerator.Emit(OpCodes.Ldarg, position);
+                ilGenerator.EmitLoadArgument(index);
+            }
+        }
+
+        /// <summary>
+        /// Loads an argument onto the stack.
+        /// </summary>
+        /// <param name="ilGenerator">The intermediate language generator.</param>
+        /// <param name="index">The argument index.</param>
+        public static void EmitLoadArgument(this ILGenerator ilGenerator, int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    ilGenerator.Emit(OpCodes.Ldarg_0);
+                    break;
+                case 1:
+                    ilGenerator.Emit(OpCodes.Ldarg_1);
+                    break;
+                case 2:
+                    ilGenerator.Emit(OpCodes.Ldarg_2);
+                    break;
+                case 3:
+                    ilGenerator.Emit(OpCodes.Ldarg_3);
+                    break;
+                default:
+                    ilGenerator.Emit(OpCodes.Ldarg, index);
+                    break;
             }
         }
 
