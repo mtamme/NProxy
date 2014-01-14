@@ -27,7 +27,7 @@ namespace NProxy.Core.Internal.Builders
     internal interface ITypeFactory<in T>
     {
         /// <summary>
-        /// Creates a new type.
+        /// Creates a new type based on the specified prototype.
         /// </summary>
         /// <param name="prototype">The prototype.</param>
         /// <returns>The new type.</returns>
