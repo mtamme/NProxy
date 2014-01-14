@@ -17,20 +17,20 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace NProxy.Core.Internal.Builders
 {
     /// <summary>
     /// Defines a type factory.
     /// </summary>
-    /// <typeparam name="T">The prototype type.</typeparam>
-    internal interface ITypeFactory<in T>
+    internal interface ITypeFactory
     {
         /// <summary>
-        /// Creates a new type based on the specified prototype.
+        /// Creates a new type based on the specified method information.
         /// </summary>
-        /// <param name="prototype">The prototype.</param>
+        /// <param name="methodInfo">The method information.</param>
         /// <returns>The new type.</returns>
-        Type CreateType(T prototype);
+        Type CreateType(MethodInfo methodInfo);
     }
 }

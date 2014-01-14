@@ -27,7 +27,7 @@ namespace NProxy.Core.Internal.Builders
     /// <summary>
     /// Represents a method information type factory.
     /// </summary>
-    internal sealed class MethodInfoTypeFactory : ITypeFactory<MethodInfo>
+    internal sealed class MethodInfoTypeFactory : ITypeFactory
     {
         /// <summary>
         /// The <see cref="MethodBase.GetMethodFromHandle(RuntimeMethodHandle,RuntimeTypeHandle)"/> method information.
@@ -259,7 +259,7 @@ namespace NProxy.Core.Internal.Builders
             }
         }
 
-        #region ITypeFactory<MethodInfo> Members
+        #region ITypeFactory Members
 
         /// <inheritdoc/>
         public Type CreateType(MethodInfo prototypeMethodInfo)
