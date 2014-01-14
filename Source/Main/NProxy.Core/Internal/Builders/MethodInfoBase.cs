@@ -29,9 +29,9 @@ namespace NProxy.Core.Internal.Builders
     internal abstract class MethodInfoBase : MethodInfo
     {
         /// <summary>
-        /// The proxy object.
+        /// The source object.
         /// </summary>
-        private readonly object _proxy;
+        private readonly object _source;
 
         /// <summary>
         /// The declaring method information.
@@ -46,18 +46,18 @@ namespace NProxy.Core.Internal.Builders
         /// <summary>
         /// Initializes a new instance of the <see cref="MethodInfoBase"/> class.
         /// </summary>
-        /// <param name="proxy">The proxy object.</param>
+        /// <param name="source">The source object.</param>
         /// <param name="methodInfo">The declaring method information.</param>
         /// <param name="isOverride">A value indicating weather the specified method is overridden.</param>
-        protected MethodInfoBase(object proxy, MethodInfo methodInfo, bool isOverride)
+        protected MethodInfoBase(object source, MethodInfo methodInfo, bool isOverride)
         {
-            if (proxy == null)
-                throw new ArgumentNullException("proxy");
+            if (source == null)
+                throw new ArgumentNullException("source");
 
             if (methodInfo == null)
                 throw new ArgumentNullException("methodInfo");
 
-            _proxy = proxy;
+            _source = source;
             _methodInfo = methodInfo;
             _isOverride = isOverride;
         }
@@ -68,7 +68,7 @@ namespace NProxy.Core.Internal.Builders
         /// <param name="target">The target object.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns>The return value.</returns>
-        protected virtual object BaseInvoke(object target, object[] parameters)
+        protected virtual object InvokeBase(object target, object[] parameters)
         {
             throw new TargetException(Resources.MethodNotImplementedOrInherited);
         }
@@ -79,7 +79,7 @@ namespace NProxy.Core.Internal.Builders
         /// <param name="target">The target object.</param>
         /// <param name="parameters">The parameters.</param>
         /// <returns>The return value.</returns>
-        protected abstract object VirtualInvoke(object target, object[] parameters);
+        protected abstract object InvokeVirtual(object target, object[] parameters);
 
         #region MethodInfo Members
 
@@ -197,13 +197,13 @@ namespace NProxy.Core.Internal.Builders
                 throw new TargetException(Resources.MethodNotDeclaredOrInherited);
 
             // Check target object.
-            if (!ReferenceEquals(target, _proxy))
-                return VirtualInvoke(target, parameters);
+            if (!ReferenceEquals(target, _source))
+                return InvokeVirtual(target, parameters);
 
             if (!_isOverride)
                 throw new TargetException(Resources.MethodNotInherited);
 
-            return BaseInvoke(target, parameters);
+            return InvokeBase(target, parameters);
         }
 
         #endregion

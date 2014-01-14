@@ -45,18 +45,18 @@ namespace NProxy.Core.Internal.Builders
             typeof (object), typeof (MethodInfo), typeof (bool));
 
         /// <summary>
-        /// The <see cref="MethodInfoBase.BaseInvoke(object,object[])"/> method information.
+        /// The <see cref="MethodInfoBase.InvokeBase(object,object[])"/> method information.
         /// </summary>
-        private static readonly MethodInfo MethodInfoBaseBaseInvokeMethodInfo = typeof (MethodInfoBase).GetMethod(
-            "BaseInvoke",
+        private static readonly MethodInfo MethodInfoBaseInvokeBaseMethodInfo = typeof (MethodInfoBase).GetMethod(
+            "InvokeBase",
             BindingFlags.NonPublic | BindingFlags.Instance,
             typeof (object), typeof (object[]));
 
         /// <summary>
-        /// The <see cref="MethodInfoBase.VirtualInvoke(object,object[])"/> method information.
+        /// The <see cref="MethodInfoBase.InvokeVirtual(object,object[])"/> method information.
         /// </summary>
-        private static readonly MethodInfo MethodInfoBaseVirtualInvokeMethodInfo = typeof (MethodInfoBase).GetMethod(
-            "VirtualInvoke",
+        private static readonly MethodInfo MethodInfoBaseInvokeVirtualMethodInfo = typeof (MethodInfoBase).GetMethod(
+            "InvokeVirtual",
             BindingFlags.NonPublic | BindingFlags.Instance,
             typeof (object), typeof (object[]));
 
@@ -158,7 +158,7 @@ namespace NProxy.Core.Internal.Builders
         /// <param name="isVirtual">A value indicating weather the method should be called virtually.</param>
         private static void BuildInvokeMethod(TypeBuilder typeBuilder, MethodInfo prototypeMethodInfo, Type[] genericParameterTypes, bool isVirtual)
         {
-            var invokeMethodInfo = isVirtual ? MethodInfoBaseVirtualInvokeMethodInfo : MethodInfoBaseBaseInvokeMethodInfo;
+            var invokeMethodInfo = isVirtual ? MethodInfoBaseInvokeVirtualMethodInfo : MethodInfoBaseInvokeBaseMethodInfo;
 
             // Define method.
             var methodBuilder = typeBuilder.DefineMethod(invokeMethodInfo, false, true);
@@ -262,16 +262,16 @@ namespace NProxy.Core.Internal.Builders
         #region ITypeFactory Members
 
         /// <inheritdoc/>
-        public Type CreateType(MethodInfo prototypeMethodInfo)
+        public Type CreateType(MethodInfo methodInfo)
         {
-            if (prototypeMethodInfo == null)
-                throw new ArgumentNullException("prototypeMethodInfo");
+            if (methodInfo == null)
+                throw new ArgumentNullException("methodInfo");
 
             // Define type.
             var typeBuilder = _typeRepository.DefineType("MethodInfo", typeof (MethodInfoBase));
 
             // Define generic parameters.
-            var genericParameterTypes = typeBuilder.DefineGenericParameters(prototypeMethodInfo.GetGenericArguments());
+            var genericParameterTypes = typeBuilder.DefineGenericParameters(methodInfo.GetGenericArguments());
 
             // Define method information static field.
             var methodFieldInfo = typeBuilder.DefineField(
@@ -280,17 +280,17 @@ namespace NProxy.Core.Internal.Builders
                 FieldAttributes.Private | FieldAttributes.Static | FieldAttributes.InitOnly);
 
             // Build type initializer.
-            BuildTypeInitializer(typeBuilder, prototypeMethodInfo, genericParameterTypes, methodFieldInfo);
+            BuildTypeInitializer(typeBuilder, methodInfo, genericParameterTypes, methodFieldInfo);
 
             // Build constructor.
             BuildConstructor(typeBuilder, methodFieldInfo);
 
             // Build base invoke method only for non abstract methods.
-            if (!prototypeMethodInfo.IsAbstract)
-                BuildInvokeMethod(typeBuilder, prototypeMethodInfo, genericParameterTypes, false);
+            if (!methodInfo.IsAbstract)
+                BuildInvokeMethod(typeBuilder, methodInfo, genericParameterTypes, false);
 
             // Build virtual invoke method.
-            BuildInvokeMethod(typeBuilder, prototypeMethodInfo, genericParameterTypes, true);
+            BuildInvokeMethod(typeBuilder, methodInfo, genericParameterTypes, true);
 
             return typeBuilder.CreateType();
         }
