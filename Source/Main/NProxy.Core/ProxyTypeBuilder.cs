@@ -201,7 +201,7 @@ namespace NProxy.Core
                 var parameterType = parameterTypes[index];
 
                 ilGenerator.Emit(OpCodes.Ldloc, parametersLocalBuilder);
-                ilGenerator.Emit(OpCodes.Ldc_I4, index);
+                ilGenerator.EmitLoadValue(index);
                 ilGenerator.EmitLoadArgument(index + 1);
 
                 if (parameterType.IsByRef)
@@ -239,7 +239,7 @@ namespace NProxy.Core
 
                 ilGenerator.EmitLoadArgument(index + 1);
                 ilGenerator.Emit(OpCodes.Ldloc, parametersLocalBuilder);
-                ilGenerator.Emit(OpCodes.Ldc_I4, index);
+                ilGenerator.EmitLoadValue(index);
                 ilGenerator.Emit(OpCodes.Ldelem_Ref);
 
                 ilGenerator.EmitUnbox(elementType);
