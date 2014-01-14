@@ -202,7 +202,7 @@ namespace NProxy.Core
 
                 ilGenerator.Emit(OpCodes.Ldloc, parametersLocalBuilder);
                 ilGenerator.Emit(OpCodes.Ldc_I4, index);
-                ilGenerator.Emit(OpCodes.Ldarg, index + 1);
+                ilGenerator.EmitLoadArgument(index + 1);
 
                 if (parameterType.IsByRef)
                 {
@@ -237,7 +237,7 @@ namespace NProxy.Core
 
                 var elementType = argumentType.GetElementType();
 
-                ilGenerator.Emit(OpCodes.Ldarg, index + 1);
+                ilGenerator.EmitLoadArgument(index + 1);
                 ilGenerator.Emit(OpCodes.Ldloc, parametersLocalBuilder);
                 ilGenerator.Emit(OpCodes.Ldc_I4, index);
                 ilGenerator.Emit(OpCodes.Ldelem_Ref);
