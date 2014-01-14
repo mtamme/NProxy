@@ -25,7 +25,7 @@ using NUnit.Framework;
 namespace NProxy.Core.Test.Internal.Caching
 {
     [TestFixture]
-    public sealed class InterlockedCacheTestFixture
+    public sealed class LockOnWriteCacheTestFixture
     {
         [Test]
         public void GetOrAddWithoutCacheHitTest()
@@ -37,7 +37,7 @@ namespace NProxy.Core.Test.Internal.Caching
                     invocationCount++;
                     return Convert.ToString(k);
                 };
-            var cache = new InterlockedCache<int, string>();
+            var cache = new LockOnWriteCache<int, string>();
 
             // Act
             var value = cache.GetOrAdd(1, valueFactory);
@@ -58,7 +58,7 @@ namespace NProxy.Core.Test.Internal.Caching
                     invocationCount++;
                     return Convert.ToString(k);
                 };
-            var cache = new InterlockedCache<int, string>();
+            var cache = new LockOnWriteCache<int, string>();
 
             // Act
             cache.GetOrAdd(1, valueFactory);
@@ -86,7 +86,7 @@ namespace NProxy.Core.Test.Internal.Caching
                     invocationCount++;
                     return Convert.ToString(k);
                 };
-            var cache = new InterlockedCache<int, string>();
+            var cache = new LockOnWriteCache<int, string>();
 
             // Act
             var firstTask = Task.Factory.StartNew(() => cache.GetOrAdd(1, valueFactory));

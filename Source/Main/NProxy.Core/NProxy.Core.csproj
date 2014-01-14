@@ -84,7 +84,7 @@
     <Compile Include="IProxyTemplate.cs" />
     <Compile Include="Internal\Caching\Cache.cs" />
     <Compile Include="Internal\Caching\ICache.cs" />
-    <Compile Include="Internal\Caching\InterlockedCache.cs" />
+    <Compile Include="Internal\Caching\LockOnWriteCache.cs" />
     <Compile Include="Internal\Definitions\IProxyDefinitionVisitor.cs" />
     <Compile Include="Internal\Definitions\ProxyDefinitionVisitorExtensions.cs" />
     <Compile Include="Internal\Builders\ITypeBuilder.cs" />

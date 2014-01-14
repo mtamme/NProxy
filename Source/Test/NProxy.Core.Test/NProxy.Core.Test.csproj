@@ -111,7 +111,7 @@
     <Compile Include="Internal\Definitions\DelegateProxyDefinitionTestFixture.cs" />
     <Compile Include="Internal\Definitions\InterfaceProxyDefinitionTestFixture.cs" />
     <Compile Include="Internal\Definitions\CollectingProxyDefinitionVisitor.cs" />
-    <Compile Include="Internal\Caching\InterlockedCacheTestFixture.cs" />
+    <Compile Include="Internal\Caching\LockOnWriteCacheTestFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Main\NProxy.Core\NProxy.Core.csproj">

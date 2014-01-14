@@ -69,7 +69,7 @@ namespace NProxy.Core
             _typeBuilderFactory = typeBuilderFactory;
             _interceptionFilter = interceptionFilter;
 
-            _proxyTemplateCache = new InterlockedCache<IProxyDefinition, IProxyTemplate>();
+            _proxyTemplateCache = new LockOnWriteCache<IProxyDefinition, IProxyTemplate>();
         }
 
         /// <summary>
