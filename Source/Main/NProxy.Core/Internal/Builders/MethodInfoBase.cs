@@ -190,7 +190,7 @@ namespace NProxy.Core.Internal.Builders
                 throw new TargetException(Resources.MethodRequiresATargetObject);
 
             // Check target type.
-            var declaringType = DeclaringType;
+            var declaringType = _methodInfo.DeclaringType;
             var targetType = target.GetType();
 
             if ((declaringType == null) || !declaringType.IsAssignableFrom(targetType))

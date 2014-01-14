@@ -153,10 +153,10 @@ namespace NProxy.Core.Internal.Builders
         /// Builds the invoke method.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-        /// <param name="prototypeMethodInfo">The prototype method information.</param>
+        /// <param name="methodInfo">The method information.</param>
         /// <param name="genericParameterTypes">The generic parameter types.</param>
         /// <param name="isVirtual">A value indicating weather the method should be called virtually.</param>
-        private static void BuildInvokeMethod(TypeBuilder typeBuilder, MethodInfo prototypeMethodInfo, Type[] genericParameterTypes, bool isVirtual)
+        private static void BuildInvokeMethod(TypeBuilder typeBuilder, MethodInfo methodInfo, Type[] genericParameterTypes, bool isVirtual)
         {
             var invokeMethodInfo = isVirtual ? MethodInfoBaseInvokeVirtualMethodInfo : MethodInfoBaseInvokeBaseMethodInfo;
 
@@ -172,24 +172,24 @@ namespace NProxy.Core.Internal.Builders
             ilGenerator.Emit(OpCodes.Ldarg_1);
 
             // Load arguments.
-            var parameterTypes = prototypeMethodInfo.MapGenericParameterTypes(genericParameterTypes);
+            var parameterTypes = methodInfo.MapGenericParameterTypes(genericParameterTypes);
             var parameterLocalBuilders = new LocalBuilder[parameterTypes.Length];
 
             LoadArguments(ilGenerator, parameterTypes, parameterLocalBuilders);
 
             // Call target method.
-            var methodInfo = prototypeMethodInfo.MapGenericMethod(genericParameterTypes);
+            var targetMethodInfo = methodInfo.MapGenericMethod(genericParameterTypes);
 
-            if (isVirtual && methodInfo.IsVirtual)
-                ilGenerator.Emit(OpCodes.Callvirt, methodInfo);
+            if (isVirtual && targetMethodInfo.IsVirtual)
+                ilGenerator.Emit(OpCodes.Callvirt, targetMethodInfo);
             else
-                ilGenerator.Emit(OpCodes.Call, methodInfo);
+                ilGenerator.Emit(OpCodes.Call, targetMethodInfo);
 
             // Restore by reference arguments.
             RestoreByReferenceArguments(ilGenerator, parameterTypes, parameterLocalBuilders);
 
             // Handle return value.
-            var returnType = prototypeMethodInfo.MapGenericReturnType(genericParameterTypes);
+            var returnType = methodInfo.MapGenericReturnType(genericParameterTypes);
 
             if (returnType.IsVoid())
                 ilGenerator.Emit(OpCodes.Ldnull);
