@@ -39,17 +39,11 @@ namespace NProxy.Core.Internal.Builders
         private readonly MethodInfo _methodInfo;
 
         /// <summary>
-        /// A value indicating weather the specified method is overridden.
-        /// </summary>
-        private readonly bool _isOverride;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="MethodInfoBase"/> class.
         /// </summary>
         /// <param name="source">The source object.</param>
         /// <param name="methodInfo">The declaring method information.</param>
-        /// <param name="isOverride">A value indicating weather the specified method is overridden.</param>
-        protected MethodInfoBase(object source, MethodInfo methodInfo, bool isOverride)
+        protected MethodInfoBase(object source, MethodInfo methodInfo)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
@@ -59,7 +53,6 @@ namespace NProxy.Core.Internal.Builders
 
             _source = source;
             _methodInfo = methodInfo;
-            _isOverride = isOverride;
         }
 
         /// <summary>
@@ -70,7 +63,7 @@ namespace NProxy.Core.Internal.Builders
         /// <returns>The return value.</returns>
         protected virtual object InvokeBase(object target, object[] parameters)
         {
-            throw new TargetException(Resources.MethodNotImplementedOrInherited);
+            throw new TargetException(Resources.MethodNotImplemented);
         }
 
         /// <summary>
@@ -196,14 +189,8 @@ namespace NProxy.Core.Internal.Builders
             if ((declaringType == null) || !declaringType.IsAssignableFrom(targetType))
                 throw new TargetException(Resources.MethodNotDeclaredOrInherited);
 
-            // Check target object.
-            if (!ReferenceEquals(target, _source))
-                return InvokeVirtual(target, parameters);
-
-            if (!_isOverride)
-                throw new TargetException(Resources.MethodNotInherited);
-
-            return InvokeBase(target, parameters);
+            // Check target object and invoke method.
+            return ReferenceEquals(target, _source) ? InvokeBase(target, parameters) : InvokeVirtual(target, parameters);
         }
 
         #endregion

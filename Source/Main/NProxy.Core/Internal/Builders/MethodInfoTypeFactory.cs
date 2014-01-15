@@ -42,7 +42,7 @@ namespace NProxy.Core.Internal.Builders
         /// </summary>
         private static readonly ConstructorInfo MethodInfoBaseConstructorInfo = typeof (MethodInfoBase).GetConstructor(
             BindingFlags.NonPublic | BindingFlags.Instance,
-            typeof (object), typeof (MethodInfo), typeof (bool));
+            typeof (object), typeof (MethodInfo));
 
         /// <summary>
         /// The <see cref="MethodInfoBase.InvokeBase(object,object[])"/> method information.
@@ -125,8 +125,8 @@ namespace NProxy.Core.Internal.Builders
             var constructorBuilder = typeBuilder.DefineConstructor(
                 MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
                 MethodInfoBaseConstructorInfo.CallingConvention,
-                new[] {typeof (object), typeof (bool)},
-                new[] {"source", "isOverride"});
+                new[] {typeof (object)},
+                new[] {"source"});
 
             // Implement constructor.
             var ilGenerator = constructorBuilder.GetILGenerator();
@@ -139,9 +139,6 @@ namespace NProxy.Core.Internal.Builders
 
             // Load method information.
             ilGenerator.Emit(OpCodes.Ldsfld, methodFieldInfo);
-
-            // Load override value.
-            ilGenerator.Emit(OpCodes.Ldarg_2);
 
             // Call parent constructor.
             ilGenerator.Emit(OpCodes.Call, MethodInfoBaseConstructorInfo);

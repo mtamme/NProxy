@@ -2721,11 +2721,44 @@ namespace NProxy.Core.Test
         }
 
         [Test]
+        public void CreateProxyFromInterfaceAndInvalidTargetTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.CreateProxy<IIntParameter>(Type.EmptyTypes, new TargetInvocationHandler(_ => new StringParameter()));
+
+            // Assert
+            Assert.Throws<TargetException>(() => proxy.Method(default(int)));
+        }
+
+        [Test]
         public void CreateProxyFromInterfaceAndProxyTargetTest()
         {
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<IIntParameter>(Type.EmptyTypes, new TargetInvocationHandler(p => p));
+
+            // Assert
+            Assert.Throws<TargetException>(() => proxy.Method(default(int)));
+        }
+
+        [Test]
+        public void CreateProxyFromAbstractClassAndNullTargetTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.CreateProxy<IntParameterBase>(Type.EmptyTypes, new TargetInvocationHandler(p => null));
+
+            // Assert
+            Assert.Throws<TargetException>(() => proxy.Method(default(int)));
+        }
+
+        [Test]
+        public void CreateProxyFromAbstractClassAndInvalidTargetTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.CreateProxy<IntParameterBase>(Type.EmptyTypes, new TargetInvocationHandler(p => new StringParameter()));
 
             // Assert
             Assert.Throws<TargetException>(() => proxy.Method(default(int)));
@@ -2743,6 +2776,28 @@ namespace NProxy.Core.Test
         }
 
         [Test]
+        public void CreateProxyFromClassAndNullTargetTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.CreateProxy<IntParameter>(Type.EmptyTypes, new TargetInvocationHandler(p => null));
+
+            // Assert
+            Assert.Throws<TargetException>(() => proxy.Method(default(int)));
+        }
+
+        [Test]
+        public void CreateProxyFromClassAndInvalidTargetTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.CreateProxy<IntParameter>(Type.EmptyTypes, new TargetInvocationHandler(p => new StringParameter()));
+
+            // Assert
+            Assert.Throws<TargetException>(() => proxy.Method(default(int)));
+        }
+
+        [Test]
         public void CreateProxyFromClassAndProxyTargetTest()
         {
             // Arrange
@@ -2751,6 +2806,29 @@ namespace NProxy.Core.Test
 
             // Assert
             Assert.DoesNotThrow(() => proxy.Method(default(int)));
+        }
+
+        [Test]
+        public void CreateProxyFromDelegateAndNullTargetTest()
+        {
+            // Arrange
+            // Act
+            var proxy = _proxyFactory.CreateProxy<Action<int>>(Type.EmptyTypes, new TargetInvocationHandler(p => null));
+
+            // Assert
+            Assert.Throws<TargetException>(() => proxy(default(int)));
+        }
+
+        [Test]
+        public void CreateProxyFromDelegateAndInvalidTargetTest()
+        {
+            // Arrange
+            // Act
+            Action<string> target = s => { };
+            var proxy = _proxyFactory.CreateProxy<Action<int>>(Type.EmptyTypes, new TargetInvocationHandler(p => target));
+
+            // Assert
+            Assert.Throws<TargetException>(() => proxy(default(int)));
         }
 
         [Test]
@@ -2765,14 +2843,15 @@ namespace NProxy.Core.Test
         }
 
         [Test]
-        public void CreateProxyFromInterfaceAndInvalidTargetTest()
+        public void CreateProxyFromDelegateAndTargetTest()
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IIntParameter>(Type.EmptyTypes, new TargetInvocationHandler(_ => new StringParameter()));
+            Action<int> target = i => { };
+            var proxy = _proxyFactory.CreateProxy<Action<int>>(Type.EmptyTypes, new TargetInvocationHandler(p => target));
 
             // Assert
-            Assert.Throws<TargetException>(() => proxy.Method(default(int)));
+            Assert.DoesNotThrow(() => proxy(default(int)));
         }
 
         [Test]

@@ -143,7 +143,6 @@ namespace NProxy.Core
 
             // Create and load method information.
             ilGenerator.Emit(OpCodes.Ldarg_0);
-            ilGenerator.Emit(isOverride ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
             ilGenerator.Emit(OpCodes.Newobj, methodInfoConstructorInfo);
 
             // Load parameters.
@@ -177,8 +176,7 @@ namespace NProxy.Core
         private ConstructorInfo GetMethodInfoConstructor(MethodInfo methodInfo, Type[] genericParameterTypes)
         {
             var type = _typeRepository.GetType(methodInfo);
-            var constructorInfo = type.GetConstructor(BindingFlags.Public | BindingFlags.Instance,
-                                                      typeof (object), typeof (bool));
+            var constructorInfo = type.GetConstructor(BindingFlags.Public | BindingFlags.Instance, typeof (object));
 
             if (!type.IsGenericTypeDefinition)
                 return constructorInfo;

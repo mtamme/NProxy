@@ -69,6 +69,9 @@ namespace NProxy.Core.Internal.Reflection
         /// <param name="index">The argument index.</param>
         public static void EmitLoadArgument(this ILGenerator ilGenerator, int index)
         {
+            if (ilGenerator == null)
+                throw new ArgumentNullException("ilGenerator");
+
             switch (index)
             {
                 case 0:
@@ -96,6 +99,9 @@ namespace NProxy.Core.Internal.Reflection
         /// <param name="value">The value.</param>
         public static void EmitLoadValue(this ILGenerator ilGenerator, int value)
         {
+            if (ilGenerator == null)
+                throw new ArgumentNullException("ilGenerator");
+
             switch (value)
             {
                 case 0:

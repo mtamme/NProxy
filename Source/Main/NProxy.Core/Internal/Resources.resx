@@ -156,11 +156,8 @@
   <data name="MethodNotDeclaredOrInherited" xml:space="preserve">
     <value>Method is not declared or inherited by target object.</value>
   </data>
-  <data name="MethodNotImplementedOrInherited" xml:space="preserve">
-    <value>Method is not implemented or inherited by target object.</value>
-  </data>
-  <data name="MethodNotInherited" xml:space="preserve">
-    <value>Method is not inherited by target object.</value>
+  <data name="MethodNotImplemented" xml:space="preserve">
+    <value>Method is not implemented by target object.</value>
   </data>
   <data name="MethodOnTypeNotFound" xml:space="preserve">
     <value>Method '{0}' on type '{1}' not found.</value>
