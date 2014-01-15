@@ -177,10 +177,7 @@ namespace NProxy.Core.Internal.Builders
             // Call target method.
             var targetMethodInfo = methodInfo.MapGenericMethod(genericParameterTypes);
 
-            if (isVirtual && targetMethodInfo.IsVirtual)
-                ilGenerator.Emit(OpCodes.Callvirt, targetMethodInfo);
-            else
-                ilGenerator.Emit(OpCodes.Call, targetMethodInfo);
+            ilGenerator.Emit(isVirtual ? OpCodes.Callvirt : OpCodes.Call, targetMethodInfo);
 
             // Restore by reference parameter values.
             RestoreByReferenceParameterValues(ilGenerator, 2, parameterTypes, parameterValueLocalBuilders);
