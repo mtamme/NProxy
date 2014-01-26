@@ -207,7 +207,7 @@ namespace NProxy.Core
                 throw new ArgumentNullException("parentType");
 
             var typeId = Interlocked.Increment(ref _nextTypeId);
-            var uniqueTypeName = String.Format("{0}{1}<{2}>d__{3:x}", DynamicDefaultNamespace, Type.Delimiter, typeName, typeId);
+            var uniqueTypeName = String.Format("{0}{1}<{2}>z__{3:x}", DynamicDefaultNamespace, Type.Delimiter, typeName, typeId);
 
             return _moduleBuilder.DefineType(
                 uniqueTypeName,
