@@ -27,22 +27,6 @@ namespace NProxy.Core.Internal.Reflection
     internal static class MemberInfoExtensions
     {
         /// <summary>
-        /// Returns a value indicating whether one or more attributes of the specified type or of its
-        /// derived types is applied to this member.
-        /// </summary>
-        /// <typeparam name="TAttribute">The type, or a base type, of the custom attribute to search for.</typeparam>
-        /// <param name="memberInfo">The member information.</param>
-        /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find the attributes.</param>
-        /// <returns>A value indicating weather the member is annotated with the specified custom attribute type.</returns>
-        public static bool IsDefined<TAttribute>(this MemberInfo memberInfo, bool inherit) where TAttribute : Attribute
-        {
-            if (memberInfo == null)
-                throw new ArgumentNullException("memberInfo");
-
-            return Attribute.IsDefined(memberInfo, typeof (TAttribute), inherit);
-        }
-
-        /// <summary>
         /// Returns the declaring type of the specified member.
         /// </summary>
         /// <param name="memberInfo">The member information.</param>

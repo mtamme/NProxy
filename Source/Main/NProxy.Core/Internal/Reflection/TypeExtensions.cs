@@ -131,10 +131,7 @@ namespace NProxy.Core.Internal.Reflection
                 var newElementType = elementType.MapGenericType(genericTypes);
                 var rank = type.GetArrayRank();
 
-                if (rank > 1)
-                    return newElementType.MakeArrayType(rank);
-
-                return newElementType.MakeArrayType();
+                return (rank > 1) ? newElementType.MakeArrayType(rank) : newElementType.MakeArrayType();
             }
 
             // Handle generic by reference parameters.

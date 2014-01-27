@@ -19,7 +19,6 @@
 using System;
 using System.Reflection;
 using NProxy.Core.Internal.Builders;
-using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core
 {
@@ -38,19 +37,19 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public bool AcceptEvent(EventInfo eventInfo)
         {
-            return !eventInfo.IsDefined<NonInterceptedAttribute>(false);
+            return !eventInfo.IsDefined(typeof (NonInterceptedAttribute), false);
         }
 
         /// <inheritdoc/>
         public bool AcceptProperty(PropertyInfo propertyInfo)
         {
-            return !propertyInfo.IsDefined<NonInterceptedAttribute>(false);
+            return !propertyInfo.IsDefined(typeof (NonInterceptedAttribute), false);
         }
 
         /// <inheritdoc/>
         public bool AcceptMethod(MethodInfo methodInfo)
         {
-            if (methodInfo.IsDefined<NonInterceptedAttribute>(false))
+            if (methodInfo.IsDefined(typeof (NonInterceptedAttribute), false))
                 return false;
 
             if (methodInfo.DeclaringType != typeof (object))

@@ -27,19 +27,6 @@ namespace NProxy.Core.Test.Internal.Reflection
     public sealed class MemberInfoExtensionsTestFixture
     {
         [Test]
-        public void IsDefinedTest()
-        {
-            // Arrange
-            var methodInfo = typeof (INonIntercepted).GetMethod("Method");
-
-            // Act
-            var isDefined = methodInfo.IsDefined<NonInterceptedAttribute>(false);
-
-            // Assert
-            Assert.That(isDefined, Is.True);
-        }
-
-        [Test]
         public void GetDeclaringTypeFromClassMethodTest()
         {
             // Arrange

@@ -146,7 +146,7 @@ namespace NProxy.Core.Interceptors
         /// <returns>The member interceptors.</returns>
         private static List<IInterceptor> ApplyInterceptionBehaviors(MemberInfo memberInfo, IEnumerable<IInterceptor> interceptors)
         {
-            var customAttributes = Attribute.GetCustomAttributes(memberInfo, true);
+            var customAttributes = memberInfo.GetCustomAttributes(true);
             var memberInterceptors = new List<IInterceptor>(interceptors);
 
             foreach (var interceptionBehavior in customAttributes.OfType<IInterceptionBehavior>())
