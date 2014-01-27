@@ -27,32 +27,6 @@ namespace NProxy.Core.Test.Internal.Reflection
     public sealed class MemberInfoExtensionsTestFixture
     {
         [Test]
-        public void GetCustomAttributeTest()
-        {
-            // Arrange
-            var methodInfo = typeof (INonIntercepted).GetMethod("Method");
-
-            // Act
-            var attribute = methodInfo.GetCustomAttribute<NonInterceptedAttribute>(false);
-
-            // Assert
-            Assert.That(attribute, Is.InstanceOf<NonInterceptedAttribute>());
-        }
-
-        [Test]
-        public void GetCustomAttributesTest()
-        {
-            // Arrange
-            var methodInfo = typeof (INonIntercepted).GetMethod("Method");
-
-            // Act
-            var attributes = methodInfo.GetCustomAttributes<NonInterceptedAttribute>(false);
-
-            // Assert
-            Assert.That(attributes, Is.All.InstanceOf<NonInterceptedAttribute>());
-        }
-
-        [Test]
         public void IsDefinedTest()
         {
             // Arrange

@@ -221,7 +221,7 @@ namespace NProxy.Core
             if (methodInfo == null)
                 throw new ArgumentNullException("methodInfo");
 
-            var memberToken = methodInfo.GetToken();
+            var memberToken = new MemberToken(methodInfo);
 
             return _methodInfoTypeCache.GetOrAdd(memberToken, _ => _methodInfoTypeFactory.CreateType(methodInfo));
         }

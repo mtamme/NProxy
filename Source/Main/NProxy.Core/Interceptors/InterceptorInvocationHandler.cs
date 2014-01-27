@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using NProxy.Core.Internal.Reflection;
 
@@ -132,7 +133,7 @@ namespace NProxy.Core.Interceptors
 
             memberInterceptors.AddRange(_defaultInterceptors);
 
-            var memberToken = memberInfo.GetToken();
+            var memberToken = new MemberToken(memberInfo);
 
             _interceptors.Add(memberToken, memberInterceptors.ToArray());
         }
@@ -145,10 +146,10 @@ namespace NProxy.Core.Interceptors
         /// <returns>The member interceptors.</returns>
         private static List<IInterceptor> ApplyInterceptionBehaviors(MemberInfo memberInfo, IEnumerable<IInterceptor> interceptors)
         {
-            var interceptionBehaviors = memberInfo.GetCustomAttributes<IInterceptionBehavior>(true);
+            var customAttributes = Attribute.GetCustomAttributes(memberInfo, true);
             var memberInterceptors = new List<IInterceptor>(interceptors);
 
-            foreach (var interceptionBehavior in interceptionBehaviors)
+            foreach (var interceptionBehavior in customAttributes.OfType<IInterceptionBehavior>())
             {
                 interceptionBehavior.Validate(memberInfo);
                 interceptionBehavior.Apply(memberInfo, memberInterceptors);
@@ -164,7 +165,7 @@ namespace NProxy.Core.Interceptors
         /// <returns>The interceptors.</returns>
         private IInterceptor[] GetInterceptors(MemberInfo memberInfo)
         {
-            var memberToken = memberInfo.GetToken();
+            var memberToken = new MemberToken(memberInfo);
             IInterceptor[] interceptors;
 
             return _interceptors.TryGetValue(memberToken, out interceptors) ? interceptors : _defaultInterceptors;

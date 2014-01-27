@@ -17,8 +17,6 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
 namespace NProxy.Core.Internal.Reflection
@@ -28,37 +26,6 @@ namespace NProxy.Core.Internal.Reflection
     /// </summary>
     internal static class MemberInfoExtensions
     {
-        /// <summary>
-        /// Returns the custom attribute that is applied to the specified member.
-        /// </summary>
-        /// <typeparam name="TAttribute">The type of attribute to search for. Only attributes that are assignable to this type are returned.</typeparam>
-        /// <param name="memberInfo">The member information.</param>
-        /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find the attributes.</param>
-        /// <returns>The custom attribute.</returns>
-        public static TAttribute GetCustomAttribute<TAttribute>(this MemberInfo memberInfo, bool inherit)
-        {
-            var customAttributes = memberInfo.GetCustomAttributes<TAttribute>(inherit);
-
-            return customAttributes.FirstOrDefault();
-        }
-
-        /// <summary>
-        /// Returns the custom attributes that are applied to the specified member.
-        /// </summary>
-        /// <typeparam name="TAttribute">The type of attribute to search for. Only attributes that are assignable to this type are returned.</typeparam>
-        /// <param name="memberInfo">The member information.</param>
-        /// <param name="inherit">A value indicating whether to search the member's inheritance chain to find the attributes.</param>
-        /// <returns>The custom attributes.</returns>
-        public static IEnumerable<TAttribute> GetCustomAttributes<TAttribute>(this MemberInfo memberInfo, bool inherit)
-        {
-            if (memberInfo == null)
-                throw new ArgumentNullException("memberInfo");
-
-            var customAttributes = Attribute.GetCustomAttributes(memberInfo, inherit);
-
-            return customAttributes.OfType<TAttribute>();
-        }
-
         /// <summary>
         /// Returns a value indicating whether one or more attributes of the specified type or of its
         /// derived types is applied to this member.
@@ -91,16 +58,6 @@ namespace NProxy.Core.Internal.Reflection
                 throw new InvalidOperationException(Resources.MemberHasNoDeclaringType);
 
             return declaringType;
-        }
-
-        /// <summary>
-        /// Returns a value which uniquely identifies a member.
-        /// </summary>
-        /// <param name="memberInfo">The member information.</param>
-        /// <returns>A value which uniquely identifies a member.</returns>
-        public static MemberToken GetToken(this MemberInfo memberInfo)
-        {
-            return new MemberToken(memberInfo);
         }
     }
 }
