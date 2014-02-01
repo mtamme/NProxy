@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<NDepend AppName="NProxy.Core" Platform="DotNet">
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<NDepend AppName="NProxy" Platform="DotNet">
   <OutputDir KeepHistoric="True" KeepXmlFiles="True">.\NDependOut</OutputDir>
   <Assemblies>
     <Name>NProxy.Core</Name>
