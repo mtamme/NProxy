@@ -1,5 +1,11 @@
 # Release notes
 
+## Version 2.1.0
+
+* Reduced generated IL code size.
+* Exposed additional metadata via `IProxyTemplate` interface.
+* Changed dynamic type naming.
+
 ## Version 2.0.1
 
 * Fixed documentation.
