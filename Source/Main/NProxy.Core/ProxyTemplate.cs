@@ -35,9 +35,9 @@ namespace NProxy.Core
         private readonly IProxyDefinition _proxyDefinition;
 
         /// <summary>
-        /// The type.
+        /// The implementation type.
         /// </summary>
-        private readonly Type _type;
+        private readonly Type _implementationType;
 
         /// <summary>
         /// The event informations.
@@ -58,17 +58,17 @@ namespace NProxy.Core
         /// Initializes a new instance of the <see cref="ProxyTemplate"/> class.
         /// </summary>
         /// <param name="proxyDefinition">The proxy definition.</param>
-        /// <param name="type">The type.</param>
+        /// <param name="implementationType">The implementation type.</param>
         /// <param name="eventInfos">The event informations.</param>
         /// <param name="propertyInfos">The property informations.</param>
         /// <param name="methodInfos">The method informations.</param>
-        public ProxyTemplate(IProxyDefinition proxyDefinition, Type type, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
+        public ProxyTemplate(IProxyDefinition proxyDefinition, Type implementationType, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
         {
             if (proxyDefinition == null)
                 throw new ArgumentNullException("proxyDefinition");
 
-            if (type == null)
-                throw new ArgumentNullException("type");
+            if (implementationType == null)
+                throw new ArgumentNullException("implementationType");
 
             if (eventInfos == null)
                 throw new ArgumentNullException("eventInfos");
@@ -80,7 +80,7 @@ namespace NProxy.Core
                 throw new ArgumentNullException("methodInfos");
 
             _proxyDefinition = proxyDefinition;
-            _type = type;
+            _implementationType = implementationType;
             _eventInfos = eventInfos;
             _propertyInfos = propertyInfos;
             _methodInfos = methodInfos;
@@ -92,6 +92,12 @@ namespace NProxy.Core
         public Type DeclaringType
         {
             get { return _proxyDefinition.DeclaringType; }
+        }
+
+        /// <inheritdoc/>
+        public Type ImplementationType
+        {
+            get { return _implementationType; }
         }
 
         /// <inheritdoc/>
@@ -130,7 +136,7 @@ namespace NProxy.Core
             var instance = _proxyDefinition.UnwrapProxy(proxy);
             var instanceType = instance.GetType();
 
-            if ((instanceType != _type) || !interfaceType.IsAssignableFrom(instanceType))
+            if ((instanceType != _implementationType) || !interfaceType.IsAssignableFrom(instanceType))
                 throw new InvalidOperationException(Resources.CannotAdaptProxy);
 
             return instance;
@@ -149,7 +155,7 @@ namespace NProxy.Core
 
             constructorArguments.AddRange(arguments);
 
-            return _proxyDefinition.CreateProxy(_type, constructorArguments.ToArray());
+            return _proxyDefinition.CreateProxy(_implementationType, constructorArguments.ToArray());
         }
 
         #endregion
@@ -184,6 +190,12 @@ namespace NProxy.Core
         public Type DeclaringType
         {
             get { return _proxyTemplate.DeclaringType; }
+        }
+
+        /// <inheritdoc/>
+        public Type ImplementationType
+        {
+            get { return _proxyTemplate.ImplementationType; }
         }
 
         /// <inheritdoc/>
