@@ -17,6 +17,7 @@
 //
 
 using System;
+using System.Linq;
 using NProxy.Core.Internal.Definitions;
 using NProxy.Core.Test.Types;
 using NUnit.Framework;
@@ -40,6 +41,8 @@ namespace NProxy.Core.Test.Internal.Definitions
             // Assert
             Assert.That(proxyDefinition.DeclaringType, Is.EqualTo(typeof (Other)));
             Assert.That(proxyDefinition.ParentType, Is.EqualTo(typeof (Other)));
+            Assert.That(proxyDefinition.ImplementedInterfaces.Count(), Is.EqualTo(5));
+            Assert.That(proxyDefinition.ImplementedInterfaces, Contains.Item(typeof (IOther)));
             Assert.That(proxyDefinition.ImplementedInterfaces, Contains.Item(typeof (IBase)));
             Assert.That(proxyDefinition.ImplementedInterfaces, Contains.Item(typeof (IOne)));
             Assert.That(proxyDefinition.ImplementedInterfaces, Contains.Item(typeof (ITwo)));

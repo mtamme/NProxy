@@ -45,6 +45,12 @@ namespace NProxy.Core.Internal.Definitions
         #region IProxyDefinition Members
 
         /// <inheritdoc/>
+        public override IEnumerable<Type> ImplementedInterfaces
+        {
+            get { return AdditionalInterfaces; }
+        }
+
+        /// <inheritdoc/>
         public override void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)
         {
             base.AcceptVisitor(proxyDefinitionVisitor);

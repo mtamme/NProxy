@@ -95,6 +95,12 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
+        public Type ParentType
+        {
+            get { return _proxyDefinition.ParentType; }
+        }
+
+        /// <inheritdoc/>
         public Type ImplementationType
         {
             get { return _implementationType; }
@@ -190,6 +196,12 @@ namespace NProxy.Core
         public Type DeclaringType
         {
             get { return _proxyTemplate.DeclaringType; }
+        }
+
+        /// <inheritdoc/>
+        public Type ParentType
+        {
+            get { return _proxyTemplate.ParentType; }
         }
 
         /// <inheritdoc/>

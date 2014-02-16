@@ -148,9 +148,17 @@ namespace NProxy.Core.Internal.Definitions
         /// <summary>
         /// Returns all declaring interface types.
         /// </summary>
-        protected IEnumerable<Type> DeclaringInterfaceTypes
+        protected IEnumerable<Type> DeclaringInterfaces
         {
             get { return _declaringInterfaceTypes; }
+        }
+
+        /// <summary>
+        /// Returns all additional interface types.
+        /// </summary>
+        protected IEnumerable<Type> AdditionalInterfaces
+        {
+            get { return _additionalInterfaceTypes; }
         }
 
         #region IProxyDefinition Members
@@ -168,10 +176,7 @@ namespace NProxy.Core.Internal.Definitions
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Type> ImplementedInterfaces
-        {
-            get { return _declaringInterfaceTypes.Concat(_additionalInterfaceTypes); }
-        }
+        public abstract IEnumerable<Type> ImplementedInterfaces { get; }
 
         /// <inheritdoc/>
         public virtual void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)

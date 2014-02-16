@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NProxy.Core.Internal.Definitions
 {
@@ -37,6 +38,12 @@ namespace NProxy.Core.Internal.Definitions
         }
 
         #region IProxyDefinition Members
+
+        /// <inheritdoc/>
+        public override IEnumerable<Type> ImplementedInterfaces
+        {
+            get { return DeclaringInterfaces.Concat(AdditionalInterfaces); }
+        }
 
         /// <inheritdoc/>
         public override void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)

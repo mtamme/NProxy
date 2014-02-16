@@ -33,6 +33,11 @@ namespace NProxy.Core
         Type DeclaringType { get; }
 
         /// <summary>
+        /// Returns the parent type.
+        /// </summary>
+        Type ParentType { get; }
+
+        /// <summary>
         /// Returns the implementation type.
         /// </summary>
         Type ImplementationType { get; }
