@@ -19,8 +19,8 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using NProxy.Core.Internal.Builders;
 using NProxy.Core.Internal.Definitions;
+using NProxy.Core.Internal.Emit;
 using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core

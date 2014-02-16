@@ -17,19 +17,20 @@
 //
 
 using System;
+using System.Reflection;
 
-namespace NProxy.Core.Internal.Builders
+namespace NProxy.Core.Internal.Emit
 {
     /// <summary>
-    /// Defines a type builder factory.
+    /// Defines a type factory.
     /// </summary>
-    internal interface ITypeBuilderFactory
+    internal interface ITypeFactory
     {
         /// <summary>
-        /// Creates a type builder.
+        /// Creates a new type based on the specified method information.
         /// </summary>
-        /// <param name="parentType">The parent type.</param>
-        /// <returns>The type builder.</returns>
-        ITypeBuilder CreateBuilder(Type parentType);
+        /// <param name="methodInfo">The method information.</param>
+        /// <returns>The new type.</returns>
+        Type CreateType(MethodInfo methodInfo);
     }
 }

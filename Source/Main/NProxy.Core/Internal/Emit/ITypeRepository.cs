@@ -20,7 +20,7 @@ using System;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace NProxy.Core.Internal.Builders
+namespace NProxy.Core.Internal.Emit
 {
     /// <summary>
     /// Defines a type repository.

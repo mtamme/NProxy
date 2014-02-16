@@ -18,7 +18,7 @@
 
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Builders
+namespace NProxy.Core.Internal.Emit
 {
     /// <summary>
     /// Defines an interception filter.
