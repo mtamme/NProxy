@@ -105,7 +105,7 @@ namespace NProxy.Core.Internal.Reflection
                 throw new ArgumentNullException("parameterNames");
 
             if (parameterTypes.Length != parameterNames.Length)
-                throw new ArgumentException(Resources.NumberOfParameterTypesAndParameterNamesMustBeEqual);
+                throw new ArgumentException(Resources.NumberOfParameterTypesAndNamesMustBeEqual);
 
             // Define constructor.
             var constructorBuilder = typeBuilder.DefineConstructor(
@@ -216,7 +216,7 @@ namespace NProxy.Core.Internal.Reflection
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
         /// <param name="declaringEventInfo">The declaring event information.</param>
-        /// <param name="isExplicit">A value indicating weather the specified event should be implemented explicitly.</param>
+        /// <param name="isExplicit">A value indicating whether the specified event should be implemented explicitly.</param>
         /// <param name="methodBuilderFactory">The method builder factory function.</param>
         /// <returns>The event builder.</returns>
         public static void DefineEvent(this TypeBuilder typeBuilder,
@@ -269,7 +269,7 @@ namespace NProxy.Core.Internal.Reflection
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
         /// <param name="declaringPropertyInfo">The declaring property information.</param>
-        /// <param name="isExplicit">A value indicating weather the specified property should be implemented explicitly.</param>
+        /// <param name="isExplicit">A value indicating whether the specified property should be implemented explicitly.</param>
         /// <param name="methodBuilderFactory">The method builder factory function.</param>
         /// <returns>The property builder.</returns>
         public static void DefineProperty(this TypeBuilder typeBuilder,
@@ -327,8 +327,8 @@ namespace NProxy.Core.Internal.Reflection
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
         /// <param name="declaringMethodInfo">The declaring method information.</param>
-        /// <param name="isExplicit">A value indicating weather the specified method should be implemented explicitly.</param>
-        /// <param name="isOverride">A value indicating weather the specified method should be overridden.</param>
+        /// <param name="isExplicit">A value indicating whether the specified method should be implemented explicitly.</param>
+        /// <param name="isOverride">A value indicating whether the specified method should be overridden.</param>
         /// <returns>The method builder.</returns>
         public static MethodBuilder DefineMethod(this TypeBuilder typeBuilder,
                                                  MethodInfo declaringMethodInfo,
@@ -355,7 +355,7 @@ namespace NProxy.Core.Internal.Reflection
             {
                 methodAttributes |= MethodAttributes.Virtual;
 
-                var declaringType = declaringMethodInfo.GetDeclaringType();
+                var declaringType = declaringMethodInfo.DeclaringType;
 
                 if (declaringType.IsInterface)
                     methodAttributes |= MethodAttributes.NewSlot;

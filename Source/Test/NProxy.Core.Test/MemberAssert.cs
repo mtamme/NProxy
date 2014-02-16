@@ -58,7 +58,7 @@ namespace NProxy.Core.Test
         /// </summary>
         /// <param name="actual">The actual event information.</param>
         /// <param name="expected">The expected event information.</param>
-        /// <param name="isExplicit">A value indicating weather the actual event is implemented explicitly.</param>
+        /// <param name="isExplicit">A value indicating whether the actual event is implemented explicitly.</param>
         public static void AreEquivalent(EventInfo actual, EventInfo expected, bool isExplicit)
         {
             Assert.That(actual, Is.Not.Null);
@@ -86,7 +86,7 @@ namespace NProxy.Core.Test
         /// </summary>
         /// <param name="actual">The actual property information.</param>
         /// <param name="expected">The expected property information.</param>
-        /// <param name="isExplicit">A value indicating weather the actual property is implemented explicitly.</param>
+        /// <param name="isExplicit">A value indicating whether the actual property is implemented explicitly.</param>
         public static void AreEquivalent(PropertyInfo actual, PropertyInfo expected, bool isExplicit)
         {
             Assert.That(actual, Is.Not.Null);
@@ -117,7 +117,7 @@ namespace NProxy.Core.Test
         /// </summary>
         /// <param name="actual">The actual method information.</param>
         /// <param name="expected">The expected method information.</param>
-        /// <param name="isExplicit">A value indicating weather the actual method is implemented explicitly.</param>
+        /// <param name="isExplicit">A value indicating whether the actual method is implemented explicitly.</param>
         private static void InternalAreEquivalent(MethodInfo actual, MethodInfo expected, bool isExplicit)
         {
             if ((actual == null) || (expected == null))
@@ -131,7 +131,7 @@ namespace NProxy.Core.Test
         /// </summary>
         /// <param name="actual">The actual method information.</param>
         /// <param name="expected">The expected method information.</param>
-        /// <param name="isExplicit">A value indicating weather the actual method is implemented explicitly.</param>
+        /// <param name="isExplicit">A value indicating whether the actual method is implemented explicitly.</param>
         public static void AreEquivalent(MethodInfo actual, MethodInfo expected, bool isExplicit)
         {
             Assert.That(actual, Is.Not.Null);

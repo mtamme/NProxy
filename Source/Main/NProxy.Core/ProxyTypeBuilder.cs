@@ -100,14 +100,14 @@ namespace NProxy.Core
         /// Builds an intercepted method based on the specified method information.
         /// </summary>
         /// <param name="declaringMethodInfo">The declaring method information.</param>
-        /// <param name="isExplicit">A value indicating weather the specified method should be implemented explicitly.</param>
+        /// <param name="isExplicit">A value indicating whether the specified method should be implemented explicitly.</param>
         /// <returns>The intercepted method builder.</returns>
         private MethodBuilder BuildInterceptedMethod(MethodInfo declaringMethodInfo, bool isExplicit)
         {
-            if (!declaringMethodInfo.CanOverride())
-                throw new InvalidOperationException(String.Format(Resources.MethodNotOverridable, declaringMethodInfo.Name));
-
             var isOverride = IsOverrideMethod(declaringMethodInfo);
+
+            if (isOverride && !declaringMethodInfo.CanOverride())
+                throw new InvalidOperationException(String.Format(Resources.MethodNotOverridable, declaringMethodInfo.Name));
 
             // Define method.
             var methodBuilder = _typeBuilder.DefineMethod(declaringMethodInfo, isExplicit, isOverride);
@@ -143,6 +143,7 @@ namespace NProxy.Core
 
             // Create and load method information.
             ilGenerator.Emit(OpCodes.Ldarg_0);
+            ilGenerator.Emit(isOverride ? OpCodes.Ldc_I4_1 : OpCodes.Ldc_I4_0);
             ilGenerator.Emit(OpCodes.Newobj, methodInfoConstructorInfo);
 
             // Load parameters.
@@ -176,7 +177,7 @@ namespace NProxy.Core
         private ConstructorInfo GetMethodInfoConstructor(MethodInfo methodInfo, Type[] genericParameterTypes)
         {
             var type = _typeRepository.GetType(methodInfo);
-            var constructorInfo = type.GetConstructor(BindingFlags.Public | BindingFlags.Instance, typeof (object));
+            var constructorInfo = type.GetConstructor(BindingFlags.Public | BindingFlags.Instance, typeof (object), typeof (bool));
 
             if (!type.IsGenericTypeDefinition)
                 return constructorInfo;
@@ -246,16 +247,13 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Returns a value indicating weather the specified method should be overridden.
+        /// Returns a value indicating whether the specified method should be overridden.
         /// </summary>
         /// <param name="methodBase">The method base.</param>
-        /// <returns>A value indicating weather the specified method should be overridden.</returns>
+        /// <returns>A value indicating whether the specified method should be overridden.</returns>
         private bool IsOverrideMethod(MethodBase methodBase)
         {
-            if (!methodBase.IsVirtual)
-                return false;
-
-            var declaringType = methodBase.GetDeclaringType();
+            var declaringType = methodBase.DeclaringType;
 
             if (declaringType.IsInterface)
                 return _interfaceTypes.Contains(declaringType);
@@ -264,13 +262,13 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Returns a value indicating weather the specified member should be implemented explicitly.
+        /// Returns a value indicating whether the specified member should be implemented explicitly.
         /// </summary>
         /// <param name="memberInfo">The member information.</param>
-        /// <returns>A value indicating weather the specified member should be implemented explicitly.</returns>
+        /// <returns>A value indicating whether the specified member should be implemented explicitly.</returns>
         private bool IsExplicitMember(MemberInfo memberInfo)
         {
-            var declaringType = memberInfo.GetDeclaringType();
+            var declaringType = memberInfo.DeclaringType;
 
             // Implement interface members always explicitly.
             return _interfaceTypes.Contains(declaringType);

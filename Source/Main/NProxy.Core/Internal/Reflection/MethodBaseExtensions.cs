@@ -28,16 +28,21 @@ namespace NProxy.Core.Internal.Reflection
     internal static class MethodBaseExtensions
     {
         /// <summary>
-        /// Returns a value indicating weather the specified method is overrideable.
+        /// Returns a value indicating whether the specified method is overrideable.
         /// </summary>
         /// <param name="methodBase">The method base.</param>
-        /// <returns>A value indicating weather the specified method is overrideable.</returns>
+        /// <returns>A value indicating whether the specified method is overrideable.</returns>
         public static bool CanOverride(this MethodBase methodBase)
         {
             if (methodBase == null)
                 throw new ArgumentNullException("methodBase");
 
-            return methodBase.IsVirtual && !methodBase.IsFinal;
+            if (!methodBase.IsVirtual || methodBase.IsFinal)
+                return false;
+
+            var declaringType = methodBase.DeclaringType;
+
+            return !declaringType.IsSealed;
         }
 
         /// <summary>

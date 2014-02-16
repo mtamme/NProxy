@@ -30,10 +30,10 @@ namespace NProxy.Core.Internal.Reflection
     internal static class PropertyInfoExtensions
     {
         /// <summary>
-        /// Returns a value indicating weather the specified property is overrideable.
+        /// Returns a value indicating whether the specified property is overrideable.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <returns>A value indicating weather the specified property is overrideable.</returns>
+        /// <returns>A value indicating whether the specified property is overrideable.</returns>
         public static bool CanOverride(this PropertyInfo propertyInfo)
         {
             if (propertyInfo == null)
@@ -45,10 +45,10 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Returns a value indicating weather the specified property is abstract.
+        /// Returns a value indicating whether the specified property is abstract.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <returns>A value indicating weather the specified property is abstract.</returns>
+        /// <returns>A value indicating whether the specified property is abstract.</returns>
         public static bool IsAbstract(this PropertyInfo propertyInfo)
         {
             if (propertyInfo == null)

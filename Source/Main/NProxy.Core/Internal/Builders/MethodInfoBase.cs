@@ -39,11 +39,22 @@ namespace NProxy.Core.Internal.Builders
         private readonly MethodInfo _methodInfo;
 
         /// <summary>
+        /// A value indicating whether the method is an override.
+        /// </summary>
+        private readonly bool _isOverride;
+
+        /// <summary>
+        /// The declaring type.
+        /// </summary>
+        private readonly Type _declaringType;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MethodInfoBase"/> class.
         /// </summary>
         /// <param name="source">The source object.</param>
         /// <param name="methodInfo">The declaring method information.</param>
-        protected MethodInfoBase(object source, MethodInfo methodInfo)
+        /// <param name="isOverride">A value indicating whether the method is an override.</param>
+        protected MethodInfoBase(object source, MethodInfo methodInfo, bool isOverride)
         {
             if (source == null)
                 throw new ArgumentNullException("source");
@@ -53,6 +64,9 @@ namespace NProxy.Core.Internal.Builders
 
             _source = source;
             _methodInfo = methodInfo;
+            _isOverride = isOverride;
+
+            _declaringType = methodInfo.DeclaringType;
         }
 
         /// <summary>
@@ -179,18 +193,26 @@ namespace NProxy.Core.Internal.Builders
         /// <inheritdoc/>
         public override sealed object Invoke(object target, BindingFlags bindingFlags, Binder binder, object[] parameters, CultureInfo cultureInfo)
         {
+            // Invoke base method when target equals source object.
+            if (ReferenceEquals(target, _source))
+            {
+                if (_isOverride)
+                    return InvokeBase(target, parameters);
+
+                throw new TargetException(Resources.MethodNotImplemented);
+            }
+
             if (target == null)
                 throw new TargetException(Resources.MethodRequiresATargetObject);
 
             // Check target type.
-            var declaringType = _methodInfo.DeclaringType;
             var targetType = target.GetType();
 
-            if ((declaringType == null) || !declaringType.IsAssignableFrom(targetType))
+            if (!_declaringType.IsAssignableFrom(targetType))
                 throw new TargetException(Resources.MethodNotDeclaredOrInherited);
 
-            // Check target object and invoke method.
-            return ReferenceEquals(target, _source) ? InvokeBase(target, parameters) : InvokeVirtual(target, parameters);
+            // Invoke method on target object.
+            return InvokeVirtual(target, parameters);
         }
 
         #endregion
@@ -222,7 +244,7 @@ namespace NProxy.Core.Internal.Builders
         /// <inheritdoc/>
         public override sealed Type DeclaringType
         {
-            get { return _methodInfo.DeclaringType; }
+            get { return _declaringType; }
         }
 
         /// <inheritdoc/>

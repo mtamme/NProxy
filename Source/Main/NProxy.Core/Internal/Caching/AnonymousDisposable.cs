@@ -31,7 +31,7 @@ namespace NProxy.Core.Internal.Caching
         private readonly Action<bool> _dispose;
 
         /// <summary>
-        /// A value indicating weather this <see cref="AnonymousDisposable"/> was already disposed.
+        /// A value indicating whether this <see cref="AnonymousDisposable"/> was already disposed.
         /// </summary>
         private bool _disposed;
 
@@ -61,7 +61,7 @@ namespace NProxy.Core.Internal.Caching
         /// <summary>
         /// Dispose this <see cref="AnonymousDisposable"/>.
         /// </summary>
-        /// <param name="disposing">A value indicating weather disposing is in progress.</param>
+        /// <param name="disposing">A value indicating whether disposing is in progress.</param>
         private void Dispose(bool disposing)
         {
             if (_disposed)

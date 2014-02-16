@@ -95,7 +95,6 @@
     <Compile Include="Interceptors\Types\Bar.cs" />
     <Compile Include="Interceptors\Types\FooBar.cs" />
     <Compile Include="Interceptors\CountingInterceptor.cs" />
-    <Compile Include="Internal\Reflection\MemberInfoExtensionsTestFixture.cs" />
     <Compile Include="Internal\Reflection\MethodBaseExtensionsTestFixture.cs" />
     <Compile Include="Internal\Reflection\EventInfoExtensionsTestFixture.cs" />
     <Compile Include="Internal\Reflection\PropertyInfoExtensionsTestFixture.cs" />

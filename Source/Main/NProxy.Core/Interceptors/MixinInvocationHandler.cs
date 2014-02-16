@@ -62,7 +62,7 @@ namespace NProxy.Core.Interceptors
         /// <inheritdoc/>
         public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
         {
-            var declaringType = methodInfo.GetDeclaringType();
+            var declaringType = methodInfo.DeclaringType;
             object mixin;
 
             if (_mixins.TryGetValue(declaringType, out mixin))

@@ -27,10 +27,10 @@ namespace NProxy.Core.Internal.Reflection
     internal static class TypeExtensions
     {
         /// <summary>
-        /// Returns a value indicating weather the specified type is a delegate.
+        /// Returns a value indicating whether the specified type is a delegate.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>A value indicating weather the specified type is a delegate.</returns>
+        /// <returns>A value indicating whether the specified type is a delegate.</returns>
         public static bool IsDelegate(this Type type)
         {
             if (type == null)
@@ -40,10 +40,10 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Returns a value indicating weather the specified type is void.
+        /// Returns a value indicating whether the specified type is void.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>A value indicating weather the specified type is void.</returns>
+        /// <returns>A value indicating whether the specified type is void.</returns>
         public static bool IsVoid(this Type type)
         {
             if (type == null)

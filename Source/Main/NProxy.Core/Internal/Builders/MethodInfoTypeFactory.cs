@@ -42,7 +42,7 @@ namespace NProxy.Core.Internal.Builders
         /// </summary>
         private static readonly ConstructorInfo MethodInfoBaseConstructorInfo = typeof (MethodInfoBase).GetConstructor(
             BindingFlags.NonPublic | BindingFlags.Instance,
-            typeof (object), typeof (MethodInfo));
+            typeof (object), typeof (MethodInfo), typeof (bool));
 
         /// <summary>
         /// The <see cref="MethodInfoBase.InvokeBase(object,object[])"/> method information.
@@ -100,7 +100,7 @@ namespace NProxy.Core.Internal.Builders
 
             // Get and load method information.
             var methodInfo = prototypeMethodInfo.MapGenericMethod(genericParameterTypes);
-            var declaringType = methodInfo.GetDeclaringType();
+            var declaringType = methodInfo.DeclaringType;
 
             ilGenerator.Emit(OpCodes.Ldtoken, methodInfo);
             ilGenerator.Emit(OpCodes.Ldtoken, declaringType);
@@ -125,8 +125,8 @@ namespace NProxy.Core.Internal.Builders
             var constructorBuilder = typeBuilder.DefineConstructor(
                 MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.SpecialName,
                 MethodInfoBaseConstructorInfo.CallingConvention,
-                new[] {typeof (object)},
-                new[] {"source"});
+                new[] {typeof (object), typeof (bool)},
+                new[] {"source", "isOverride"});
 
             // Implement constructor.
             var ilGenerator = constructorBuilder.GetILGenerator();
@@ -140,6 +140,9 @@ namespace NProxy.Core.Internal.Builders
             // Load method information.
             ilGenerator.Emit(OpCodes.Ldsfld, methodFieldInfo);
 
+            // Load override flag.
+            ilGenerator.Emit(OpCodes.Ldarg_2);
+
             // Call parent constructor.
             ilGenerator.Emit(OpCodes.Call, MethodInfoBaseConstructorInfo);
 
@@ -152,7 +155,7 @@ namespace NProxy.Core.Internal.Builders
         /// <param name="typeBuilder">The type builder.</param>
         /// <param name="methodInfo">The method information.</param>
         /// <param name="genericParameterTypes">The generic parameter types.</param>
-        /// <param name="isVirtual">A value indicating weather the method should be called virtually.</param>
+        /// <param name="isVirtual">A value indicating whether the method should be called virtually.</param>
         private static void BuildInvokeMethod(TypeBuilder typeBuilder, MethodInfo methodInfo, Type[] genericParameterTypes, bool isVirtual)
         {
             var invokeMethodInfo = isVirtual ? MethodInfoBaseInvokeVirtualMethodInfo : MethodInfoBaseInvokeBaseMethodInfo;
@@ -281,8 +284,8 @@ namespace NProxy.Core.Internal.Builders
             // Build constructor.
             BuildConstructor(typeBuilder, methodFieldInfo);
 
-            // Build base invoke method only for non abstract methods.
-            if (!methodInfo.IsAbstract)
+            // Build base invoke method only for non abstract and overrideable methods.
+            if (!methodInfo.IsAbstract && methodInfo.CanOverride())
                 BuildInvokeMethod(typeBuilder, methodInfo, genericParameterTypes, false);
 
             // Build virtual invoke method.

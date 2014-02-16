@@ -82,8 +82,8 @@ namespace NProxy.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyTypeBuilderFactory"/> class.
         /// </summary>
-        /// <param name="strongNamedAssembly">A value indicating weather the assembly should be strong named.</param>
-        /// <param name="canSaveAssembly">A value indicating weather the assembly can be saved.</param>
+        /// <param name="strongNamedAssembly">A value indicating whether the assembly should be strong named.</param>
+        /// <param name="canSaveAssembly">A value indicating whether the assembly can be saved.</param>
         public ProxyTypeBuilderFactory(bool strongNamedAssembly, bool canSaveAssembly)
         {
             _assemblyBuilder = DefineDynamicAssembly(DynamicAssemblyName, strongNamedAssembly, canSaveAssembly);
@@ -99,8 +99,8 @@ namespace NProxy.Core
         /// Defines the dynamic assembly.
         /// </summary>
         /// <param name="name">The assembly name.</param>
-        /// <param name="strongNamedAssembly">A value indicating weather the assembly should be strong named.</param>
-        /// <param name="canSaveAssembly">A value indicating weather the assembly can be saved.</param>
+        /// <param name="strongNamedAssembly">A value indicating whether the assembly should be strong named.</param>
+        /// <param name="canSaveAssembly">A value indicating whether the assembly can be saved.</param>
         /// <returns>The assembly builder.</returns>
         private static AssemblyBuilder DefineDynamicAssembly(string name, bool strongNamedAssembly, bool canSaveAssembly)
         {
@@ -169,7 +169,7 @@ namespace NProxy.Core
         /// Returns the dynamic assembly name.
         /// </summary>
         /// <param name="assemblyName">The assembly name.</param>
-        /// <param name="strongNamedAssembly">A value indicating weather the assembly name should contain a strong name key pair.</param>
+        /// <param name="strongNamedAssembly">A value indicating whether the assembly name should contain a strong name key pair.</param>
         /// <returns>The assembly name.</returns>
         private static AssemblyName GetDynamicAssemblyName(string assemblyName, bool strongNamedAssembly)
         {

@@ -29,21 +29,21 @@ namespace NProxy.Core.Internal.Builders
         /// Accepts the specified event information.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
-        /// <returns>A value indicating weather the specified event information is accepted.</returns>
+        /// <returns>A value indicating whether the specified event information is accepted.</returns>
         bool AcceptEvent(EventInfo eventInfo);
 
         /// <summary>
         /// Accepts the specified property information.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <returns>A value indicating weather the specified property information is accepted.</returns>
+        /// <returns>A value indicating whether the specified property information is accepted.</returns>
         bool AcceptProperty(PropertyInfo propertyInfo);
 
         /// <summary>
         /// Accepts the specified method information.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
-        /// <returns>A value indicating weather the specified method information is accepted.</returns>
+        /// <returns>A value indicating whether the specified method information is accepted.</returns>
         bool AcceptMethod(MethodInfo methodInfo);
     }
 }

@@ -168,7 +168,7 @@
   <data name="NoMoreInterceptorsInTheInterceptorChain" xml:space="preserve">
     <value>No more interceptors in the interceptor chain.</value>
   </data>
-  <data name="NumberOfParameterTypesAndParameterNamesMustBeEqual" xml:space="preserve">
-    <value>Number of parameter types and parameter names must be equal.</value>
+  <data name="NumberOfParameterTypesAndNamesMustBeEqual" xml:space="preserve">
+    <value>Number of parameter types and names must be equal.</value>
   </data>
 </root>

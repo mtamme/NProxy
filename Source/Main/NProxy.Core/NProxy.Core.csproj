@@ -47,7 +47,6 @@
     <Compile Include="Internal\Definitions\IProxyDefinition.cs" />
     <Compile Include="Internal\Definitions\ProxyDefinitionBase.cs" />
     <Compile Include="Internal\Reflection\MemberToken.cs" />
-    <Compile Include="Internal\Reflection\MemberInfoExtensions.cs" />
     <Compile Include="Internal\Reflection\MethodBuilderExtensions.cs" />
     <Compile Include="Internal\Reflection\MethodInfoExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

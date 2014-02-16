@@ -30,10 +30,10 @@ namespace NProxy.Core.Internal.Reflection
     internal static class EventInfoExtensions
     {
         /// <summary>
-        /// Returns a value indicating weather the specified event is overrideable.
+        /// Returns a value indicating whether the specified event is overrideable.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
-        /// <returns>A value indicating weather the specified event is overrideable.</returns>
+        /// <returns>A value indicating whether the specified event is overrideable.</returns>
         public static bool CanOverride(this EventInfo eventInfo)
         {
             if (eventInfo == null)
@@ -45,10 +45,10 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Returns a value indicating weather the specified event is abstract.
+        /// Returns a value indicating whether the specified event is abstract.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
-        /// <returns>A value indicating weather the specified event is abstract.</returns>
+        /// <returns>A value indicating whether the specified event is abstract.</returns>
         public static bool IsAbstract(this EventInfo eventInfo)
         {
             if (eventInfo == null)
