@@ -4,7 +4,8 @@
 
 * Fixed implemented interfaces returned by `IProxyTemplate`.
 * Exposed parent type via `IProxyTemplate` interface.
-* Only offer non abstract overridable members to interception filter.
+* Exposed `IInterceptionFilter` interface.
+* Only offer optional members to `IInterceptionFilter`.
 
 ## Version 2.1.0
 
