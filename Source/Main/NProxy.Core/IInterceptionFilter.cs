@@ -18,32 +18,32 @@
 
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Emit
+namespace NProxy.Core
 {
     /// <summary>
     /// Defines an interception filter.
     /// </summary>
-    internal interface IInterceptionFilter
+    public interface IInterceptionFilter
     {
         /// <summary>
-        /// Accepts the specified event information.
+        /// Accepts the specified event.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
-        /// <returns>A value indicating whether the specified event information is accepted.</returns>
+        /// <returns>A value indicating whether the specified event is accepted.</returns>
         bool AcceptEvent(EventInfo eventInfo);
 
         /// <summary>
-        /// Accepts the specified property information.
+        /// Accepts the specified property.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <returns>A value indicating whether the specified property information is accepted.</returns>
+        /// <returns>A value indicating whether the specified property is accepted.</returns>
         bool AcceptProperty(PropertyInfo propertyInfo);
 
         /// <summary>
-        /// Accepts the specified method information.
+        /// Accepts the specified method.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
-        /// <returns>A value indicating whether the specified method information is accepted.</returns>
+        /// <returns>A value indicating whether the specified method is accepted.</returns>
         bool AcceptMethod(MethodInfo methodInfo);
     }
 }

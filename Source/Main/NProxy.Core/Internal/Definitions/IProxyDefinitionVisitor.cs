@@ -33,25 +33,25 @@ namespace NProxy.Core.Internal.Definitions
         void VisitInterface(Type interfaceType);
 
         /// <summary>
-        /// Visits the specified constructor information.
+        /// Visits the specified constructor.
         /// </summary>
         /// <param name="constructorInfo">The constructor information.</param>
         void VisitConstructor(ConstructorInfo constructorInfo);
 
         /// <summary>
-        /// Visits the specified event information.
+        /// Visits the specified event.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
         void VisitEvent(EventInfo eventInfo);
 
         /// <summary>
-        /// Visits the specified property information.
+        /// Visits the specified property.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
         void VisitProperty(PropertyInfo propertyInfo);
 
         /// <summary>
-        /// Visits the specified method information.
+        /// Visits the specified method.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
         void VisitMethod(MethodInfo methodInfo);

@@ -45,21 +45,6 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Returns a value indicating whether the specified event is abstract.
-        /// </summary>
-        /// <param name="eventInfo">The event information.</param>
-        /// <returns>A value indicating whether the specified event is abstract.</returns>
-        public static bool IsAbstract(this EventInfo eventInfo)
-        {
-            if (eventInfo == null)
-                throw new ArgumentNullException("eventInfo");
-
-            var methodInfos = eventInfo.GetAccessorMethods();
-
-            return methodInfos.Any(m => m.IsAbstract);
-        }
-
-        /// <summary>
         /// Returns the accessor methods for the specified event.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>

@@ -40,29 +40,16 @@ namespace NProxy.Core.Test.Internal.Reflection
         }
 
         [Test]
-        public void IsAbstractTest()
-        {
-            // Arrange
-            var propertyInfo = typeof (IObjectGetSetProperty).GetProperty("Property");
-
-            // Act
-            var canOverride = propertyInfo.IsAbstract();
-
-            // Assert
-            Assert.That(canOverride, Is.True);
-        }
-
-        [Test]
         public void GetAccessorMethodsTest()
         {
             // Arrange
             var propertyInfo = typeof (IObjectGetSetProperty).GetProperty("Property");
 
             // Act
-            var accessorMethodInfos = propertyInfo.GetAccessorMethods();
+            var methodInfos = propertyInfo.GetAccessorMethods();
 
             // Assert
-            Assert.That(accessorMethodInfos.Count(), Is.EqualTo(2));
+            Assert.That(methodInfos.Count(), Is.EqualTo(2));
         }
 
         [Test]

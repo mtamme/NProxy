@@ -27,7 +27,7 @@ namespace NProxy.Core.Internal.Emit
     internal interface ITypeFactory
     {
         /// <summary>
-        /// Creates a new type based on the specified method information.
+        /// Creates a new type based on the specified method.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
         /// <returns>The new type.</returns>

@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using NProxy.Core.Internal;
@@ -97,14 +98,14 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Builds an intercepted method based on the specified method information.
+        /// Builds an intercepted method based on the specified declaring method.
         /// </summary>
         /// <param name="declaringMethodInfo">The declaring method information.</param>
         /// <param name="isExplicit">A value indicating whether the specified method should be implemented explicitly.</param>
         /// <returns>The intercepted method builder.</returns>
         private MethodBuilder BuildInterceptedMethod(MethodInfo declaringMethodInfo, bool isExplicit)
         {
-            var isOverride = IsOverrideMethod(declaringMethodInfo);
+            var isOverride = IsOverrideMember(declaringMethodInfo);
 
             if (isOverride && !declaringMethodInfo.CanOverride())
                 throw new InvalidOperationException(String.Format(Resources.MethodNotOverridable, declaringMethodInfo.Name));
@@ -247,13 +248,13 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Returns a value indicating whether the specified method should be overridden.
+        /// Returns a value indicating whether the specified member should be overridden.
         /// </summary>
-        /// <param name="methodBase">The method base.</param>
-        /// <returns>A value indicating whether the specified method should be overridden.</returns>
-        private bool IsOverrideMethod(MethodBase methodBase)
+        /// <param name="memberInfo">The member information.</param>
+        /// <returns>A value indicating whether the specified member should be overridden.</returns>
+        private bool IsOverrideMember(MemberInfo memberInfo)
         {
-            var declaringType = methodBase.DeclaringType;
+            var declaringType = memberInfo.DeclaringType;
 
             if (declaringType.IsInterface)
                 return _interfaceTypes.Contains(declaringType);
@@ -271,10 +272,41 @@ namespace NProxy.Core
             var declaringType = memberInfo.DeclaringType;
 
             // Implement interface members always explicitly.
-            return _interfaceTypes.Contains(declaringType);
+            return declaringType.IsInterface && _interfaceTypes.Contains(declaringType);
         }
 
         #region ITypeBuilder Members
+
+        /// <inheritdoc/>
+        public bool IsOptionalEvent(EventInfo declaringEventInfo)
+        {
+            if (declaringEventInfo == null)
+                throw new ArgumentNullException("declaringEventInfo");
+
+            var methodInfos = declaringEventInfo.GetAccessorMethods();
+
+            return methodInfos.All(IsOptionalMethod);
+        }
+
+        /// <inheritdoc/>
+        public bool IsOptionalProperty(PropertyInfo declaringPropertyInfo)
+        {
+            if (declaringPropertyInfo == null)
+                throw new ArgumentNullException("declaringPropertyInfo");
+
+            var methodInfos = declaringPropertyInfo.GetAccessorMethods();
+
+            return methodInfos.All(IsOptionalMethod);
+        }
+
+        /// <inheritdoc/>
+        public bool IsOptionalMethod(MethodInfo declaringMethodInfo)
+        {
+            if (declaringMethodInfo == null)
+                throw new ArgumentNullException("declaringMethodInfo");
+
+            return !declaringMethodInfo.IsAbstract && IsOverrideMember(declaringMethodInfo);
+        }
 
         /// <inheritdoc/>
         public void AddCustomAttribute(ConstructorInfo constructorInfo, params object[] arguments)

@@ -40,29 +40,16 @@ namespace NProxy.Core.Test.Internal.Reflection
         }
 
         [Test]
-        public void IsAbstractTest()
-        {
-            // Arrange
-            var eventInfo = typeof (IActionEvent).GetEvent("Event");
-
-            // Act
-            var isAbstract = eventInfo.IsAbstract();
-
-            // Assert
-            Assert.That(isAbstract, Is.True);
-        }
-
-        [Test]
         public void GetAccessorMethodsTest()
         {
             // Arrange
             var eventInfo = typeof (IActionEvent).GetEvent("Event");
 
             // Act
-            var accessorMethodInfos = eventInfo.GetAccessorMethods();
+            var methodInfos = eventInfo.GetAccessorMethods();
 
             // Assert
-            Assert.That(accessorMethodInfos.Count(), Is.EqualTo(2));
+            Assert.That(methodInfos.Count(), Is.EqualTo(2));
         }
 
         [Test]

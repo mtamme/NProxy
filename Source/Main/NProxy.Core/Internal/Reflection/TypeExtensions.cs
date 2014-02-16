@@ -76,7 +76,7 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Returns the method information that reflects the method that matches the specified criterias.
+        /// Returns the method that reflects the method that matches the specified criterias.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="methodName">The method name.</param>

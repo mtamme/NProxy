@@ -36,7 +36,7 @@ namespace NProxy.Core.Internal.Emit
         TypeBuilder DefineType(string typeName, Type parentType);
 
         /// <summary>
-        /// Returns a type for the specified method information.
+        /// Returns a type for the specified method.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
         /// <returns>The type.</returns>

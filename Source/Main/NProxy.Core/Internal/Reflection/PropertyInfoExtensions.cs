@@ -45,21 +45,6 @@ namespace NProxy.Core.Internal.Reflection
         }
 
         /// <summary>
-        /// Returns a value indicating whether the specified property is abstract.
-        /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <returns>A value indicating whether the specified property is abstract.</returns>
-        public static bool IsAbstract(this PropertyInfo propertyInfo)
-        {
-            if (propertyInfo == null)
-                throw new ArgumentNullException("propertyInfo");
-
-            var methodInfos = propertyInfo.GetAccessorMethods();
-
-            return methodInfos.Any(m => m.IsAbstract);
-        }
-
-        /// <summary>
         /// Returns the accessor methods for the specified property.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>

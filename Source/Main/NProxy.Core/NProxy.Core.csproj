@@ -91,7 +91,7 @@
     <Compile Include="Internal\Emit\ITypeRepository.cs" />
     <Compile Include="Internal\Emit\MethodInfoBase.cs" />
     <Compile Include="Internal\Emit\MethodInfoTypeFactory.cs" />
-    <Compile Include="Internal\Emit\IInterceptionFilter.cs" />
+    <Compile Include="IInterceptionFilter.cs" />
     <Compile Include="ProxyGenerator.cs" />
     <Compile Include="NonInterceptedInterceptionFilter.cs" />
     <Compile Include="ProxyTemplateExtensions.cs" />
