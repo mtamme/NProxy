@@ -1,5 +1,11 @@
 # Release notes
 
+## Version 2.2.0
+
+* Fixed implemented interfaces returned by `IProxyTemplate`.
+* Exposed parent type via `IProxyTemplate` interface.
+* Only offer non abstract overridable members to interception filter.
+
 ## Version 2.1.0
 
 * Reduced generated IL code size.
