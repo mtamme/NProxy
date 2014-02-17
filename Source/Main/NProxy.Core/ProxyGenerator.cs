@@ -77,7 +77,7 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Generates a proxy template.
+        /// Generates a proxy template based on the specified proxy definition.
         /// </summary>
         /// <param name="proxyDefinition">The proxy definition.</param>
         /// <returns>The proxy template.</returns>
