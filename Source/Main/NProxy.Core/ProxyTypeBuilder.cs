@@ -100,7 +100,7 @@ namespace NProxy.Core
         /// <summary>
         /// Builds an intercepted method based on the specified method.
         /// </summary>
-		/// <param name="methodInfo">The method information.</param>
+        /// <param name="methodInfo">The method information.</param>
         /// <param name="isExplicit">A value indicating whether the specified method should be implemented explicitly.</param>
         /// <returns>The intercepted method builder.</returns>
         private MethodBuilder BuildInterceptedMethod(MethodInfo methodInfo, bool isExplicit)
@@ -310,7 +310,7 @@ namespace NProxy.Core
         public void BuildConstructor(ConstructorInfo constructorInfo)
         {
             if (constructorInfo == null)
-				throw new ArgumentNullException("constructorInfo");
+                throw new ArgumentNullException("constructorInfo");
 
             // Define constructor.
             var constructorBuilder = _typeBuilder.DefineConstructor(
@@ -351,68 +351,68 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ret);
         }
 
-		/// <inheritdoc/>
-		public bool IsConcreteEvent(EventInfo eventInfo)
-		{
-			if (eventInfo == null)
-				throw new ArgumentNullException("eventInfo");
-
-			var methodInfos = eventInfo.GetAccessorMethods();
-
-			return methodInfos.All(IsConcreteMethod);
-		}
-
         /// <inheritdoc/>
-		public void BuildEvent(EventInfo eventInfo)
+        public bool IsConcreteEvent(EventInfo eventInfo)
         {
-			if (eventInfo == null)
-				throw new ArgumentNullException("eventInfo");
+            if (eventInfo == null)
+                throw new ArgumentNullException("eventInfo");
 
-			var isExplicit = IsExplicitMember(eventInfo);
+            var methodInfos = eventInfo.GetAccessorMethods();
 
-			_typeBuilder.DefineEvent(eventInfo, isExplicit, BuildInterceptedMethod);
+            return methodInfos.All(IsConcreteMethod);
         }
 
-		/// <inheritdoc/>
-		public bool IsConcreteProperty(PropertyInfo propertyInfo)
-		{
-			if (propertyInfo == null)
-				throw new ArgumentNullException("propertyInfo");
-
-			var methodInfos = propertyInfo.GetAccessorMethods();
-
-			return methodInfos.All(IsConcreteMethod);
-		}
-
         /// <inheritdoc/>
-		public void BuildProperty(PropertyInfo propertyInfo)
+        public void BuildEvent(EventInfo eventInfo)
         {
-			if (propertyInfo == null)
-				throw new ArgumentNullException("propertyInfo");
+            if (eventInfo == null)
+                throw new ArgumentNullException("eventInfo");
 
-			var isExplicit = IsExplicitMember(propertyInfo);
+            var isExplicit = IsExplicitMember(eventInfo);
 
-			_typeBuilder.DefineProperty(propertyInfo, isExplicit, BuildInterceptedMethod);
+            _typeBuilder.DefineEvent(eventInfo, isExplicit, BuildInterceptedMethod);
         }
 
-		/// <inheritdoc/>
-		public bool IsConcreteMethod(MethodInfo methodInfo)
-		{
-			if (methodInfo == null)
-				throw new ArgumentNullException("methodInfo");
+        /// <inheritdoc/>
+        public bool IsConcreteProperty(PropertyInfo propertyInfo)
+        {
+            if (propertyInfo == null)
+                throw new ArgumentNullException("propertyInfo");
 
-			return !methodInfo.IsAbstract && IsOverrideMember(methodInfo);
-		}
+            var methodInfos = propertyInfo.GetAccessorMethods();
+
+            return methodInfos.All(IsConcreteMethod);
+        }
 
         /// <inheritdoc/>
-		public void BuildMethod(MethodInfo methodInfo)
+        public void BuildProperty(PropertyInfo propertyInfo)
         {
-			if (methodInfo == null)
-				throw new ArgumentNullException("methodInfo");
+            if (propertyInfo == null)
+                throw new ArgumentNullException("propertyInfo");
 
-			var isExplicit = IsExplicitMember(methodInfo);
+            var isExplicit = IsExplicitMember(propertyInfo);
 
-			BuildInterceptedMethod(methodInfo, isExplicit);
+            _typeBuilder.DefineProperty(propertyInfo, isExplicit, BuildInterceptedMethod);
+        }
+
+        /// <inheritdoc/>
+        public bool IsConcreteMethod(MethodInfo methodInfo)
+        {
+            if (methodInfo == null)
+                throw new ArgumentNullException("methodInfo");
+
+            return !methodInfo.IsAbstract && IsOverrideMember(methodInfo);
+        }
+
+        /// <inheritdoc/>
+        public void BuildMethod(MethodInfo methodInfo)
+        {
+            if (methodInfo == null)
+                throw new ArgumentNullException("methodInfo");
+
+            var isExplicit = IsExplicitMember(methodInfo);
+
+            BuildInterceptedMethod(methodInfo, isExplicit);
         }
 
         /// <inheritdoc/>

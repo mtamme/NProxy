@@ -140,7 +140,7 @@ namespace NProxy.Core.Internal.Emit
         /// Defines a constructor based on the specified constructor.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-		/// <param name="constructorInfo">The constructor information.</param>
+        /// <param name="constructorInfo">The constructor information.</param>
         /// <param name="additionalParameterTypes">The additional parameter types.</param>
         /// <param name="additionalParameterNames">The additional parameter names.</param>
         /// <returns>The constructor builder.</returns>
@@ -153,7 +153,7 @@ namespace NProxy.Core.Internal.Emit
                 throw new ArgumentNullException("typeBuilder");
 
             if (constructorInfo == null)
-				throw new ArgumentNullException("constructorInfo");
+                throw new ArgumentNullException("constructorInfo");
 
             if (additionalParameterTypes == null)
                 throw new ArgumentNullException("additionalParameterTypes");
@@ -163,8 +163,8 @@ namespace NProxy.Core.Internal.Emit
 
             var methodAttributes = MethodAttributes.Public |
                                    constructorInfo.Attributes & (MethodAttributes.HideBySig |
-                                                                          MethodAttributes.SpecialName |
-                                                                          MethodAttributes.ReservedMask);
+                                                                 MethodAttributes.SpecialName |
+                                                                 MethodAttributes.ReservedMask);
             var parameterTypes = new List<Type>();
 
             parameterTypes.AddRange(additionalParameterTypes);
@@ -189,10 +189,10 @@ namespace NProxy.Core.Internal.Emit
         /// Defines the constructor parameters based on the specified constructor.
         /// </summary>
         /// <param name="constructorBuilder">The constructor builder.</param>
-		/// <param name="constructorInfo">The constructor information.</param>
+        /// <param name="constructorInfo">The constructor information.</param>
         /// <param name="additionalParameterNames">The additional parameter names.</param>
         private static void DefineParameters(this ConstructorBuilder constructorBuilder,
-		                                     ConstructorInfo constructorInfo,
+                                             ConstructorInfo constructorInfo,
                                              IEnumerable<string> additionalParameterNames)
         {
             var position = 1;
@@ -216,7 +216,7 @@ namespace NProxy.Core.Internal.Emit
         /// Defines an event based on the specified event.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-		/// <param name="eventInfo">The event information.</param>
+        /// <param name="eventInfo">The event information.</param>
         /// <param name="isExplicit">A value indicating whether the specified event should be implemented explicitly.</param>
         /// <param name="methodBuilderFactory">The method builder factory function.</param>
         /// <returns>The event builder.</returns>
@@ -229,7 +229,7 @@ namespace NProxy.Core.Internal.Emit
                 throw new ArgumentNullException("typeBuilder");
 
             if (eventInfo == null)
-				throw new ArgumentNullException("eventInfo");
+                throw new ArgumentNullException("eventInfo");
 
             if (methodBuilderFactory == null)
                 throw new ArgumentNullException("methodBuilderFactory");
@@ -269,7 +269,7 @@ namespace NProxy.Core.Internal.Emit
         /// Defines a property based on the specified property.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-		/// <param name="propertyInfo">The property information.</param>
+        /// <param name="propertyInfo">The property information.</param>
         /// <param name="isExplicit">A value indicating whether the specified property should be implemented explicitly.</param>
         /// <param name="methodBuilderFactory">The method builder factory function.</param>
         /// <returns>The property builder.</returns>
@@ -282,7 +282,7 @@ namespace NProxy.Core.Internal.Emit
                 throw new ArgumentNullException("typeBuilder");
 
             if (propertyInfo == null)
-				throw new ArgumentNullException("propertyInfo");
+                throw new ArgumentNullException("propertyInfo");
 
             if (methodBuilderFactory == null)
                 throw new ArgumentNullException("methodBuilderFactory");
@@ -327,7 +327,7 @@ namespace NProxy.Core.Internal.Emit
         /// Defines a method based on the specified method.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-		/// <param name="methodInfo">The method information.</param>
+        /// <param name="methodInfo">The method information.</param>
         /// <param name="isExplicit">A value indicating whether the specified method should be implemented explicitly.</param>
         /// <param name="isOverride">A value indicating whether the specified method should be overridden.</param>
         /// <returns>The method builder.</returns>
@@ -340,12 +340,12 @@ namespace NProxy.Core.Internal.Emit
                 throw new ArgumentNullException("typeBuilder");
 
             if (methodInfo == null)
-				throw new ArgumentNullException("methodInfo");
+                throw new ArgumentNullException("methodInfo");
 
             // Define method attributes.
             var methodAttributes = methodInfo.Attributes & (MethodAttributes.HideBySig |
-                                                                     MethodAttributes.SpecialName |
-                                                                     MethodAttributes.ReservedMask);
+                                                            MethodAttributes.SpecialName |
+                                                            MethodAttributes.ReservedMask);
 
             if (isExplicit)
                 methodAttributes |= MethodAttributes.Private;

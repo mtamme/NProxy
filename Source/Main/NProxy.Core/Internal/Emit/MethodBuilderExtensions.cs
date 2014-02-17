@@ -33,7 +33,7 @@ namespace NProxy.Core.Internal.Emit
         /// Defines the method parameters based on the specified method.
         /// </summary>
         /// <param name="methodBuilder">The method builder.</param>
-		/// <param name="methodInfo">The method information.</param>
+        /// <param name="methodInfo">The method information.</param>
         public static void DefineParameters(this MethodBuilder methodBuilder, MethodInfo methodInfo)
         {
             if (methodBuilder == null)
@@ -48,7 +48,7 @@ namespace NProxy.Core.Internal.Emit
         /// Defines the method parameters based on the specified method.
         /// </summary>
         /// <param name="methodBuilder">The method builder.</param>
-		/// <param name="methodInfo">The method information.</param>
+        /// <param name="methodInfo">The method information.</param>
         /// <param name="genericTypes">The generic types.</param>
         public static void DefineParameters(this MethodBuilder methodBuilder, MethodInfo methodInfo, Type[] genericTypes)
         {
@@ -56,7 +56,7 @@ namespace NProxy.Core.Internal.Emit
                 throw new ArgumentNullException("methodBuilder");
 
             if (methodInfo == null)
-				throw new ArgumentNullException("methodInfo");
+                throw new ArgumentNullException("methodInfo");
 
             // Set parameters and return type.
             var parameterTypes = methodInfo.MapGenericParameterTypes(genericTypes);
@@ -78,7 +78,7 @@ namespace NProxy.Core.Internal.Emit
         /// Defines the generic method parameters based on the specified method.
         /// </summary>
         /// <param name="methodBuilder">The method builder.</param>
-		/// <param name="methodBase">The method base.</param>
+        /// <param name="methodBase">The method base.</param>
         /// <returns>The generic parameter types.</returns>
         /// <remarks>
         /// Custom attributes are not considered by this method.
@@ -89,7 +89,7 @@ namespace NProxy.Core.Internal.Emit
                 throw new ArgumentNullException("methodBuilder");
 
             if (methodBase == null)
-				throw new ArgumentNullException("methodBase");
+                throw new ArgumentNullException("methodBase");
 
             if (!methodBase.IsGenericMethodDefinition)
                 return Type.EmptyTypes;

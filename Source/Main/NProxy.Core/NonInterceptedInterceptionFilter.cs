@@ -18,7 +18,6 @@
 
 using System;
 using System.Reflection;
-using NProxy.Core.Internal.Emit;
 
 namespace NProxy.Core
 {

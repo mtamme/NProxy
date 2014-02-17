@@ -19,7 +19,6 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core.Interceptors
 {

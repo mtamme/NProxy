@@ -42,47 +42,47 @@ namespace NProxy.Core.Internal.Emit
         /// <summary>
         /// Builds a constructor based on the specified constructor.
         /// </summary>
-		/// <param name="constructorInfo">The constructor information.</param>
-		void BuildConstructor(ConstructorInfo constructorInfo);
+        /// <param name="constructorInfo">The constructor information.</param>
+        void BuildConstructor(ConstructorInfo constructorInfo);
 
-		/// <summary>
-		/// Returns a value indicating whether the specified event is concrete.
-		/// </summary>
-		/// <param name="eventInfo">The event information.</param>
-		/// <returns>A value indicating whether the specified event is concrete.</returns>
-		bool IsConcreteEvent(EventInfo eventInfo);
+        /// <summary>
+        /// Returns a value indicating whether the specified event is concrete.
+        /// </summary>
+        /// <param name="eventInfo">The event information.</param>
+        /// <returns>A value indicating whether the specified event is concrete.</returns>
+        bool IsConcreteEvent(EventInfo eventInfo);
 
         /// <summary>
         /// Builds an event based on the specified event.
         /// </summary>
-		/// <param name="eventInfo">The event information.</param>
+        /// <param name="eventInfo">The event information.</param>
         void BuildEvent(EventInfo eventInfo);
 
-		/// <summary>
-		/// Returns a value indicating whether the specified property is concrete.
-		/// </summary>
-		/// <param name="propertyInfo">The property information.</param>
-		/// <returns>A value indicating whether the specified property is concrete.</returns>
-		bool IsConcreteProperty(PropertyInfo propertyInfo);
+        /// <summary>
+        /// Returns a value indicating whether the specified property is concrete.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>A value indicating whether the specified property is concrete.</returns>
+        bool IsConcreteProperty(PropertyInfo propertyInfo);
 
         /// <summary>
         /// Builds a property based on the specified property.
         /// </summary>
-		/// <param name="propertyInfo">The property information.</param>
-		void BuildProperty(PropertyInfo propertyInfo);
+        /// <param name="propertyInfo">The property information.</param>
+        void BuildProperty(PropertyInfo propertyInfo);
 
-		/// <summary>
-		/// Returns a value indicating whether the specified method is concrete.
-		/// </summary>
-		/// <param name="methodInfo">The method information.</param>
-		/// <returns>A value indicating whether the specified method is concrete.</returns>
-		bool IsConcreteMethod(MethodInfo methodInfo);
+        /// <summary>
+        /// Returns a value indicating whether the specified method is concrete.
+        /// </summary>
+        /// <param name="methodInfo">The method information.</param>
+        /// <returns>A value indicating whether the specified method is concrete.</returns>
+        bool IsConcreteMethod(MethodInfo methodInfo);
 
         /// <summary>
         /// Builds a method based on the specified method.
         /// </summary>
-		/// <param name="methodInfo">The method information.</param>
-		void BuildMethod(MethodInfo methodInfo);
+        /// <param name="methodInfo">The method information.</param>
+        void BuildMethod(MethodInfo methodInfo);
 
         /// <summary>
         /// Creates the type.

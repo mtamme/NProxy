@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Internal.Definitions;
 using NProxy.Core.Internal.Emit;
-using NProxy.Core.Internal.Reflection;
 
 namespace NProxy.Core
 {
@@ -122,7 +121,7 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public void VisitProperty(PropertyInfo propertyInfo)
         {
-			if (_typeBuilder.IsConcreteProperty(propertyInfo) && !_interceptionFilter.AcceptProperty(propertyInfo))
+            if (_typeBuilder.IsConcreteProperty(propertyInfo) && !_interceptionFilter.AcceptProperty(propertyInfo))
                 return;
 
             _typeBuilder.BuildProperty(propertyInfo);
@@ -132,7 +131,7 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public void VisitMethod(MethodInfo methodInfo)
         {
-			if (_typeBuilder.IsConcreteMethod(methodInfo) && !_interceptionFilter.AcceptMethod(methodInfo))
+            if (_typeBuilder.IsConcreteMethod(methodInfo) && !_interceptionFilter.AcceptMethod(methodInfo))
                 return;
 
             _typeBuilder.BuildMethod(methodInfo);
