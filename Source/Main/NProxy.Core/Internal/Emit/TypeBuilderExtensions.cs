@@ -137,23 +137,23 @@ namespace NProxy.Core.Internal.Emit
         }
 
         /// <summary>
-        /// Defines a constructor based on the specified declaring constructor.
+        /// Defines a constructor based on the specified constructor.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-        /// <param name="declaringConstructorInfo">The declaring constructor information.</param>
+		/// <param name="constructorInfo">The constructor information.</param>
         /// <param name="additionalParameterTypes">The additional parameter types.</param>
         /// <param name="additionalParameterNames">The additional parameter names.</param>
         /// <returns>The constructor builder.</returns>
         public static ConstructorBuilder DefineConstructor(this TypeBuilder typeBuilder,
-                                                           ConstructorInfo declaringConstructorInfo,
+                                                           ConstructorInfo constructorInfo,
                                                            IEnumerable<Type> additionalParameterTypes,
                                                            IEnumerable<string> additionalParameterNames)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
 
-            if (declaringConstructorInfo == null)
-                throw new ArgumentNullException("declaringConstructorInfo");
+            if (constructorInfo == null)
+				throw new ArgumentNullException("constructorInfo");
 
             if (additionalParameterTypes == null)
                 throw new ArgumentNullException("additionalParameterTypes");
@@ -162,37 +162,37 @@ namespace NProxy.Core.Internal.Emit
                 throw new ArgumentNullException("additionalParameterNames");
 
             var methodAttributes = MethodAttributes.Public |
-                                   declaringConstructorInfo.Attributes & (MethodAttributes.HideBySig |
+                                   constructorInfo.Attributes & (MethodAttributes.HideBySig |
                                                                           MethodAttributes.SpecialName |
                                                                           MethodAttributes.ReservedMask);
             var parameterTypes = new List<Type>();
 
             parameterTypes.AddRange(additionalParameterTypes);
 
-            var parentParameterTypes = declaringConstructorInfo.GetParameterTypes();
+            var parentParameterTypes = constructorInfo.GetParameterTypes();
 
             parameterTypes.AddRange(parentParameterTypes);
 
             // Define constructor.
             var constructorBuilder = typeBuilder.DefineConstructor(
                 methodAttributes,
-                declaringConstructorInfo.CallingConvention,
+                constructorInfo.CallingConvention,
                 parameterTypes.ToArray());
 
             // Define constructor parameters.
-            constructorBuilder.DefineParameters(declaringConstructorInfo, additionalParameterNames);
+            constructorBuilder.DefineParameters(constructorInfo, additionalParameterNames);
 
             return constructorBuilder;
         }
 
         /// <summary>
-        /// Defines the constructor parameters.
+        /// Defines the constructor parameters based on the specified constructor.
         /// </summary>
         /// <param name="constructorBuilder">The constructor builder.</param>
-        /// <param name="declaringConstructorInfo">The declaring constructor information.</param>
+		/// <param name="constructorInfo">The constructor information.</param>
         /// <param name="additionalParameterNames">The additional parameter names.</param>
         private static void DefineParameters(this ConstructorBuilder constructorBuilder,
-                                             ConstructorInfo declaringConstructorInfo,
+		                                     ConstructorInfo constructorInfo,
                                              IEnumerable<string> additionalParameterNames)
         {
             var position = 1;
@@ -204,7 +204,7 @@ namespace NProxy.Core.Internal.Emit
             }
 
             // Define base constructor parameters.
-            var parameterInfos = declaringConstructorInfo.GetParameters();
+            var parameterInfos = constructorInfo.GetParameters();
 
             foreach (var parameterInfo in parameterInfos)
             {
@@ -213,49 +213,49 @@ namespace NProxy.Core.Internal.Emit
         }
 
         /// <summary>
-        /// Defines an event based on the specified declaring event.
+        /// Defines an event based on the specified event.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-        /// <param name="declaringEventInfo">The declaring event information.</param>
+		/// <param name="eventInfo">The event information.</param>
         /// <param name="isExplicit">A value indicating whether the specified event should be implemented explicitly.</param>
         /// <param name="methodBuilderFactory">The method builder factory function.</param>
         /// <returns>The event builder.</returns>
         public static void DefineEvent(this TypeBuilder typeBuilder,
-                                       EventInfo declaringEventInfo,
+                                       EventInfo eventInfo,
                                        bool isExplicit,
                                        Func<MethodInfo, bool, MethodBuilder> methodBuilderFactory)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
 
-            if (declaringEventInfo == null)
-                throw new ArgumentNullException("declaringEventInfo");
+            if (eventInfo == null)
+				throw new ArgumentNullException("eventInfo");
 
             if (methodBuilderFactory == null)
                 throw new ArgumentNullException("methodBuilderFactory");
 
             // Define event.
-            var eventName = isExplicit ? declaringEventInfo.GetFullName() : declaringEventInfo.Name;
+            var eventName = isExplicit ? eventInfo.GetFullName() : eventInfo.Name;
 
             var eventBuilder = typeBuilder.DefineEvent(
                 eventName,
-                declaringEventInfo.Attributes,
-                declaringEventInfo.EventHandlerType);
+                eventInfo.Attributes,
+                eventInfo.EventHandlerType);
 
             // Build event add method.
-            var addMethodInfo = declaringEventInfo.GetAddMethod();
+            var addMethodInfo = eventInfo.GetAddMethod();
             var addMethodBuilder = methodBuilderFactory(addMethodInfo, isExplicit);
 
             eventBuilder.SetAddOnMethod(addMethodBuilder);
 
             // Build event remove method.
-            var removeMethodInfo = declaringEventInfo.GetRemoveMethod();
+            var removeMethodInfo = eventInfo.GetRemoveMethod();
             var removeMethodBuilder = methodBuilderFactory(removeMethodInfo, isExplicit);
 
             eventBuilder.SetRemoveOnMethod(removeMethodBuilder);
 
             // Build event raise method.
-            var raiseMethodInfo = declaringEventInfo.GetRaiseMethod();
+            var raiseMethodInfo = eventInfo.GetRaiseMethod();
 
             if (raiseMethodInfo != null)
             {
@@ -266,36 +266,36 @@ namespace NProxy.Core.Internal.Emit
         }
 
         /// <summary>
-        /// Defines a property based on the specified declaring property.
+        /// Defines a property based on the specified property.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-        /// <param name="declaringPropertyInfo">The declaring property information.</param>
+		/// <param name="propertyInfo">The property information.</param>
         /// <param name="isExplicit">A value indicating whether the specified property should be implemented explicitly.</param>
         /// <param name="methodBuilderFactory">The method builder factory function.</param>
         /// <returns>The property builder.</returns>
         public static void DefineProperty(this TypeBuilder typeBuilder,
-                                          PropertyInfo declaringPropertyInfo,
+                                          PropertyInfo propertyInfo,
                                           bool isExplicit,
                                           Func<MethodInfo, bool, MethodBuilder> methodBuilderFactory)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
 
-            if (declaringPropertyInfo == null)
-                throw new ArgumentNullException("declaringPropertyInfo");
+            if (propertyInfo == null)
+				throw new ArgumentNullException("propertyInfo");
 
             if (methodBuilderFactory == null)
                 throw new ArgumentNullException("methodBuilderFactory");
 
             // Define property.
-            var propertyName = isExplicit ? declaringPropertyInfo.GetFullName() : declaringPropertyInfo.Name;
-            var parameterTypes = declaringPropertyInfo.GetIndexParameterTypes();
+            var propertyName = isExplicit ? propertyInfo.GetFullName() : propertyInfo.Name;
+            var parameterTypes = propertyInfo.GetIndexParameterTypes();
 
             var propertyBuilder = typeBuilder.DefineProperty(
                 propertyName,
-                declaringPropertyInfo.Attributes,
+                propertyInfo.Attributes,
                 CallingConventions.HasThis,
-                declaringPropertyInfo.PropertyType,
+                propertyInfo.PropertyType,
                 null,
                 null,
                 parameterTypes,
@@ -303,7 +303,7 @@ namespace NProxy.Core.Internal.Emit
                 null);
 
             // Build property get method.
-            var getMethodInfo = declaringPropertyInfo.GetGetMethod();
+            var getMethodInfo = propertyInfo.GetGetMethod();
 
             if (getMethodInfo != null)
             {
@@ -313,7 +313,7 @@ namespace NProxy.Core.Internal.Emit
             }
 
             // Build property set method.
-            var setMethodInfo = declaringPropertyInfo.GetSetMethod();
+            var setMethodInfo = propertyInfo.GetSetMethod();
 
             if (setMethodInfo != null)
             {
@@ -324,39 +324,39 @@ namespace NProxy.Core.Internal.Emit
         }
 
         /// <summary>
-        /// Defines a method based on the specified declaring method.
+        /// Defines a method based on the specified method.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-        /// <param name="declaringMethodInfo">The declaring method information.</param>
+		/// <param name="methodInfo">The method information.</param>
         /// <param name="isExplicit">A value indicating whether the specified method should be implemented explicitly.</param>
         /// <param name="isOverride">A value indicating whether the specified method should be overridden.</param>
         /// <returns>The method builder.</returns>
         public static MethodBuilder DefineMethod(this TypeBuilder typeBuilder,
-                                                 MethodInfo declaringMethodInfo,
+                                                 MethodInfo methodInfo,
                                                  bool isExplicit,
                                                  bool isOverride)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
 
-            if (declaringMethodInfo == null)
-                throw new ArgumentNullException("declaringMethodInfo");
+            if (methodInfo == null)
+				throw new ArgumentNullException("methodInfo");
 
             // Define method attributes.
-            var methodAttributes = declaringMethodInfo.Attributes & (MethodAttributes.HideBySig |
+            var methodAttributes = methodInfo.Attributes & (MethodAttributes.HideBySig |
                                                                      MethodAttributes.SpecialName |
                                                                      MethodAttributes.ReservedMask);
 
             if (isExplicit)
                 methodAttributes |= MethodAttributes.Private;
             else
-                methodAttributes |= declaringMethodInfo.Attributes & MethodAttributes.MemberAccessMask;
+                methodAttributes |= methodInfo.Attributes & MethodAttributes.MemberAccessMask;
 
             if (isOverride)
             {
                 methodAttributes |= MethodAttributes.Virtual;
 
-                var declaringType = declaringMethodInfo.DeclaringType;
+                var declaringType = methodInfo.DeclaringType;
 
                 if (declaringType.IsInterface)
                     methodAttributes |= MethodAttributes.NewSlot;
@@ -364,13 +364,13 @@ namespace NProxy.Core.Internal.Emit
                     methodAttributes |= MethodAttributes.ReuseSlot;
             }
 
-            var methodName = isExplicit ? declaringMethodInfo.GetFullName() : declaringMethodInfo.Name;
+            var methodName = isExplicit ? methodInfo.GetFullName() : methodInfo.Name;
 
             // Define method.
             return typeBuilder.DefineMethod(
                 methodName,
                 methodAttributes,
-                declaringMethodInfo.CallingConvention);
+                methodInfo.CallingConvention);
         }
 
         /// <summary>

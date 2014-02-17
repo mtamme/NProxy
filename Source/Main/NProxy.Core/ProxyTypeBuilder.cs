@@ -98,36 +98,36 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Builds an intercepted method based on the specified declaring method.
+        /// Builds an intercepted method based on the specified method.
         /// </summary>
-        /// <param name="declaringMethodInfo">The declaring method information.</param>
+		/// <param name="methodInfo">The method information.</param>
         /// <param name="isExplicit">A value indicating whether the specified method should be implemented explicitly.</param>
         /// <returns>The intercepted method builder.</returns>
-        private MethodBuilder BuildInterceptedMethod(MethodInfo declaringMethodInfo, bool isExplicit)
+        private MethodBuilder BuildInterceptedMethod(MethodInfo methodInfo, bool isExplicit)
         {
-            var isOverride = IsOverrideMember(declaringMethodInfo);
+            var isOverride = IsOverrideMember(methodInfo);
 
-            if (isOverride && !declaringMethodInfo.CanOverride())
-                throw new InvalidOperationException(String.Format(Resources.MethodNotOverridable, declaringMethodInfo.Name));
+            if (isOverride && !methodInfo.CanOverride())
+                throw new InvalidOperationException(String.Format(Resources.MethodNotOverridable, methodInfo.Name));
 
             // Define method.
-            var methodBuilder = _typeBuilder.DefineMethod(declaringMethodInfo, isExplicit, isOverride);
+            var methodBuilder = _typeBuilder.DefineMethod(methodInfo, isExplicit, isOverride);
 
             // Define generic parameters.
-            var genericParameterTypes = methodBuilder.DefineGenericParameters(declaringMethodInfo);
+            var genericParameterTypes = methodBuilder.DefineGenericParameters(methodInfo);
 
             // Define parameters.
-            methodBuilder.DefineParameters(declaringMethodInfo, genericParameterTypes);
+            methodBuilder.DefineParameters(methodInfo, genericParameterTypes);
 
             // Only define method override if method is implemented explicitly and is an override.
             if (isExplicit && isOverride)
-                _typeBuilder.DefineMethodOverride(methodBuilder, declaringMethodInfo);
+                _typeBuilder.DefineMethodOverride(methodBuilder, methodInfo);
 
             // Implement method.
             var ilGenerator = methodBuilder.GetILGenerator();
 
             // Load arguments.
-            var parameterTypes = declaringMethodInfo.MapGenericParameterTypes(genericParameterTypes);
+            var parameterTypes = methodInfo.MapGenericParameterTypes(genericParameterTypes);
             var parametersLocalBuilder = ilGenerator.NewArray(typeof (object), parameterTypes.Length);
 
             LoadArguments(ilGenerator, parameterTypes, parametersLocalBuilder);
@@ -140,7 +140,7 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ldarg_0);
 
             // Get method information constructor.
-            var methodInfoConstructorInfo = GetMethodInfoConstructor(declaringMethodInfo, genericParameterTypes);
+            var methodInfoConstructorInfo = GetMethodInfoConstructor(methodInfo, genericParameterTypes);
 
             // Create and load method information.
             ilGenerator.Emit(OpCodes.Ldarg_0);
@@ -157,7 +157,7 @@ namespace NProxy.Core
             RestoreByReferenceArguments(ilGenerator, parameterTypes, parametersLocalBuilder);
 
             // Handle return value.
-            var returnType = declaringMethodInfo.MapGenericReturnType(genericParameterTypes);
+            var returnType = methodInfo.MapGenericReturnType(genericParameterTypes);
 
             if (returnType.IsVoid())
                 ilGenerator.Emit(OpCodes.Pop);
@@ -170,7 +170,7 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Returns a constructor information for the specified method information.
+        /// Returns a constructor information for the specified method.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
         /// <param name="genericParameterTypes">The generic parameter types.</param>
@@ -278,37 +278,6 @@ namespace NProxy.Core
         #region ITypeBuilder Members
 
         /// <inheritdoc/>
-        public bool IsOptionalEvent(EventInfo declaringEventInfo)
-        {
-            if (declaringEventInfo == null)
-                throw new ArgumentNullException("declaringEventInfo");
-
-            var methodInfos = declaringEventInfo.GetAccessorMethods();
-
-            return methodInfos.All(IsOptionalMethod);
-        }
-
-        /// <inheritdoc/>
-        public bool IsOptionalProperty(PropertyInfo declaringPropertyInfo)
-        {
-            if (declaringPropertyInfo == null)
-                throw new ArgumentNullException("declaringPropertyInfo");
-
-            var methodInfos = declaringPropertyInfo.GetAccessorMethods();
-
-            return methodInfos.All(IsOptionalMethod);
-        }
-
-        /// <inheritdoc/>
-        public bool IsOptionalMethod(MethodInfo declaringMethodInfo)
-        {
-            if (declaringMethodInfo == null)
-                throw new ArgumentNullException("declaringMethodInfo");
-
-            return !declaringMethodInfo.IsAbstract && IsOverrideMember(declaringMethodInfo);
-        }
-
-        /// <inheritdoc/>
         public void AddCustomAttribute(ConstructorInfo constructorInfo, params object[] arguments)
         {
             if (constructorInfo == null)
@@ -338,20 +307,20 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public void BuildConstructor(ConstructorInfo declaringConstructorInfo)
+        public void BuildConstructor(ConstructorInfo constructorInfo)
         {
-            if (declaringConstructorInfo == null)
-                throw new ArgumentNullException("declaringConstructorInfo");
+            if (constructorInfo == null)
+				throw new ArgumentNullException("constructorInfo");
 
             // Define constructor.
             var constructorBuilder = _typeBuilder.DefineConstructor(
-                declaringConstructorInfo,
+                constructorInfo,
                 new[] {typeof (IInvocationHandler)},
                 new[] {"invocationHandler"});
 
             // Implement constructor.
             var ilGenerator = constructorBuilder.GetILGenerator();
-            var parameterInfos = declaringConstructorInfo.GetParameters();
+            var parameterInfos = constructorInfo.GetParameters();
 
             // Load this reference.
             ilGenerator.Emit(OpCodes.Ldarg_0);
@@ -360,7 +329,7 @@ namespace NProxy.Core
             ilGenerator.EmitLoadArguments(2, parameterInfos.Length);
 
             // Call parent constructor.
-            ilGenerator.Emit(OpCodes.Call, declaringConstructorInfo);
+            ilGenerator.Emit(OpCodes.Call, constructorInfo);
 
             // Check for null invocation handler.
             var invocationHandlerNotNullLabel = ilGenerator.DefineLabel();
@@ -382,37 +351,68 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ret);
         }
 
+		/// <inheritdoc/>
+		public bool IsConcreteEvent(EventInfo eventInfo)
+		{
+			if (eventInfo == null)
+				throw new ArgumentNullException("eventInfo");
+
+			var methodInfos = eventInfo.GetAccessorMethods();
+
+			return methodInfos.All(IsConcreteMethod);
+		}
+
         /// <inheritdoc/>
-        public void BuildEvent(EventInfo declaringEventInfo)
+		public void BuildEvent(EventInfo eventInfo)
         {
-            if (declaringEventInfo == null)
-                throw new ArgumentNullException("declaringEventInfo");
+			if (eventInfo == null)
+				throw new ArgumentNullException("eventInfo");
 
-            var isExplicit = IsExplicitMember(declaringEventInfo);
+			var isExplicit = IsExplicitMember(eventInfo);
 
-            _typeBuilder.DefineEvent(declaringEventInfo, isExplicit, BuildInterceptedMethod);
+			_typeBuilder.DefineEvent(eventInfo, isExplicit, BuildInterceptedMethod);
         }
 
+		/// <inheritdoc/>
+		public bool IsConcreteProperty(PropertyInfo propertyInfo)
+		{
+			if (propertyInfo == null)
+				throw new ArgumentNullException("propertyInfo");
+
+			var methodInfos = propertyInfo.GetAccessorMethods();
+
+			return methodInfos.All(IsConcreteMethod);
+		}
+
         /// <inheritdoc/>
-        public void BuildProperty(PropertyInfo declaringPropertyInfo)
+		public void BuildProperty(PropertyInfo propertyInfo)
         {
-            if (declaringPropertyInfo == null)
-                throw new ArgumentNullException("declaringPropertyInfo");
+			if (propertyInfo == null)
+				throw new ArgumentNullException("propertyInfo");
 
-            var isExplicit = IsExplicitMember(declaringPropertyInfo);
+			var isExplicit = IsExplicitMember(propertyInfo);
 
-            _typeBuilder.DefineProperty(declaringPropertyInfo, isExplicit, BuildInterceptedMethod);
+			_typeBuilder.DefineProperty(propertyInfo, isExplicit, BuildInterceptedMethod);
         }
 
+		/// <inheritdoc/>
+		public bool IsConcreteMethod(MethodInfo methodInfo)
+		{
+			if (methodInfo == null)
+				throw new ArgumentNullException("methodInfo");
+
+			return !methodInfo.IsAbstract && IsOverrideMember(methodInfo);
+		}
+
         /// <inheritdoc/>
-        public void BuildMethod(MethodInfo declaringMethodInfo)
+		public void BuildMethod(MethodInfo methodInfo)
         {
-            if (declaringMethodInfo == null)
-                throw new ArgumentNullException("declaringMethodInfo");
+			if (methodInfo == null)
+				throw new ArgumentNullException("methodInfo");
 
-            var isExplicit = IsExplicitMember(declaringMethodInfo);
+			var isExplicit = IsExplicitMember(methodInfo);
 
-            BuildInterceptedMethod(declaringMethodInfo, isExplicit);
+			BuildInterceptedMethod(methodInfo, isExplicit);
         }
 
         /// <inheritdoc/>

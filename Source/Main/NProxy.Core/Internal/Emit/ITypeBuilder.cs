@@ -27,27 +27,6 @@ namespace NProxy.Core.Internal.Emit
     internal interface ITypeBuilder
     {
         /// <summary>
-        /// Returns a value indicating whether the specified event is optional and therefor not required for building the type.
-        /// </summary>
-        /// <param name="declaringEventInfo">The declaring event information.</param>
-        /// <returns>A value indicating whether the specified event is optional and therefor not required for building the type.</returns>
-        bool IsOptionalEvent(EventInfo declaringEventInfo);
-
-        /// <summary>
-        /// Returns a value indicating whether the specified property is optional and therefor not required for building the type.
-        /// </summary>
-        /// <param name="declaringPropertyInfo">The declaring property information.</param>
-        /// <returns>A value indicating whether the specified property is optional and therefor not required for building the type.</returns>
-        bool IsOptionalProperty(PropertyInfo declaringPropertyInfo);
-
-        /// <summary>
-        /// Returns a value indicating whether the specified method is optional and therefor not required for building the type.
-        /// </summary>
-        /// <param name="declaringMethodInfo">The declaring method information.</param>
-        /// <returns>A value indicating whether the specified method is optional and therefor not required for building the type.</returns>
-        bool IsOptionalMethod(MethodInfo declaringMethodInfo);
-
-        /// <summary>
         /// Adds the specified custom attribute.
         /// </summary>
         /// <param name="constructorInfo">The constructor information.</param>
@@ -63,26 +42,47 @@ namespace NProxy.Core.Internal.Emit
         /// <summary>
         /// Builds a constructor based on the specified constructor.
         /// </summary>
-        /// <param name="declaringConstructorInfo">The declaring constructor information.</param>
-        void BuildConstructor(ConstructorInfo declaringConstructorInfo);
+		/// <param name="constructorInfo">The constructor information.</param>
+		void BuildConstructor(ConstructorInfo constructorInfo);
+
+		/// <summary>
+		/// Returns a value indicating whether the specified event is concrete.
+		/// </summary>
+		/// <param name="eventInfo">The event information.</param>
+		/// <returns>A value indicating whether the specified event is concrete.</returns>
+		bool IsConcreteEvent(EventInfo eventInfo);
 
         /// <summary>
         /// Builds an event based on the specified event.
         /// </summary>
-        /// <param name="declaringEventInfo">The declaring event information.</param>
-        void BuildEvent(EventInfo declaringEventInfo);
+		/// <param name="eventInfo">The event information.</param>
+        void BuildEvent(EventInfo eventInfo);
+
+		/// <summary>
+		/// Returns a value indicating whether the specified property is concrete.
+		/// </summary>
+		/// <param name="propertyInfo">The property information.</param>
+		/// <returns>A value indicating whether the specified property is concrete.</returns>
+		bool IsConcreteProperty(PropertyInfo propertyInfo);
 
         /// <summary>
         /// Builds a property based on the specified property.
         /// </summary>
-        /// <param name="declaringPropertyInfo">The declaring property information.</param>
-        void BuildProperty(PropertyInfo declaringPropertyInfo);
+		/// <param name="propertyInfo">The property information.</param>
+		void BuildProperty(PropertyInfo propertyInfo);
+
+		/// <summary>
+		/// Returns a value indicating whether the specified method is concrete.
+		/// </summary>
+		/// <param name="methodInfo">The method information.</param>
+		/// <returns>A value indicating whether the specified method is concrete.</returns>
+		bool IsConcreteMethod(MethodInfo methodInfo);
 
         /// <summary>
         /// Builds a method based on the specified method.
         /// </summary>
-        /// <param name="declaringMethodInfo">The declaring method information.</param>
-        void BuildMethod(MethodInfo declaringMethodInfo);
+		/// <param name="methodInfo">The method information.</param>
+		void BuildMethod(MethodInfo methodInfo);
 
         /// <summary>
         /// Creates the type.
