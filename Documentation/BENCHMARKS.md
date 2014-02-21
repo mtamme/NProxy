@@ -38,7 +38,7 @@ the values in microseconds for this scenario.
 
 ![Method invocation performance](https://raw.github.com/mtamme/NProxy/master/Documentation/MethodInvocation.png "Method invocation performance")
 
-Details to the performed tests can be found [here](https://github.com/mtamme/NProxy/tree/master/Documentation/Benchmark_20140113_120411.md).
+Details to the performed tests can be found [here](https://github.com/mtamme/NProxy/tree/master/Documentation/Benchmark_20140221_094332.md).
 All tests have been performed under Microsoft .NET 4.0.30319 and can be found [here](https://github.com/mtamme/NProxy/tree/master/Source/Test/NProxy.Core.Benchmark/).
 
 ## Conclusion
