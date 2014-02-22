@@ -59,7 +59,7 @@ namespace NProxy.Core.Interceptors
         /// </summary>
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        public CreateProxy(IProxyFactory proxyFactory, params object[] arguments)
+        public CreateProxy(IProxyFactory proxyFactory, object[] arguments)
         {
             if (proxyFactory == null)
                 throw new ArgumentNullException("proxyFactory");

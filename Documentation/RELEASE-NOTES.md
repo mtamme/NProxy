@@ -1,5 +1,9 @@
 # Release notes
 
+## Version 2.2.1
+
+* Fixed fluent proxy creation.
+
 ## Version 2.2.0
 
 * Fixed implemented interfaces returned by `IProxyTemplate`.

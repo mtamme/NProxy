@@ -28,10 +28,11 @@ namespace NProxy.Core.Interceptors
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
         /// <param name="proxyFactory">The proxy factory.</param>
+        /// <param name="arguments">The constructor arguments.</param>
         /// <returns>A fluent interface for creating a new proxy.</returns>
-        public static ICreateProxy<T> CreateProxy<T>(this IProxyFactory proxyFactory) where T : class
+        public static ICreateProxy<T> CreateProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
         {
-            return new CreateProxy<T>(proxyFactory);
+            return new CreateProxy<T>(proxyFactory, arguments);
         }
     }
 }
