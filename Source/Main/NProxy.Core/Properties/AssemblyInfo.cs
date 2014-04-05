@@ -61,5 +61,11 @@ using System.Resources;
 
 [assembly: AssemblyVersion("2.2.1.*")]
 [assembly: NeutralResourcesLanguage("en-US")]
-[assembly: InternalsVisibleTo("NProxy.Core.Test")]
-[assembly: InternalsVisibleTo("NProxy.Dynamic")]
+[assembly: InternalsVisibleTo("NProxy.Core.Test, PublicKey=0024000004800000940000000602000000240000525341310004000001000100df0530d40b8735b471e42a9f183238672fd0c1fe9867a2de9427af3bc7a9af73ec73a0a5389405c7052ab90f9df38c1b293b92ad27533cd29d5611b3b8672ede99c6604e7f5b3cf84fb9e6a94c1f36fa13aad99c3c29f97fe21131540ba20591dccdff897ecd0057e6296dc4acbdd220189f781bf7363f7c0b5ff94d7ab727d3")]
+[assembly: InternalsVisibleTo("NProxy.Dynamic, PublicKey=0024000004800000940000000602000000240000525341310004000001000100df0530d40b8735b471e42a9f183238672fd0c1fe9867a2de9427af3bc7a9af73ec73a0a5389405c7052ab90f9df38c1b293b92ad27533cd29d5611b3b8672ede99c6604e7f5b3cf84fb9e6a94c1f36fa13aad99c3c29f97fe21131540ba20591dccdff897ecd0057e6296dc4acbdd220189f781bf7363f7c0b5ff94d7ab727d3")]
+
+// disable warning about using /keyfile instead of AssemblyKeyFile
+#pragma warning disable 1699
+// using '\' will break mono builds
+[assembly: AssemblyKeyFile(@"../../NProxy.snk")]
+#pragma warning restore 1699
