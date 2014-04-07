@@ -60,7 +60,6 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("0.0")]
 
-// disable warning about using /keyfile instead of AssemblyKeyFile
 #pragma warning disable 1699
 // using '\' will break mono builds
 [assembly: AssemblyKeyFile(@"../../NProxy.snk")]
