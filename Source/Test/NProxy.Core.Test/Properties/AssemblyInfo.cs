@@ -60,4 +60,9 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 
 [assembly: AssemblyVersion("0.0")]
-[assembly: InternalsVisibleTo("NProxy.Dynamic")]
+[assembly: InternalsVisibleTo("NProxy.Dynamic, PublicKey=002400000480000094000000060200000024000052534131000400000100010031d0e185f342141fb582a63c5c3706ee107a49b7c4c988587512e9cf2d02473280bd9d5cf129d118978bb753339b1819c5f836a0940a0c3ec153ccad71b4786a388da0b4b9531b405d57ce00ac02ee019001eb1bcfdaa0afa1d1542adec526e1165ce740dd2d31ad682c4c8d9b305bc64c3ebb029dffa773d1f9e0e9a5847885")]
+
+#pragma warning disable 1699
+// using '\' will break mono builds
+[assembly: AssemblyKeyFile(@"../../NProxy.snk")]
+#pragma warning restore 1699

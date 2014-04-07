@@ -59,3 +59,8 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 
 [assembly: AssemblyVersion("0.0")]
+
+#pragma warning disable 1699
+// using '\' will break mono builds
+[assembly: AssemblyKeyFile(@"../../NProxy.snk")]
+#pragma warning restore 1699
