@@ -82,11 +82,10 @@ namespace NProxy.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyTypeBuilderFactory"/> class.
         /// </summary>
-        /// <param name="strongNamedAssembly">A value indicating whether the assembly should be strong named.</param>
         /// <param name="canSaveAssembly">A value indicating whether the assembly can be saved.</param>
-        public ProxyTypeBuilderFactory(bool strongNamedAssembly, bool canSaveAssembly)
+        public ProxyTypeBuilderFactory(bool canSaveAssembly)
         {
-            _assemblyBuilder = DefineDynamicAssembly(DynamicAssemblyName, strongNamedAssembly, canSaveAssembly);
+            _assemblyBuilder = DefineDynamicAssembly(DynamicAssemblyName, canSaveAssembly);
             _moduleBuilder = _assemblyBuilder.DefineDynamicModule(DynamicModuleName);
 
             _methodInfoTypeFactory = new MethodInfoTypeFactory(this);
@@ -99,13 +98,12 @@ namespace NProxy.Core
         /// Defines the dynamic assembly.
         /// </summary>
         /// <param name="name">The assembly name.</param>
-        /// <param name="strongNamedAssembly">A value indicating whether the assembly should be strong named.</param>
         /// <param name="canSaveAssembly">A value indicating whether the assembly can be saved.</param>
         /// <returns>The assembly builder.</returns>
-        private static AssemblyBuilder DefineDynamicAssembly(string name, bool strongNamedAssembly, bool canSaveAssembly)
+        private static AssemblyBuilder DefineDynamicAssembly(string name, bool canSaveAssembly)
         {
             var assemblyBuilderAccess = canSaveAssembly ? AssemblyBuilderAccess.RunAndSave : AssemblyBuilderAccess.Run;
-            var assemblyName = GetDynamicAssemblyName(name, strongNamedAssembly);
+            var assemblyName = GetDynamicAssemblyName(name);
 
             return AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, assemblyBuilderAccess);
         }
@@ -155,6 +153,23 @@ namespace NProxy.Core
         }
 
         /// <summary>
+        /// Returns the dynamic assembly name.
+        /// </summary>
+        /// <param name="assemblyName">The assembly name.</param>
+        /// <returns>The assembly name.</returns>
+        private static AssemblyName GetDynamicAssemblyName(string assemblyName)
+        {
+            var executingAssemblyName = GetExecutingAssemblyName();
+            var keyPair = GetDynamicAssemblyKeyPair();
+
+            return new AssemblyName(assemblyName)
+                {
+                    KeyPair = keyPair,
+                    Version = executingAssemblyName.Version
+                };
+        }
+
+        /// <summary>
         /// Returns the executing assembly name.
         /// </summary>
         /// <returns>The assembly name.</returns>
@@ -163,24 +178,6 @@ namespace NProxy.Core
             var assembly = Assembly.GetExecutingAssembly();
 
             return assembly.GetName();
-        }
-
-        /// <summary>
-        /// Returns the dynamic assembly name.
-        /// </summary>
-        /// <param name="assemblyName">The assembly name.</param>
-        /// <param name="strongNamedAssembly">A value indicating whether the assembly name should contain a strong name key pair.</param>
-        /// <returns>The assembly name.</returns>
-        private static AssemblyName GetDynamicAssemblyName(string assemblyName, bool strongNamedAssembly)
-        {
-            var executingAssemblyName = GetExecutingAssemblyName();
-            var keyPair = strongNamedAssembly ? GetDynamicAssemblyKeyPair() : null;
-
-            return new AssemblyName(assemblyName)
-                {
-                    KeyPair = keyPair,
-                    Version = executingAssemblyName.Version
-                };
         }
 
         /// <summary>

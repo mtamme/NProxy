@@ -58,7 +58,7 @@ namespace NProxy.Core
         /// </summary>
         /// <param name="interceptionFilter">The interception filter.</param>
         public ProxyFactory(IInterceptionFilter interceptionFilter)
-            : this(new ProxyTypeBuilderFactory(true, false), interceptionFilter)
+            : this(new ProxyTypeBuilderFactory(false), interceptionFilter)
         {
         }
 
