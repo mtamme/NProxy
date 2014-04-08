@@ -20,9 +20,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-using NProxy.Core.Internal.Reflection;
 
-namespace NProxy.Core.Internal.Emit
+namespace NProxy.Core.Internal.Reflection.Emit
 {
     /// <summary>
     /// Provides <see cref="TypeBuilder"/> extension methods.

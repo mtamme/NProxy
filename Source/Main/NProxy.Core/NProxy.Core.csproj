@@ -53,13 +53,13 @@
     <Compile Include="Internal\Definitions\IProxyDefinition.cs" />
     <Compile Include="Internal\Definitions\ProxyDefinitionBase.cs" />
     <Compile Include="Internal\Reflection\MemberToken.cs" />
-    <Compile Include="Internal\Emit\MethodBuilderExtensions.cs" />
+    <Compile Include="Internal\Reflection\Emit\MethodBuilderExtensions.cs" />
     <Compile Include="Internal\Reflection\MethodInfoExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IProxyFactory.cs" />
     <Compile Include="ProxyFactory.cs" />
-    <Compile Include="Internal\Emit\ILGeneratorExtensions.cs" />
-    <Compile Include="Internal\Emit\TypeBuilderExtensions.cs" />
+    <Compile Include="Internal\Reflection\Emit\ILGeneratorExtensions.cs" />
+    <Compile Include="Internal\Reflection\Emit\TypeBuilderExtensions.cs" />
     <Compile Include="ProxyFactoryExtensions.cs" />
     <Compile Include="ProxyTypeBuilderFactory.cs" />
     <Compile Include="ProxyTypeBuilder.cs" />
@@ -92,11 +92,11 @@
     <Compile Include="Internal\Caching\LockOnWriteCache.cs" />
     <Compile Include="Internal\Definitions\IProxyDefinitionVisitor.cs" />
     <Compile Include="Internal\Definitions\ProxyDefinitionVisitorExtensions.cs" />
-    <Compile Include="Internal\Emit\ITypeBuilder.cs" />
-    <Compile Include="Internal\Emit\ITypeBuilderFactory.cs" />
-    <Compile Include="Internal\Emit\ITypeRepository.cs" />
-    <Compile Include="Internal\Emit\MethodInfoBase.cs" />
-    <Compile Include="Internal\Emit\MethodInfoTypeFactory.cs" />
+    <Compile Include="Internal\Reflection\Emit\ITypeBuilder.cs" />
+    <Compile Include="Internal\Reflection\Emit\ITypeBuilderFactory.cs" />
+    <Compile Include="Internal\Reflection\Emit\ITypeRepository.cs" />
+    <Compile Include="Internal\Reflection\Emit\MethodInfoBase.cs" />
+    <Compile Include="Internal\Reflection\Emit\MethodInfoTypeFactory.cs" />
     <Compile Include="IInterceptionFilter.cs" />
     <Compile Include="ProxyGenerator.cs" />
     <Compile Include="NonInterceptedInterceptionFilter.cs" />
@@ -107,7 +107,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Internal\Emit\ITypeFactory.cs" />
+    <Compile Include="Internal\Reflection\Emit\ITypeFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

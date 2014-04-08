@@ -24,8 +24,8 @@ using System.Resources;
 using System.Threading;
 using NProxy.Core.Internal;
 using NProxy.Core.Internal.Caching;
-using NProxy.Core.Internal.Emit;
 using NProxy.Core.Internal.Reflection;
+using NProxy.Core.Internal.Reflection.Emit;
 
 namespace NProxy.Core
 {

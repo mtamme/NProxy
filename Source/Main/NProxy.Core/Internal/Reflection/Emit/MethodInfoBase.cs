@@ -20,7 +20,7 @@ using System;
 using System.Globalization;
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Emit
+namespace NProxy.Core.Internal.Reflection.Emit
 {
     /// <summary>
     /// Represents the method information base class.

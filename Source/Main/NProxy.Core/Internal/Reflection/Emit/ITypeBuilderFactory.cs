@@ -1,4 +1,4 @@
-//
+﻿//
 // NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 // Copyright © Martin Tamme
 //
@@ -17,20 +17,19 @@
 //
 
 using System;
-using System.Reflection;
 
-namespace NProxy.Core.Internal.Emit
+namespace NProxy.Core.Internal.Reflection.Emit
 {
     /// <summary>
-    /// Defines a type factory.
+    /// Defines a type builder factory.
     /// </summary>
-    internal interface ITypeFactory
+    internal interface ITypeBuilderFactory
     {
         /// <summary>
-        /// Creates a new type based on the specified method.
+        /// Creates a type builder.
         /// </summary>
-        /// <param name="methodInfo">The method information.</param>
-        /// <returns>The new type.</returns>
-        Type CreateType(MethodInfo methodInfo);
+        /// <param name="parentType">The parent type.</param>
+        /// <returns>The type builder.</returns>
+        ITypeBuilder CreateBuilder(Type parentType);
     }
 }

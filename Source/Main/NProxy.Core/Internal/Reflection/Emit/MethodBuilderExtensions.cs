@@ -20,9 +20,8 @@ using System;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using NProxy.Core.Internal.Reflection;
 
-namespace NProxy.Core.Internal.Emit
+namespace NProxy.Core.Internal.Reflection.Emit
 {
     /// <summary>
     /// Provides <see cref="MethodBuilder"/> extension methods.

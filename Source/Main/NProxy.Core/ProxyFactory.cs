@@ -20,8 +20,8 @@ using System;
 using System.Collections.Generic;
 using NProxy.Core.Internal.Caching;
 using NProxy.Core.Internal.Definitions;
-using NProxy.Core.Internal.Emit;
 using NProxy.Core.Internal.Reflection;
+using NProxy.Core.Internal.Reflection.Emit;
 
 namespace NProxy.Core
 {

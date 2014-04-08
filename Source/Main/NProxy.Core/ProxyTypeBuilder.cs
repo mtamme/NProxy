@@ -22,8 +22,8 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using NProxy.Core.Internal;
-using NProxy.Core.Internal.Emit;
 using NProxy.Core.Internal.Reflection;
+using NProxy.Core.Internal.Reflection.Emit;
 
 namespace NProxy.Core
 {
@@ -136,7 +136,7 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ldarg_0);
             ilGenerator.Emit(OpCodes.Ldfld, _invocationHandlerFieldInfo);
 
-            // Load proxy object.
+            // Load source object.
             ilGenerator.Emit(OpCodes.Ldarg_0);
 
             // Get method information constructor.
