@@ -1,0 +1,21 @@
+﻿"Type";"Version";"Scenario";"Description";"Iterations";"Total time (ms)";"Average time (ms)";"Average time (µs)"
+"Castle.Core";"v 3.2";"MethodInvocation";"Method invocation";10000000;839.424;0.000;0.084
+"Castle.Core";"v 3.2";"MethodInvocationWithGenericParameter";"Method invocation (w/ generic param)";10000000;13334.859;0.001;1.333
+"Castle.Core";"v 3.2";"ProxyGeneration";"Proxy generation";1000;3004.513;3.005;3004.513
+"Castle.Core";"v 3.2";"ProxyGenerationWithGenericParameter";"Proxy generation (w/ generic param)";1000;2974.419;2.974;2974.419
+"Castle.Core";"v 3.2";"ProxyInstantiation";"Proxy instantiation";1000000;3799.731;0.004;3.800
+"Castle.Core";"v 3.2";"ProxyInstantiationWithGenericParameter";"Proxy instantiation (w/ generic param)";1000000;3740.304;0.004;3.740
+"LinFu.Core";"v 2.3";"MethodInvocation";"Method invocation";10000000;14995.186;0.001;1.500
+"LinFu.Core";"v 2.3";"MethodInvocationWithGenericParameter";"Method invocation (w/ generic param)";10000000;53609.117;0.005;5.361
+"LinFu.Core";"v 2.3";"ProxyGeneration";"Proxy generation";1000;3681.494;3.681;3681.494
+"LinFu.Core";"v 2.3";"ProxyGenerationWithGenericParameter";"Proxy generation (w/ generic param)";1000;4296.680;4.297;4296.680
+"LinFu.Core";"v 2.3";"ProxyInstantiation";"Proxy instantiation";1000000;1176.299;0.001;1.176
+"LinFu.Core";"v 2.3";"ProxyInstantiationWithGenericParameter";"Proxy instantiation (w/ generic param)";1000000;1172.438;0.001;1.172
+"NProxy.Core";"v 2.3";"MethodInvocation";"Method invocation";10000000;771.291;0.000;0.077
+"NProxy.Core";"v 2.3";"MethodInvocationWithGenericParameter";"Method invocation (w/ generic param)";10000000;962.044;0.000;0.096
+"NProxy.Core";"v 2.3";"ProxyGeneration";"Proxy generation";1000;1293.350;1.293;1293.350
+"NProxy.Core";"v 2.3";"ProxyGenerationWithGenericParameter";"Proxy generation (w/ generic param)";1000;1316.435;1.316;1316.435
+"NProxy.Core";"v 2.3";"ProxyInstantiation";"Proxy instantiation";1000000;1439.808;0.001;1.440
+"NProxy.Core";"v 2.3";"ProxyInstantiationWithGenericParameter";"Proxy instantiation (w/ generic param)";1000000;1348.465;0.001;1.348
+"Regular";"n/a";"MethodInvocation";"Method invocation";100000000;281.331;0.000;0.003
+"Regular";"n/a";"MethodInvocationWithGenericParameter";"Method invocation (w/ generic param)";100000000;1150.645;0.000;0.012
