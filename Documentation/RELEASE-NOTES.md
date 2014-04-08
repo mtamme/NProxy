@@ -1,5 +1,9 @@
 # Release notes
 
+## Version 2.3.0
+
+* Signed assembly with a strong name.
+
 ## Version 2.2.1
 
 * Fixed fluent proxy creation.
