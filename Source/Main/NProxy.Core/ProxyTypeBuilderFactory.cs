@@ -109,6 +109,34 @@ namespace NProxy.Core
         }
 
         /// <summary>
+        /// Returns the dynamic assembly name.
+        /// </summary>
+        /// <param name="assemblyName">The assembly name.</param>
+        /// <returns>The assembly name.</returns>
+        private static AssemblyName GetDynamicAssemblyName(string assemblyName)
+        {
+            var executingAssemblyName = GetExecutingAssemblyName();
+            var keyPair = GetDynamicAssemblyKeyPair();
+
+            return new AssemblyName(assemblyName)
+                {
+                    KeyPair = keyPair,
+                    Version = executingAssemblyName.Version
+                };
+        }
+
+        /// <summary>
+        /// Returns the executing assembly name.
+        /// </summary>
+        /// <returns>The assembly name.</returns>
+        private static AssemblyName GetExecutingAssemblyName()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            return assembly.GetName();
+        }
+
+        /// <summary>
         /// Returns the dynamic assembly key pair.
         /// </summary>
         /// <returns>The dynamic assembly key pair.</returns>
@@ -150,34 +178,6 @@ namespace NProxy.Core
 
                 return memoryStream.ToArray();
             }
-        }
-
-        /// <summary>
-        /// Returns the dynamic assembly name.
-        /// </summary>
-        /// <param name="assemblyName">The assembly name.</param>
-        /// <returns>The assembly name.</returns>
-        private static AssemblyName GetDynamicAssemblyName(string assemblyName)
-        {
-            var executingAssemblyName = GetExecutingAssemblyName();
-            var keyPair = GetDynamicAssemblyKeyPair();
-
-            return new AssemblyName(assemblyName)
-                {
-                    KeyPair = keyPair,
-                    Version = executingAssemblyName.Version
-                };
-        }
-
-        /// <summary>
-        /// Returns the executing assembly name.
-        /// </summary>
-        /// <returns>The assembly name.</returns>
-        private static AssemblyName GetExecutingAssemblyName()
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-
-            return assembly.GetName();
         }
 
         /// <summary>
