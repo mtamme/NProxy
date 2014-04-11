@@ -51,6 +51,7 @@ namespace NProxy.Core
             if (methodInfo.IsDefined(typeof (NonInterceptedAttribute), false))
                 return false;
 
+            // Don't intercept the destructor method.
             if (methodInfo.DeclaringType != typeof (object))
                 return true;
 

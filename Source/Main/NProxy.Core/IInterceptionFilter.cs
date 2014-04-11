@@ -26,24 +26,24 @@ namespace NProxy.Core
     public interface IInterceptionFilter
     {
         /// <summary>
-        /// Accepts the specified event.
+        /// Returns a value indicating whether the specified event should be intercepted.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
-        /// <returns>A value indicating whether the specified event is accepted.</returns>
+        /// <returns>A value indicating whether the specified event should be intercepted.</returns>
         bool AcceptEvent(EventInfo eventInfo);
 
         /// <summary>
-        /// Accepts the specified property.
+        /// Returns a value indicating whether the specified property should be intercepted.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <returns>A value indicating whether the specified property is accepted.</returns>
+        /// <returns>A value indicating whether the specified property should be intercepted.</returns>
         bool AcceptProperty(PropertyInfo propertyInfo);
 
         /// <summary>
-        /// Accepts the specified method.
+        /// Returns a value indicating whether the specified method should be intercepted.
         /// </summary>
         /// <param name="methodInfo">The method information.</param>
-        /// <returns>A value indicating whether the specified method is accepted.</returns>
+        /// <returns>A value indicating whether the specified method should be intercepted.</returns>
         bool AcceptMethod(MethodInfo methodInfo);
     }
 }
