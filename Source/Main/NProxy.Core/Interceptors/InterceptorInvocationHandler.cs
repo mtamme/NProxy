@@ -98,7 +98,7 @@ namespace NProxy.Core.Interceptors
         {
             var eventInterceptors = ApplyInterceptionBehaviors(eventInfo, interceptors);
 
-            foreach (var methodInfo in eventInfo.GetAllAccessors())
+            foreach (var methodInfo in eventInfo.GetAccessorMethods())
             {
                 ApplyInterceptors(methodInfo, eventInterceptors);
             }
@@ -113,7 +113,7 @@ namespace NProxy.Core.Interceptors
         {
             var propertyInterceptors = ApplyInterceptionBehaviors(propertyInfo, interceptors);
 
-            foreach (var methodInfo in propertyInfo.GetAllAccessors())
+            foreach (var methodInfo in propertyInfo.GetAccessorMethods())
             {
                 ApplyInterceptors(methodInfo, propertyInterceptors);
             }

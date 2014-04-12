@@ -357,7 +357,7 @@ namespace NProxy.Core
             if (eventInfo == null)
                 throw new ArgumentNullException("eventInfo");
 
-            var methodInfos = eventInfo.GetAllAccessors();
+            var methodInfos = eventInfo.GetAccessorMethods();
 
             return methodInfos.All(IsConcreteMethod);
         }
@@ -379,7 +379,7 @@ namespace NProxy.Core
             if (propertyInfo == null)
                 throw new ArgumentNullException("propertyInfo");
 
-            var methodInfos = propertyInfo.GetAllAccessors();
+            var methodInfos = propertyInfo.GetAccessorMethods();
 
             return methodInfos.All(IsConcreteMethod);
         }

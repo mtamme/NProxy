@@ -40,13 +40,13 @@ namespace NProxy.Core.Test.Internal.Reflection
         }
 
         [Test]
-        public void GetAllAccessorsTest()
+        public void GetAccessorMethodsTest()
         {
             // Arrange
             var eventInfo = typeof (IActionEvent).GetEvent("Event");
 
             // Act
-            var methodInfos = eventInfo.GetAllAccessors();
+            var methodInfos = eventInfo.GetAccessorMethods();
 
             // Assert
             Assert.That(methodInfos.Count(), Is.EqualTo(2));

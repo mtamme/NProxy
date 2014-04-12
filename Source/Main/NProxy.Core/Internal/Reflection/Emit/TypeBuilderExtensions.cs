@@ -248,19 +248,33 @@ namespace NProxy.Core.Internal.Reflection.Emit
             eventBuilder.SetAddOnMethod(addMethodBuilder);
 
             // Build event remove method.
-            var removeMethodInfo = eventInfo.GetRemoveMethod();
+            var removeMethodInfo = eventInfo.GetRemoveMethod(true);
             var removeMethodBuilder = methodBuilderFactory(removeMethodInfo, isExplicit);
 
             eventBuilder.SetRemoveOnMethod(removeMethodBuilder);
 
             // Build event raise method.
-            var raiseMethodInfo = eventInfo.GetRaiseMethod();
+            var raiseMethodInfo = eventInfo.GetRaiseMethod(true);
 
             if (raiseMethodInfo != null)
             {
                 var methodBuilder = methodBuilderFactory(raiseMethodInfo, isExplicit);
 
                 eventBuilder.SetRaiseMethod(methodBuilder);
+            }
+
+            // Build event other methods.
+            var otherMethodInfos = eventInfo.GetOtherMethods(true);
+
+            // Mono returns null in case no other methods are defined.
+            if (otherMethodInfos != null)
+            {
+                foreach (var otherMethodInfo in otherMethodInfos)
+                {
+                    var methodBuilder = methodBuilderFactory(otherMethodInfo, isExplicit);
+
+                    eventBuilder.AddOtherMethod(methodBuilder);
+                }
             }
         }
 
@@ -302,7 +316,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
                 null);
 
             // Build property get method.
-            var getMethodInfo = propertyInfo.GetGetMethod();
+            var getMethodInfo = propertyInfo.GetGetMethod(true);
 
             if (getMethodInfo != null)
             {
@@ -312,7 +326,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
             }
 
             // Build property set method.
-            var setMethodInfo = propertyInfo.GetSetMethod();
+            var setMethodInfo = propertyInfo.GetSetMethod(true);
 
             if (setMethodInfo != null)
             {

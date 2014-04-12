@@ -1,5 +1,9 @@
 # Release notes
 
+## Version 2.3.3
+
+* Fixed property and event accessor handling.
+
 ## Version 2.3.2
 
 * Fixed event accessor handling.

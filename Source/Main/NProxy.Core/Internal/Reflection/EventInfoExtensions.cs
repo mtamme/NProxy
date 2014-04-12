@@ -39,17 +39,17 @@ namespace NProxy.Core.Internal.Reflection
             if (eventInfo == null)
                 throw new ArgumentNullException("eventInfo");
 
-            var methodInfos = eventInfo.GetAllAccessors();
+            var methodInfos = eventInfo.GetAccessorMethods();
 
             return methodInfos.All(m => m.CanOverride());
         }
 
         /// <summary>
-        /// Returns all accessors for the specified event.
+        /// Returns all accessor methods for the specified event.
         /// </summary>
         /// <param name="eventInfo">The event information.</param>
-        /// <returns>All accessors for the specified event.</returns>
-        public static IEnumerable<MethodInfo> GetAllAccessors(this EventInfo eventInfo)
+        /// <returns>All accessor methods for the specified event.</returns>
+        public static IEnumerable<MethodInfo> GetAccessorMethods(this EventInfo eventInfo)
         {
             if (eventInfo == null)
                 throw new ArgumentNullException("eventInfo");

@@ -39,22 +39,34 @@ namespace NProxy.Core.Internal.Reflection
             if (propertyInfo == null)
                 throw new ArgumentNullException("propertyInfo");
 
-            var methodInfos = propertyInfo.GetAllAccessors();
+            var methodInfos = propertyInfo.GetAccessorMethods();
 
             return methodInfos.All(m => m.CanOverride());
         }
 
         /// <summary>
-        /// Returns all accessors for the specified property.
+        /// Returns all accessor methods for the specified property.
         /// </summary>
         /// <param name="propertyInfo">The property information.</param>
-        /// <returns>All accessors for the specified property.</returns>
-        public static IEnumerable<MethodInfo> GetAllAccessors(this PropertyInfo propertyInfo)
+        /// <returns>All accessor methods for the specified property.</returns>
+        public static IEnumerable<MethodInfo> GetAccessorMethods(this PropertyInfo propertyInfo)
         {
             if (propertyInfo == null)
                 throw new ArgumentNullException("propertyInfo");
 
-            return propertyInfo.GetAccessors(true);
+            var methodInfos = new List<MethodInfo>();
+
+            var getMethodInfo = propertyInfo.GetGetMethod(true);
+
+            if (getMethodInfo != null)
+                methodInfos.Add(getMethodInfo);
+
+            var setMethodInfo = propertyInfo.GetSetMethod(true);
+
+            if (setMethodInfo != null)
+                methodInfos.Add(setMethodInfo);
+
+            return methodInfos;
         }
 
         /// <summary>
