@@ -65,9 +65,11 @@ namespace NProxy.Core.Internal.Reflection
             if (raiseMethodInfo != null)
                 methodInfos.Add(raiseMethodInfo);
 
-            var otherMethodInfo = eventInfo.GetOtherMethods(true);
+            var otherMethodInfos = eventInfo.GetOtherMethods(true);
 
-            methodInfos.AddRange(otherMethodInfo);
+            // Mono returns null in case no other methods are defined.
+            if (otherMethodInfos != null)
+                methodInfos.AddRange(otherMethodInfos);
 
             return methodInfos;
         }
