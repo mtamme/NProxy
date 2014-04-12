@@ -1,5 +1,11 @@
 # Release notes
 
+## Version 2.3.1
+
+* Handle all potential event and property accessors.
+* Removed obsolete code.
+* Updated documentation.
+
 ## Version 2.3.0
 
 * Signed assembly with a strong name.
