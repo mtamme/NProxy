@@ -101,7 +101,6 @@
     <Compile Include="ProxyGenerator.cs" />
     <Compile Include="NonInterceptedInterceptionFilter.cs" />
     <Compile Include="ProxyTemplateExtensions.cs" />
-    <Compile Include="Internal\Caching\ConcurrentCache.cs" />
     <Compile Include="Internal\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
