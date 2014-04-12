@@ -40,13 +40,13 @@ namespace NProxy.Core.Test.Internal.Reflection
         }
 
         [Test]
-        public void GetAccessorMethodsTest()
+        public void GetAllAccessorsTest()
         {
             // Arrange
             var propertyInfo = typeof (IObjectGetSetProperty).GetProperty("Property");
 
             // Act
-            var methodInfos = propertyInfo.GetAccessorMethods();
+            var methodInfos = propertyInfo.GetAllAccessors();
 
             // Assert
             Assert.That(methodInfos.Count(), Is.EqualTo(2));
