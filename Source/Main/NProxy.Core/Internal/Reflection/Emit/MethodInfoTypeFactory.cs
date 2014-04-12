@@ -84,9 +84,9 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// <param name="genericParameterTypes">The generic parameter types.</param>
         /// <param name="methodFieldInfo">The method information static field information.</param>
         private static void BuildTypeInitializer(TypeBuilder typeBuilder,
-                                                 MethodInfo prototypeMethodInfo,
-                                                 Type[] genericParameterTypes,
-                                                 FieldInfo methodFieldInfo)
+            MethodInfo prototypeMethodInfo,
+            Type[] genericParameterTypes,
+            FieldInfo methodFieldInfo)
         {
             // Define type initializer.
             var typeInitializer = typeBuilder.DefineConstructor(

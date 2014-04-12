@@ -2895,7 +2895,7 @@ namespace NProxy.Core.Test
             var proxy = _proxyFactory.CreateProxy<IGenericRankArrayParameter>(Type.EmptyTypes, new TargetInvocationHandler(_ => new GenericRankArrayParameter()));
 
             // Assert
-            Assert.DoesNotThrow(() => proxy.Method(new int[0,0]));
+            Assert.DoesNotThrow(() => proxy.Method(new int[0, 0]));
         }
 
         [Test]
@@ -2954,12 +2954,12 @@ namespace NProxy.Core.Test
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericRankArrayRefParameter>(Type.EmptyTypes, new TargetInvocationHandler(_ => new GenericRankArrayRefParameter()));
-            var value = new int[0,0];
+            var value = new int[0, 0];
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(value, Is.EqualTo(new int[0,0]));
+            Assert.That(value, Is.EqualTo(new int[0, 0]));
         }
 
         [Test]
@@ -3029,7 +3029,7 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(value, Is.EqualTo(new int[0,0]));
+            Assert.That(value, Is.EqualTo(new int[0, 0]));
         }
 
         [Test]
@@ -3093,7 +3093,7 @@ namespace NProxy.Core.Test
             var value = proxy.Method<int>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new int[0,0]));
+            Assert.That(value, Is.EqualTo(new int[0, 0]));
         }
 
         [Test]

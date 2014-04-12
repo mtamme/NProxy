@@ -97,7 +97,7 @@ namespace NProxy.Core.Internal.Definitions
 
             // Visit only overridable instance events.
             var eventInfos = type.GetEvents(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                                 .Where(e => e.CanOverride());
+                .Where(e => e.CanOverride());
 
             foreach (var eventInfo in eventInfos)
             {
@@ -120,7 +120,7 @@ namespace NProxy.Core.Internal.Definitions
 
             // Visit only overridable instance properties.
             var propertyInfos = type.GetProperties(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                                    .Where(p => p.CanOverride());
+                .Where(p => p.CanOverride());
 
             foreach (var propertyInfo in propertyInfos)
             {
@@ -143,7 +143,7 @@ namespace NProxy.Core.Internal.Definitions
 
             // Visit only non-accessor overridable instance methods.
             var methodInfos = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                                  .Where(m => !m.IsSpecialName && m.CanOverride());
+                .Where(m => !m.IsSpecialName && m.CanOverride());
 
             foreach (var methodInfo in methodInfos)
             {

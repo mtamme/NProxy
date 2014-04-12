@@ -64,12 +64,12 @@ namespace NProxy.Core.Benchmark.Reporting
             var totalMilliseconds = elapsedTime.TotalMilliseconds;
             var averageMicroseconds = (totalMilliseconds*1000)/iterations;
             var line = String.Format(CultureInfo.InvariantCulture, "|{0,-11}|{1,9}|{2,-38}|{3,12}|{4,18:0.000}|{5,20:0.000}|",
-                                     typeName,
-                                     version,
-                                     scenario.Description,
-                                     iterations,
-                                     totalMilliseconds,
-                                     averageMicroseconds);
+                typeName,
+                version,
+                scenario.Description,
+                iterations,
+                totalMilliseconds,
+                averageMicroseconds);
 
             _writer.WriteLine(line);
         }

@@ -90,10 +90,10 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// <param name="parameterNames">The parameter names.</param>
         /// <returns>The constructor builder.</returns>
         public static ConstructorBuilder DefineConstructor(this TypeBuilder typeBuilder,
-                                                           MethodAttributes methodAttributes,
-                                                           CallingConventions callingConvention,
-                                                           Type[] parameterTypes,
-                                                           string[] parameterNames)
+            MethodAttributes methodAttributes,
+            CallingConventions callingConvention,
+            Type[] parameterTypes,
+            string[] parameterNames)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
@@ -144,9 +144,9 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// <param name="additionalParameterNames">The additional parameter names.</param>
         /// <returns>The constructor builder.</returns>
         public static ConstructorBuilder DefineConstructor(this TypeBuilder typeBuilder,
-                                                           ConstructorInfo constructorInfo,
-                                                           IEnumerable<Type> additionalParameterTypes,
-                                                           IEnumerable<string> additionalParameterNames)
+            ConstructorInfo constructorInfo,
+            IEnumerable<Type> additionalParameterTypes,
+            IEnumerable<string> additionalParameterNames)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
@@ -191,8 +191,8 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// <param name="constructorInfo">The constructor information.</param>
         /// <param name="additionalParameterNames">The additional parameter names.</param>
         private static void DefineParameters(this ConstructorBuilder constructorBuilder,
-                                             ConstructorInfo constructorInfo,
-                                             IEnumerable<string> additionalParameterNames)
+            ConstructorInfo constructorInfo,
+            IEnumerable<string> additionalParameterNames)
         {
             var position = 1;
 
@@ -220,9 +220,9 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// <param name="methodBuilderFactory">The method builder factory function.</param>
         /// <returns>The event builder.</returns>
         public static void DefineEvent(this TypeBuilder typeBuilder,
-                                       EventInfo eventInfo,
-                                       bool isExplicit,
-                                       Func<MethodInfo, bool, MethodBuilder> methodBuilderFactory)
+            EventInfo eventInfo,
+            bool isExplicit,
+            Func<MethodInfo, bool, MethodBuilder> methodBuilderFactory)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
@@ -273,9 +273,9 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// <param name="methodBuilderFactory">The method builder factory function.</param>
         /// <returns>The property builder.</returns>
         public static void DefineProperty(this TypeBuilder typeBuilder,
-                                          PropertyInfo propertyInfo,
-                                          bool isExplicit,
-                                          Func<MethodInfo, bool, MethodBuilder> methodBuilderFactory)
+            PropertyInfo propertyInfo,
+            bool isExplicit,
+            Func<MethodInfo, bool, MethodBuilder> methodBuilderFactory)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
@@ -331,9 +331,9 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// <param name="isOverride">A value indicating whether the specified method should be overridden.</param>
         /// <returns>The method builder.</returns>
         public static MethodBuilder DefineMethod(this TypeBuilder typeBuilder,
-                                                 MethodInfo methodInfo,
-                                                 bool isExplicit,
-                                                 bool isOverride)
+            MethodInfo methodInfo,
+            bool isExplicit,
+            bool isOverride)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");

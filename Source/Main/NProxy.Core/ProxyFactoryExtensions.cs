@@ -50,10 +50,10 @@ namespace NProxy.Core
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The new proxy object.</returns>
         public static object CreateProxy(this IProxyFactory proxyFactory,
-                                         Type declaringType,
-                                         IEnumerable<Type> interfaceTypes,
-                                         IInvocationHandler invocationHandler,
-                                         params object[] arguments)
+            Type declaringType,
+            IEnumerable<Type> interfaceTypes,
+            IInvocationHandler invocationHandler,
+            params object[] arguments)
         {
             if (proxyFactory == null)
                 throw new ArgumentNullException("proxyFactory");
@@ -73,9 +73,9 @@ namespace NProxy.Core
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The new proxy object.</returns>
         public static T CreateProxy<T>(this IProxyFactory proxyFactory,
-                                       IEnumerable<Type> interfaceTypes,
-                                       IInvocationHandler invocationHandler,
-                                       params object[] arguments) where T : class
+            IEnumerable<Type> interfaceTypes,
+            IInvocationHandler invocationHandler,
+            params object[] arguments) where T : class
         {
             if (proxyFactory == null)
                 throw new ArgumentNullException("proxyFactory");

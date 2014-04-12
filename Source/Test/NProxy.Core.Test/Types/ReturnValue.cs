@@ -75,7 +75,7 @@ namespace NProxy.Core.Test.Types
 
         public virtual TReturn[,] Method<TReturn>()
         {
-            return new TReturn[0,0];
+            return new TReturn[0, 0];
         }
 
         #endregion

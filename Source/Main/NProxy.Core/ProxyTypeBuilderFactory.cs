@@ -119,10 +119,10 @@ namespace NProxy.Core
             var keyPair = GetDynamicAssemblyKeyPair();
 
             return new AssemblyName(assemblyName)
-                {
-                    KeyPair = keyPair,
-                    Version = executingAssemblyName.Version
-                };
+            {
+                KeyPair = keyPair,
+                Version = executingAssemblyName.Version
+            };
         }
 
         /// <summary>

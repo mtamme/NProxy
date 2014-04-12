@@ -55,10 +55,10 @@ namespace NProxy.Core.Internal.Reflection
                 throw new ArgumentNullException("eventInfo");
 
             var methodInfos = new List<MethodInfo>
-                {
-                    eventInfo.GetAddMethod(),
-                    eventInfo.GetRemoveMethod()
-                };
+            {
+                eventInfo.GetAddMethod(),
+                eventInfo.GetRemoveMethod()
+            };
 
             var raiseMethodInfo = eventInfo.GetRaiseMethod();
 

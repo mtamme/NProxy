@@ -57,7 +57,7 @@ namespace NProxy.Core.Test.Types
     {
         protected GenericRankArrayRefConstructorBase(ref TValue[,] value)
         {
-            value = new TValue[0,0];
+            value = new TValue[0, 0];
         }
     }
 

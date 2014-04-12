@@ -41,8 +41,8 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<IFoo>()
-                                     .ExtendWith<Bar>()
-                                     .Target<Foo>();
+                .ExtendWith<Bar>()
+                .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
@@ -60,8 +60,8 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<FooBase>()
-                                     .ExtendWith<Bar>()
-                                     .Target<Foo>();
+                .ExtendWith<Bar>()
+                .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
@@ -79,8 +79,8 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<Foo>()
-                                     .ExtendWith<Bar>()
-                                     .Target<Foo>();
+                .ExtendWith<Bar>()
+                .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
@@ -98,8 +98,8 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<Action>()
-                                     .ExtendWith<Bar>()
-                                     .Target(() => { });
+                .ExtendWith<Bar>()
+                .Target(() => { });
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
@@ -117,8 +117,8 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<IFoo>()
-                                     .Implement<IBar>()
-                                     .Target<FooBar>();
+                .Implement<IBar>()
+                .Target<FooBar>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
@@ -136,8 +136,8 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<FooBase>()
-                                     .Implement<IBar>()
-                                     .Target<FooBar>();
+                .Implement<IBar>()
+                .Target<FooBar>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
@@ -155,8 +155,8 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<Foo>()
-                                     .Implement<IBar>()
-                                     .Target<FooBar>();
+                .Implement<IBar>()
+                .Target<FooBar>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
@@ -174,8 +174,8 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<Action>()
-                                     .Implement<IBar>()
-                                     .Target(() => { });
+                .Implement<IBar>()
+                .Target(() => { });
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
@@ -195,8 +195,8 @@ namespace NProxy.Core.Test.Interceptors
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IFoo>()
-                                     .InterceptBy(interceptor)
-                                     .Target<Foo>();
+                .InterceptBy(interceptor)
+                .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
@@ -212,8 +212,8 @@ namespace NProxy.Core.Test.Interceptors
 
             // Act
             var proxy = _proxyFactory.CreateProxy<FooBase>()
-                                     .InterceptBy(interceptor)
-                                     .Target<Foo>();
+                .InterceptBy(interceptor)
+                .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
@@ -229,8 +229,8 @@ namespace NProxy.Core.Test.Interceptors
 
             // Act
             var proxy = _proxyFactory.CreateProxy<Foo>()
-                                     .InterceptBy(interceptor)
-                                     .Target<Foo>();
+                .InterceptBy(interceptor)
+                .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
@@ -246,8 +246,8 @@ namespace NProxy.Core.Test.Interceptors
 
             // Act
             var proxy = _proxyFactory.CreateProxy<Action>()
-                                     .InterceptBy(interceptor)
-                                     .Target(() => { });
+                .InterceptBy(interceptor)
+                .Target(() => { });
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
@@ -261,7 +261,7 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<IFoo>()
-                                     .Target<Foo>();
+                .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
@@ -274,7 +274,7 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<FooBase>()
-                                     .Target<Foo>();
+                .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
@@ -287,7 +287,7 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<Foo>()
-                                     .Target<Foo>();
+                .Target<Foo>();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
@@ -300,7 +300,7 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<Action>()
-                                     .Target(() => { });
+                .Target(() => { });
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
@@ -313,7 +313,7 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<IFoo>()
-                                     .TargetBase();
+                .TargetBase();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IFoo>());
@@ -326,7 +326,7 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<FooBase>()
-                                     .TargetBase();
+                .TargetBase();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<FooBase>());
@@ -339,7 +339,7 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<Foo>()
-                                     .TargetBase();
+                .TargetBase();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Foo>());
@@ -352,7 +352,7 @@ namespace NProxy.Core.Test.Interceptors
             // Arrange
             // Act
             var proxy = _proxyFactory.CreateProxy<Action>()
-                                     .TargetBase();
+                .TargetBase();
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<Action>());
@@ -364,15 +364,15 @@ namespace NProxy.Core.Test.Interceptors
         {
             // Arrange
             var employee = _proxyFactory.CreateProxy<IEmployee>()
-                                        .ExtendWith<LazyMixin>()
-                                        .Target<Employee>();
+                .ExtendWith<LazyMixin>()
+                .Target<Employee>();
 
             // Act
-            employee.Name = "Saturnus";
+            employee.Name = "Foo";
 
             // Assert
             Assert.That(employee, Is.InstanceOf<IEmployee>());
-            Assert.That(employee.Name, Is.EqualTo("Saturnus"));
+            Assert.That(employee.Name, Is.EqualTo("Foo"));
 
             Assert.That(employee, Is.InstanceOf<ILazy>());
             var lazy = (ILazy) employee;

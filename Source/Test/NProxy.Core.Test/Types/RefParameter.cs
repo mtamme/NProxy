@@ -75,7 +75,7 @@ namespace NProxy.Core.Test.Types
 
         public virtual void Method<TValue>(ref TValue[,] value)
         {
-            value = new TValue[0,0];
+            value = new TValue[0, 0];
         }
 
         #endregion

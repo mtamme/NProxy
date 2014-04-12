@@ -152,7 +152,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
                 throw new ArgumentNullException("exceptionType");
 
             var constructorInfo = exceptionType.GetConstructor(BindingFlags.Public | BindingFlags.Instance,
-                                                               typeof (string));
+                typeof (string));
 
             ilGenerator.Emit(OpCodes.Ldstr, message);
             ilGenerator.Emit(OpCodes.Newobj, constructorInfo);

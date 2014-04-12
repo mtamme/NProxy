@@ -33,10 +33,10 @@ namespace NProxy.Core.Test.Internal.Caching
             // Arrange
             var invocationCount = 0;
             Func<int, string> valueFactory = k =>
-                {
-                    invocationCount++;
-                    return Convert.ToString(k);
-                };
+            {
+                invocationCount++;
+                return Convert.ToString(k);
+            };
             var cache = new LockOnWriteCache<int, string>();
 
             // Act
@@ -54,10 +54,10 @@ namespace NProxy.Core.Test.Internal.Caching
             // Arrange
             var invocationCount = 0;
             Func<int, string> valueFactory = k =>
-                {
-                    invocationCount++;
-                    return Convert.ToString(k);
-                };
+            {
+                invocationCount++;
+                return Convert.ToString(k);
+            };
             var cache = new LockOnWriteCache<int, string>();
 
             // Act
@@ -77,15 +77,15 @@ namespace NProxy.Core.Test.Internal.Caching
             var monitor = new Object();
             var invocationCount = 0;
             Func<int, string> valueFactory = k =>
+            {
+                lock (monitor)
                 {
-                    lock (monitor)
-                    {
-                        Monitor.Wait(monitor);
-                    }
+                    Monitor.Wait(monitor);
+                }
 
-                    invocationCount++;
-                    return Convert.ToString(k);
-                };
+                invocationCount++;
+                return Convert.ToString(k);
+            };
             var cache = new LockOnWriteCache<int, string>();
 
             // Act

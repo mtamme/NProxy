@@ -31,10 +31,10 @@ namespace NProxy.Core.Test.Internal.Caching
             // Arrange
             var invocationCount = 0;
             Func<int, string> valueFactory = k =>
-                {
-                    invocationCount++;
-                    return Convert.ToString(k);
-                };
+            {
+                invocationCount++;
+                return Convert.ToString(k);
+            };
             var cache = new Cache<int, string>();
 
             // Act
@@ -52,10 +52,10 @@ namespace NProxy.Core.Test.Internal.Caching
             // Arrange
             var invocationCount = 0;
             Func<int, string> valueFactory = k =>
-                {
-                    invocationCount++;
-                    return Convert.ToString(k);
-                };
+            {
+                invocationCount++;
+                return Convert.ToString(k);
+            };
             var cache = new Cache<int, string>();
 
             // Act
