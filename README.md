@@ -107,6 +107,10 @@ Detailed release notes can be found [here](https://github.com/mtamme/NProxy/blob
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/EXAMPLES.md) for details.
 
+## AppVeyor - Continuous Integration
+
+[![Build status](https://ci.appveyor.com/api/projects/status/ew51bg5b0r2f661e)](https://ci.appveyor.com/project/mtamme/nproxy)
+
 ## Benchmarks
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BENCHMARKS.md) for details.
