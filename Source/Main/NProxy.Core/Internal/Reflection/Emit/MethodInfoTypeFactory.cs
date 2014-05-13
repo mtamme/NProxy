@@ -78,7 +78,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// Builds the type initializer.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
-		/// <param name="methodInfo">The method information.</param>
+        /// <param name="methodInfo">The method information.</param>
         /// <param name="genericParameterTypes">The generic parameter types.</param>
         /// <param name="methodFieldInfo">The method information static field information.</param>
         private static void BuildTypeInitializer(TypeBuilder typeBuilder,
@@ -95,11 +95,11 @@ namespace NProxy.Core.Internal.Reflection.Emit
             // Implement type initializer.
             var ilGenerator = typeInitializer.GetILGenerator();
 
-			// Get and load target method information.
-			var targetMethodInfo = methodInfo.MapGenericMethod(genericParameterTypes);
-			var declaringType = targetMethodInfo.DeclaringType;
+            // Get and load target method information.
+            var targetMethodInfo = methodInfo.MapGenericMethod(genericParameterTypes);
+            var declaringType = targetMethodInfo.DeclaringType;
 
-			ilGenerator.Emit(OpCodes.Ldtoken, targetMethodInfo);
+            ilGenerator.Emit(OpCodes.Ldtoken, targetMethodInfo);
             ilGenerator.Emit(OpCodes.Ldtoken, declaringType);
             ilGenerator.EmitCall(MethodBaseGetMethodFromHandleMethodInfo);
 
@@ -271,7 +271,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
 
             // Define method information static field.
             var methodFieldInfo = typeBuilder.DefineField(
-				"TargetMethod",
+                "TargetMethod",
                 typeof (MethodInfo),
                 FieldAttributes.Private | FieldAttributes.Static | FieldAttributes.InitOnly);
 
