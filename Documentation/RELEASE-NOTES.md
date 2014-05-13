@@ -1,5 +1,9 @@
 # Release notes
 
+## Version 2.3.4
+
+* Change license to Apache License, Version 2.0.
+
 ## Version 2.3.3
 
 * Fixed property and event accessor handling.
