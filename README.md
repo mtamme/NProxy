@@ -40,8 +40,24 @@ Every proxy has an associated invocation handler that is called whenever one of 
 Proxies can be created from unsealed classes, abstract classes, interfaces and delegates, and can implement
 an arbitrary number of interfaces. All interfaces are implemented explicitly to avoid member name conflicts.
 
+There are some known limitation when it comes to event, property or method interception. For class based proxies
+only non-static and only abstract or virtual members can be intercepted.
+
 To exclude events, properties and methods from beeing intercepted just apply the `NonInterceptedAttribute` on the
 member which should not be intercepted. This attribute has no effect when applied to abstract members.
+You can also implement your own `IInterceptionFilter` if you need full control about which member is going to be
+intercepted.
+
+```csharp
+public interface IInterceptionFilter
+{
+    bool AcceptEvent(EventInfo eventInfo);
+
+    bool AcceptProperty(PropertyInfo propertyInfo);
+
+    bool AcceptMethod(MethodInfo methodInfo);
+}
+```
 
 To create dynamic proxies of only internally visible types, just add the following assembly attribute to your project.
 
