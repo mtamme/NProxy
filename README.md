@@ -65,50 +65,6 @@ To create dynamic proxies of only internally visible types, just add the followi
 [assembly: InternalsVisibleTo("NProxy.Dynamic, PublicKey=002400000480000094000000060200000024000052534131000400000100010031d0e185f342141fb582a63c5c3706ee107a49b7c4c988587512e9cf2d02473280bd9d5cf129d118978bb753339b1819c5f836a0940a0c3ec153ccad71b4786a388da0b4b9531b405d57ce00ac02ee019001eb1bcfdaa0afa1d1542adec526e1165ce740dd2d31ad682c4c8d9b305bc64c3ebb029dffa773d1f9e0e9a5847885")]
 ```
 
-## Interceptors
-
-Interceptors provide the functionality of capturing calls to a target object at invocation time. The interception mechanism
-is part of the NProxy library and can be depicted as follows.
-
-![Overview](https://raw.github.com/mtamme/NProxy/master/Documentation/Overview.png "Overview")
-
-At the heart of the interception mechanism is the `IInterceptor` and `IInvocationContext` interface,
-shown below.
-
-```csharp
-public interface IInterceptor
-{
-    object Intercept(IInvocationContext invocationContext);
-}
-```
-
-The `IInvocationContext` interface provides essential context information about the current invocation.
-
-```csharp
-public interface IInvocationContext
-{
-    object Target { get; }
-
-    MethodInfo Method { get; }
-
-    object[] Parameters { get; }
-
-    object Proceed();
-}
-```
-
-The easiest way to add interceptors in an aspect oriented manner is to apply attributes on classes, interfaces, events, properties or methods which
-implement the `IInterceptionBehavior` interface.
-
-```csharp
-public interface IInterceptionBehavior
-{
-    void Apply(MemberInfo memberInfo, ICollection<IInterceptor> interceptors);
-	
-    void Validate(MemberInfo memberInfo);
-}
-```
-
 ## Latest version
 
 To get the latest version of NProxy just add it to your project using [NuGet](http://nuget.org/packages/NProxy.Core).
