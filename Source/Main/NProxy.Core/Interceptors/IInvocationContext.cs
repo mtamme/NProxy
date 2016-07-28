@@ -39,6 +39,11 @@ namespace NProxy.Core.Interceptors
         object[] Parameters { get; }
 
         /// <summary>
+        /// Gets or sets the data object associated with the invocation.
+        /// </summary>
+        object Data { get; set; }
+
+        /// <summary>
         /// Proceed to the next interceptor in the interceptor chain.
         /// </summary>
         /// <returns>The return value of the next method in the chain.</returns>

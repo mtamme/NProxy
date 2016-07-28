@@ -113,6 +113,9 @@ namespace NProxy.Core.Interceptors
         }
 
         /// <inheritdoc/>
+        public object Data { get; set; }
+
+        /// <inheritdoc/>
         public object Proceed()
         {
             var interceptor = GetNextInterceptor();
