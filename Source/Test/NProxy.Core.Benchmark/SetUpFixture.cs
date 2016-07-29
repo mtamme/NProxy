@@ -22,7 +22,7 @@ namespace NProxy.Core.Benchmark
     [SetUpFixture]
     internal sealed class SetUpFixture
     {
-        [TearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             Report.Instance.Close();
