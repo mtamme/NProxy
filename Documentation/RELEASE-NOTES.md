@@ -1,5 +1,9 @@
 # Release notes
 
+## Version 2.3.5
+
+* Added support to share data between interceptors.
+
 ## Version 2.3.4
 
 * Change license to Apache License, Version 2.0.
