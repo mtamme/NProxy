@@ -23,6 +23,7 @@ using NUnit.Framework;
 
 namespace NProxy.Core.Benchmark
 {
+    [Category("Benchmark")]
     [TestFixture]
     public sealed class CastlePerformanceTestFixture
     {
@@ -35,7 +36,7 @@ namespace NProxy.Core.Benchmark
             AssemblyName = type.Assembly.GetName();
         }
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             // Ensure all classes are loaded and initialized.

@@ -25,7 +25,7 @@ namespace NProxy.Core.Test
     {
         private ProxyFactory _proxyFactory;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _proxyFactory = new ProxyFactory();

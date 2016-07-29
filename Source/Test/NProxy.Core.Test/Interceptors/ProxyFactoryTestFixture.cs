@@ -27,7 +27,7 @@ namespace NProxy.Core.Test.Interceptors
     {
         private ProxyFactory _proxyFactory;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _proxyFactory = new ProxyFactory();

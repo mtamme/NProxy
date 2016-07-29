@@ -29,14 +29,14 @@ namespace NProxy.Core.Test
 
         private ProxyFactory _proxyFactory;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _proxyTypeBuilderFactory = new ProxyTypeBuilderFactory(true);
             _proxyFactory = new ProxyFactory(_proxyTypeBuilderFactory, new NonInterceptedInterceptionFilter());
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TearDown()
         {
             _proxyTypeBuilderFactory.SaveAssembly("NProxy.Dynamic.dll");

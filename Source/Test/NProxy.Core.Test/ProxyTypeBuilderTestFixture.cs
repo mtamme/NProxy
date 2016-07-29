@@ -29,7 +29,7 @@ namespace NProxy.Core.Test
     {
         private ProxyTypeBuilderFactory _proxyTypeBuilderFactory;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _proxyTypeBuilderFactory = new ProxyTypeBuilderFactory(false);

@@ -21,6 +21,7 @@ using NUnit.Framework;
 
 namespace NProxy.Core.Benchmark
 {
+    [Category("Benchmark")]
     [TestFixture]
     public sealed class RegularPerformanceTestFixture
     {
