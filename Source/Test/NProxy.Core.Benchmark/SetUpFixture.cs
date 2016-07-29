@@ -19,6 +19,7 @@ using NUnit.Framework;
 
 namespace NProxy.Core.Benchmark
 {
+    [Category("Benchmark")]
     [SetUpFixture]
     internal sealed class SetUpFixture
     {
