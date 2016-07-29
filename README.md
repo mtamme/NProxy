@@ -1,5 +1,5 @@
 # NProxy
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/mtamme/NProxy?branch=master&svg=true)])(https://ci.appveyor.com/project/mtamme/NProxy)
+[![Build Status](https://ci.appveyor.com/api/projects/status/github/mtamme/NProxy?branch=master&svg=true)](https://ci.appveyor.com/project/mtamme/NProxy)
 
 NProxy is a library for the .NET framework to create lightweight dynamic proxies.
 
