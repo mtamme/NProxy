@@ -26,6 +26,8 @@ public interface IInvocationContext
 
     object[] Parameters { get; }
 
+    object Data { get; set; }
+
     object Proceed();
 }
 ```
