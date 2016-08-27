@@ -15,9 +15,19 @@
 //
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace NProxy.Core.Test.Types
 {
+    internal abstract class AsyncReturnValueBase : IAsyncReturnValue
+    {
+        #region IAsyncReturnValue Members
+
+        public abstract Task Method();
+
+        #endregion
+    }
+
     internal abstract class EnumArrayReturnValueBase : IEnumArrayReturnValue
     {
         #region IEnumArrayReturnValue Members

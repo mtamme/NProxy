@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Test.Types;
 using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace NProxy.Core.Test
 {
@@ -653,6 +654,20 @@ namespace NProxy.Core.Test
 
             // Assert
             Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+        }
+
+        [Test]
+        public void CreateProxyFromInterfaceWithAsyncReturnValueTest()
+        {
+            // Arrange
+            var invocationHandler = new SetReturnValueInvocationHandler(Task.Delay(1));
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<IAsyncReturnValue>(Type.EmptyTypes, invocationHandler);
+            var task = proxy.Method();
+
+            // Assert
+            Assert.That(task.IsCompleted, Is.False);
         }
 
         [Test]
@@ -1465,6 +1480,20 @@ namespace NProxy.Core.Test
         }
 
         [Test]
+        public void CreateProxyFromAbstractClassWithAsyncReturnValueTest()
+        {
+            // Arrange
+            var invocationHandler = new SetReturnValueInvocationHandler(Task.Delay(1));
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<AsyncReturnValueBase>(Type.EmptyTypes, invocationHandler);
+            var task = proxy.Method();
+
+            // Assert
+            Assert.That(task.IsCompleted, Is.False);
+        }
+
+        [Test]
         public void CreateProxyFromAbstractClassWithEnumArrayReturnValueTest()
         {
             // Arrange
@@ -2271,6 +2300,20 @@ namespace NProxy.Core.Test
 
             // Assert
             Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+        }
+
+        [Test]
+        public void CreateProxyFromClassWithAsyncReturnValueTest()
+        {
+            // Arrange
+            var invocationHandler = new SetReturnValueInvocationHandler(Task.Delay(1));
+
+            // Act
+            var proxy = _proxyFactory.CreateProxy<AsyncReturnValue>(Type.EmptyTypes, invocationHandler);
+            var task = proxy.Method();
+
+            // Assert
+            Assert.That(task.IsCompleted, Is.False);
         }
 
         [Test]

@@ -15,9 +15,15 @@
 //
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace NProxy.Core.Test.Types
 {
+    internal interface IAsyncReturnValue
+    {
+        Task Method();
+    }
+
     internal interface IEnumArrayReturnValue
     {
         EnumType[] Method();

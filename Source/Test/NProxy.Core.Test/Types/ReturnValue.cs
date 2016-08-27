@@ -16,9 +16,22 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace NProxy.Core.Test.Types
 {
+    internal class AsyncReturnValue : IAsyncReturnValue
+    {
+        #region IAsyncReturnValue Members
+
+        public virtual async Task Method()
+        {
+            await Task.Delay(1);
+        }
+
+        #endregion
+    }
+
     internal class EnumArrayReturnValue : IEnumArrayReturnValue
     {
         #region IEnumArrayReturnValue Members
