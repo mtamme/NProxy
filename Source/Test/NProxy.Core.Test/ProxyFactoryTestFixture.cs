@@ -660,7 +660,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromInterfaceWithAsyncReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(Task.Delay(1));
+            var invocationHandler = new SetReturnValueInvocationHandler(Task.Delay(1000));
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IAsyncReturnValue>(Type.EmptyTypes, invocationHandler);
@@ -1483,7 +1483,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromAbstractClassWithAsyncReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(Task.Delay(1));
+            var invocationHandler = new SetReturnValueInvocationHandler(Task.Delay(1000));
 
             // Act
             var proxy = _proxyFactory.CreateProxy<AsyncReturnValueBase>(Type.EmptyTypes, invocationHandler);
@@ -2306,7 +2306,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromClassWithAsyncReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(Task.Delay(1));
+            var invocationHandler = new SetReturnValueInvocationHandler(Task.Delay(1000));
 
             // Act
             var proxy = _proxyFactory.CreateProxy<AsyncReturnValue>(Type.EmptyTypes, invocationHandler);

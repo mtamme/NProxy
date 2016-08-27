@@ -26,7 +26,7 @@ namespace NProxy.Core.Test.Types
 
         public virtual async Task Method()
         {
-            await Task.Delay(1);
+            await Task.Delay(1000);
         }
 
         #endregion
