@@ -75,7 +75,7 @@ To create dynamic proxies of only internally visible types, just add the followi
 
 ## Releases
 
-Detailed release notes can be found [here](https://github.com/mtamme/NProxy/blob/master/Documentation/RELEASE-NOTES.md).
+See [here](https://github.com/mtamme/NProxy/releases) for details.
 
 ## Examples
 
