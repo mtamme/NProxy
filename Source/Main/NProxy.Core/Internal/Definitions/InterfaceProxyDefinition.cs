@@ -50,9 +50,6 @@ namespace NProxy.Core.Internal.Definitions
 
             // Visit declaring interface types.
             proxyDefinitionVisitor.VisitInterfaces(DeclaringInterfaces);
-
-            // Visit parent type members.
-            proxyDefinitionVisitor.VisitMembers(ParentType);
         }
 
         /// <inheritdoc/>
