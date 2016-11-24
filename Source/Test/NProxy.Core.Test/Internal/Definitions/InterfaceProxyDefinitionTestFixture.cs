@@ -56,7 +56,7 @@ namespace NProxy.Core.Test.Internal.Definitions
 
             Assert.That(proxyDefinitionVisitor.PropertyInfos.Count, Is.EqualTo(6));
 
-            Assert.That(proxyDefinitionVisitor.MethodInfos.Count, Is.EqualTo(7));
+            Assert.That(proxyDefinitionVisitor.MethodInfos.Count, Is.EqualTo(3));
         }
 
         [Test]
