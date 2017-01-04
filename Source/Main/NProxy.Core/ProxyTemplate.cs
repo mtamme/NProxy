@@ -155,13 +155,13 @@ namespace NProxy.Core
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
 
-            var constructorArguments = new List<object> {invocationHandler};
+            var constructorArguments = new List<object> { invocationHandler };
 
             constructorArguments.AddRange(arguments);
 
             return _proxyDefinition.CreateProxy(_implementationType, constructorArguments.ToArray());
         }
-
+        
         #endregion
     }
 
@@ -251,7 +251,7 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public T CreateProxy(IInvocationHandler invocationHandler, params object[] arguments)
         {
-            return (T) _proxyTemplate.CreateProxy(invocationHandler, arguments);
+            return (T)_proxyTemplate.CreateProxy(invocationHandler, arguments);
         }
 
         #endregion

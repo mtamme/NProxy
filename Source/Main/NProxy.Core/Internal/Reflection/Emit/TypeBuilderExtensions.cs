@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Linq;
 
 namespace NProxy.Core.Internal.Reflection.Emit
 {
@@ -75,7 +76,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
                 genericParameterBuilder.SetInterfaceConstraints(interfaceConstraints.ToArray());
             }
 
-            return Array.ConvertAll(genericParameterBuilders, b => (Type) b);
+            return Array.ConvertAll(genericParameterBuilders, b => (Type)b);
         }
 
         /// <summary>
@@ -179,6 +180,12 @@ namespace NProxy.Core.Internal.Reflection.Emit
             // Define constructor parameters.
             constructorBuilder.DefineParameters(constructorInfo, additionalParameterNames);
 
+            //Set custom attributes
+            foreach (var customAttr in GetCustomAttributeDataCollection(constructorInfo))
+            {
+                constructorBuilder.SetCustomAttribute(customAttr);
+            }
+
             return constructorBuilder;
         }
 
@@ -274,6 +281,12 @@ namespace NProxy.Core.Internal.Reflection.Emit
                     eventBuilder.AddOtherMethod(methodBuilder);
                 }
             }
+
+            //Set custom attributes
+            foreach (var customAttr in GetCustomAttributeDataCollection(eventInfo))
+            {
+                eventBuilder.SetCustomAttribute(customAttr);
+            }
         }
 
         /// <summary>
@@ -313,6 +326,12 @@ namespace NProxy.Core.Internal.Reflection.Emit
                 null,
                 null);
 
+            //Set custom attributes
+            foreach (var customAttr in GetCustomAttributeDataCollection(propertyInfo))
+            {
+                propertyBuilder.SetCustomAttribute(customAttr);
+            }
+
             // Build property get method.
             var getMethodInfo = propertyInfo.GetGetMethod(true);
 
@@ -332,6 +351,71 @@ namespace NProxy.Core.Internal.Reflection.Emit
 
                 propertyBuilder.SetSetMethod(methodBuilder);
             }
+        }
+
+        readonly static string[] _excludeSystemAttributes = new string[] { "NProxy.", "System.Runtime.", "__DynamicallyInvokableAttribute" };
+
+        private static bool emitCustomAttribute(CustomAttributeData data)
+        {
+            var attType = data.Constructor.DeclaringType;
+            if (_excludeSystemAttributes.Any(exclude => attType.FullName.StartsWith(exclude)))
+                return false;
+
+            if (attType.FullName.StartsWith("System.") && attType.IsNotPublic)
+                return false;
+
+            return true;
+        }
+
+        public static IEnumerable<CustomAttributeBuilder> GetCustomAttributeDataCollection(this MemberInfo memberInfo)
+        {
+            var attributeData = CustomAttributeData.GetCustomAttributes(memberInfo);
+            var filter = attributeData.Where(data => emitCustomAttribute(data));
+
+            return filter.Select(data => data.ToAttributeBuilder());
+        }
+
+        public static CustomAttributeBuilder ToAttributeBuilder(this CustomAttributeData data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data");
+            }
+
+            var constructorArguments = new List<object>();
+            foreach (var ctorArg in data.ConstructorArguments)
+            {
+                constructorArguments.Add(ctorArg.Value);
+            }
+
+            var propertyArguments = new List<PropertyInfo>();
+            var propertyArgumentValues = new List<object>();
+            var fieldArguments = new List<FieldInfo>();
+            var fieldArgumentValues = new List<object>();
+            foreach (var namedArg in data.NamedArguments)
+            {
+                var fi = namedArg.MemberInfo as FieldInfo;
+                var pi = namedArg.MemberInfo as PropertyInfo;
+
+                if (fi != null)
+                {
+                    fieldArguments.Add(fi);
+                    fieldArgumentValues.Add(namedArg.TypedValue.Value);
+                }
+                else if (pi != null)
+                {
+                    propertyArguments.Add(pi);
+                    propertyArgumentValues.Add(namedArg.TypedValue.Value);
+                }
+            }
+
+            return new CustomAttributeBuilder(
+              data.Constructor,
+              constructorArguments.ToArray(),
+              propertyArguments.ToArray(),
+              propertyArgumentValues.ToArray(),
+              fieldArguments.ToArray(),
+              fieldArgumentValues.ToArray());
         }
 
         /// <summary>
@@ -378,10 +462,18 @@ namespace NProxy.Core.Internal.Reflection.Emit
             var methodName = isExplicit ? methodInfo.GetFullName() : methodInfo.Name;
 
             // Define method.
-            return typeBuilder.DefineMethod(
+            var methodBuilder = typeBuilder.DefineMethod(
                 methodName,
                 methodAttributes,
                 methodInfo.CallingConvention);
+
+            //Set custom attributes
+            foreach (var customAttr in GetCustomAttributeDataCollection(methodInfo))
+            {
+                methodBuilder.SetCustomAttribute(customAttr);
+            }
+
+            return methodBuilder;
         }
 
         /// <summary>

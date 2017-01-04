@@ -81,6 +81,6 @@ namespace NProxy.Core
             var proxyTemplate = proxyFactory.GetProxyTemplate<T>(interfaceTypes);
 
             return proxyTemplate.CreateProxy(invocationHandler, arguments);
-        }
+        }       
     }
 }

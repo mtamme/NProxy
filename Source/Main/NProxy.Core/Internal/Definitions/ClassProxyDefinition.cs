@@ -41,7 +41,7 @@ namespace NProxy.Core.Internal.Definitions
         public override IEnumerable<Type> ImplementedInterfaces
         {
             get { return DeclaringInterfaces.Concat(AdditionalInterfaces); }
-        }
+        }        
 
         /// <inheritdoc/>
         public override void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)

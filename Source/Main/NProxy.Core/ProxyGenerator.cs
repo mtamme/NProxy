@@ -52,6 +52,8 @@ namespace NProxy.Core
         /// </summary>
         private readonly List<MethodInfo> _methodInfos;
 
+        public Type InvocationHandlerType { get; internal set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyGenerator"/> class.
         /// </summary>
@@ -92,6 +94,18 @@ namespace NProxy.Core
             return new ProxyTemplate(proxyDefinition, type, _eventInfos, _propertyInfos, _methodInfos);
         }
 
+        public Type GenerateProxyType(IProxyDefinition proxyDefinition)
+        {
+            if (proxyDefinition == null)
+                throw new ArgumentNullException("proxyDefinition");
+
+            // Build type.
+            proxyDefinition.AcceptVisitor(this);            
+
+            // Create type.
+            return _typeBuilder.CreateType();
+        }
+
         #region IProxyDefinitionVisitor Members
 
         /// <inheritdoc/>
@@ -103,7 +117,14 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public void VisitConstructor(ConstructorInfo constructorInfo)
         {
-            _typeBuilder.BuildConstructor(constructorInfo);
+            if (this.InvocationHandlerType == null)
+            {
+                _typeBuilder.BuildConstructor(constructorInfo);
+            }
+            else
+            {
+                _typeBuilder.BuildConstructor(constructorInfo, this.InvocationHandlerType);
+            }
         }
 
         /// <inheritdoc/>

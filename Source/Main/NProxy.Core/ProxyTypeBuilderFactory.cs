@@ -77,14 +77,17 @@ namespace NProxy.Core
         /// </summary>
         private int _nextTypeId;
 
+        private readonly ProxyFactoryOptions _options;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyTypeBuilderFactory"/> class.
         /// </summary>
         /// <param name="canSaveAssembly">A value indicating whether the assembly can be saved.</param>
-        public ProxyTypeBuilderFactory(bool canSaveAssembly)
+        public ProxyTypeBuilderFactory(bool canSaveAssembly, ProxyFactoryOptions options)
         {
             _assemblyBuilder = DefineDynamicAssembly(DynamicAssemblyName, canSaveAssembly);
             _moduleBuilder = _assemblyBuilder.DefineDynamicModule(DynamicModuleName);
+            _options = options.Clone();
 
             _methodInfoTypeFactory = new MethodInfoTypeFactory(this);
             _methodInfoTypeCache = new Cache<MemberToken, Type>();
@@ -231,7 +234,7 @@ namespace NProxy.Core
             if (parentType == null)
                 throw new ArgumentNullException("parentType");
 
-            return new ProxyTypeBuilder(this, parentType);
+            return new ProxyTypeBuilder(this, parentType, _options);
         }
 
         #endregion

@@ -23,6 +23,14 @@ using NProxy.Core.Internal.Reflection.Emit;
 
 namespace NProxy.Core
 {
+    public class ProxyFactoryOptions
+    {
+        internal ProxyFactoryOptions Clone()
+        {
+            return (ProxyFactoryOptions)this.MemberwiseClone();
+        }
+    }
+
     /// <summary>
     /// Represents the proxy factory.
     /// </summary>
@@ -32,6 +40,8 @@ namespace NProxy.Core
         /// The type builder factory.
         /// </summary>
         private readonly ITypeBuilderFactory _typeBuilderFactory;
+
+        private readonly ProxyFactoryOptions _options;
 
         /// <summary>
         /// The interception filter.
@@ -56,7 +66,17 @@ namespace NProxy.Core
         /// </summary>
         /// <param name="interceptionFilter">The interception filter.</param>
         public ProxyFactory(IInterceptionFilter interceptionFilter)
-            : this(new ProxyTypeBuilderFactory(false), interceptionFilter)
+            : this(interceptionFilter, new ProxyFactoryOptions())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProxyFactory"/> class.
+        /// </summary>
+        /// <param name="interceptionFilter">The interception filter.</param>
+        /// <param name="options">The options object.</param>
+        public ProxyFactory(IInterceptionFilter interceptionFilter, ProxyFactoryOptions options)
+            : this(new ProxyTypeBuilderFactory(false, options), interceptionFilter, options)
         {
         }
 
@@ -65,7 +85,7 @@ namespace NProxy.Core
         /// </summary>
         /// <param name="typeBuilderFactory">The type builder factory.</param>
         /// <param name="interceptionFilter">The interception filter.</param>
-        internal ProxyFactory(ITypeBuilderFactory typeBuilderFactory, IInterceptionFilter interceptionFilter)
+        internal ProxyFactory(ITypeBuilderFactory typeBuilderFactory, IInterceptionFilter interceptionFilter, ProxyFactoryOptions options)
         {
             if (typeBuilderFactory == null)
                 throw new ArgumentNullException("typeBuilderFactory");
@@ -75,6 +95,7 @@ namespace NProxy.Core
 
             _typeBuilderFactory = typeBuilderFactory;
             _interceptionFilter = interceptionFilter;
+            _options = options.Clone();
 
             _proxyTemplateCache = new LockOnWriteCache<IProxyDefinition, IProxyTemplate>();
         }
@@ -125,6 +146,29 @@ namespace NProxy.Core
 
             // Get or generate proxy template.
             return _proxyTemplateCache.GetOrAdd(proxyDefinition, GenerateProxyTemplate);
+        }
+
+        public Type GenerateProxyType(Type declaringType,
+          IEnumerable<Type> interfaceTypes,
+          Type invocationHandlerType)
+        {
+            if (declaringType == null)
+                throw new ArgumentNullException("declaringType");
+
+            if (interfaceTypes == null)
+                throw new ArgumentNullException("interfaceTypes");
+
+            if (!typeof(IInvocationHandler).IsAssignableFrom(invocationHandlerType))
+                throw new ArgumentException("invocationHandlerType");
+
+            // Create proxy definition.
+            var proxyDefinition = CreateProxyDefinition(declaringType, interfaceTypes);
+
+            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDefinition.ParentType);
+            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter);
+            proxyGenerator.InvocationHandlerType = invocationHandlerType;
+
+            return proxyGenerator.GenerateProxyType(proxyDefinition);
         }
 
         #endregion

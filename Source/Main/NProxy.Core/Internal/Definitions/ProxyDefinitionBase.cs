@@ -174,7 +174,7 @@ namespace NProxy.Core.Internal.Definitions
         }
 
         /// <inheritdoc/>
-        public abstract IEnumerable<Type> ImplementedInterfaces { get; }
+        public abstract IEnumerable<Type> ImplementedInterfaces { get; }        
 
         /// <inheritdoc/>
         public virtual void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)

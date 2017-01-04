@@ -139,6 +139,15 @@ namespace NProxy.Core.Test.Types
         #endregion
     }
 
+    internal class StringProperty
+    {
+        [System.Obsolete("Obsolete")]
+        public virtual string Property1
+        {
+            get; set;
+        }
+    }
+
     internal class StructArrayParameter : IStructArrayParameter
     {
         #region IStructArrayParameter Members
