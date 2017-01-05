@@ -20,9 +20,10 @@ using System.Reflection;
 using NProxy.Core.Test.Types;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace NProxy.Core.Test
-{
+{    
     [TestFixture]
     public sealed class ProxyFactoryTestFixture
     {
@@ -1705,7 +1706,7 @@ namespace NProxy.Core.Test
             Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
-        internal sealed class ExceptionInvocationHandler : IInvocationHandler
+        public sealed class ExceptionInvocationHandler : IInvocationHandler
         {
             #region IInvocationHandler Members
 
@@ -1735,6 +1736,43 @@ namespace NProxy.Core.Test
             {
                 Assert.That(ex.Message, Is.EqualTo("value1"));
             }
+        }
+
+        public sealed class SimpleInvocationHandler : IInvocationHandler
+        {
+            #region IInvocationHandler Members
+
+            public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
+            {
+                return methodInfo.Invoke(target, parameters);
+            }
+
+            #endregion
+        }
+
+        public class SerializableClass
+        {
+            public string Property1 { get; set; }
+            public string Property2 { get; set; }
+        }
+
+        [Test]
+        public void SerializeProxyTypeTest()
+        {
+            // Act                        
+            var proxyType = _proxyFactory.GenerateProxyType(typeof(SerializableClass), Type.EmptyTypes, typeof(SimpleInvocationHandler));
+            var proxy = (SerializableClass)Activator.CreateInstance(proxyType);
+
+            var handler = (proxy as IProxyObject)._GetInvocationHandler();
+
+            proxy.Property1 = "aaaa";
+            proxy.Property2 = "bbb";
+
+            var serialized = JsonConvert.SerializeObject(proxy);
+            var deserialized = (SerializableClass)JsonConvert.DeserializeObject(serialized, proxyType);
+
+            Assert.That(deserialized.Property1, Is.EqualTo("aaaa"));
+            Assert.That(deserialized.Property2, Is.EqualTo("bbb"));
         }
 
         [Test]

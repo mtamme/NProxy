@@ -498,6 +498,8 @@ namespace NProxy.Core.Test
 
         public void BuildMethodOverrideTest(Type parentType, Type declaringType, Type classType)
         {
+            var name = classType.Name;
+
             // Arrange
             var typeBuilder = _proxyTypeBuilderFactory.CreateBuilder(parentType);
 

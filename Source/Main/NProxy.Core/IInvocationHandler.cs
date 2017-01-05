@@ -32,4 +32,9 @@ namespace NProxy.Core
         /// <returns>The return value.</returns>
         object Invoke(object target, MethodInfo methodInfo, object[] parameters);
     }
+
+    public interface IProxyObject
+    {
+        IInvocationHandler _GetInvocationHandler();
+    }
 }

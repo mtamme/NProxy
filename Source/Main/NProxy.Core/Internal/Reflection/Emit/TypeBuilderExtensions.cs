@@ -311,6 +311,14 @@ namespace NProxy.Core.Internal.Reflection.Emit
             if (methodBuilderFactory == null)
                 throw new ArgumentNullException("methodBuilderFactory");
 
+            // Build property get method.
+            var getMethodInfo = propertyInfo.GetGetMethod(false);
+            // Build property set method.
+            var setMethodInfo = propertyInfo.GetSetMethod(false);
+
+            if (getMethodInfo == null && setMethodInfo == null)
+                return;
+
             // Define property.
             var propertyName = isExplicit ? propertyInfo.GetFullName() : propertyInfo.Name;
             var parameterTypes = propertyInfo.GetIndexParameterTypes();
@@ -332,9 +340,6 @@ namespace NProxy.Core.Internal.Reflection.Emit
                 propertyBuilder.SetCustomAttribute(customAttr);
             }
 
-            // Build property get method.
-            var getMethodInfo = propertyInfo.GetGetMethod(true);
-
             if (getMethodInfo != null)
             {
                 var methodBuilder = methodBuilderFactory(getMethodInfo, isExplicit);
@@ -342,8 +347,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
                 propertyBuilder.SetGetMethod(methodBuilder);
             }
 
-            // Build property set method.
-            var setMethodInfo = propertyInfo.GetSetMethod(true);
+
 
             if (setMethodInfo != null)
             {
@@ -355,13 +359,16 @@ namespace NProxy.Core.Internal.Reflection.Emit
 
         readonly static string[] _excludeSystemAttributes = new string[] { "NProxy.", "System.Runtime.", "__DynamicallyInvokableAttribute" };
 
-        private static bool emitCustomAttribute(CustomAttributeData data)
+        private static bool emitCustomAttribute(MemberInfo memberInfo, CustomAttributeData data)
         {
             var attType = data.Constructor.DeclaringType;
             if (_excludeSystemAttributes.Any(exclude => attType.FullName.StartsWith(exclude)))
                 return false;
 
-            if (attType.FullName.StartsWith("System.") && attType.IsNotPublic)
+            if (memberInfo.DeclaringType == typeof(object) && attType.IsNotPublic)
+                return false;
+
+            if (!memberInfo.Module.Equals(attType.Module) && attType.IsNotPublic)
                 return false;
 
             return true;
@@ -370,7 +377,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
         public static IEnumerable<CustomAttributeBuilder> GetCustomAttributeDataCollection(this MemberInfo memberInfo)
         {
             var attributeData = CustomAttributeData.GetCustomAttributes(memberInfo);
-            var filter = attributeData.Where(data => emitCustomAttribute(data));
+            var filter = attributeData.Where(data => emitCustomAttribute(memberInfo, data));
 
             return filter.Select(data => data.ToAttributeBuilder());
         }

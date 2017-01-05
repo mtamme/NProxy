@@ -24,7 +24,7 @@ namespace NProxy.Core.Internal.Caching
     /// </summary>
     /// <typeparam name="TKey">The key type.</typeparam>
     /// <typeparam name="TValue">The value type.</typeparam>
-    internal sealed class LockOnWriteCache<TKey, TValue> : ICache<TKey, TValue>, IDisposable
+    public sealed class LockOnWriteCache<TKey, TValue> : ICache<TKey, TValue>, IDisposable
     {
         /// <summary>
         /// The values.

@@ -101,7 +101,27 @@ namespace NProxy.Core
                 typeof(IInvocationHandler),
                 FieldAttributes.Private | FieldAttributes.InitOnly);
 
+            _typeBuilder.AddInterfaceImplementation(typeof(IProxyObject));
+            this.BuildInvocationHandlerAcessor();
+
             _interfaceTypes = new HashSet<Type>();
+        }
+
+        private void BuildInvocationHandlerAcessor()
+        {
+            var methodInfo = typeof(IProxyObject).GetMethod("_GetInvocationHandler");
+            var methodBuilder = _typeBuilder.DefineMethod(methodInfo, isExplicit: true, isOverride: true);
+            methodBuilder.DefineParameters(methodInfo);
+
+            var ilGenerator = methodBuilder.GetILGenerator();
+            //this
+            ilGenerator.Emit(OpCodes.Ldarg_0);
+            //this.field
+            ilGenerator.Emit(OpCodes.Ldfld, _invocationHandlerFieldInfo);            
+            ilGenerator.Emit(OpCodes.Ret);
+
+            //implements interface
+            _typeBuilder.DefineMethodOverride(methodBuilder, methodInfo);
         }
 
         /// <summary>

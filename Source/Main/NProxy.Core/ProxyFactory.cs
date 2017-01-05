@@ -159,7 +159,9 @@ namespace NProxy.Core
                 throw new ArgumentNullException("interfaceTypes");
 
             if (!typeof(IInvocationHandler).IsAssignableFrom(invocationHandlerType))
-                throw new ArgumentException("invocationHandlerType");
+                throw new ArgumentException("invocationHandlerType must be of type IInvocationHandler");
+            if (!invocationHandlerType.IsPublic && !invocationHandlerType.IsNestedPublic)
+                throw new ArgumentException("invocationHandlerType must be public");
 
             // Create proxy definition.
             var proxyDefinition = CreateProxyDefinition(declaringType, interfaceTypes);
