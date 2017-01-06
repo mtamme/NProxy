@@ -52,14 +52,12 @@ namespace NProxy.Core
         /// </summary>
         private readonly List<MethodInfo> _methodInfos;
 
-        public readonly Type _invocationHandlerFactoryType;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyGenerator"/> class.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
         /// <param name="interceptionFilter">The interception filter.</param>
-        public ProxyGenerator(ITypeBuilder typeBuilder, IInterceptionFilter interceptionFilter, Type invocationHandlerFactoryType)
+        public ProxyGenerator(ITypeBuilder typeBuilder, IInterceptionFilter interceptionFilter)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
@@ -73,7 +71,6 @@ namespace NProxy.Core
             _eventInfos = new List<EventInfo>();
             _propertyInfos = new List<PropertyInfo>();
             _methodInfos = new List<MethodInfo>();
-            _invocationHandlerFactoryType = invocationHandlerFactoryType;
         }
 
         /// <summary>
@@ -132,14 +129,7 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public void VisitConstructor(ConstructorInfo constructorInfo)
         {
-            if (this._invocationHandlerFactoryType == null)
-            {
-                _typeBuilder.BuildConstructor(constructorInfo);
-            }
-            else
-            {
-                _typeBuilder.BuildConstructor(constructorInfo, this._invocationHandlerFactoryType);
-            }
+            _typeBuilder.BuildConstructor(constructorInfo);
         }
 
         /// <inheritdoc/>

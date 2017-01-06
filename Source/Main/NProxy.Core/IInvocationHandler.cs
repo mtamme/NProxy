@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+using System;
 using System.Reflection;
 
 namespace NProxy.Core
@@ -35,11 +36,14 @@ namespace NProxy.Core
 
     public interface IInvocationHandlerFactory
     {
-        IInvocationHandler CreateHandler(object target);
+        IInvocationHandler CreateHandler(_IProxyObject target);
     }
 
-    public interface IProxyObject
+    public interface _IProxyObject
     {
+        Type _DeclaringType { get; }
+        Type _ParentType { get; }
+
         IInvocationHandler _GetInvocationHandler();
     }
 

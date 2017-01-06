@@ -60,7 +60,7 @@
     <Compile Include="GetParametersInvocationHandler.cs" />
     <Compile Include="SetParametersInvocationHandler.cs" />
     <Compile Include="SetReturnValueInvocationHandler.cs" />
-    <Compile Include="TestAcessor.cs" />
+    <Compile Include="SampleGeneratedProxy.cs" />
     <Compile Include="Types\Event.cs" />
     <Compile Include="Types\EventBase.cs" />
     <Compile Include="Types\Generic.cs" />

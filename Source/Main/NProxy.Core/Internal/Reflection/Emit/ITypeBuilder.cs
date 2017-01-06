@@ -41,14 +41,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// Builds a constructor based on the specified constructor.
         /// </summary>
         /// <param name="constructorInfo">The constructor information.</param>                
-        void BuildConstructor(ConstructorInfo constructorInfo);
-
-        /// <summary>
-        /// Builds a constructor based on the specified constructor.
-        /// </summary>
-        /// <param name="constructorInfo">The constructor information.</param>        
-        /// <param name="invocationHandlerType">Invocation handler type</param>
-        void BuildConstructor(ConstructorInfo constructorInfo, Type invocationHandlerFactoryType);        
+        void BuildConstructor(ConstructorInfo constructorInfo);              
 
         /// <summary>
         /// Returns a value indicating whether the specified event is concrete.

@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace NProxy.Core.Test
-{    
+{
     [TestFixture]
     public sealed class ProxyFactoryTestFixture
     {
@@ -1708,7 +1708,7 @@ namespace NProxy.Core.Test
 
         public sealed class ExceptionInvocationHandlerFactory : IInvocationHandlerFactory
         {
-            public IInvocationHandler CreateHandler(object target)
+            public IInvocationHandler CreateHandler(_IProxyObject target)
             {
                 return new ExceptionInvocationHandler();
             }
@@ -1730,8 +1730,7 @@ namespace NProxy.Core.Test
         public void CreateProxyTypeFromClassWithStringPropertyTest()
         {
             // Act                        
-            var proxyTemplate = _proxyFactory.GetProxyTemplate(typeof(StringProperty), Type.EmptyTypes, typeof(ExceptionInvocationHandlerFactory));
-            var proxyType = proxyTemplate.ImplementationType;
+            var proxyType = _proxyFactory.GetProxyType(typeof(StringProperty), Type.EmptyTypes, typeof(ExceptionInvocationHandlerFactory));
 
             var proxy = (StringProperty)Activator.CreateInstance(proxyType);
 
@@ -1752,8 +1751,11 @@ namespace NProxy.Core.Test
 
         public sealed class SimpleInvocationHandlerFactory : IInvocationHandlerFactory
         {
-            public IInvocationHandler CreateHandler(object target)
+            public IInvocationHandler CreateHandler(_IProxyObject target)
             {
+                //target._DeclaringType
+                //target._ParentType
+
                 return new SimpleInvocationHandler();
             }
         }
@@ -1780,12 +1782,11 @@ namespace NProxy.Core.Test
         public void SerializeProxyTypeTest()
         {
             // Act                        
-            var proxyTemplate = _proxyFactory.GetProxyTemplate(typeof(SerializableClass), Type.EmptyTypes, typeof(SimpleInvocationHandlerFactory));
-            var proxyType = proxyTemplate.ImplementationType;
+            var proxyType = _proxyFactory.GetProxyType(typeof(SerializableClass), Type.EmptyTypes, typeof(SimpleInvocationHandlerFactory));
 
             var proxy = (SerializableClass)Activator.CreateInstance(proxyType);
 
-            var handler = (proxy as IProxyObject)._GetInvocationHandler();
+            var handler = (proxy as _IProxyObject)._GetInvocationHandler();
 
             proxy.Property1 = "aaaa";
             proxy.Property2 = "bbb";

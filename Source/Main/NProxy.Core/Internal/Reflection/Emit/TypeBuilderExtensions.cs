@@ -297,7 +297,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// <param name="isExplicit">A value indicating whether the specified property should be implemented explicitly.</param>
         /// <param name="methodBuilderFactory">The method builder factory function.</param>
         /// <returns>The property builder.</returns>
-        public static void DefineProperty(this TypeBuilder typeBuilder,
+        public static PropertyBuilder DefineProperty(this TypeBuilder typeBuilder,
             PropertyInfo propertyInfo,
             bool isExplicit,
             Func<MethodInfo, bool, MethodBuilder> methodBuilderFactory)
@@ -317,7 +317,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
             var setMethodInfo = propertyInfo.GetSetMethod(false);
 
             if (getMethodInfo == null && setMethodInfo == null)
-                return;
+                return null;
 
             // Define property.
             var propertyName = isExplicit ? propertyInfo.GetFullName() : propertyInfo.Name;
@@ -355,6 +355,8 @@ namespace NProxy.Core.Internal.Reflection.Emit
 
                 propertyBuilder.SetSetMethod(methodBuilder);
             }
+
+            return propertyBuilder;
         }
 
         readonly static string[] _excludeSystemAttributes = new string[] { "NProxy.", "System.Runtime.", "__DynamicallyInvokableAttribute" };
@@ -472,7 +474,9 @@ namespace NProxy.Core.Internal.Reflection.Emit
             var methodBuilder = typeBuilder.DefineMethod(
                 methodName,
                 methodAttributes,
-                methodInfo.CallingConvention);
+                methodInfo.CallingConvention,
+                methodInfo.ReturnType,
+                methodInfo.GetParameterTypes());
 
             //Set custom attributes
             foreach (var customAttr in GetCustomAttributeDataCollection(methodInfo))

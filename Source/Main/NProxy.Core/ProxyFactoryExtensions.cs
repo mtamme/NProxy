@@ -33,7 +33,7 @@ namespace NProxy.Core
         /// <returns>The proxy template.</returns>
         public static IProxyTemplate<T> GetProxyTemplate<T>(this IProxyFactory proxyFactory, IEnumerable<Type> interfaceTypes) where T : class
         {
-            var proxyTemplate = proxyFactory.GetProxyTemplate(typeof (T), interfaceTypes);
+            var proxyTemplate = proxyFactory.GetProxyTemplate(typeof(T), interfaceTypes);
 
             return new ProxyTemplate<T>(proxyTemplate);
         }
@@ -43,6 +43,12 @@ namespace NProxy.Core
             var proxyTemplate = proxyFactory.GetProxyTemplate(typeof(T), interfaceTypes, invocationHandlerFactoryType);
 
             return new ProxyTemplateWithFactory<T>(proxyTemplate);
+        }
+
+        public static Type GetProxyType(this IProxyFactory proxyFactory, Type declaringType, IEnumerable<Type> interfaceTypes, Type invocationHandlerFactoryType)
+        {
+            var proxyTemplate = proxyFactory.GetProxyTemplate(declaringType, interfaceTypes, invocationHandlerFactoryType);
+            return proxyTemplate.ImplementationType;
         }
 
         /// <summary>
@@ -88,6 +94,6 @@ namespace NProxy.Core
             var proxyTemplate = proxyFactory.GetProxyTemplate<T>(interfaceTypes);
 
             return proxyTemplate.CreateProxy(invocationHandler, arguments);
-        }       
+        }
     }
 }

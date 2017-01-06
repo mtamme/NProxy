@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+using NProxy.Core.Internal.Definitions;
 using System;
 
 namespace NProxy.Core.Internal.Reflection.Emit
@@ -22,12 +23,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
     /// Defines a type builder factory.
     /// </summary>
     internal interface ITypeBuilderFactory
-    {
-        /// <summary>
-        /// Creates a type builder.
-        /// </summary>
-        /// <param name="parentType">The parent type.</param>
-        /// <returns>The type builder.</returns>
-        ITypeBuilder CreateBuilder(Type parentType);
+    {   
+        ITypeBuilder CreateBuilder(IProxyDefinition proxyDefinition);
     }
 }

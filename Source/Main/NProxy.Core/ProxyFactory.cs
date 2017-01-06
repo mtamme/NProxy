@@ -110,8 +110,8 @@ namespace NProxy.Core
         /// <returns>The proxy template.</returns>
         private IProxyTemplate GenerateProxyTemplate(IProxyDefinition proxyDefinition)
         {
-            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDefinition.ParentType);
-            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter, proxyDefinition.InvocationHandlerFactoryType);
+            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDefinition);
+            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter);
 
             return proxyGenerator.GenerateProxyTemplate(proxyDefinition);
         }
@@ -136,8 +136,8 @@ namespace NProxy.Core
 
         private IProxyTemplateWithFactory GenerateProxyTemplateWithFactory(IProxyDefinition proxyDefinition)
         {
-            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDefinition.ParentType);
-            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter, proxyDefinition.InvocationHandlerFactoryType);
+            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDefinition);
+            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter);
 
             return proxyGenerator.GenerateProxyTemplateWithFactory(proxyDefinition);
         }

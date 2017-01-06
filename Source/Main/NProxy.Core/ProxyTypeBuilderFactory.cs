@@ -24,6 +24,7 @@ using NProxy.Core.Internal;
 using NProxy.Core.Internal.Caching;
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Internal.Reflection.Emit;
+using NProxy.Core.Internal.Definitions;
 
 namespace NProxy.Core
 {
@@ -206,7 +207,7 @@ namespace NProxy.Core
 
             return _moduleBuilder.DefineType(
                 uniqueTypeName,
-                TypeAttributes.Class | TypeAttributes.NotPublic | TypeAttributes.Sealed | TypeAttributes.Serializable | TypeAttributes.BeforeFieldInit,
+                TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.Sealed | TypeAttributes.Serializable | TypeAttributes.BeforeFieldInit,
                 parentType);
         }
 
@@ -226,12 +227,12 @@ namespace NProxy.Core
         #region ITypeBuilderFactory Members
 
         /// <inheritdoc/>
-        public ITypeBuilder CreateBuilder(Type parentType)
+        public ITypeBuilder CreateBuilder(IProxyDefinition proxyDefinition)
         {
-            if (parentType == null)
-                throw new ArgumentNullException("parentType");
+            if (proxyDefinition == null)
+                throw new ArgumentNullException("proxyDefinition");
 
-            return new ProxyTypeBuilder(this, parentType);
+            return new ProxyTypeBuilder(this, proxyDefinition);
         }
 
         #endregion
