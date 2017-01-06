@@ -33,8 +33,25 @@ namespace NProxy.Core
         object Invoke(object target, MethodInfo methodInfo, object[] parameters);
     }
 
+    public interface IInvocationHandlerFactory
+    {
+        IInvocationHandler CreateHandler(object target);
+    }
+
     public interface IProxyObject
     {
         IInvocationHandler _GetInvocationHandler();
+    }
+
+    public static class InvocationHandlerFactoryHolder<T>
+       where T : class, IInvocationHandlerFactory, new()
+    {
+        readonly static T _instance;
+        static InvocationHandlerFactoryHolder()
+        {
+            _instance = new T();
+        }
+
+        public static T GetFactory() { return _instance; }
     }
 }

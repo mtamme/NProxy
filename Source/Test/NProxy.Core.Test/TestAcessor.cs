@@ -6,19 +6,25 @@ using System.Threading.Tasks;
 
 namespace NProxy.Core.Test
 {
-    public interface ITestAcessor
+    public class SampleGeneratedProxy : IProxyObject
     {
-        NProxy.Core.IProxyFactory _GetValue();
-    }
-
-    public class TestAcessor : ITestAcessor
-    {
-        IProxyFactory _accessor = null;
-
-        public IProxyFactory _GetValue()
+        IInvocationHandler _invocationHandler;
+        public SampleGeneratedProxy()
         {
-            return _accessor;
+            _invocationHandler = InvocationHandlerFactoryHolder<SampleFactory>.GetFactory().CreateHandler(this);
+        }
+
+        public IInvocationHandler _GetInvocationHandler()
+        {
+            return _invocationHandler;
         }
     }
 
+    public class SampleFactory : IInvocationHandlerFactory
+    {
+        public IInvocationHandler CreateHandler(object target)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

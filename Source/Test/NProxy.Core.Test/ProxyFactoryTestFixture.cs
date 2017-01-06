@@ -34,8 +34,8 @@ namespace NProxy.Core.Test
         [OneTimeSetUp]
         public void SetUp()
         {
-            _proxyTypeBuilderFactory = new ProxyTypeBuilderFactory(true, new ProxyFactoryOptions());
-            _proxyFactory = new ProxyFactory(_proxyTypeBuilderFactory, new NonInterceptedInterceptionFilter(), new ProxyFactoryOptions());
+            _proxyTypeBuilderFactory = new ProxyTypeBuilderFactory(true);
+            _proxyFactory = new ProxyFactory(_proxyTypeBuilderFactory, new NonInterceptedInterceptionFilter());
         }
 
         [OneTimeTearDown]
@@ -1706,6 +1706,14 @@ namespace NProxy.Core.Test
             Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
+        public sealed class ExceptionInvocationHandlerFactory : IInvocationHandlerFactory
+        {
+            public IInvocationHandler CreateHandler(object target)
+            {
+                return new ExceptionInvocationHandler();
+            }
+        }
+
         public sealed class ExceptionInvocationHandler : IInvocationHandler
         {
             #region IInvocationHandler Members
@@ -1722,7 +1730,7 @@ namespace NProxy.Core.Test
         public void CreateProxyTypeFromClassWithStringPropertyTest()
         {
             // Act                        
-            var proxyType = _proxyFactory.GenerateProxyType(typeof(StringProperty), Type.EmptyTypes, typeof(ExceptionInvocationHandler));
+            var proxyType = _proxyFactory.GenerateProxyType(typeof(StringProperty), Type.EmptyTypes, typeof(ExceptionInvocationHandlerFactory));
             var proxy = (StringProperty)Activator.CreateInstance(proxyType);
 
             var methodInfo = proxyType.GetProperty("Property1");
@@ -1731,10 +1739,20 @@ namespace NProxy.Core.Test
             try
             {
                 proxy.Property1 = "value1";
+
+                Assert.Fail("Exception should've been thrown");
             }
             catch (ApplicationException ex)
             {
                 Assert.That(ex.Message, Is.EqualTo("value1"));
+            }
+        }
+
+        public sealed class SimpleInvocationHandlerFactory : IInvocationHandlerFactory
+        {
+            public IInvocationHandler CreateHandler(object target)
+            {
+                return new SimpleInvocationHandler();
             }
         }
 
@@ -1760,7 +1778,7 @@ namespace NProxy.Core.Test
         public void SerializeProxyTypeTest()
         {
             // Act                        
-            var proxyType = _proxyFactory.GenerateProxyType(typeof(SerializableClass), Type.EmptyTypes, typeof(SimpleInvocationHandler));
+            var proxyType = _proxyFactory.GenerateProxyType(typeof(SerializableClass), Type.EmptyTypes, typeof(SimpleInvocationHandlerFactory));
             var proxy = (SerializableClass)Activator.CreateInstance(proxyType);
 
             var handler = (proxy as IProxyObject)._GetInvocationHandler();

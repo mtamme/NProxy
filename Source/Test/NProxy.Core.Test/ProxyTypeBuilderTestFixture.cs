@@ -32,7 +32,7 @@ namespace NProxy.Core.Test
         [OneTimeSetUp]
         public void SetUp()
         {
-            _proxyTypeBuilderFactory = new ProxyTypeBuilderFactory(false, new ProxyFactoryOptions());
+            _proxyTypeBuilderFactory = new ProxyTypeBuilderFactory(false);
         }
 
         #region Add Interface Test Cases

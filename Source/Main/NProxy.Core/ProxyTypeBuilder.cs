@@ -63,14 +63,12 @@ namespace NProxy.Core
         /// </summary>
         private readonly HashSet<Type> _interfaceTypes;
 
-        private readonly ProxyFactoryOptions _options;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyTypeBuilder"/> class.
         /// </summary>
         /// <param name="typeRepository">The type repository.</param>
         /// <param name="parentType">The parent type.</param>
-        public ProxyTypeBuilder(ITypeRepository typeRepository, Type parentType, ProxyFactoryOptions options)
+        public ProxyTypeBuilder(ITypeRepository typeRepository, Type parentType)
         {
             if (typeRepository == null)
                 throw new ArgumentNullException("typeRepository");
@@ -86,7 +84,6 @@ namespace NProxy.Core
 
             _typeRepository = typeRepository;
             _parentType = parentType;
-            _options = options.Clone();
 
             _typeBuilder = typeRepository.DefineType("Proxy", parentType);
 
@@ -117,7 +114,7 @@ namespace NProxy.Core
             //this
             ilGenerator.Emit(OpCodes.Ldarg_0);
             //this.field
-            ilGenerator.Emit(OpCodes.Ldfld, _invocationHandlerFieldInfo);            
+            ilGenerator.Emit(OpCodes.Ldfld, _invocationHandlerFieldInfo);
             ilGenerator.Emit(OpCodes.Ret);
 
             //implements interface
@@ -379,7 +376,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public void BuildConstructor(ConstructorInfo constructorInfo, Type invocationHandlerType)
+        public void BuildConstructor(ConstructorInfo constructorInfo, Type invocationHandlerFactoryType)
         {
             if (constructorInfo == null)
                 throw new ArgumentNullException("constructorInfo");
@@ -403,21 +400,14 @@ namespace NProxy.Core
             // Call parent constructor.
             ilGenerator.Emit(OpCodes.Call, constructorInfo);
 
-            // Check for null invocation handler.
-            //var invocationHandlerNotNullLabel = ilGenerator.DefineLabel();
+            var handlerFactoryType = typeof(InvocationHandlerFactoryHolder<>).MakeGenericType(invocationHandlerFactoryType);
+            var getFactoryMethod = handlerFactoryType.GetMethod("GetFactory");
+            var createHandlerMethod = typeof(IInvocationHandlerFactory).GetMethod("CreateHandler");
 
-            //ilGenerator.Emit(OpCodes.Ldarg_1);
-            //ilGenerator.Emit(OpCodes.Brtrue, invocationHandlerNotNullLabel);
-            //ilGenerator.ThrowException(typeof(ArgumentNullException), "invocationHandler");
-            //ilGenerator.MarkLabel(invocationHandlerNotNullLabel);            
-
-            // Load this reference.
             ilGenerator.Emit(OpCodes.Ldarg_0);
-
-            // Load invocation handler.
-            //ilGenerator.Emit(OpCodes.Ldarg_1);
-
-            ilGenerator.Emit(OpCodes.Newobj, invocationHandlerType.GetConstructor(Type.EmptyTypes));
+            ilGenerator.Emit(OpCodes.Call, getFactoryMethod);
+            ilGenerator.Emit(OpCodes.Ldarg_0);
+            ilGenerator.Emit(OpCodes.Callvirt, createHandlerMethod);
 
             // Store invocation handler.
             ilGenerator.Emit(OpCodes.Stfld, _invocationHandlerFieldInfo);

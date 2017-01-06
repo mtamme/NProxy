@@ -52,7 +52,7 @@ namespace NProxy.Core
         /// </summary>
         private readonly List<MethodInfo> _methodInfos;
 
-        public Type InvocationHandlerType { get; internal set; }
+        public Type invocationHandlerFactoryType { get; internal set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyGenerator"/> class.
@@ -117,13 +117,13 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public void VisitConstructor(ConstructorInfo constructorInfo)
         {
-            if (this.InvocationHandlerType == null)
+            if (this.invocationHandlerFactoryType == null)
             {
                 _typeBuilder.BuildConstructor(constructorInfo);
             }
             else
             {
-                _typeBuilder.BuildConstructor(constructorInfo, this.InvocationHandlerType);
+                _typeBuilder.BuildConstructor(constructorInfo, this.invocationHandlerFactoryType);
             }
         }
 
