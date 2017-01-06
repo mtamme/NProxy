@@ -40,6 +40,11 @@ namespace NProxy.Core.Internal.Definitions
         IEnumerable<Type> ImplementedInterfaces { get; }
 
         /// <summary>
+        /// Invocation handler factory type
+        /// </summary>
+        Type InvocationHandlerFactoryType { get;  }
+
+        /// <summary>
         /// Dispatches to the specific visit method for each member.
         /// </summary>
         /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>

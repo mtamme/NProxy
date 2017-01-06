@@ -44,6 +44,11 @@ namespace NProxy.Core
         private readonly ICache<IProxyDefinition, IProxyTemplate> _proxyTemplateCache;
 
         /// <summary>
+        /// The proxy template with factory cache.
+        /// </summary>
+        private readonly ICache<IProxyDefinition, IProxyTemplateWithFactory> _proxyTemplateWithFactoryCache;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ProxyFactory"/> class.
         /// </summary>
         public ProxyFactory()
@@ -78,6 +83,7 @@ namespace NProxy.Core
             _interceptionFilter = interceptionFilter;
 
             _proxyTemplateCache = new LockOnWriteCache<IProxyDefinition, IProxyTemplate>();
+            _proxyTemplateWithFactoryCache = new LockOnWriteCache<IProxyDefinition, IProxyTemplateWithFactory>();
         }
 
         /// <summary>
@@ -86,15 +92,15 @@ namespace NProxy.Core
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
         /// <returns>The proxy definition.</returns>
-        private static IProxyDefinition CreateProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes)
+        private static ProxyDefinitionBase CreateProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes, Type invocationHandlerFactoryType)
         {
             if (declaringType.IsDelegate())
-                return new DelegateProxyDefinition(declaringType, interfaceTypes);
+                return new DelegateProxyDefinition(declaringType, interfaceTypes, invocationHandlerFactoryType);
 
             if (declaringType.IsInterface)
-                return new InterfaceProxyDefinition(declaringType, interfaceTypes);
+                return new InterfaceProxyDefinition(declaringType, interfaceTypes, invocationHandlerFactoryType);
 
-            return new ClassProxyDefinition(declaringType, interfaceTypes);
+            return new ClassProxyDefinition(declaringType, interfaceTypes, invocationHandlerFactoryType);
         }
 
         /// <summary>
@@ -105,7 +111,7 @@ namespace NProxy.Core
         private IProxyTemplate GenerateProxyTemplate(IProxyDefinition proxyDefinition)
         {
             var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDefinition.ParentType);
-            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter);
+            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter, proxyDefinition.InvocationHandlerFactoryType);
 
             return proxyGenerator.GenerateProxyTemplate(proxyDefinition);
         }
@@ -122,15 +128,21 @@ namespace NProxy.Core
                 throw new ArgumentNullException("interfaceTypes");
 
             // Create proxy definition.
-            var proxyDefinition = CreateProxyDefinition(declaringType, interfaceTypes);
+            var proxyDefinition = CreateProxyDefinition(declaringType, interfaceTypes, null);
 
             // Get or generate proxy template.
             return _proxyTemplateCache.GetOrAdd(proxyDefinition, GenerateProxyTemplate);
         }
 
-        public Type GenerateProxyType(Type declaringType,
-          IEnumerable<Type> interfaceTypes,
-          Type invocationHandlerFactoryType)
+        private IProxyTemplateWithFactory GenerateProxyTemplateWithFactory(IProxyDefinition proxyDefinition)
+        {
+            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDefinition.ParentType);
+            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter, proxyDefinition.InvocationHandlerFactoryType);
+
+            return proxyGenerator.GenerateProxyTemplateWithFactory(proxyDefinition);
+        }
+
+        public IProxyTemplateWithFactory GetProxyTemplate(Type declaringType, IEnumerable<Type> interfaceTypes, Type invocationHandlerFactoryType)
         {
             if (declaringType == null)
                 throw new ArgumentNullException("declaringType");
@@ -144,15 +156,11 @@ namespace NProxy.Core
                 throw new ArgumentException("invocationHandlerFactoryType must be public");
 
             // Create proxy definition.
-            var proxyDefinition = CreateProxyDefinition(declaringType, interfaceTypes);
+            var proxyDefinition = CreateProxyDefinition(declaringType, interfaceTypes, invocationHandlerFactoryType);
 
-            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDefinition.ParentType);
-            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter);
-            proxyGenerator.invocationHandlerFactoryType = invocationHandlerFactoryType;
-
-            return proxyGenerator.GenerateProxyType(proxyDefinition);
+            // Get or generate proxy template.
+            return _proxyTemplateWithFactoryCache.GetOrAdd(proxyDefinition, GenerateProxyTemplateWithFactory);
         }
-
         #endregion
     }
 }

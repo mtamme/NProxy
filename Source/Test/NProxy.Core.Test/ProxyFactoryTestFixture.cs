@@ -29,7 +29,7 @@ namespace NProxy.Core.Test
     {
         private ProxyTypeBuilderFactory _proxyTypeBuilderFactory;
 
-        private ProxyFactory _proxyFactory;
+        private IProxyFactory _proxyFactory;
 
         [OneTimeSetUp]
         public void SetUp()
@@ -1730,7 +1730,9 @@ namespace NProxy.Core.Test
         public void CreateProxyTypeFromClassWithStringPropertyTest()
         {
             // Act                        
-            var proxyType = _proxyFactory.GenerateProxyType(typeof(StringProperty), Type.EmptyTypes, typeof(ExceptionInvocationHandlerFactory));
+            var proxyTemplate = _proxyFactory.GetProxyTemplate(typeof(StringProperty), Type.EmptyTypes, typeof(ExceptionInvocationHandlerFactory));
+            var proxyType = proxyTemplate.ImplementationType;
+
             var proxy = (StringProperty)Activator.CreateInstance(proxyType);
 
             var methodInfo = proxyType.GetProperty("Property1");
@@ -1778,7 +1780,9 @@ namespace NProxy.Core.Test
         public void SerializeProxyTypeTest()
         {
             // Act                        
-            var proxyType = _proxyFactory.GenerateProxyType(typeof(SerializableClass), Type.EmptyTypes, typeof(SimpleInvocationHandlerFactory));
+            var proxyTemplate = _proxyFactory.GetProxyTemplate(typeof(SerializableClass), Type.EmptyTypes, typeof(SimpleInvocationHandlerFactory));
+            var proxyType = proxyTemplate.ImplementationType;
+
             var proxy = (SerializableClass)Activator.CreateInstance(proxyType);
 
             var handler = (proxy as IProxyObject)._GetInvocationHandler();

@@ -32,13 +32,6 @@ namespace NProxy.Core
         /// <returns>The proxy template.</returns>
         IProxyTemplate GetProxyTemplate(Type declaringType, IEnumerable<Type> interfaceTypes);
 
-        /// <summary>
-        /// Returns a dynamic proxy Type.
-        /// </summary>
-        /// <param name="declaringType">The declaring type.</param>
-        /// <param name="interfaceTypes">The additional interface types.</param>
-        /// <param name="invocationHandlerType">The invocation handler type</param>
-        /// <returns></returns>
-        Type GenerateProxyType(Type declaringType, IEnumerable<Type> interfaceTypes, Type invocationHandlerType);
+        IProxyTemplateWithFactory GetProxyTemplate(Type declaringType, IEnumerable<Type> interfaceTypes, Type invocationHandlerFactoryType);        
     }
 }

@@ -21,9 +21,9 @@ using System.Reflection;
 namespace NProxy.Core
 {    
     /// <summary>
-    /// Defines a proxy template.
+    /// Defines a proxy template with an invocation handler Factory
     /// </summary>
-    public interface IProxyTemplate
+    public interface IProxyTemplateWithFactory
     {
         /// <summary>
         /// Returns the declaring type.
@@ -70,25 +70,23 @@ namespace NProxy.Core
 
         /// <summary>
         /// Creates a new proxy.
-        /// </summary>
-        /// <param name="invocationHandler">The invocation handler.</param>
+        /// </summary>        
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The new proxy object.</returns>
-        object CreateProxy(IInvocationHandler invocationHandler, params object[] arguments);
+        object CreateProxy(params object[] arguments);
     }
 
     /// <summary>
     /// Defines a proxy template.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    public interface IProxyTemplate<out T> : IProxyTemplate where T : class
+    public interface IProxyTemplateWithFactory<out T> : IProxyTemplateWithFactory where T : class
     {
         /// <summary>
         /// Creates a new proxy.
-        /// </summary>
-        /// <param name="invocationHandler">The invocation handler.</param>
+        /// </summary>        
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The new proxy object.</returns>
-        new T CreateProxy(IInvocationHandler invocationHandler, params object[] arguments);
+        new T CreateProxy(params object[] arguments);
     }
 }

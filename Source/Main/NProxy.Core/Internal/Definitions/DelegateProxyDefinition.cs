@@ -35,8 +35,13 @@ namespace NProxy.Core.Internal.Definitions
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
+        public DelegateProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes, Type invocationHandlerFactoryType)
+            : base(declaringType, typeof (object), interfaceTypes, invocationHandlerFactoryType)
+        {
+        }
+
         public DelegateProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes)
-            : base(declaringType, typeof (object), interfaceTypes)
+          : this(declaringType, interfaceTypes, null)
         {
         }
 

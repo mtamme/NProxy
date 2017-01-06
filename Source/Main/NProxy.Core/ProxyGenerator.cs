@@ -52,14 +52,14 @@ namespace NProxy.Core
         /// </summary>
         private readonly List<MethodInfo> _methodInfos;
 
-        public Type invocationHandlerFactoryType { get; internal set; }
+        public readonly Type _invocationHandlerFactoryType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyGenerator"/> class.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
         /// <param name="interceptionFilter">The interception filter.</param>
-        public ProxyGenerator(ITypeBuilder typeBuilder, IInterceptionFilter interceptionFilter)
+        public ProxyGenerator(ITypeBuilder typeBuilder, IInterceptionFilter interceptionFilter, Type invocationHandlerFactoryType)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
@@ -73,6 +73,7 @@ namespace NProxy.Core
             _eventInfos = new List<EventInfo>();
             _propertyInfos = new List<PropertyInfo>();
             _methodInfos = new List<MethodInfo>();
+            _invocationHandlerFactoryType = invocationHandlerFactoryType;
         }
 
         /// <summary>
@@ -94,13 +95,27 @@ namespace NProxy.Core
             return new ProxyTemplate(proxyDefinition, type, _eventInfos, _propertyInfos, _methodInfos);
         }
 
+        public IProxyTemplateWithFactory GenerateProxyTemplateWithFactory(IProxyDefinition proxyDefinition)
+        {
+            if (proxyDefinition == null)
+                throw new ArgumentNullException("proxyDefinition");
+
+            // Build type.
+            proxyDefinition.AcceptVisitor(this);
+
+            // Create type.
+            var type = _typeBuilder.CreateType();
+
+            return new ProxyTemplateWithFactory(proxyDefinition, type, _eventInfos, _propertyInfos, _methodInfos);
+        }
+
         public Type GenerateProxyType(IProxyDefinition proxyDefinition)
         {
             if (proxyDefinition == null)
                 throw new ArgumentNullException("proxyDefinition");
 
             // Build type.
-            proxyDefinition.AcceptVisitor(this);            
+            proxyDefinition.AcceptVisitor(this);
 
             // Create type.
             return _typeBuilder.CreateType();
@@ -117,13 +132,13 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public void VisitConstructor(ConstructorInfo constructorInfo)
         {
-            if (this.invocationHandlerFactoryType == null)
+            if (this._invocationHandlerFactoryType == null)
             {
                 _typeBuilder.BuildConstructor(constructorInfo);
             }
             else
             {
-                _typeBuilder.BuildConstructor(constructorInfo, this.invocationHandlerFactoryType);
+                _typeBuilder.BuildConstructor(constructorInfo, this._invocationHandlerFactoryType);
             }
         }
 

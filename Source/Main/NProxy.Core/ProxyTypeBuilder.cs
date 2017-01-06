@@ -404,6 +404,11 @@ namespace NProxy.Core
             var getFactoryMethod = handlerFactoryType.GetMethod("GetFactory");
             var createHandlerMethod = typeof(IInvocationHandlerFactory).GetMethod("CreateHandler");
 
+            //Test singleton factory value
+            var factoryValue = getFactoryMethod.Invoke(null, new object[0]);
+            if (factoryValue == null)
+                throw new ArgumentException($"InvocationHandlerFactory could not be created from type ${invocationHandlerFactoryType.FullName}");            
+
             ilGenerator.Emit(OpCodes.Ldarg_0);
             ilGenerator.Emit(OpCodes.Call, getFactoryMethod);
             ilGenerator.Emit(OpCodes.Ldarg_0);

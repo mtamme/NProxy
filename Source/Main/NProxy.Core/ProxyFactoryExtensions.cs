@@ -38,6 +38,13 @@ namespace NProxy.Core
             return new ProxyTemplate<T>(proxyTemplate);
         }
 
+        public static IProxyTemplateWithFactory<T> GetProxyTemplate<T>(this IProxyFactory proxyFactory, IEnumerable<Type> interfaceTypes, Type invocationHandlerFactoryType) where T : class
+        {
+            var proxyTemplate = proxyFactory.GetProxyTemplate(typeof(T), interfaceTypes, invocationHandlerFactoryType);
+
+            return new ProxyTemplateWithFactory<T>(proxyTemplate);
+        }
+
         /// <summary>
         /// Creates a new proxy.
         /// </summary>
