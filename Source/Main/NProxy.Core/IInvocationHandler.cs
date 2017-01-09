@@ -36,10 +36,10 @@ namespace NProxy.Core
 
     public interface IInvocationHandlerFactory
     {
-        IInvocationHandler CreateHandler(_IProxyObject target);
+        IInvocationHandler CreateHandler(IProxyObject target);
     }
 
-    public interface _IProxyObject
+    public interface IProxyObject
     {
         Type _DeclaringType { get; }
         Type _ParentType { get; }

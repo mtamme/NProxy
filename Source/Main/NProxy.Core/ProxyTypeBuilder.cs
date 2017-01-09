@@ -112,7 +112,7 @@ namespace NProxy.Core
                 typeof(Type),
                 FieldAttributes.Private | FieldAttributes.InitOnly);
 
-            _typeBuilder.AddInterfaceImplementation(typeof(_IProxyObject));
+            _typeBuilder.AddInterfaceImplementation(typeof(IProxyObject));
             this.BuildPropertyFieldAcessor("_ParentType", _parentTypeFieldInfo);
             this.BuildPropertyFieldAcessor("_DeclaringType", _declaringTypeFieldInfo);
             this.BuildInvocationHandlerAcessor();
@@ -122,7 +122,7 @@ namespace NProxy.Core
 
         private void BuildPropertyFieldAcessor(string propertyName, FieldInfo fieldInfo)
         {
-            var propertyInfo = typeof(_IProxyObject).GetProperty(propertyName);
+            var propertyInfo = typeof(IProxyObject).GetProperty(propertyName);
             var propertyBuilder = _typeBuilder.DefineProperty(propertyInfo, true, (methodInfo, isExplicit) =>
             {
                 if (methodInfo.ReturnType != propertyInfo.PropertyType)
@@ -149,7 +149,7 @@ namespace NProxy.Core
 
         private void BuildInvocationHandlerAcessor()
         {
-            var methodInfo = typeof(_IProxyObject).GetMethod("_GetInvocationHandler");
+            var methodInfo = typeof(IProxyObject).GetMethod("_GetInvocationHandler");
             var methodBuilder = _typeBuilder.DefineMethod(methodInfo, isExplicit: true, isOverride: true);
             methodBuilder.DefineParameters(methodInfo);
 

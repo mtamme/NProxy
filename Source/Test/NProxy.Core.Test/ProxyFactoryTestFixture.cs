@@ -1708,7 +1708,7 @@ namespace NProxy.Core.Test
 
         public sealed class ExceptionInvocationHandlerFactory : IInvocationHandlerFactory
         {
-            public IInvocationHandler CreateHandler(_IProxyObject target)
+            public IInvocationHandler CreateHandler(IProxyObject target)
             {
                 return new ExceptionInvocationHandler();
             }
@@ -1751,7 +1751,7 @@ namespace NProxy.Core.Test
 
         public sealed class SimpleInvocationHandlerFactory : IInvocationHandlerFactory
         {
-            public IInvocationHandler CreateHandler(_IProxyObject target)
+            public IInvocationHandler CreateHandler(IProxyObject target)
             {
                 //target._DeclaringType
                 //target._ParentType
@@ -1766,16 +1766,19 @@ namespace NProxy.Core.Test
 
             public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
             {
+                this.Counter++;
                 return methodInfo.Invoke(target, parameters);
             }
+
+            public int Counter { get; set; }
 
             #endregion
         }
 
         public class SerializableClass
         {
-            public string Property1 { get; set; }
-            public string Property2 { get; set; }
+            public virtual string Property1 { get; set; }
+            public virtual string Property2 { get; set; }
         }
 
         [Test]
@@ -1786,7 +1789,7 @@ namespace NProxy.Core.Test
 
             var proxy = (SerializableClass)Activator.CreateInstance(proxyType);
 
-            var handler = (proxy as _IProxyObject)._GetInvocationHandler();
+            var handler = (proxy as IProxyObject)._GetInvocationHandler();
 
             proxy.Property1 = "aaaa";
             proxy.Property2 = "bbb";

@@ -92,6 +92,41 @@ namespace NProxy.Core.Test
             Console.WriteLine($"Time: {(decimal)watch.ElapsedTicks / (decimal)TimeSpan.TicksPerMillisecond} ms");
         }
 
+        //[Test]
+        //public void TestDynamicCastDelegate()
+        //{
+        //    //var methodInfo = typeof(Target).GetMethod("Sum");
+
+        //    //var instance = new Target();
+
+        //    //Delegate d = methodInfo.CreateDelegate(typeof(SumDelegate), instance);
+
+        //    //var result = d((dynamic)1, (dynamic)2);
+
+        //    //var watch = new System.Diagnostics.Stopwatch();
+        //    //watch.Start();
+        //    //var max = 20000;
+        //    //var _params = new object[] { 1, 2 };
+        //    //for (var i = 0; i < max; i++)
+        //    //{
+        //    //    result = d.DynamicInvoke(_params);
+        //    //}
+        //    //watch.Stop();
+
+        //    //Console.WriteLine($"Time: {(decimal)watch.ElapsedTicks / (decimal)TimeSpan.TicksPerMillisecond} ms");
+        //}
+
+        public delegate object FastInvoke(object target, params object[] arguments);
+
+        public class FastMethodFactory
+        {
+            public FastInvoke Get(MethodInfo method, bool callVir = true)
+            {
+                return null;
+            }
+        }
+
+
         [Test]
         public void TestTypedDelegate()
         {

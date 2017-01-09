@@ -359,7 +359,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
             return propertyBuilder;
         }
 
-        readonly static string[] _excludeSystemAttributes = new string[] { "NProxy.", "System.Runtime.", "__DynamicallyInvokableAttribute" };
+        readonly static string[] _excludeSystemAttributes = new string[] { "NProxy.", "System.Runtime." };
 
         private static bool emitCustomAttribute(MemberInfo memberInfo, CustomAttributeData data)
         {
@@ -370,7 +370,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
             if (memberInfo.DeclaringType == typeof(object) && attType.IsNotPublic)
                 return false;
 
-            if (!memberInfo.Module.Equals(attType.Module) && attType.IsNotPublic)
+            if (!memberInfo.ReflectedType.Module.Equals(attType.Module) && attType.IsNotPublic)
                 return false;
 
             return true;
