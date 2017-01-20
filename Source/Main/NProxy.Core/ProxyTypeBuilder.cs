@@ -39,6 +39,9 @@ namespace NProxy.Core
             BindingFlags.Public | BindingFlags.Instance,
             typeof(object), typeof(MethodInfo), typeof(object[]));
 
+        private static readonly MethodInfo CreateHandlerMethodInfo = typeof(IInvocationHandlerFactory).GetMethod("CreateHandler");
+        private static readonly MethodInfo _GetInvocationHandlerMethodInfo = typeof(IProxyObject).GetMethod("_GetInvocationHandler");
+
         /// <summary>
         /// The type repository.
         /// </summary>
@@ -69,7 +72,7 @@ namespace NProxy.Core
         /// Initializes a new instance of the <see cref="ProxyTypeBuilder"/> class.
         /// </summary>
         /// <param name="typeRepository">The type repository.</param>
-        /// <param name="parentType">The parent type.</param>
+        /// <param name="proxyDefinition">The proxy definition.</param>
         public ProxyTypeBuilder(ITypeRepository typeRepository, IProxyDefinition proxyDefinition)
         {
             var parentType = proxyDefinition.ParentType;
@@ -130,10 +133,6 @@ namespace NProxy.Core
                     throw new NotImplementedException("Set property not implemented");
                 }
 
-                //var methodAttributes = MethodAttributes.Private | MethodAttributes.HideBySig | MethodAttributes.NewSlot | MethodAttributes.SpecialName | MethodAttributes.Virtual | MethodAttributes.Final;                
-                //var methodName = methodInfo.GetFullName();               
-                //var methodBuilder = _typeBuilder.DefineMethod(methodName, methodAttributes, methodInfo.CallingConvention, methodInfo.ReturnType, Type.EmptyTypes);
-
                 var methodBuilder = _typeBuilder.DefineMethod(methodInfo, isExplicit, true);
 
                 _typeBuilder.DefineMethodOverride(methodBuilder, methodInfo);
@@ -148,10 +147,9 @@ namespace NProxy.Core
         }
 
         private void BuildInvocationHandlerAcessor()
-        {
-            var methodInfo = typeof(IProxyObject).GetMethod("_GetInvocationHandler");
-            var methodBuilder = _typeBuilder.DefineMethod(methodInfo, isExplicit: true, isOverride: true);
-            methodBuilder.DefineParameters(methodInfo);
+        {            
+            var methodBuilder = _typeBuilder.DefineMethod(_GetInvocationHandlerMethodInfo, isExplicit: true, isOverride: true);
+            methodBuilder.DefineParameters(_GetInvocationHandlerMethodInfo);
 
             var ilGenerator = methodBuilder.GetILGenerator();
             //this
@@ -161,7 +159,7 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ret);
 
             //implements interface
-            _typeBuilder.DefineMethodOverride(methodBuilder, methodInfo);
+            _typeBuilder.DefineMethodOverride(methodBuilder, _GetInvocationHandlerMethodInfo);
         }
 
         /// <summary>
@@ -411,7 +409,6 @@ namespace NProxy.Core
 
             var handlerFactoryType = typeof(InvocationHandlerFactoryHolder<>).MakeGenericType(invocationHandlerFactoryType);
             var getFactoryMethod = handlerFactoryType.GetMethod("GetFactory");
-            var createHandlerMethod = typeof(IInvocationHandlerFactory).GetMethod("CreateHandler");
 
             //Test singleton factory value
             var factoryValue = getFactoryMethod.Invoke(null, new object[0]);
@@ -421,7 +418,7 @@ namespace NProxy.Core
             ilGenerator.Emit(OpCodes.Ldarg_0);
             ilGenerator.Emit(OpCodes.Call, getFactoryMethod);
             ilGenerator.Emit(OpCodes.Ldarg_0);
-            ilGenerator.Emit(OpCodes.Callvirt, createHandlerMethod);
+            ilGenerator.Emit(OpCodes.Callvirt, CreateHandlerMethodInfo);
 
             // Store invocation handler.
             ilGenerator.Emit(OpCodes.Stfld, _invocationHandlerFieldInfo);

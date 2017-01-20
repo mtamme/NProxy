@@ -367,11 +367,24 @@ namespace NProxy.Core.Internal.Reflection.Emit
             if (_excludeSystemAttributes.Any(exclude => attType.FullName.StartsWith(exclude)))
                 return false;
 
-            if (memberInfo.DeclaringType == typeof(object) && attType.IsNotPublic)
-                return false;
+            if (attType.IsNotPublic) {
+                if (memberInfo is Type)
+                {
+                    if (memberInfo == typeof(object))
+                        return false;
 
-            if (!memberInfo.ReflectedType.Module.Equals(attType.Module) && attType.IsNotPublic)
-                return false;
+                    if (!memberInfo.Module.Equals(attType.Module))
+                        return false;
+                }
+                else
+                {
+                    if (memberInfo.DeclaringType == typeof(object))
+                        return false;
+
+                    if (!memberInfo.ReflectedType.Module.Equals(attType.Module))
+                        return false;
+                }
+            }
 
             return true;
         }
