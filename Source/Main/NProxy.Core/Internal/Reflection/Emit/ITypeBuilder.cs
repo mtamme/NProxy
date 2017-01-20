@@ -40,8 +40,8 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// <summary>
         /// Builds a constructor based on the specified constructor.
         /// </summary>
-        /// <param name="constructorInfo">The constructor information.</param>
-        void BuildConstructor(ConstructorInfo constructorInfo);
+        /// <param name="constructorInfo">The constructor information.</param>                
+        void BuildConstructor(ConstructorInfo constructorInfo);              
 
         /// <summary>
         /// Returns a value indicating whether the specified event is concrete.
@@ -86,6 +86,6 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// Creates the type.
         /// </summary>
         /// <returns>The type.</returns>
-        Type CreateType();
+        Type CreateType();        
     }
 }

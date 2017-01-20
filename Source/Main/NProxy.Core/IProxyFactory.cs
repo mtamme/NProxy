@@ -31,5 +31,7 @@ namespace NProxy.Core
         /// <param name="interfaceTypes">The additional interface types.</param>
         /// <returns>The proxy template.</returns>
         IProxyTemplate GetProxyTemplate(Type declaringType, IEnumerable<Type> interfaceTypes);
+
+        IProxyTemplateWithFactory GetProxyTemplate(Type declaringType, IEnumerable<Type> interfaceTypes, Type invocationHandlerFactoryType);        
     }
 }

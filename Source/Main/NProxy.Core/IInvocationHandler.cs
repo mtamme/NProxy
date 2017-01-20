@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+using System;
 using System.Reflection;
 
 namespace NProxy.Core
@@ -31,5 +32,30 @@ namespace NProxy.Core
         /// <param name="parameters">The parameter values.</param>
         /// <returns>The return value.</returns>
         object Invoke(object target, MethodInfo methodInfo, object[] parameters);
+    }
+
+    public interface IInvocationHandlerFactory
+    {
+        IInvocationHandler CreateHandler(IProxyObject target);
+    }
+
+    public interface IProxyObject
+    {
+        Type _DeclaringType { get; }
+        Type _ParentType { get; }
+
+        IInvocationHandler _GetInvocationHandler();
+    }
+
+    public static class InvocationHandlerFactoryHolder<T>
+       where T : class, IInvocationHandlerFactory, new()
+    {
+        readonly static T _instance;
+        static InvocationHandlerFactoryHolder()
+        {
+            _instance = new T();
+        }
+
+        public static T GetFactory() { return _instance; }
     }
 }

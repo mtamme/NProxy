@@ -14,16 +14,23 @@
 // limitations under the License.
 //
 
-using NProxy.Core.Internal.Definitions;
 using System;
+using System.Collections.Generic;
+using NProxy.Core.Internal.Caching;
+using NProxy.Core.Internal.Definitions;
+using NProxy.Core.Internal.Reflection;
+using NProxy.Core.Internal.Reflection.Emit;
 
-namespace NProxy.Core.Internal.Reflection.Emit
+namespace NProxy.Core
 {
     /// <summary>
-    /// Defines a type builder factory.
+    /// Represents the cache factory.
     /// </summary>
-    internal interface ITypeBuilderFactory
-    {   
-        ITypeBuilder CreateBuilder(IProxyDefinition proxyDefinition);
+    public sealed class CacheFactory
+    {
+        public IDisposableCache<TKey, TValue> CreateLockOnWrite<TKey, TValue>()
+        {
+            return new LockOnWriteCache<TKey, TValue>();
+        }
     }
 }

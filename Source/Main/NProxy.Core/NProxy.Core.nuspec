@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
   <metadata>
     <id>$id$</id>
-    <version>$version$</version>
+    <version>0.0.2-beta</version>
     <authors>$author$</authors>
-    <description>$description$</description>
+    <description>$description$
+			{{D67872AF34FC841E711B4DF254A401EB}}</description>
     <language>en-US</language>
     <projectUrl>https://github.com/mtamme/NProxy/</projectUrl>
     <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>

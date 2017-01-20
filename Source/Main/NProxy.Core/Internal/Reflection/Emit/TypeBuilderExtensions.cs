@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Linq;
 
 namespace NProxy.Core.Internal.Reflection.Emit
 {
@@ -75,7 +76,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
                 genericParameterBuilder.SetInterfaceConstraints(interfaceConstraints.ToArray());
             }
 
-            return Array.ConvertAll(genericParameterBuilders, b => (Type) b);
+            return Array.ConvertAll(genericParameterBuilders, b => (Type)b);
         }
 
         /// <summary>
@@ -179,6 +180,12 @@ namespace NProxy.Core.Internal.Reflection.Emit
             // Define constructor parameters.
             constructorBuilder.DefineParameters(constructorInfo, additionalParameterNames);
 
+            //Set custom attributes
+            foreach (var customAttr in GetCustomAttributeDataCollection(constructorInfo))
+            {
+                constructorBuilder.SetCustomAttribute(customAttr);
+            }
+
             return constructorBuilder;
         }
 
@@ -274,6 +281,12 @@ namespace NProxy.Core.Internal.Reflection.Emit
                     eventBuilder.AddOtherMethod(methodBuilder);
                 }
             }
+
+            //Set custom attributes
+            foreach (var customAttr in GetCustomAttributeDataCollection(eventInfo))
+            {
+                eventBuilder.SetCustomAttribute(customAttr);
+            }
         }
 
         /// <summary>
@@ -284,7 +297,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
         /// <param name="isExplicit">A value indicating whether the specified property should be implemented explicitly.</param>
         /// <param name="methodBuilderFactory">The method builder factory function.</param>
         /// <returns>The property builder.</returns>
-        public static void DefineProperty(this TypeBuilder typeBuilder,
+        public static PropertyBuilder DefineProperty(this TypeBuilder typeBuilder,
             PropertyInfo propertyInfo,
             bool isExplicit,
             Func<MethodInfo, bool, MethodBuilder> methodBuilderFactory)
@@ -297,6 +310,14 @@ namespace NProxy.Core.Internal.Reflection.Emit
 
             if (methodBuilderFactory == null)
                 throw new ArgumentNullException("methodBuilderFactory");
+
+            // Build property get method.
+            var getMethodInfo = propertyInfo.GetGetMethod(false);
+            // Build property set method.
+            var setMethodInfo = propertyInfo.GetSetMethod(false);
+
+            if (getMethodInfo == null && setMethodInfo == null)
+                return null;
 
             // Define property.
             var propertyName = isExplicit ? propertyInfo.GetFullName() : propertyInfo.Name;
@@ -313,8 +334,11 @@ namespace NProxy.Core.Internal.Reflection.Emit
                 null,
                 null);
 
-            // Build property get method.
-            var getMethodInfo = propertyInfo.GetGetMethod(true);
+            //Set custom attributes
+            foreach (var customAttr in GetCustomAttributeDataCollection(propertyInfo))
+            {
+                propertyBuilder.SetCustomAttribute(customAttr);
+            }
 
             if (getMethodInfo != null)
             {
@@ -323,8 +347,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
                 propertyBuilder.SetGetMethod(methodBuilder);
             }
 
-            // Build property set method.
-            var setMethodInfo = propertyInfo.GetSetMethod(true);
+
 
             if (setMethodInfo != null)
             {
@@ -332,6 +355,89 @@ namespace NProxy.Core.Internal.Reflection.Emit
 
                 propertyBuilder.SetSetMethod(methodBuilder);
             }
+
+            return propertyBuilder;
+        }
+
+        readonly static string[] _excludeSystemAttributes = new string[] { "NProxy.", "System.Runtime." };
+
+        private static bool emitCustomAttribute(MemberInfo memberInfo, CustomAttributeData data)
+        {
+            var attType = data.Constructor.DeclaringType;
+            if (_excludeSystemAttributes.Any(exclude => attType.FullName.StartsWith(exclude)))
+                return false;
+
+            if (attType.IsNotPublic) {
+                if (memberInfo is Type)
+                {
+                    if (memberInfo == typeof(object))
+                        return false;
+
+                    if (!memberInfo.Module.Equals(attType.Module))
+                        return false;
+                }
+                else
+                {
+                    if (memberInfo.DeclaringType == typeof(object))
+                        return false;
+
+                    if (!memberInfo.ReflectedType.Module.Equals(attType.Module))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        public static IEnumerable<CustomAttributeBuilder> GetCustomAttributeDataCollection(this MemberInfo memberInfo)
+        {
+            var attributeData = CustomAttributeData.GetCustomAttributes(memberInfo);
+            var filter = attributeData.Where(data => emitCustomAttribute(memberInfo, data));
+
+            return filter.Select(data => data.ToAttributeBuilder());
+        }
+
+        public static CustomAttributeBuilder ToAttributeBuilder(this CustomAttributeData data)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException("data");
+            }
+
+            var constructorArguments = new List<object>();
+            foreach (var ctorArg in data.ConstructorArguments)
+            {
+                constructorArguments.Add(ctorArg.Value);
+            }
+
+            var propertyArguments = new List<PropertyInfo>();
+            var propertyArgumentValues = new List<object>();
+            var fieldArguments = new List<FieldInfo>();
+            var fieldArgumentValues = new List<object>();
+            foreach (var namedArg in data.NamedArguments)
+            {
+                var fi = namedArg.MemberInfo as FieldInfo;
+                var pi = namedArg.MemberInfo as PropertyInfo;
+
+                if (fi != null)
+                {
+                    fieldArguments.Add(fi);
+                    fieldArgumentValues.Add(namedArg.TypedValue.Value);
+                }
+                else if (pi != null)
+                {
+                    propertyArguments.Add(pi);
+                    propertyArgumentValues.Add(namedArg.TypedValue.Value);
+                }
+            }
+
+            return new CustomAttributeBuilder(
+              data.Constructor,
+              constructorArguments.ToArray(),
+              propertyArguments.ToArray(),
+              propertyArgumentValues.ToArray(),
+              fieldArguments.ToArray(),
+              fieldArgumentValues.ToArray());
         }
 
         /// <summary>
@@ -378,10 +484,20 @@ namespace NProxy.Core.Internal.Reflection.Emit
             var methodName = isExplicit ? methodInfo.GetFullName() : methodInfo.Name;
 
             // Define method.
-            return typeBuilder.DefineMethod(
+            var methodBuilder = typeBuilder.DefineMethod(
                 methodName,
                 methodAttributes,
-                methodInfo.CallingConvention);
+                methodInfo.CallingConvention,
+                methodInfo.ReturnType,
+                methodInfo.GetParameterTypes());
+
+            //Set custom attributes
+            foreach (var customAttr in GetCustomAttributeDataCollection(methodInfo))
+            {
+                methodBuilder.SetCustomAttribute(customAttr);
+            }
+
+            return methodBuilder;
         }
 
         /// <summary>

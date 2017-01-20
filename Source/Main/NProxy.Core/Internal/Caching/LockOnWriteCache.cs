@@ -18,13 +18,13 @@ using System;
 using System.Collections.Generic;
 
 namespace NProxy.Core.Internal.Caching
-{
+{    
     /// <summary>
     /// Represents a lock-on-write cache.
     /// </summary>
     /// <typeparam name="TKey">The key type.</typeparam>
     /// <typeparam name="TValue">The value type.</typeparam>
-    internal sealed class LockOnWriteCache<TKey, TValue> : ICache<TKey, TValue>, IDisposable
+    internal sealed class LockOnWriteCache<TKey, TValue> : IDisposableCache<TKey, TValue>
     {
         /// <summary>
         /// The values.

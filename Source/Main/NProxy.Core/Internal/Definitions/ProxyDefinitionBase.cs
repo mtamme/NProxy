@@ -45,13 +45,15 @@ namespace NProxy.Core.Internal.Definitions
         /// </summary>
         private readonly HashSet<Type> _additionalInterfaceTypes;
 
+        private readonly Type _invocationHandlerFactoryType;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyDefinitionBase"/> class.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="parentType">The parent type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        protected ProxyDefinitionBase(Type declaringType, Type parentType, IEnumerable<Type> interfaceTypes)
+        protected ProxyDefinitionBase(Type declaringType, Type parentType, IEnumerable<Type> interfaceTypes, Type invocationHandlerFactoryType)
         {
             if (declaringType == null)
                 throw new ArgumentNullException("declaringType");
@@ -66,6 +68,7 @@ namespace NProxy.Core.Internal.Definitions
             _parentType = parentType;
             _declaringInterfaceTypes = ExtractInterfaces(declaringType);
             _additionalInterfaceTypes = ExtractAdditionalInterfaces(interfaceTypes, _declaringInterfaceTypes);
+            _invocationHandlerFactoryType = invocationHandlerFactoryType;
         }
 
         /// <summary>
@@ -176,6 +179,8 @@ namespace NProxy.Core.Internal.Definitions
         /// <inheritdoc/>
         public abstract IEnumerable<Type> ImplementedInterfaces { get; }
 
+        public Type InvocationHandlerFactoryType { get { return _invocationHandlerFactoryType; } }
+
         /// <inheritdoc/>
         public virtual void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)
         {
@@ -213,6 +218,9 @@ namespace NProxy.Core.Internal.Definitions
             if (other._parentType != _parentType)
                 return false;
 
+            if (other._invocationHandlerFactoryType != _invocationHandlerFactoryType)
+                return false;
+
             // Compare additional interface types.
             var additionalInterfaceTypes = other._additionalInterfaceTypes;
 
@@ -229,7 +237,7 @@ namespace NProxy.Core.Internal.Definitions
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            return (obj is ProxyDefinitionBase) && Equals((ProxyDefinitionBase) obj);
+            return (obj is ProxyDefinitionBase) && Equals((ProxyDefinitionBase)obj);
         }
 
         /// <inheritdoc/>

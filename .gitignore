@@ -1,6 +1,7 @@
 # Visual Studio
 *.suo
 *.user
+*.TMP
 [Oo]bj/
 [Bb]in/
 [Dd]ebug*/

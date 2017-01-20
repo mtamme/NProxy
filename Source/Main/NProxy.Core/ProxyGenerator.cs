@@ -92,6 +92,32 @@ namespace NProxy.Core
             return new ProxyTemplate(proxyDefinition, type, _eventInfos, _propertyInfos, _methodInfos);
         }
 
+        public IProxyTemplateWithFactory GenerateProxyTemplateWithFactory(IProxyDefinition proxyDefinition)
+        {
+            if (proxyDefinition == null)
+                throw new ArgumentNullException("proxyDefinition");
+
+            // Build type.
+            proxyDefinition.AcceptVisitor(this);
+
+            // Create type.
+            var type = _typeBuilder.CreateType();
+
+            return new ProxyTemplateWithFactory(proxyDefinition, type, _eventInfos, _propertyInfos, _methodInfos);
+        }
+
+        public Type GenerateProxyType(IProxyDefinition proxyDefinition)
+        {
+            if (proxyDefinition == null)
+                throw new ArgumentNullException("proxyDefinition");
+
+            // Build type.
+            proxyDefinition.AcceptVisitor(this);
+
+            // Create type.
+            return _typeBuilder.CreateType();
+        }
+
         #region IProxyDefinitionVisitor Members
 
         /// <inheritdoc/>

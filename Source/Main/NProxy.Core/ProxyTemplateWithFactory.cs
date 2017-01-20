@@ -23,9 +23,9 @@ using NProxy.Core.Internal.Definitions;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Represents a proxy template.
+    /// Represents a proxy template with an invocation handler factory
     /// </summary>
-    internal class ProxyTemplate : IProxyTemplate
+    internal class ProxyTemplateWithFactory : IProxyTemplateWithFactory
     {
         /// <summary>
         /// The proxy definition.
@@ -60,7 +60,7 @@ namespace NProxy.Core
         /// <param name="eventInfos">The event informations.</param>
         /// <param name="propertyInfos">The property informations.</param>
         /// <param name="methodInfos">The method informations.</param>
-        public ProxyTemplate(IProxyDefinition proxyDefinition, Type implementationType, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
+        public ProxyTemplateWithFactory(IProxyDefinition proxyDefinition, Type implementationType, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
         {
             if (proxyDefinition == null)
                 throw new ArgumentNullException("proxyDefinition");
@@ -147,19 +147,12 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public object CreateProxy(IInvocationHandler invocationHandler, params object[] arguments)
+        public object CreateProxy(params object[] arguments)
         {
-            if (invocationHandler == null)
-                throw new ArgumentNullException("invocationHandler");
-
             if (arguments == null)
-                throw new ArgumentNullException("arguments");
+                throw new ArgumentNullException("arguments");            
 
-            var constructorArguments = new List<object> { invocationHandler };
-
-            constructorArguments.AddRange(arguments);
-
-            return _proxyDefinition.CreateProxy(_implementationType, constructorArguments.ToArray());
+            return _proxyDefinition.CreateProxy(_implementationType, arguments);
         }
         
         #endregion
@@ -169,18 +162,18 @@ namespace NProxy.Core
     /// Represents a proxy template.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    internal sealed class ProxyTemplate<T> : IProxyTemplate<T> where T : class
+    internal sealed class ProxyTemplateWithFactory<T> : IProxyTemplateWithFactory<T> where T : class
     {
         /// <summary>
         /// The proxy template.
         /// </summary>
-        private readonly IProxyTemplate _proxyTemplate;
+        private readonly IProxyTemplateWithFactory _proxyTemplate;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyTemplate{T}"/> class.
         /// </summary>
         /// <param name="proxyTemplate">The proxy template.</param>
-        public ProxyTemplate(IProxyTemplate proxyTemplate)
+        public ProxyTemplateWithFactory(IProxyTemplateWithFactory proxyTemplate)
         {
             if (proxyTemplate == null)
                 throw new ArgumentNullException("proxyTemplate");
@@ -239,9 +232,9 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        object IProxyTemplate.CreateProxy(IInvocationHandler invocationHandler, params object[] arguments)
+        object IProxyTemplateWithFactory.CreateProxy(params object[] arguments)
         {
-            return _proxyTemplate.CreateProxy(invocationHandler, arguments);
+            return _proxyTemplate.CreateProxy(arguments);
         }
 
         #endregion
@@ -249,9 +242,9 @@ namespace NProxy.Core
         #region IProxyTemplate<T> Members
 
         /// <inheritdoc/>
-        public T CreateProxy(IInvocationHandler invocationHandler, params object[] arguments)
+        public T CreateProxy(params object[] arguments)
         {
-            return (T)_proxyTemplate.CreateProxy(invocationHandler, arguments);
+            return (T)_proxyTemplate.CreateProxy(arguments);
         }
 
         #endregion

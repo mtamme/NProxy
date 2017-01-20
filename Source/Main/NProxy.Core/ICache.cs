@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright © Martin Tamme
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,16 +14,23 @@
 // limitations under the License.
 //
 
-using NProxy.Core.Internal.Definitions;
 using System;
 
-namespace NProxy.Core.Internal.Reflection.Emit
+namespace NProxy.Core
 {
     /// <summary>
-    /// Defines a type builder factory.
+    /// Defines a cache.
     /// </summary>
-    internal interface ITypeBuilderFactory
-    {   
-        ITypeBuilder CreateBuilder(IProxyDefinition proxyDefinition);
+    /// <typeparam name="TKey">The key type.</typeparam>
+    /// <typeparam name="TValue">The value type.</typeparam>
+    public interface ICache<TKey, TValue>
+    {
+        /// <summary>
+        /// Gets or adds a value for the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="valueFactory">The value factory.</param>
+        /// <returns>The value.</returns>
+        TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory);
     }
 }

@@ -15,22 +15,16 @@
 //
 
 using System;
+using System.Reflection;
 
-namespace NProxy.Core.Internal.Caching
+namespace NProxy.Core
 {
     /// <summary>
-    /// Defines a cache.
+    /// Represents a disposable cache.
     /// </summary>
     /// <typeparam name="TKey">The key type.</typeparam>
     /// <typeparam name="TValue">The value type.</typeparam>
-    internal interface ICache<TKey, TValue>
+    public interface IDisposableCache<TKey, TValue> : ICache<TKey, TValue>, IDisposable
     {
-        /// <summary>
-        /// Gets or adds a value for the specified key.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <param name="valueFactory">The value factory.</param>
-        /// <returns>The value.</returns>
-        TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory);
     }
 }

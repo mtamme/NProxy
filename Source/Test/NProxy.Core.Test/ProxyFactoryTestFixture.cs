@@ -20,6 +20,7 @@ using System.Reflection;
 using NProxy.Core.Test.Types;
 using NUnit.Framework;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace NProxy.Core.Test
 {
@@ -28,7 +29,7 @@ namespace NProxy.Core.Test
     {
         private ProxyTypeBuilderFactory _proxyTypeBuilderFactory;
 
-        private ProxyFactory _proxyFactory;
+        private IProxyFactory _proxyFactory;
 
         [OneTimeSetUp]
         public void SetUp()
@@ -54,10 +55,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IEnumArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {EnumType.Two});
+            proxy.Method(new[] { EnumType.Two });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
@@ -84,10 +85,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {"Two"});
+            proxy.Method(new[] { "Two" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
@@ -99,10 +100,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericJaggedArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {new[] {"Two"}});
+            proxy.Method(new[] { new[] { "Two" } });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
@@ -114,10 +115,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericRankArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[,] {{"Two", "Two"}});
+            proxy.Method(new[,] { { "Two", "Two" } });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
@@ -129,10 +130,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericListParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new List<string> {"Two"});
+            proxy.Method(new List<string> { "Two" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
@@ -159,10 +160,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IIntArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {2});
+            proxy.Method(new[] { 2 });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {2}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -189,10 +190,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IStringArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {"2"});
+            proxy.Method(new[] { "2" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -219,10 +220,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IStructArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {new StructType {Integer = 2, String = "2"}});
+            proxy.Method(new[] { new StructType { Integer = 2, String = "2" } });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
@@ -234,10 +235,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IStructParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new StructType {Integer = 2, String = "2"});
+            proxy.Method(new StructType { Integer = 2, String = "2" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
@@ -248,12 +249,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IEnumArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {EnumType.Two};
+            var value = new[] { EnumType.Two };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
@@ -280,12 +281,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {"Two"};
+            var value = new[] { "Two" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
@@ -296,12 +297,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericJaggedArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {new[] {"Two"}};
+            var value = new[] { new[] { "Two" } };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
@@ -312,12 +313,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericRankArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[,] {{"Two", "Two"}};
+            var value = new[,] { { "Two", "Two" } };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
@@ -328,12 +329,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericListRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new List<string> {"Two"};
+            var value = new List<string> { "Two" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
@@ -360,12 +361,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IIntArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {2};
+            var value = new[] { 2 };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {2}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -392,12 +393,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IStringArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {"2"};
+            var value = new[] { "2" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -424,12 +425,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IStructArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {new StructType {Integer = 2, String = "2"}};
+            var value = new[] { new StructType { Integer = 2, String = "2" } };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
@@ -440,19 +441,19 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IStructRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new StructType {Integer = 2, String = "2"};
+            var value = new StructType { Integer = 2, String = "2" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithEnumArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {EnumType.Two}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { EnumType.Two } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IEnumArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -461,14 +462,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithEnumOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {EnumType.Two}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { EnumType.Two } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IEnumOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -484,7 +485,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromInterfaceWithGenericArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {"Two"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { "Two" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -493,14 +494,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithGenericJaggedArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {new[] {"Two"}}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { new[] { "Two" } } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericJaggedArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -509,14 +510,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithGenericRankArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[,] {{"Two", "Two"}}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[,] { { "Two", "Two" } } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericRankArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -525,14 +526,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithGenericListOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new List<string> {"Two"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new List<string> { "Two" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericListOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -541,14 +542,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithGenericOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {"Two"}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { "Two" } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -564,7 +565,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromInterfaceWithIntArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {2}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { 2 } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IIntArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -573,14 +574,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {2}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithIntOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {2}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { 2 } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IIntOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -596,7 +597,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromInterfaceWithStringArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {"2"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { "2" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IStringArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -605,14 +606,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithStringOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {"2"}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { "2" } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IStringOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -628,7 +629,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromInterfaceWithStructArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {new StructType {Integer = 2, String = "2"}}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { new StructType { Integer = 2, String = "2" } } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IStructArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -637,14 +638,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithStructOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new StructType {Integer = 2, String = "2"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new StructType { Integer = 2, String = "2" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IStructOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -653,7 +654,7 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
@@ -674,14 +675,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromInterfaceWithEnumArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {EnumType.Two});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { EnumType.Two });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IEnumArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(value, Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
@@ -702,56 +703,56 @@ namespace NProxy.Core.Test
         public void CreateProxyFromInterfaceWithGenericArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {"Two"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { "Two" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {"Two"}));
+            Assert.That(value, Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithGenericJaggedArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {new[] {"Two"}});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { new[] { "Two" } });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericJaggedArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(value, Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithGenericRankJaggedArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[,] {{"Two", "Two"}});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[,] { { "Two", "Two" } });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericRankArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(value, Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithGenericListReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new List<string> {"Two"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new List<string> { "Two" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IGenericListReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(value, Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
@@ -772,14 +773,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromInterfaceWithIntArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {2});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { 2 });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IIntArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {2}));
+            Assert.That(value, Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -800,14 +801,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromInterfaceWithStringArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {"2"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { "2" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IStringArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {"2"}));
+            Assert.That(value, Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -828,28 +829,28 @@ namespace NProxy.Core.Test
         public void CreateProxyFromInterfaceWithStructArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {new StructType {Integer = 2, String = "2"}});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { new StructType { Integer = 2, String = "2" } });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IStructArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(value, Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
         public void CreateProxyFromInterfaceWithStructReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new StructType {Integer = 2, String = "2"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new StructType { Integer = 2, String = "2" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IStructReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(value, Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
@@ -877,10 +878,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<EnumArrayParameterBase>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {EnumType.Two});
+            proxy.Method(new[] { EnumType.Two });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
@@ -907,10 +908,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericArrayParameterBase>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {"Two"});
+            proxy.Method(new[] { "Two" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
@@ -922,10 +923,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericJaggedArrayParameterBase>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {new[] {"Two"}});
+            proxy.Method(new[] { new[] { "Two" } });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
@@ -937,10 +938,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericRankArrayParameterBase>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[,] {{"Two", "Two"}});
+            proxy.Method(new[,] { { "Two", "Two" } });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
@@ -952,10 +953,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericListParameterBase>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new List<string> {"Two"});
+            proxy.Method(new List<string> { "Two" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
@@ -982,10 +983,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IntArrayParameterBase>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {2});
+            proxy.Method(new[] { 2 });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {2}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -1012,10 +1013,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<StringArrayParameterBase>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {"2"});
+            proxy.Method(new[] { "2" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -1042,10 +1043,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<StructArrayParameterBase>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {new StructType {Integer = 2, String = "2"}});
+            proxy.Method(new[] { new StructType { Integer = 2, String = "2" } });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
@@ -1057,10 +1058,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<StructParameterBase>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new StructType {Integer = 2, String = "2"});
+            proxy.Method(new StructType { Integer = 2, String = "2" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
@@ -1071,12 +1072,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<EnumArrayRefParameterBase>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {EnumType.Two};
+            var value = new[] { EnumType.Two };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
@@ -1103,12 +1104,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericArrayRefParameterBase>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {"Two"};
+            var value = new[] { "Two" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
@@ -1119,12 +1120,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericJaggedArrayRefParameterBase>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {new[] {"Two"}};
+            var value = new[] { new[] { "Two" } };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
@@ -1135,12 +1136,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericRankArrayRefParameterBase>(Type.EmptyTypes, invocationHandler);
-            var value = new[,] {{"Two", "Two"}};
+            var value = new[,] { { "Two", "Two" } };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
@@ -1151,12 +1152,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericListRefParameterBase>(Type.EmptyTypes, invocationHandler);
-            var value = new List<string> {"Two"};
+            var value = new List<string> { "Two" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
@@ -1183,12 +1184,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IntArrayRefParameterBase>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {2};
+            var value = new[] { 2 };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {2}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -1215,12 +1216,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StringArrayRefParameterBase>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {"2"};
+            var value = new[] { "2" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -1247,12 +1248,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructArrayRefParameterBase>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {new StructType {Integer = 2, String = "2"}};
+            var value = new[] { new StructType { Integer = 2, String = "2" } };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
@@ -1263,19 +1264,19 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructRefParameterBase>(Type.EmptyTypes, invocationHandler);
-            var value = new StructType {Integer = 2, String = "2"};
+            var value = new StructType { Integer = 2, String = "2" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithEnumArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {EnumType.Two}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { EnumType.Two } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<EnumArrayOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1284,14 +1285,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithEnumOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {EnumType.Two}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { EnumType.Two } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<EnumOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1307,7 +1308,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromAbstractClassWithGenericArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {"Two"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { "Two" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericArrayOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1316,14 +1317,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithGenericJaggedArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {new[] {"Two"}}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { new[] { "Two" } } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericJaggedArrayOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1332,14 +1333,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithGenericRankArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[,] {{"Two", "Two"}}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[,] { { "Two", "Two" } } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericRankArrayOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1348,14 +1349,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithGenericListOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new List<string> {"Two"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new List<string> { "Two" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericListOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1364,14 +1365,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithGenericOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {"Two"}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { "Two" } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1387,7 +1388,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromAbstractClassWithIntArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {2}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { 2 } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IntArrayOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1396,14 +1397,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {2}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithIntOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {2}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { 2 } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IntOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1419,7 +1420,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromAbstractClassWithStringArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {"2"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { "2" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StringArrayOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1428,14 +1429,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithStringOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {"2"}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { "2" } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StringOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1451,7 +1452,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromAbstractClassWithStructArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {new StructType {Integer = 2, String = "2"}}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { new StructType { Integer = 2, String = "2" } } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructArrayOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1460,14 +1461,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithStructOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new StructType {Integer = 2, String = "2"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new StructType { Integer = 2, String = "2" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructOutParameterBase>(Type.EmptyTypes, invocationHandler);
@@ -1476,7 +1477,7 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
@@ -1497,14 +1498,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromAbstractClassWithEnumArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {EnumType.Two});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { EnumType.Two });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<EnumArrayReturnValueBase>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(value, Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
@@ -1525,56 +1526,56 @@ namespace NProxy.Core.Test
         public void CreateProxyFromAbstractClassWithGenericArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {"Two"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { "Two" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericArrayReturnValueBase>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {"Two"}));
+            Assert.That(value, Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithGenericJaggedArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {new[] {"Two"}});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { new[] { "Two" } });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericJaggedArrayReturnValueBase>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(value, Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithGenericRankArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[,] {{"Two", "Two"}});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[,] { { "Two", "Two" } });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericRankArrayReturnValueBase>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(value, Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithGenericListReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new List<string> {"Two"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new List<string> { "Two" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericListReturnValueBase>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(value, Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
@@ -1595,14 +1596,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromAbstractClassWithIntArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {2});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { 2 });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IntArrayReturnValueBase>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {2}));
+            Assert.That(value, Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -1623,14 +1624,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromAbstractClassWithStringArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {"2"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { "2" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StringArrayReturnValueBase>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {"2"}));
+            Assert.That(value, Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -1651,28 +1652,28 @@ namespace NProxy.Core.Test
         public void CreateProxyFromAbstractClassWithStructArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {new StructType {Integer = 2, String = "2"}});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { new StructType { Integer = 2, String = "2" } });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructArrayReturnValueBase>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(value, Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
         public void CreateProxyFromAbstractClassWithStructReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new StructType {Integer = 2, String = "2"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new StructType { Integer = 2, String = "2" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructReturnValueBase>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(value, Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
@@ -1700,10 +1701,104 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<EnumArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {EnumType.Two});
-
+            proxy.Method(new[] { EnumType.Two });
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
+        }
+
+        public sealed class ExceptionInvocationHandlerFactory : IInvocationHandlerFactory
+        {
+            public IInvocationHandler CreateHandler(IProxyObject target)
+            {
+                return new ExceptionInvocationHandler();
+            }
+        }
+
+        public sealed class ExceptionInvocationHandler : IInvocationHandler
+        {
+            #region IInvocationHandler Members
+
+            public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
+            {
+                throw new ApplicationException(String.Join(",", parameters));
+            }
+
+            #endregion
+        }
+
+        [Test]
+        public void CreateProxyTypeFromClassWithStringPropertyTest()
+        {
+            // Act                        
+            var proxyType = _proxyFactory.GetProxyType(typeof(StringProperty), Type.EmptyTypes, typeof(ExceptionInvocationHandlerFactory));
+
+            var proxy = (StringProperty)Activator.CreateInstance(proxyType);
+
+            var methodInfo = proxyType.GetProperty("Property1");
+            var attributes = methodInfo.GetCustomAttributes(true);
+
+            try
+            {
+                proxy.Property1 = "value1";
+
+                Assert.Fail("Exception should've been thrown");
+            }
+            catch (ApplicationException ex)
+            {
+                Assert.That(ex.Message, Is.EqualTo("value1"));
+            }
+        }
+
+        public sealed class SimpleInvocationHandlerFactory : IInvocationHandlerFactory
+        {
+            public IInvocationHandler CreateHandler(IProxyObject target)
+            {
+                //target._DeclaringType
+                //target._ParentType
+
+                return new SimpleInvocationHandler();
+            }
+        }
+
+        public sealed class SimpleInvocationHandler : IInvocationHandler
+        {
+            #region IInvocationHandler Members
+
+            public object Invoke(object target, MethodInfo methodInfo, object[] parameters)
+            {
+                this.Counter++;
+                return methodInfo.Invoke(target, parameters);
+            }
+
+            public int Counter { get; set; }
+
+            #endregion
+        }
+
+        public class SerializableClass
+        {
+            public virtual string Property1 { get; set; }
+            public virtual string Property2 { get; set; }
+        }
+
+        [Test]
+        public void SerializeProxyTypeTest()
+        {
+            // Act                        
+            var proxyType = _proxyFactory.GetProxyType(typeof(SerializableClass), Type.EmptyTypes, typeof(SimpleInvocationHandlerFactory));
+
+            var proxy = (SerializableClass)Activator.CreateInstance(proxyType);
+
+            var handler = (proxy as IProxyObject)._GetInvocationHandler();
+
+            proxy.Property1 = "aaaa";
+            proxy.Property2 = "bbb";
+
+            var serialized = JsonConvert.SerializeObject(proxy);
+            var deserialized = (SerializableClass)JsonConvert.DeserializeObject(serialized, proxyType);
+
+            Assert.That(deserialized.Property1, Is.EqualTo("aaaa"));
+            Assert.That(deserialized.Property2, Is.EqualTo("bbb"));
         }
 
         [Test]
@@ -1730,10 +1825,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {"Two"});
+            proxy.Method(new[] { "Two" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
@@ -1745,10 +1840,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericJaggedArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {new[] {"Two"}});
+            proxy.Method(new[] { new[] { "Two" } });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
@@ -1760,10 +1855,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericRankArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[,] {{"Two", "Two"}});
+            proxy.Method(new[,] { { "Two", "Two" } });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
@@ -1775,10 +1870,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericListParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new List<string> {"Two"});
+            proxy.Method(new List<string> { "Two" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
@@ -1805,10 +1900,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<IntArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {2});
+            proxy.Method(new[] { 2 });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {2}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -1835,10 +1930,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<StringArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {"2"});
+            proxy.Method(new[] { "2" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -1865,10 +1960,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<StructArrayParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new[] {new StructType {Integer = 2, String = "2"}});
+            proxy.Method(new[] { new StructType { Integer = 2, String = "2" } });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
@@ -1880,10 +1975,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<StructParameter>(Type.EmptyTypes, invocationHandler);
 
-            proxy.Method(new StructType {Integer = 2, String = "2"});
+            proxy.Method(new StructType { Integer = 2, String = "2" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
@@ -1894,12 +1989,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<EnumArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {EnumType.Two};
+            var value = new[] { EnumType.Two };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
@@ -1926,12 +2021,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {"Two"};
+            var value = new[] { "Two" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
@@ -1942,12 +2037,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericJaggedArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {new[] {"Two"}};
+            var value = new[] { new[] { "Two" } };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
@@ -1958,12 +2053,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericRankArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[,] {{"Two", "Two"}};
+            var value = new[,] { { "Two", "Two" } };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
@@ -1974,12 +2069,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericListRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new List<string> {"Two"};
+            var value = new List<string> { "Two" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
@@ -2006,12 +2101,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IntArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {2};
+            var value = new[] { 2 };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {2}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -2038,12 +2133,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StringArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {"2"};
+            var value = new[] { "2" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -2070,12 +2165,12 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructArrayRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new[] {new StructType {Integer = 2, String = "2"}};
+            var value = new[] { new StructType { Integer = 2, String = "2" } };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
@@ -2086,19 +2181,19 @@ namespace NProxy.Core.Test
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructRefParameter>(Type.EmptyTypes, invocationHandler);
-            var value = new StructType {Integer = 2, String = "2"};
+            var value = new StructType { Integer = 2, String = "2" };
 
             proxy.Method(ref value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
         public void CreateProxyFromClassWithEnumArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {EnumType.Two}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { EnumType.Two } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<EnumArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2107,14 +2202,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
         public void CreateProxyFromClassWithEnumOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {EnumType.Two}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { EnumType.Two } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<EnumOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2130,7 +2225,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromClassWithGenericArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {"Two"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { "Two" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2139,14 +2234,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
         public void CreateProxyFromClassWithGenericJaggedArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {new[] {"Two"}}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { new[] { "Two" } } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericJaggedArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2155,14 +2250,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromClassWithGenericRankArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[,] {{"Two", "Two"}}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[,] { { "Two", "Two" } } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericRankArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2171,14 +2266,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromClassWithGenericListOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new List<string> {"Two"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new List<string> { "Two" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericListOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2187,14 +2282,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
         public void CreateProxyFromClassWithGenericOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {"Two"}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { "Two" } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2210,7 +2305,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromClassWithIntArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {2}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { 2 } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IntArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2219,14 +2314,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {2}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
         public void CreateProxyFromClassWithIntOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {2}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { 2 } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IntOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2242,7 +2337,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromClassWithStringArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {"2"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { "2" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StringArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2251,14 +2346,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
         public void CreateProxyFromClassWithStringOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {"2"}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { "2" } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StringOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2274,7 +2369,7 @@ namespace NProxy.Core.Test
         public void CreateProxyFromClassWithStructArrayOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new[] {new StructType {Integer = 2, String = "2"}}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new[] { new StructType { Integer = 2, String = "2" } } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructArrayOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2283,14 +2378,14 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
         public void CreateProxyFromClassWithStructOutParameterTest()
         {
             // Arrange
-            var invocationHandler = new SetParametersInvocationHandler {Parameters = new object[] {new StructType {Integer = 2, String = "2"}}};
+            var invocationHandler = new SetParametersInvocationHandler { Parameters = new object[] { new StructType { Integer = 2, String = "2" } } };
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructOutParameter>(Type.EmptyTypes, invocationHandler);
@@ -2299,7 +2394,7 @@ namespace NProxy.Core.Test
             proxy.Method(out value);
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
@@ -2320,14 +2415,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromClassWithEnumArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {EnumType.Two});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { EnumType.Two });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<EnumArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(value, Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
@@ -2348,56 +2443,56 @@ namespace NProxy.Core.Test
         public void CreateProxyFromClassWithGenericArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {"Two"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { "Two" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {"Two"}));
+            Assert.That(value, Is.EqualTo(new[] { "Two" }));
         }
 
         [Test]
         public void CreateProxyFromClassWithGenericJaggedArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {new[] {"Two"}});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { new[] { "Two" } });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericJaggedArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {new[] {"Two"}}));
+            Assert.That(value, Is.EqualTo(new[] { new[] { "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromClassWithGenericRankArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[,] {{"Two", "Two"}});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[,] { { "Two", "Two" } });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericRankArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[,] {{"Two", "Two"}}));
+            Assert.That(value, Is.EqualTo(new[,] { { "Two", "Two" } }));
         }
 
         [Test]
         public void CreateProxyFromClassWithGenericListReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new List<string> {"Two"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new List<string> { "Two" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<GenericListReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method<string>();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new List<string> {"Two"}));
+            Assert.That(value, Is.EqualTo(new List<string> { "Two" }));
         }
 
         [Test]
@@ -2418,14 +2513,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromClassWithIntArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {2});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { 2 });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<IntArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {2}));
+            Assert.That(value, Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -2446,14 +2541,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromClassWithStringArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {"2"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { "2" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StringArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {"2"}));
+            Assert.That(value, Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -2474,28 +2569,28 @@ namespace NProxy.Core.Test
         public void CreateProxyFromClassWithStructArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {new StructType {Integer = 2, String = "2"}});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { new StructType { Integer = 2, String = "2" } });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructArrayReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(value, Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
         public void CreateProxyFromClassWithStructReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new StructType {Integer = 2, String = "2"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new StructType { Integer = 2, String = "2" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<StructReturnValue>(Type.EmptyTypes, invocationHandler);
             var value = proxy.Method();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(value, Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
@@ -2523,10 +2618,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<Action<EnumType[]>>(Type.EmptyTypes, invocationHandler);
 
-            proxy(new[] {EnumType.Two});
+            proxy(new[] { EnumType.Two });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
@@ -2553,10 +2648,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<Action<int[]>>(Type.EmptyTypes, invocationHandler);
 
-            proxy(new[] {2});
+            proxy(new[] { 2 });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {2}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -2583,10 +2678,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<Action<string[]>>(Type.EmptyTypes, invocationHandler);
 
-            proxy(new[] {"2"});
+            proxy(new[] { "2" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {"2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -2613,10 +2708,10 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<Action<StructType[]>>(Type.EmptyTypes, invocationHandler);
 
-            proxy(new[] {new StructType {Integer = 2, String = "2"}});
+            proxy(new[] { new StructType { Integer = 2, String = "2" } });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
@@ -2628,24 +2723,24 @@ namespace NProxy.Core.Test
             // Act
             var proxy = _proxyFactory.CreateProxy<Action<StructType>>(Type.EmptyTypes, invocationHandler);
 
-            proxy(new StructType {Integer = 2, String = "2"});
+            proxy(new StructType { Integer = 2, String = "2" });
 
             // Assert
-            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(invocationHandler.Parameters[0], Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         [Test]
         public void CreateProxyFromDelegateWithEnumArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {EnumType.Two});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { EnumType.Two });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<Func<EnumType[]>>(Type.EmptyTypes, invocationHandler);
             var value = proxy();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {EnumType.Two}));
+            Assert.That(value, Is.EqualTo(new[] { EnumType.Two }));
         }
 
         [Test]
@@ -2666,14 +2761,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromDelegateWithIntArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {2});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { 2 });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<Func<int[]>>(Type.EmptyTypes, invocationHandler);
             var value = proxy();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {2}));
+            Assert.That(value, Is.EqualTo(new[] { 2 }));
         }
 
         [Test]
@@ -2694,14 +2789,14 @@ namespace NProxy.Core.Test
         public void CreateProxyFromDelegateWithStringArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {"2"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { "2" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<Func<string[]>>(Type.EmptyTypes, invocationHandler);
             var value = proxy();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {"2"}));
+            Assert.That(value, Is.EqualTo(new[] { "2" }));
         }
 
         [Test]
@@ -2722,28 +2817,28 @@ namespace NProxy.Core.Test
         public void CreateProxyFromDelegateWithStructArrayReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new[] {new StructType {Integer = 2, String = "2"}});
+            var invocationHandler = new SetReturnValueInvocationHandler(new[] { new StructType { Integer = 2, String = "2" } });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<Func<StructType[]>>(Type.EmptyTypes, invocationHandler);
             var value = proxy();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new[] {new StructType {Integer = 2, String = "2"}}));
+            Assert.That(value, Is.EqualTo(new[] { new StructType { Integer = 2, String = "2" } }));
         }
 
         [Test]
         public void CreateProxyFromDelegateWithStructReturnValueTest()
         {
             // Arrange
-            var invocationHandler = new SetReturnValueInvocationHandler(new StructType {Integer = 2, String = "2"});
+            var invocationHandler = new SetReturnValueInvocationHandler(new StructType { Integer = 2, String = "2" });
 
             // Act
             var proxy = _proxyFactory.CreateProxy<Func<StructType>>(Type.EmptyTypes, invocationHandler);
             var value = proxy();
 
             // Assert
-            Assert.That(value, Is.EqualTo(new StructType {Integer = 2, String = "2"}));
+            Assert.That(value, Is.EqualTo(new StructType { Integer = 2, String = "2" }));
         }
 
         #endregion
@@ -3178,14 +3273,14 @@ namespace NProxy.Core.Test
             // Arrange
             // Act
             var target = new IntStringGenericEvent();
-            var proxy = _proxyFactory.CreateProxy<IGenericEvent<int>>(new[] {typeof (IGenericEvent<string>)}, new TargetInvocationHandler(_ => target));
+            var proxy = _proxyFactory.CreateProxy<IGenericEvent<int>>(new[] { typeof(IGenericEvent<string>) }, new TargetInvocationHandler(_ => target));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IGenericEvent<int>>());
             Assert.That(proxy, Is.InstanceOf<IGenericEvent<string>>());
 
             proxy.Event += i => { };
-            ((IGenericEvent<string>) proxy).Event += s => { };
+            ((IGenericEvent<string>)proxy).Event += s => { };
         }
 
         [Test]
@@ -3194,14 +3289,14 @@ namespace NProxy.Core.Test
             // Arrange
             // Act
             var target = new IntStringGenericEvent();
-            var proxy = _proxyFactory.CreateProxy<object>(new[] {typeof (IGenericEvent<int>), typeof (IGenericEvent<string>)}, new TargetInvocationHandler(_ => target));
+            var proxy = _proxyFactory.CreateProxy<object>(new[] { typeof(IGenericEvent<int>), typeof(IGenericEvent<string>) }, new TargetInvocationHandler(_ => target));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IGenericEvent<int>>());
             Assert.That(proxy, Is.InstanceOf<IGenericEvent<string>>());
 
-            ((IGenericEvent<int>) proxy).Event += i => { };
-            ((IGenericEvent<string>) proxy).Event += s => { };
+            ((IGenericEvent<int>)proxy).Event += i => { };
+            ((IGenericEvent<string>)proxy).Event += s => { };
         }
 
         [Test]
@@ -3210,17 +3305,17 @@ namespace NProxy.Core.Test
             // Arrange
             // Act
             var target = new IntStringGenericProperty();
-            var proxy = _proxyFactory.CreateProxy<IGenericProperty<int>>(new[] {typeof (IGenericProperty<string>)}, new TargetInvocationHandler(_ => target));
+            var proxy = _proxyFactory.CreateProxy<IGenericProperty<int>>(new[] { typeof(IGenericProperty<string>) }, new TargetInvocationHandler(_ => target));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IGenericProperty<int>>());
             Assert.That(proxy, Is.InstanceOf<IGenericProperty<string>>());
 
             proxy.Property = 2;
-            ((IGenericProperty<string>) proxy).Property = "2";
+            ((IGenericProperty<string>)proxy).Property = "2";
 
             Assert.That(proxy.Property, Is.EqualTo(2));
-            Assert.That(((IGenericProperty<string>) proxy).Property, Is.EqualTo("2"));
+            Assert.That(((IGenericProperty<string>)proxy).Property, Is.EqualTo("2"));
         }
 
         [Test]
@@ -3229,17 +3324,17 @@ namespace NProxy.Core.Test
             // Arrange
             // Act
             var target = new IntStringGenericProperty();
-            var proxy = _proxyFactory.CreateProxy<object>(new[] {typeof (IGenericProperty<int>), typeof (IGenericProperty<string>)}, new TargetInvocationHandler(_ => target));
+            var proxy = _proxyFactory.CreateProxy<object>(new[] { typeof(IGenericProperty<int>), typeof(IGenericProperty<string>) }, new TargetInvocationHandler(_ => target));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IGenericProperty<int>>());
             Assert.That(proxy, Is.InstanceOf<IGenericProperty<string>>());
 
-            ((IGenericProperty<int>) proxy).Property = 2;
-            ((IGenericProperty<string>) proxy).Property = "2";
+            ((IGenericProperty<int>)proxy).Property = 2;
+            ((IGenericProperty<string>)proxy).Property = "2";
 
-            Assert.That(((IGenericProperty<int>) proxy).Property, Is.EqualTo(2));
-            Assert.That(((IGenericProperty<string>) proxy).Property, Is.EqualTo("2"));
+            Assert.That(((IGenericProperty<int>)proxy).Property, Is.EqualTo(2));
+            Assert.That(((IGenericProperty<string>)proxy).Property, Is.EqualTo("2"));
         }
 
         [Test]
@@ -3248,14 +3343,14 @@ namespace NProxy.Core.Test
             // Arrange
             // Act
             var target = new IntStringGenericMethod();
-            var proxy = _proxyFactory.CreateProxy<IGenericMethod<int>>(new[] {typeof (IGenericMethod<string>)}, new TargetInvocationHandler(_ => target));
+            var proxy = _proxyFactory.CreateProxy<IGenericMethod<int>>(new[] { typeof(IGenericMethod<string>) }, new TargetInvocationHandler(_ => target));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IGenericMethod<int>>());
             Assert.That(proxy, Is.InstanceOf<IGenericMethod<string>>());
 
             Assert.DoesNotThrow(() => proxy.Method());
-            Assert.DoesNotThrow(() => ((IGenericMethod<string>) proxy).Method());
+            Assert.DoesNotThrow(() => ((IGenericMethod<string>)proxy).Method());
         }
 
         [Test]
@@ -3264,14 +3359,14 @@ namespace NProxy.Core.Test
             // Arrange
             // Act
             var target = new IntStringGenericMethod();
-            var proxy = _proxyFactory.CreateProxy<object>(new[] {typeof (IGenericMethod<int>), typeof (IGenericMethod<string>)}, new TargetInvocationHandler(_ => target));
+            var proxy = _proxyFactory.CreateProxy<object>(new[] { typeof(IGenericMethod<int>), typeof(IGenericMethod<string>) }, new TargetInvocationHandler(_ => target));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IGenericMethod<int>>());
             Assert.That(proxy, Is.InstanceOf<IGenericMethod<string>>());
 
-            Assert.DoesNotThrow(() => ((IGenericMethod<int>) proxy).Method());
-            Assert.DoesNotThrow(() => ((IGenericMethod<string>) proxy).Method());
+            Assert.DoesNotThrow(() => ((IGenericMethod<int>)proxy).Method());
+            Assert.DoesNotThrow(() => ((IGenericMethod<string>)proxy).Method());
         }
 
         [Test]
@@ -3338,7 +3433,7 @@ namespace NProxy.Core.Test
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IBase>(new[] {typeof (IOther)}, new TargetInvocationHandler(_ => null));
+            var proxy = _proxyFactory.CreateProxy<IBase>(new[] { typeof(IOther) }, new TargetInvocationHandler(_ => null));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IBase>());
@@ -3350,7 +3445,7 @@ namespace NProxy.Core.Test
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IBase>(new[] {typeof (IOne)}, new TargetInvocationHandler(_ => null));
+            var proxy = _proxyFactory.CreateProxy<IBase>(new[] { typeof(IOne) }, new TargetInvocationHandler(_ => null));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IBase>());
@@ -3362,7 +3457,7 @@ namespace NProxy.Core.Test
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IOne>(new[] {typeof (IBase)}, new TargetInvocationHandler(_ => null));
+            var proxy = _proxyFactory.CreateProxy<IOne>(new[] { typeof(IBase) }, new TargetInvocationHandler(_ => null));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IOne>());
@@ -3374,7 +3469,7 @@ namespace NProxy.Core.Test
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IBase>(new[] {typeof (IBase)}, new TargetInvocationHandler(_ => null));
+            var proxy = _proxyFactory.CreateProxy<IBase>(new[] { typeof(IBase) }, new TargetInvocationHandler(_ => null));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IBase>());
@@ -3385,7 +3480,7 @@ namespace NProxy.Core.Test
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IOne>(new[] {typeof (ITwo)}, new TargetInvocationHandler(_ => null));
+            var proxy = _proxyFactory.CreateProxy<IOne>(new[] { typeof(ITwo) }, new TargetInvocationHandler(_ => null));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IBase>());
@@ -3398,7 +3493,7 @@ namespace NProxy.Core.Test
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IOneTwo>(new[] {typeof (IOne), typeof (ITwo)}, new TargetInvocationHandler(_ => null));
+            var proxy = _proxyFactory.CreateProxy<IOneTwo>(new[] { typeof(IOne), typeof(ITwo) }, new TargetInvocationHandler(_ => null));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IBase>());
@@ -3412,7 +3507,7 @@ namespace NProxy.Core.Test
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IBase>(new[] {typeof (IHideBase)}, new TargetInvocationHandler(_ => null));
+            var proxy = _proxyFactory.CreateProxy<IBase>(new[] { typeof(IHideBase) }, new TargetInvocationHandler(_ => null));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IBase>());
@@ -3424,7 +3519,7 @@ namespace NProxy.Core.Test
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IBase>(new[] {typeof (Class<int>.INested<string>), typeof (Class<string>.INested<int>)}, new TargetInvocationHandler(_ => null));
+            var proxy = _proxyFactory.CreateProxy<IBase>(new[] { typeof(Class<int>.INested<string>), typeof(Class<string>.INested<int>) }, new TargetInvocationHandler(_ => null));
 
             // Assert
             Assert.That(proxy, Is.InstanceOf<IBase>());

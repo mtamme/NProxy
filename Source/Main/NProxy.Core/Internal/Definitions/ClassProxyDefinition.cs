@@ -30,8 +30,13 @@ namespace NProxy.Core.Internal.Definitions
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
+        public ClassProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes, Type invocationHandlerFactoryType)
+            : base(declaringType, declaringType, interfaceTypes, invocationHandlerFactoryType)
+        {
+        }
+
         public ClassProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes)
-            : base(declaringType, declaringType, interfaceTypes)
+            : this(declaringType, interfaceTypes, null)
         {
         }
 
@@ -41,7 +46,7 @@ namespace NProxy.Core.Internal.Definitions
         public override IEnumerable<Type> ImplementedInterfaces
         {
             get { return DeclaringInterfaces.Concat(AdditionalInterfaces); }
-        }
+        }        
 
         /// <inheritdoc/>
         public override void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)
