@@ -15,6 +15,7 @@
 //
 
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 
@@ -25,6 +26,18 @@ namespace NProxy.Core.Internal.Reflection
     /// </summary>
     internal static class MethodBaseExtensions
     {
+        /// <summary>
+        /// The special name prefixes.
+        /// </summary>
+        private static readonly string[] SpecialNamePrefixes =
+        {
+            "get_",
+            "set_",
+            "add_",
+            "remove_",
+            "raise_"
+        };
+
         /// <summary>
         /// Returns a value indicating whether the specified method is overrideable.
         /// </summary>
@@ -75,6 +88,24 @@ namespace NProxy.Core.Internal.Reflection
             var parameterInfos = methodBase.GetParameters();
 
             return Array.ConvertAll(parameterInfos, p => p.ParameterType);
+        }
+
+        /// <summary>
+        /// Returns a value indicating whether the specified method is a regular method.
+        /// </summary>
+        /// <param name="methodBase">The method base.</param>
+        /// <returns>A value indicating whether the specified method is a regular method.</returns>
+        public static bool IsRegular(this MethodBase methodBase)
+        {
+            if (methodBase == null)
+                throw new ArgumentNullException("methodBase");
+
+            if (!methodBase.IsSpecialName)
+                return true;
+
+            var name = methodBase.Name;
+
+            return !SpecialNamePrefixes.Any(name.StartsWith);
         }
 
         /// <summary>

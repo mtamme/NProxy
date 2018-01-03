@@ -14,7 +14,9 @@
 // limitations under the License.
 //
 
+using NUnit.Framework;
 using System;
+using System.IO;
 using System.Reflection;
 
 namespace NProxy.Core.Benchmark.Reporting
@@ -32,7 +34,8 @@ namespace NProxy.Core.Benchmark.Reporting
 
         private static IWriter CreateWriter()
         {
-            var path = String.Format("Benchmark_{0:yyyyMMdd_HHmmss}", DateTime.Now);
+            var file = String.Format("Benchmark_{0:yyyyMMdd_HHmmss}", DateTime.Now);
+            var path = Path.Combine(TestContext.CurrentContext.TestDirectory, file);
             var writer = new CompositeWriter(new CsvWriter(path), new MdWriter(path));
 
             writer.WriteHeader();

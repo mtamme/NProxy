@@ -260,20 +260,6 @@ namespace NProxy.Core.Internal.Reflection.Emit
 
                 eventBuilder.SetRaiseMethod(methodBuilder);
             }
-
-            // Build event other methods.
-            var otherMethodInfos = eventInfo.GetOtherMethods(true);
-
-            // Mono returns null in case no other methods are defined.
-            if (otherMethodInfos != null)
-            {
-                foreach (var otherMethodInfo in otherMethodInfos)
-                {
-                    var methodBuilder = methodBuilderFactory(otherMethodInfo, isExplicit);
-
-                    eventBuilder.AddOtherMethod(methodBuilder);
-                }
-            }
         }
 
         /// <summary>

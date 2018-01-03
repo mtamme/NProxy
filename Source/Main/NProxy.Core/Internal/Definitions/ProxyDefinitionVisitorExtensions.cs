@@ -141,7 +141,7 @@ namespace NProxy.Core.Internal.Definitions
 
             // Visit only non-accessor overridable instance methods.
             var methodInfos = type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                .Where(m => !m.IsSpecialName && m.CanOverride());
+                .Where(m => m.IsRegular() && m.CanOverride());
 
             foreach (var methodInfo in methodInfos)
             {
