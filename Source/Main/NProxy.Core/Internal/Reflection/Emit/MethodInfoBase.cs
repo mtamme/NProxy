@@ -206,7 +206,7 @@ namespace NProxy.Core.Internal.Reflection.Emit
             // Check target type.
             var targetType = target.GetType();
 
-            if (!_declaringType.IsAssignableFrom(targetType))
+            if (!_declaringType.IsAssignableFrom(targetType) && !targetType.IsCOMObject)
                 throw new TargetException(Resources.MethodNotDeclaredOrInherited);
 
             // Invoke method on target object.
