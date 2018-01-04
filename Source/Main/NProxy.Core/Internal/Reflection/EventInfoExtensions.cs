@@ -57,7 +57,6 @@ namespace NProxy.Core.Internal.Reflection
                 eventInfo.GetAddMethod(true),
                 eventInfo.GetRemoveMethod(true)
             };
-
             var raiseMethodInfo = eventInfo.GetRaiseMethod(true);
 
             if (raiseMethodInfo != null)

@@ -54,7 +54,7 @@ namespace NProxy.Core.Internal.Caching
         }
 
         /// <summary>
-        /// Dispose this <see cref="AnonymousDisposable"/>.
+        /// Dispose this <see cref="ReadWriteLock"/>.
         /// </summary>
         /// <param name="disposing">A value indicating whether disposing is in progress.</param>
         private void Dispose(bool disposing)
@@ -76,7 +76,7 @@ namespace NProxy.Core.Internal.Caching
         {
             _lock.EnterUpgradeableReadLock();
 
-            return new AnonymousDisposable(_ => _lock.ExitUpgradeableReadLock());
+            return new Disposable(_ => _lock.ExitUpgradeableReadLock());
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace NProxy.Core.Internal.Caching
         {
             _lock.EnterReadLock();
 
-            return new AnonymousDisposable(_ => _lock.ExitReadLock());
+            return new Disposable(_ => _lock.ExitReadLock());
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace NProxy.Core.Internal.Caching
         {
             _lock.EnterWriteLock();
 
-            return new AnonymousDisposable(_ => _lock.ExitWriteLock());
+            return new Disposable(_ => _lock.ExitWriteLock());
         }
 
         #region IDisposable Members

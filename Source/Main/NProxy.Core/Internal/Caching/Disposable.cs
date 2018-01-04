@@ -19,9 +19,9 @@ using System;
 namespace NProxy.Core.Internal.Caching
 {
     /// <summary>
-    /// Represents an anonymous disposable.
+    /// Represents a disposable.
     /// </summary>
-    internal sealed class AnonymousDisposable : IDisposable
+    internal sealed class Disposable : IDisposable
     {
         /// <summary>
         /// The dispose action.
@@ -29,15 +29,15 @@ namespace NProxy.Core.Internal.Caching
         private readonly Action<bool> _dispose;
 
         /// <summary>
-        /// A value indicating whether this <see cref="AnonymousDisposable"/> was already disposed.
+        /// A value indicating whether this <see cref="Disposable"/> was already disposed.
         /// </summary>
         private bool _disposed;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AnonymousDisposable"/> class.
+        /// Initializes a new instance of the <see cref="Disposable"/> class.
         /// </summary>
         /// <param name="dispose">The dispose action.</param>
-        public AnonymousDisposable(Action<bool> dispose)
+        public Disposable(Action<bool> dispose)
         {
             if (dispose == null)
                 throw new ArgumentNullException("dispose");
@@ -49,15 +49,15 @@ namespace NProxy.Core.Internal.Caching
 
         /// <summary>
         /// Releases unmanaged resources and performs other cleanup operations before the
-        /// <see cref="AnonymousDisposable"/> is reclaimed by garbage collection.
+        /// <see cref="Disposable"/> is reclaimed by garbage collection.
         /// </summary>
-        ~AnonymousDisposable()
+        ~Disposable()
         {
             Dispose(false);
         }
 
         /// <summary>
-        /// Dispose this <see cref="AnonymousDisposable"/>.
+        /// Dispose this <see cref="Disposable"/>.
         /// </summary>
         /// <param name="disposing">A value indicating whether disposing is in progress.</param>
         private void Dispose(bool disposing)

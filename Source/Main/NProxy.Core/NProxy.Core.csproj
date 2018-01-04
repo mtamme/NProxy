@@ -73,7 +73,7 @@
     <Compile Include="Interceptors\InvocationContext.cs" />
     <Compile Include="Interceptors\ProxyFactoryExtensions.cs" />
     <Compile Include="Interceptors\DynamicTargetInterceptor.cs" />
-    <Compile Include="Internal\Caching\AnonymousDisposable.cs" />
+    <Compile Include="Internal\Caching\Disposable.cs" />
     <Compile Include="Internal\Caching\ReadWriteLock.cs" />
     <Compile Include="Interceptors\MixinInvocationHandler.cs" />
     <Compile Include="Interceptors\Language\IFluent.cs" />

@@ -95,19 +95,19 @@ namespace NProxy.Core
         #region IProxyDefinitionVisitor Members
 
         /// <inheritdoc/>
-        public void VisitInterface(Type interfaceType)
+        void IProxyDefinitionVisitor.VisitInterface(Type interfaceType)
         {
             _typeBuilder.AddInterface(interfaceType);
         }
 
         /// <inheritdoc/>
-        public void VisitConstructor(ConstructorInfo constructorInfo)
+        void IProxyDefinitionVisitor.VisitConstructor(ConstructorInfo constructorInfo)
         {
             _typeBuilder.BuildConstructor(constructorInfo);
         }
 
         /// <inheritdoc/>
-        public void VisitEvent(EventInfo eventInfo)
+        void IProxyDefinitionVisitor.VisitEvent(EventInfo eventInfo)
         {
             if (_typeBuilder.IsConcreteEvent(eventInfo) && !_interceptionFilter.AcceptEvent(eventInfo))
                 return;
@@ -117,7 +117,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public void VisitProperty(PropertyInfo propertyInfo)
+        void IProxyDefinitionVisitor.VisitProperty(PropertyInfo propertyInfo)
         {
             if (_typeBuilder.IsConcreteProperty(propertyInfo) && !_interceptionFilter.AcceptProperty(propertyInfo))
                 return;
@@ -127,7 +127,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        public void VisitMethod(MethodInfo methodInfo)
+        void IProxyDefinitionVisitor.VisitMethod(MethodInfo methodInfo)
         {
             if (_typeBuilder.IsConcreteMethod(methodInfo) && !_interceptionFilter.AcceptMethod(methodInfo))
                 return;
