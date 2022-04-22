@@ -27,10 +27,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="../../../LICENSE">
       <Pack>true</Pack>
       <PackagePath />
@@ -39,6 +35,10 @@
 
   <ItemGroup Condition="$(IsNetFramework)">
     <EmbeddedResource Include="Internal/Dynamic.snk" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup Condition="!$(IsNetFramework)">
