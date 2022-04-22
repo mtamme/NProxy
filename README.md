@@ -2,7 +2,7 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/mtamme/NProxy?branch=master&svg=true)](https://ci.appveyor.com/project/mtamme/NProxy)
 [![NuGet](https://img.shields.io/nuget/v/NProxy.Core.svg?style=flat)](https://www.nuget.org/packages/NProxy.Core)
 
-NProxy is a library for the .NET framework to create lightweight dynamic proxies.
+NProxy is a library for .NET to create lightweight dynamic proxies.
 
 To install NProxy, run the following command in the [Package Manager Console](https://docs.nuget.org/consume/package-manager-console)
 
@@ -70,6 +70,12 @@ public interface IInterceptionFilter
 To create dynamic proxies of only internally visible types, just add the following assembly attribute to your project.
 
 ```csharp
+[assembly: InternalsVisibleTo("NProxy.Dynamic")]
+```
+
+If you are using the .NET Framework you have to add the following assembly attribute to your project.
+
+```csharp
 [assembly: InternalsVisibleTo("NProxy.Dynamic, PublicKey=002400000480000094000000060200000024000052534131000400000100010031d0e185f342141fb582a63c5c3706ee107a49b7c4c988587512e9cf2d02473280bd9d5cf129d118978bb753339b1819c5f836a0940a0c3ec153ccad71b4786a388da0b4b9531b405d57ce00ac02ee019001eb1bcfdaa0afa1d1542adec526e1165ce740dd2d31ad682c4c8d9b305bc64c3ebb029dffa773d1f9e0e9a5847885")]
 ```
 
@@ -85,6 +91,6 @@ See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/EXAMPLES.m
 
 See [here](https://github.com/mtamme/NProxy/blob/master/Documentation/BENCHMARKS.md) for details.
 
-# Copyright
+## Copyright
 
-Copyright © Martin Tamme. See LICENSE for details.
+© Martin Tamme. See LICENSE for details.

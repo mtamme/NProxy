@@ -1,132 +1,47 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E4D8E5AB-7233-4A6F-9763-54931E7580B4}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NProxy.Core</RootNamespace>
-    <AssemblyName>NProxy.Core</AssemblyName>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IsNetFramework>$(TargetFramework.TrimEnd(`0123456789`).Equals('net'))</IsNetFramework>
+    <TargetFrameworks>net40;netcoreapp3.1</TargetFrameworks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+
+   <PropertyGroup>
+    <Authors>Martin Tamme</Authors>
+    <Copyright>© Martin Tamme</Copyright>
+    <Description>NProxy is a library for .NET to create lightweight dynamic proxies</Description>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <RepositoryUrl>https://github.com/mtamme/NProxy.git</RepositoryUrl>
+    <Titel>$(AssemblyName)</Titel>
+    <Version>3.0.0</Version>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>True</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>$(OutputPath)NProxy.Core.xml</DocumentationFile>
-    <GenerateDocumentation>True</GenerateDocumentation>
-  </PropertyGroup>
+
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <PackageId>$(AssemblyName)</PackageId>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/mtamme/NProxy</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageTags>dynamic proxy dynamicproxy facade bridge interceptor interception decorator adapter aspect oriented programming AOP mixin compact leightweight library</PackageTags>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\..\NProxy.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Interceptors\IInterceptionBehavior.cs" />
-    <Compile Include="Interceptors\BaseTargetInterceptor.cs" />
-    <Compile Include="Interceptors\StaticTargetInterceptor.cs" />
-    <Compile Include="Internal\Definitions\ClassProxyDefinition.cs" />
-    <Compile Include="Internal\Definitions\DelegateProxyDefinition.cs" />
-    <Compile Include="Internal\Definitions\InterfaceProxyDefinition.cs" />
-    <Compile Include="Internal\Definitions\IProxyDefinition.cs" />
-    <Compile Include="Internal\Definitions\ProxyDefinitionBase.cs" />
-    <Compile Include="Internal\Reflection\MemberToken.cs" />
-    <Compile Include="Internal\Reflection\Emit\MethodBuilderExtensions.cs" />
-    <Compile Include="Internal\Reflection\MethodInfoExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IProxyFactory.cs" />
-    <Compile Include="ProxyFactory.cs" />
-    <Compile Include="Internal\Reflection\Emit\ILGeneratorExtensions.cs" />
-    <Compile Include="Internal\Reflection\Emit\TypeBuilderExtensions.cs" />
-    <Compile Include="ProxyFactoryExtensions.cs" />
-    <Compile Include="ProxyTypeBuilderFactory.cs" />
-    <Compile Include="ProxyTypeBuilder.cs" />
-    <Compile Include="IInvocationHandler.cs" />
-    <Compile Include="Internal\Reflection\EventInfoExtensions.cs" />
-    <Compile Include="Internal\Reflection\MethodBaseExtensions.cs" />
-    <Compile Include="Internal\Reflection\PropertyInfoExtensions.cs" />
-    <Compile Include="Internal\Reflection\TypeExtensions.cs" />
-    <Compile Include="Interceptors\IInterceptor.cs" />
-    <Compile Include="Interceptors\IInvocationContext.cs" />
-    <Compile Include="Interceptors\InvocationContext.cs" />
-    <Compile Include="Interceptors\ProxyFactoryExtensions.cs" />
-    <Compile Include="Interceptors\DynamicTargetInterceptor.cs" />
-    <Compile Include="Internal\Caching\Disposable.cs" />
-    <Compile Include="Internal\Caching\ReadWriteLock.cs" />
-    <Compile Include="Interceptors\MixinInvocationHandler.cs" />
-    <Compile Include="Interceptors\Language\IFluent.cs" />
-    <Compile Include="Interceptors\Language\IExtendWith.cs" />
-    <Compile Include="Interceptors\Language\IImplement.cs" />
-    <Compile Include="Interceptors\Language\IInterceptBy.cs" />
-    <Compile Include="Interceptors\Language\ITarget.cs" />
-    <Compile Include="Interceptors\ICreateProxy.cs" />
-    <Compile Include="Interceptors\CreateProxy.cs" />
-    <Compile Include="NonInterceptedAttribute.cs" />
-    <Compile Include="Interceptors\InterceptorInvocationHandler.cs" />
-    <Compile Include="ProxyTemplate.cs" />
-    <Compile Include="IProxyTemplate.cs" />
-    <Compile Include="Internal\Caching\Cache.cs" />
-    <Compile Include="Internal\Caching\ICache.cs" />
-    <Compile Include="Internal\Caching\LockOnWriteCache.cs" />
-    <Compile Include="Internal\Definitions\IProxyDefinitionVisitor.cs" />
-    <Compile Include="Internal\Definitions\ProxyDefinitionVisitorExtensions.cs" />
-    <Compile Include="Internal\Reflection\Emit\ITypeBuilder.cs" />
-    <Compile Include="Internal\Reflection\Emit\ITypeBuilderFactory.cs" />
-    <Compile Include="Internal\Reflection\Emit\ITypeRepository.cs" />
-    <Compile Include="Internal\Reflection\Emit\MethodInfoBase.cs" />
-    <Compile Include="Internal\Reflection\Emit\MethodInfoTypeFactory.cs" />
-    <Compile Include="IInterceptionFilter.cs" />
-    <Compile Include="ProxyGenerator.cs" />
-    <Compile Include="NonInterceptedInterceptionFilter.cs" />
-    <Compile Include="ProxyTemplateExtensions.cs" />
-    <Compile Include="Internal\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Internal\Reflection\Emit\ITypeFactory.cs" />
+    <Content Include="../../../LICENSE">
+      <Pack>true</Pack>
+      <PackagePath />
+    </Content>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <ItemGroup>
-    <EmbeddedResource Include="Internal\Dynamic.snk" />
-    <EmbeddedResource Include="Internal\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+
+  <ItemGroup Condition="$(IsNetFramework)">
+    <EmbeddedResource Include="Internal/Dynamic.snk" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <None Include="NProxy.Core.nuspec" />
+
+  <ItemGroup Condition="!$(IsNetFramework)">
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
   </ItemGroup>
-  <ItemGroup />
 </Project>

@@ -33,14 +33,8 @@ namespace NProxy.Core.Test
         [OneTimeSetUp]
         public void SetUp()
         {
-            _proxyTypeBuilderFactory = new ProxyTypeBuilderFactory(true);
+            _proxyTypeBuilderFactory = new ProxyTypeBuilderFactory();
             _proxyFactory = new ProxyFactory(_proxyTypeBuilderFactory, new NonInterceptedInterceptionFilter());
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _proxyTypeBuilderFactory.SaveAssembly("NProxy.Dynamic.dll");
         }
 
         #region Interface Tests

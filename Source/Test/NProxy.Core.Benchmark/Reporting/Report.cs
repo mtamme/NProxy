@@ -54,7 +54,7 @@ namespace NProxy.Core.Benchmark.Reporting
             if (assemblyName == null)
                 throw new ArgumentNullException("assemblyName");
 
-            var version = String.Format("v {0}.{1}", assemblyName.Version.Major, assemblyName.Version.Minor);
+            var version = String.Format("v{0}.{1}", assemblyName.Version.Major, assemblyName.Version.Minor);
 
             Write(assemblyName.Name, version, scenario, iterations, elapsedTime);
         }

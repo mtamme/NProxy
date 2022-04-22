@@ -80,10 +80,9 @@ namespace NProxy.Core
         /// <summary>
         /// Initializes a new instance of the <see cref="ProxyTypeBuilderFactory"/> class.
         /// </summary>
-        /// <param name="canSaveAssembly">A value indicating whether the assembly can be saved.</param>
-        public ProxyTypeBuilderFactory(bool canSaveAssembly)
+        public ProxyTypeBuilderFactory()
         {
-            _assemblyBuilder = DefineDynamicAssembly(DynamicAssemblyName, canSaveAssembly);
+            _assemblyBuilder = DefineDynamicAssembly(DynamicAssemblyName);
             _moduleBuilder = _assemblyBuilder.DefineDynamicModule(DynamicModuleName);
 
             _methodInfoTypeFactory = new MethodInfoTypeFactory(this);
@@ -96,14 +95,16 @@ namespace NProxy.Core
         /// Defines the dynamic assembly.
         /// </summary>
         /// <param name="name">The assembly name.</param>
-        /// <param name="canSaveAssembly">A value indicating whether the assembly can be saved.</param>
         /// <returns>The assembly builder.</returns>
-        private static AssemblyBuilder DefineDynamicAssembly(string name, bool canSaveAssembly)
+        private static AssemblyBuilder DefineDynamicAssembly(string name)
         {
-            var assemblyBuilderAccess = canSaveAssembly ? AssemblyBuilderAccess.RunAndSave : AssemblyBuilderAccess.Run;
             var assemblyName = GetDynamicAssemblyName(name);
 
-            return AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, assemblyBuilderAccess);
+#if NETFRAMEWORK
+            return AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+#else
+            return AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+#endif
         }
 
         /// <summary>
@@ -114,11 +115,15 @@ namespace NProxy.Core
         private static AssemblyName GetDynamicAssemblyName(string assemblyName)
         {
             var executingAssemblyName = GetExecutingAssemblyName();
+#if NETFRAMEWORK
             var keyPair = GetDynamicAssemblyKeyPair();
+#endif
 
             return new AssemblyName(assemblyName)
             {
+#if NETFRAMEWORK
                 KeyPair = keyPair,
+#endif
                 Version = executingAssemblyName.Version
             };
         }
@@ -134,6 +139,7 @@ namespace NProxy.Core
             return assembly.GetName();
         }
 
+#if NETFRAMEWORK
         /// <summary>
         /// Returns the dynamic assembly key pair.
         /// </summary>
@@ -177,18 +183,7 @@ namespace NProxy.Core
                 return memoryStream.ToArray();
             }
         }
-
-        /// <summary>
-        /// Saves the dynamic assembly to disk.
-        /// </summary>
-        /// <param name="path">The path of the assembly.</param>
-        public void SaveAssembly(string path)
-        {
-            if (path == null)
-                throw new ArgumentNullException("path");
-
-            _assemblyBuilder.Save(path);
-        }
+#endif
 
         #region ITypeRepository Members
 
