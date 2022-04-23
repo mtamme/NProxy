@@ -106,15 +106,6 @@ namespace NProxy.Core.Internal {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interface type {0} was already added.
-        /// </summary>
-        internal static string InterfaceTypeWasAlreadyAdded {
-            get {
-                return ResourceManager.GetString("InterfaceTypeWasAlreadyAdded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid proxy type.
         /// </summary>
         internal static string InvalidProxyType {
@@ -174,15 +165,6 @@ namespace NProxy.Core.Internal {
         internal static string MethodRequiresATargetObject {
             get {
                 return ResourceManager.GetString("MethodRequiresATargetObject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No more interceptors in the interceptor chain.
-        /// </summary>
-        internal static string NoMoreInterceptorsInTheInterceptorChain {
-            get {
-                return ResourceManager.GetString("NoMoreInterceptorsInTheInterceptorChain", resourceCulture);
             }
         }
         
