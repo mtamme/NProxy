@@ -20,67 +20,67 @@ using System.Collections.Generic;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Provides <see cref="IProxyFactory"/> extension methods.
+    /// Provides <see cref="IProxyTypeRegistry"/> extension methods.
     /// </summary>
-    public static class ProxyFactoryExtensions
+    public static class ProxyTypeRegistryExtensions
     {
         /// <summary>
-        /// Returns a proxy template.
+        /// Returns a proxy type.
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
-        /// <param name="proxyFactory">The proxy factory.</param>
+        /// <param name="proxyTypeRegistry">The proxy type registry.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
-        /// <returns>The proxy template.</returns>
-        public static IProxyTemplate<T> GetProxyTemplate<T>(this IProxyFactory proxyFactory, IEnumerable<Type> interfaceTypes) where T : class
+        /// <returns>The proxy type.</returns>
+        public static IProxyType<T> GetProxyType<T>(this IProxyTypeRegistry proxyTypeRegistry, IEnumerable<Type> interfaceTypes) where T : class
         {
-            var proxyTemplate = proxyFactory.GetProxyTemplate(typeof (T), interfaceTypes);
+            var proxyType = proxyTypeRegistry.GetProxyType(typeof (T), interfaceTypes);
 
-            return new ProxyTemplate<T>(proxyTemplate);
+            return new ProxyType<T>(proxyType);
         }
 
         /// <summary>
         /// Creates a new proxy.
         /// </summary>
-        /// <param name="proxyFactory">The proxy factory.</param>
+        /// <param name="proxyTypeRegistry">The proxy type registry.</param>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
         /// <param name="invocationHandler">The invocation handler.</param>
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The new proxy object.</returns>
-        public static object CreateProxy(this IProxyFactory proxyFactory,
+        public static object CreateProxy(this IProxyTypeRegistry proxyTypeRegistry,
             Type declaringType,
             IEnumerable<Type> interfaceTypes,
             IInvocationHandler invocationHandler,
             params object[] arguments)
         {
-            if (proxyFactory == null)
+            if (proxyTypeRegistry == null)
                 throw new ArgumentNullException("proxyFactory");
 
-            var proxyTemplate = proxyFactory.GetProxyTemplate(declaringType, interfaceTypes);
+            var proxyType = proxyTypeRegistry.GetProxyType(declaringType, interfaceTypes);
 
-            return proxyTemplate.CreateProxy(invocationHandler, arguments);
+            return proxyType.CreateProxy(invocationHandler, arguments);
         }
 
         /// <summary>
         /// Creates a new proxy.
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
-        /// <param name="proxyFactory">The proxy factory.</param>
+        /// <param name="proxyTypeRegistry">The proxy type registry.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
         /// <param name="invocationHandler">The invocation handler.</param>
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>The new proxy object.</returns>
-        public static T CreateProxy<T>(this IProxyFactory proxyFactory,
+        public static T CreateProxy<T>(this IProxyTypeRegistry proxyTypeRegistry,
             IEnumerable<Type> interfaceTypes,
             IInvocationHandler invocationHandler,
             params object[] arguments) where T : class
         {
-            if (proxyFactory == null)
+            if (proxyTypeRegistry == null)
                 throw new ArgumentNullException("proxyFactory");
 
-            var proxyTemplate = proxyFactory.GetProxyTemplate<T>(interfaceTypes);
+            var proxyType = proxyTypeRegistry.GetProxyType<T>(interfaceTypes);
 
-            return proxyTemplate.CreateProxy(invocationHandler, arguments);
+            return proxyType.CreateProxy(invocationHandler, arguments);
         }
     }
 }

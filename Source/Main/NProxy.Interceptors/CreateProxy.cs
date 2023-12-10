@@ -30,7 +30,7 @@ namespace NProxy.Interceptors
         /// <summary>
         /// The proxy factory.
         /// </summary>
-        private readonly IProxyFactory _proxyFactory;
+        private readonly IProxyTypeRegistry _proxyFactory;
 
         /// <summary>
         /// The constructor arguments.
@@ -57,7 +57,7 @@ namespace NProxy.Interceptors
         /// </summary>
         /// <param name="proxyFactory">The proxy factory.</param>
         /// <param name="arguments">The constructor arguments.</param>
-        public CreateProxy(IProxyFactory proxyFactory, object[] arguments)
+        public CreateProxy(IProxyTypeRegistry proxyFactory, object[] arguments)
         {
             if (proxyFactory == null)
                 throw new ArgumentNullException("proxyFactory");
@@ -116,14 +116,14 @@ namespace NProxy.Interceptors
         /// <summary>
         /// Creates an invocation handler.
         /// </summary>
-        /// <param name="proxyTemplate">The proxy template.</param>
+        /// <param name="proxyType">The proxy type.</param>
         /// <param name="defaultInterceptors">The default interceptors.</param>
         /// <returns>The invocation handler.</returns>
-        private IInvocationHandler CreateInvocationHandler(IProxyTemplate proxyTemplate, params IInterceptor[] defaultInterceptors)
+        private IInvocationHandler CreateInvocationHandler(IProxyType proxyType, params IInterceptor[] defaultInterceptors)
         {
             var invocationHandler = new InterceptorInvocationHandler(defaultInterceptors);
 
-            invocationHandler.ApplyInterceptors(proxyTemplate, _interceptors);
+            invocationHandler.ApplyInterceptors(proxyType, _interceptors);
 
             if (_mixins.Count > 0)
                 return new MixinInvocationHandler(_mixins, invocationHandler);
@@ -221,28 +221,28 @@ namespace NProxy.Interceptors
         /// <inheritdoc/>
         public T Target(object target)
         {
-            var proxyTemplate = _proxyFactory.GetProxyTemplate<T>(_interfaceTypes);
-            var invocationHandler = CreateInvocationHandler(proxyTemplate, new StaticTargetInterceptor(target));
+            var proxyType = _proxyFactory.GetProxyType<T>(_interfaceTypes);
+            var invocationHandler = CreateInvocationHandler(proxyType, new StaticTargetInterceptor(target));
 
-            return proxyTemplate.CreateProxy(invocationHandler, _arguments);
+            return proxyType.CreateProxy(invocationHandler, _arguments);
         }
 
         /// <inheritdoc/>
         public T Target(Func<object, object> targetFactory)
         {
-            var proxyTemplate = _proxyFactory.GetProxyTemplate<T>(_interfaceTypes);
-            var invocationHandler = CreateInvocationHandler(proxyTemplate, new DynamicTargetInterceptor(targetFactory));
+            var proxyType = _proxyFactory.GetProxyType<T>(_interfaceTypes);
+            var invocationHandler = CreateInvocationHandler(proxyType, new DynamicTargetInterceptor(targetFactory));
 
-            return proxyTemplate.CreateProxy(invocationHandler, _arguments);
+            return proxyType.CreateProxy(invocationHandler, _arguments);
         }
 
         /// <inheritdoc/>
         public T TargetBase()
         {
-            var proxyTemplate = _proxyFactory.GetProxyTemplate<T>(_interfaceTypes);
-            var invocationHandler = CreateInvocationHandler(proxyTemplate, BaseTargetInterceptor.Instance);
+            var proxyType = _proxyFactory.GetProxyType<T>(_interfaceTypes);
+            var invocationHandler = CreateInvocationHandler(proxyType, BaseTargetInterceptor.Instance);
 
-            return proxyTemplate.CreateProxy(invocationHandler, _arguments);
+            return proxyType.CreateProxy(invocationHandler, _arguments);
         }
 
         #endregion

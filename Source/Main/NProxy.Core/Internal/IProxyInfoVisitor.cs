@@ -17,12 +17,12 @@
 using System;
 using System.Reflection;
 
-namespace NProxy.Core.Internal.Definitions
+namespace NProxy.Core.Internal
 {
     /// <summary>
-    /// Defines a proxy definition visitor.
+    /// Defines a proxy information visitor.
     /// </summary>
-    internal interface IProxyDefinitionVisitor
+    internal interface IProxyInfoVisitor
     {
         /// <summary>
         /// Visits the specified interface type.

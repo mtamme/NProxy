@@ -16,17 +16,17 @@
 
 using System;
 using System.Collections.Generic;
+using NProxy.Core.Internal;
 using NProxy.Core.Internal.Caching;
-using NProxy.Core.Internal.Definitions;
 using NProxy.Core.Internal.Reflection;
 using NProxy.Core.Internal.Reflection.Emit;
 
 namespace NProxy.Core
 {
     /// <summary>
-    /// Represents the proxy factory.
+    /// Represents the proxy type registry.
     /// </summary>
-    public sealed class ProxyFactory : IProxyFactory
+    public sealed class ProxyTypeRegistry : IProxyTypeRegistry
     {
         /// <summary>
         /// The type builder factory.
@@ -39,33 +39,33 @@ namespace NProxy.Core
         private readonly IInterceptionFilter _interceptionFilter;
 
         /// <summary>
-        /// The proxy template cache.
+        /// The proxy type cache.
         /// </summary>
-        private readonly ICache<IProxyDefinition, IProxyTemplate> _proxyTemplateCache;
+        private readonly ICache<IProxyInfo, IProxyType> _proxyTypeCache;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProxyFactory"/> class.
+        /// Initializes a new instance of the <see cref="ProxyTypeRegistry"/> class.
         /// </summary>
-        public ProxyFactory()
+        public ProxyTypeRegistry()
             : this(new NonInterceptedInterceptionFilter())
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProxyFactory"/> class.
+        /// Initializes a new instance of the <see cref="ProxyTypeRegistry"/> class.
         /// </summary>
         /// <param name="interceptionFilter">The interception filter.</param>
-        public ProxyFactory(IInterceptionFilter interceptionFilter)
+        public ProxyTypeRegistry(IInterceptionFilter interceptionFilter)
             : this(new ProxyTypeBuilderFactory(), interceptionFilter)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProxyFactory"/> class.
+        /// Initializes a new instance of the <see cref="ProxyTypeRegistry"/> class.
         /// </summary>
         /// <param name="typeBuilderFactory">The type builder factory.</param>
         /// <param name="interceptionFilter">The interception filter.</param>
-        internal ProxyFactory(ITypeBuilderFactory typeBuilderFactory, IInterceptionFilter interceptionFilter)
+        internal ProxyTypeRegistry(ITypeBuilderFactory typeBuilderFactory, IInterceptionFilter interceptionFilter)
         {
             if (typeBuilderFactory == null)
                 throw new ArgumentNullException("typeBuilderFactory");
@@ -76,43 +76,43 @@ namespace NProxy.Core
             _typeBuilderFactory = typeBuilderFactory;
             _interceptionFilter = interceptionFilter;
 
-            _proxyTemplateCache = new LockOnWriteCache<IProxyDefinition, IProxyTemplate>();
+            _proxyTypeCache = new LockOnWriteCache<IProxyInfo, IProxyType>();
         }
 
         /// <summary>
-        /// Creates a proxy definition for the specified declaring type and interface types.
+        /// Creates a proxy information for the specified declaring type and interface types.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        /// <returns>The proxy definition.</returns>
-        private static IProxyDefinition CreateProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes)
+        /// <returns>The proxy information.</returns>
+        private static IProxyInfo CreateProxyInfo(Type declaringType, IEnumerable<Type> interfaceTypes)
         {
             if (declaringType.IsDelegate())
-                return new DelegateProxyDefinition(declaringType, interfaceTypes);
+                return new DelegateProxyInfo(declaringType, interfaceTypes);
 
             if (declaringType.IsInterface)
-                return new InterfaceProxyDefinition(declaringType, interfaceTypes);
+                return new InterfaceProxyInfo(declaringType, interfaceTypes);
 
-            return new ClassProxyDefinition(declaringType, interfaceTypes);
+            return new ClassProxyInfo(declaringType, interfaceTypes);
         }
 
         /// <summary>
-        /// Generates a proxy template.
+        /// Creates a proxy type.
         /// </summary>
-        /// <param name="proxyDefinition">The proxy definition.</param>
-        /// <returns>The proxy template.</returns>
-        private IProxyTemplate GenerateProxyTemplate(IProxyDefinition proxyDefinition)
+        /// <param name="proxyInfo">The proxy information.</param>
+        /// <returns>The proxy type.</returns>
+        private IProxyType CreateProxyType(IProxyInfo proxyInfo)
         {
-            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyDefinition.ParentType);
-            var proxyGenerator = new ProxyGenerator(typeBuilder, _interceptionFilter);
+            var typeBuilder = _typeBuilderFactory.CreateBuilder(proxyInfo.ParentType);
+            var proxyTypeFactory = new ProxyTypeFactory(typeBuilder, _interceptionFilter);
 
-            return proxyGenerator.GenerateProxyTemplate(proxyDefinition);
+            return proxyTypeFactory.CreateProxyType(proxyInfo);
         }
 
-        #region IProxyFactory Members
+        #region IProxyTypeRegistry Members
 
         /// <inheritdoc/>
-        public IProxyTemplate GetProxyTemplate(Type declaringType, IEnumerable<Type> interfaceTypes)
+        public IProxyType GetProxyType(Type declaringType, IEnumerable<Type> interfaceTypes)
         {
             if (declaringType == null)
                 throw new ArgumentNullException("declaringType");
@@ -120,11 +120,11 @@ namespace NProxy.Core
             if (interfaceTypes == null)
                 throw new ArgumentNullException("interfaceTypes");
 
-            // Create proxy definition.
-            var proxyDefinition = CreateProxyDefinition(declaringType, interfaceTypes);
+            // Create proxy information.
+            var proxyInfo = CreateProxyInfo(declaringType, interfaceTypes);
 
-            // Get or generate proxy template.
-            return _proxyTemplateCache.GetOrAdd(proxyDefinition, GenerateProxyTemplate);
+            // Get or generate proxy type.
+            return _proxyTypeCache.GetOrAdd(proxyInfo, CreateProxyType);
         }
 
         #endregion

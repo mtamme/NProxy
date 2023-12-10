@@ -54,35 +54,35 @@ namespace NProxy.Interceptors
         }
 
         /// <summary>
-        /// Applies all interceptors for the specified proxy template.
+        /// Applies all interceptors for the specified proxy type.
         /// </summary>
-        /// <param name="proxyTemplate">The proxy template.</param>
+        /// <param name="proxyType">The proxy type.</param>
         /// <param name="interceptors">The interceptors.</param>
-        public void ApplyInterceptors(IProxyTemplate proxyTemplate, IEnumerable<IInterceptor> interceptors)
+        public void ApplyInterceptors(IProxyType proxyType, IEnumerable<IInterceptor> interceptors)
         {
-            if (proxyTemplate == null)
-                throw new ArgumentNullException("proxyTemplate");
+            if (proxyType == null)
+                throw new ArgumentNullException("proxyType");
 
             if (interceptors == null)
                 throw new ArgumentNullException("interceptors");
 
             // Apply type interception behaviors.
-            var typeInterceptors = ApplyInterceptionBehaviors(proxyTemplate.DeclaringType, interceptors);
+            var typeInterceptors = ApplyInterceptionBehaviors(proxyType.DeclaringType, interceptors);
 
             // Apply event interception behaviors.
-            foreach (var eventInfo in proxyTemplate.InterceptedEvents)
+            foreach (var eventInfo in proxyType.InterceptedEvents)
             {
                 ApplyInterceptors(eventInfo, typeInterceptors);
             }
 
             // Apply property interception behaviors.
-            foreach (var propertyInfo in proxyTemplate.InterceptedProperties)
+            foreach (var propertyInfo in proxyType.InterceptedProperties)
             {
                 ApplyInterceptors(propertyInfo, typeInterceptors);
             }
 
             // Apply method interception behaviors.
-            foreach (var methodInfo in proxyTemplate.InterceptedMethods)
+            foreach (var methodInfo in proxyType.InterceptedMethods)
             {
                 ApplyInterceptors(methodInfo, typeInterceptors);
             }

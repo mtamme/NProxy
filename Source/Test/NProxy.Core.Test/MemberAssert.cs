@@ -269,7 +269,9 @@ namespace NProxy.Core.Test
             Assert.That(actual.IsPublic, Is.EqualTo(expected.IsPublic));
             Assert.That(actual.IsSealed, Is.EqualTo(expected.IsSealed));
             Assert.That(actual.IsSecuritySafeCritical, Is.EqualTo(expected.IsSecuritySafeCritical));
+            #pragma warning disable SYSLIB0050
             Assert.That(actual.IsSerializable, Is.EqualTo(expected.IsSerializable));
+            #pragma warning restore SYSLIB0050
             Assert.That(actual.IsSpecialName, Is.EqualTo(expected.IsSpecialName));
             Assert.That(actual.IsUnicodeClass, Is.EqualTo(expected.IsUnicodeClass));
             Assert.That(actual.IsValueType, Is.EqualTo(expected.IsValueType));

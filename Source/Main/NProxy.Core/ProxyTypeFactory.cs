@@ -17,15 +17,15 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using NProxy.Core.Internal.Definitions;
+using NProxy.Core.Internal;
 using NProxy.Core.Internal.Reflection.Emit;
 
 namespace NProxy.Core
 {
     /// <summary>
-    /// Represents the proxy generator.
+    /// Represents the proxy type factory.
     /// </summary>
-    internal sealed class ProxyGenerator : IProxyDefinitionVisitor
+    internal sealed class ProxyTypeFactory : IProxyInfoVisitor
     {
         /// <summary>
         /// The type builder.
@@ -53,11 +53,11 @@ namespace NProxy.Core
         private readonly List<MethodInfo> _methodInfos;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProxyGenerator"/> class.
+        /// Initializes a new instance of the <see cref="ProxyTypeFactory"/> class.
         /// </summary>
         /// <param name="typeBuilder">The type builder.</param>
         /// <param name="interceptionFilter">The interception filter.</param>
-        public ProxyGenerator(ITypeBuilder typeBuilder, IInterceptionFilter interceptionFilter)
+        public ProxyTypeFactory(ITypeBuilder typeBuilder, IInterceptionFilter interceptionFilter)
         {
             if (typeBuilder == null)
                 throw new ArgumentNullException("typeBuilder");
@@ -74,40 +74,40 @@ namespace NProxy.Core
         }
 
         /// <summary>
-        /// Generates a proxy template based on the specified proxy definition.
+        /// Creates a proxy type based on the specified proxy information.
         /// </summary>
-        /// <param name="proxyDefinition">The proxy definition.</param>
-        /// <returns>The proxy template.</returns>
-        public IProxyTemplate GenerateProxyTemplate(IProxyDefinition proxyDefinition)
+        /// <param name="proxyInfo">The proxy information.</param>
+        /// <returns>The proxy type.</returns>
+        public IProxyType CreateProxyType(IProxyInfo proxyInfo)
         {
-            if (proxyDefinition == null)
-                throw new ArgumentNullException("proxyDefinition");
+            if (proxyInfo == null)
+                throw new ArgumentNullException("proxyInfo");
 
             // Build type.
-            proxyDefinition.AcceptVisitor(this);
+            proxyInfo.AcceptVisitor(this);
 
             // Create type.
             var type = _typeBuilder.CreateType();
 
-            return new ProxyTemplate(proxyDefinition, type, _eventInfos, _propertyInfos, _methodInfos);
+            return new ProxyType(proxyInfo, type, _eventInfos, _propertyInfos, _methodInfos);
         }
 
-        #region IProxyDefinitionVisitor Members
+        #region IProxyInfoVisitor Members
 
         /// <inheritdoc/>
-        void IProxyDefinitionVisitor.VisitInterface(Type interfaceType)
+        void IProxyInfoVisitor.VisitInterface(Type interfaceType)
         {
             _typeBuilder.AddInterface(interfaceType);
         }
 
         /// <inheritdoc/>
-        void IProxyDefinitionVisitor.VisitConstructor(ConstructorInfo constructorInfo)
+        void IProxyInfoVisitor.VisitConstructor(ConstructorInfo constructorInfo)
         {
             _typeBuilder.BuildConstructor(constructorInfo);
         }
 
         /// <inheritdoc/>
-        void IProxyDefinitionVisitor.VisitEvent(EventInfo eventInfo)
+        void IProxyInfoVisitor.VisitEvent(EventInfo eventInfo)
         {
             if (_typeBuilder.IsConcreteEvent(eventInfo) && !_interceptionFilter.AcceptEvent(eventInfo))
                 return;
@@ -117,7 +117,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        void IProxyDefinitionVisitor.VisitProperty(PropertyInfo propertyInfo)
+        void IProxyInfoVisitor.VisitProperty(PropertyInfo propertyInfo)
         {
             if (_typeBuilder.IsConcreteProperty(propertyInfo) && !_interceptionFilter.AcceptProperty(propertyInfo))
                 return;
@@ -127,7 +127,7 @@ namespace NProxy.Core
         }
 
         /// <inheritdoc/>
-        void IProxyDefinitionVisitor.VisitMethod(MethodInfo methodInfo)
+        void IProxyInfoVisitor.VisitMethod(MethodInfo methodInfo)
         {
             if (_typeBuilder.IsConcreteMethod(methodInfo) && !_interceptionFilter.AcceptMethod(methodInfo))
                 return;

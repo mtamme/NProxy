@@ -17,14 +17,14 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using NProxy.Core.Internal.Definitions;
+using NProxy.Core.Internal;
 
-namespace NProxy.Core.Test.Internal.Definitions
+namespace NProxy.Core.Test.Internal
 {
     /// <summary>
-    /// Represents a collecting proxy definition visitor.
+    /// Represents a collecting proxy information visitor.
     /// </summary>
-    internal sealed class CollectingProxyDefinitionVisitor : IProxyDefinitionVisitor
+    internal sealed class CollectingProxyInfoVisitor : IProxyInfoVisitor
     {
         /// <summary>
         /// The interface types.
@@ -52,9 +52,9 @@ namespace NProxy.Core.Test.Internal.Definitions
         private readonly List<MethodInfo> _methodInfos;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CollectingProxyDefinitionVisitor"/> class.
+        /// Initializes a new instance of the <see cref="CollectingProxyInfoVisitor"/> class.
         /// </summary>
-        public CollectingProxyDefinitionVisitor()
+        public CollectingProxyInfoVisitor()
         {
             _interfaceTypes = new List<Type>();
             _constructorInfos = new List<ConstructorInfo>();
@@ -103,7 +103,7 @@ namespace NProxy.Core.Test.Internal.Definitions
             get { return _methodInfos; }
         }
 
-        #region IProxyDefinitionVisitor Members
+        #region IProxyInfoVisitor Members
 
         /// <inheritdoc/>
         public void VisitInterface(Type interfaceType)

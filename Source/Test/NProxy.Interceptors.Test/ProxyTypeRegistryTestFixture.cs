@@ -24,14 +24,14 @@ using NUnit.Framework;
 namespace NProxy.Test.Interceptors
 {
     [TestFixture]
-    public sealed class ProxyFactoryTestFixture
+    public sealed class ProxyTypeRegistryTestFixture
     {
-        private ProxyFactory _proxyFactory;
+        private ProxyTypeRegistry _proxyTypeRegistry;
 
         [OneTimeSetUp]
         public void SetUp()
         {
-            _proxyFactory = new ProxyFactory();
+            _proxyTypeRegistry = new ProxyTypeRegistry();
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IFoo>()
+            var proxy = _proxyTypeRegistry.CreateProxy<IFoo>()
                 .ExtendWith<Bar>()
                 .Target<Foo>();
 
@@ -58,7 +58,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<FooBase>()
+            var proxy = _proxyTypeRegistry.CreateProxy<FooBase>()
                 .ExtendWith<Bar>()
                 .Target<Foo>();
 
@@ -77,7 +77,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<Foo>()
+            var proxy = _proxyTypeRegistry.CreateProxy<Foo>()
                 .ExtendWith<Bar>()
                 .Target<Foo>();
 
@@ -96,7 +96,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<Action>()
+            var proxy = _proxyTypeRegistry.CreateProxy<Action>()
                 .ExtendWith<Bar>()
                 .Target(() => { });
 
@@ -115,7 +115,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IFoo>()
+            var proxy = _proxyTypeRegistry.CreateProxy<IFoo>()
                 .Implement<IBar>()
                 .Target<FooBar>();
 
@@ -134,7 +134,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<FooBase>()
+            var proxy = _proxyTypeRegistry.CreateProxy<FooBase>()
                 .Implement<IBar>()
                 .Target<FooBar>();
 
@@ -153,7 +153,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<Foo>()
+            var proxy = _proxyTypeRegistry.CreateProxy<Foo>()
                 .Implement<IBar>()
                 .Target<FooBar>();
 
@@ -172,7 +172,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<Action>()
+            var proxy = _proxyTypeRegistry.CreateProxy<Action>()
                 .Implement<IBar>()
                 .Target(() => { });
 
@@ -193,7 +193,7 @@ namespace NProxy.Test.Interceptors
             var interceptor = new CountingInterceptor();
 
             // Act
-            var proxy = _proxyFactory.CreateProxy<IFoo>()
+            var proxy = _proxyTypeRegistry.CreateProxy<IFoo>()
                 .InterceptBy(interceptor)
                 .Target<Foo>();
 
@@ -210,7 +210,7 @@ namespace NProxy.Test.Interceptors
             var interceptor = new CountingInterceptor();
 
             // Act
-            var proxy = _proxyFactory.CreateProxy<FooBase>()
+            var proxy = _proxyTypeRegistry.CreateProxy<FooBase>()
                 .InterceptBy(interceptor)
                 .Target<Foo>();
 
@@ -227,7 +227,7 @@ namespace NProxy.Test.Interceptors
             var interceptor = new CountingInterceptor();
 
             // Act
-            var proxy = _proxyFactory.CreateProxy<Foo>()
+            var proxy = _proxyTypeRegistry.CreateProxy<Foo>()
                 .InterceptBy(interceptor)
                 .Target<Foo>();
 
@@ -244,7 +244,7 @@ namespace NProxy.Test.Interceptors
             var interceptor = new CountingInterceptor();
 
             // Act
-            var proxy = _proxyFactory.CreateProxy<Action>()
+            var proxy = _proxyTypeRegistry.CreateProxy<Action>()
                 .InterceptBy(interceptor)
                 .Target(() => { });
 
@@ -259,7 +259,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IFoo>()
+            var proxy = _proxyTypeRegistry.CreateProxy<IFoo>()
                 .Target<Foo>();
 
             // Assert
@@ -272,7 +272,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<FooBase>()
+            var proxy = _proxyTypeRegistry.CreateProxy<FooBase>()
                 .Target<Foo>();
 
             // Assert
@@ -285,7 +285,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<Foo>()
+            var proxy = _proxyTypeRegistry.CreateProxy<Foo>()
                 .Target<Foo>();
 
             // Assert
@@ -298,7 +298,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<Action>()
+            var proxy = _proxyTypeRegistry.CreateProxy<Action>()
                 .Target(() => { });
 
             // Assert
@@ -311,7 +311,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<IFoo>()
+            var proxy = _proxyTypeRegistry.CreateProxy<IFoo>()
                 .TargetBase();
 
             // Assert
@@ -324,7 +324,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<FooBase>()
+            var proxy = _proxyTypeRegistry.CreateProxy<FooBase>()
                 .TargetBase();
 
             // Assert
@@ -337,7 +337,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<Foo>()
+            var proxy = _proxyTypeRegistry.CreateProxy<Foo>()
                 .TargetBase();
 
             // Assert
@@ -350,7 +350,7 @@ namespace NProxy.Test.Interceptors
         {
             // Arrange
             // Act
-            var proxy = _proxyFactory.CreateProxy<Action>()
+            var proxy = _proxyTypeRegistry.CreateProxy<Action>()
                 .TargetBase();
 
             // Assert
@@ -362,7 +362,7 @@ namespace NProxy.Test.Interceptors
         public void CreateProxyWithLazyInterceptorTest()
         {
             // Arrange
-            var employee = _proxyFactory.CreateProxy<IEmployee>()
+            var employee = _proxyTypeRegistry.CreateProxy<IEmployee>()
                 .ExtendWith<LazyMixin>()
                 .Target<Employee>();
 

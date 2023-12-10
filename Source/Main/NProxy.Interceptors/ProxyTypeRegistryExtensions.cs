@@ -19,20 +19,20 @@ using NProxy.Core;
 namespace NProxy.Interceptors
 {
     /// <summary>
-    /// Provides <see cref="IProxyFactory"/> extension methods.
+    /// Provides <see cref="IProxyTypeRegistry"/> extension methods.
     /// </summary>
-    public static class ProxyFactoryExtensions
+    public static class ProxyTypeRegistryExtensions
     {
         /// <summary>
         /// Returns a fluent interface for creating a new proxy.
         /// </summary>
         /// <typeparam name="T">The declaring type.</typeparam>
-        /// <param name="proxyFactory">The proxy factory.</param>
+        /// <param name="proxyTypeRegistry">The proxy type registry.</param>
         /// <param name="arguments">The constructor arguments.</param>
         /// <returns>A fluent interface for creating a new proxy.</returns>
-        public static ICreateProxy<T> CreateProxy<T>(this IProxyFactory proxyFactory, params object[] arguments) where T : class
+        public static ICreateProxy<T> CreateProxy<T>(this IProxyTypeRegistry proxyTypeRegistry, params object[] arguments) where T : class
         {
-            return new CreateProxy<T>(proxyFactory, arguments);
+            return new CreateProxy<T>(proxyTypeRegistry, arguments);
         }
     }
 }

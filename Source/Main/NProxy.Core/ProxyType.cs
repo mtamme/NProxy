@@ -18,19 +18,18 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using NProxy.Core.Internal;
-using NProxy.Core.Internal.Definitions;
 
 namespace NProxy.Core
 {
     /// <summary>
-    /// Represents a proxy template.
+    /// Represents a proxy type.
     /// </summary>
-    internal class ProxyTemplate : IProxyTemplate
+    internal class ProxyType : IProxyType
     {
         /// <summary>
-        /// The proxy definition.
+        /// The proxy information.
         /// </summary>
-        private readonly IProxyDefinition _proxyDefinition;
+        private readonly IProxyInfo _proxyInfo;
 
         /// <summary>
         /// The implementation type.
@@ -53,17 +52,17 @@ namespace NProxy.Core
         private readonly ICollection<MethodInfo> _methodInfos;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProxyTemplate"/> class.
+        /// Initializes a new instance of the <see cref="ProxyType"/> class.
         /// </summary>
-        /// <param name="proxyDefinition">The proxy definition.</param>
+        /// <param name="proxyInfo">The proxy information.</param>
         /// <param name="implementationType">The implementation type.</param>
         /// <param name="eventInfos">The event informations.</param>
         /// <param name="propertyInfos">The property informations.</param>
         /// <param name="methodInfos">The method informations.</param>
-        public ProxyTemplate(IProxyDefinition proxyDefinition, Type implementationType, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
+        public ProxyType(IProxyInfo proxyInfo, Type implementationType, ICollection<EventInfo> eventInfos, ICollection<PropertyInfo> propertyInfos, ICollection<MethodInfo> methodInfos)
         {
-            if (proxyDefinition == null)
-                throw new ArgumentNullException("proxyDefinition");
+            if (proxyInfo == null)
+                throw new ArgumentNullException("proxyInfo");
 
             if (implementationType == null)
                 throw new ArgumentNullException("implementationType");
@@ -77,25 +76,25 @@ namespace NProxy.Core
             if (methodInfos == null)
                 throw new ArgumentNullException("methodInfos");
 
-            _proxyDefinition = proxyDefinition;
+            _proxyInfo = proxyInfo;
             _implementationType = implementationType;
             _eventInfos = eventInfos;
             _propertyInfos = propertyInfos;
             _methodInfos = methodInfos;
         }
 
-        #region IProxyTemplate Members
+        #region IProxyType Members
 
         /// <inheritdoc/>
         public Type DeclaringType
         {
-            get { return _proxyDefinition.DeclaringType; }
+            get { return _proxyInfo.DeclaringType; }
         }
 
         /// <inheritdoc/>
         public Type ParentType
         {
-            get { return _proxyDefinition.ParentType; }
+            get { return _proxyInfo.ParentType; }
         }
 
         /// <inheritdoc/>
@@ -107,7 +106,7 @@ namespace NProxy.Core
         /// <inheritdoc/>
         public IEnumerable<Type> ImplementedInterfaces
         {
-            get { return _proxyDefinition.ImplementedInterfaces; }
+            get { return _proxyInfo.ImplementedInterfaces; }
         }
 
         /// <inheritdoc/>
@@ -137,7 +136,7 @@ namespace NProxy.Core
             if (!interfaceType.IsInterface)
                 throw new ArgumentException(String.Format(Resources.TypeNotAnInterfaceType, interfaceType), "interfaceType");
 
-            var instance = _proxyDefinition.UnwrapProxy(proxy);
+            var instance = _proxyInfo.UnwrapProxy(proxy);
             var instanceType = instance.GetType();
 
             if ((instanceType != _implementationType) || !interfaceType.IsAssignableFrom(instanceType))
@@ -159,99 +158,99 @@ namespace NProxy.Core
 
             constructorArguments.AddRange(arguments);
 
-            return _proxyDefinition.CreateProxy(_implementationType, constructorArguments.ToArray());
+            return _proxyInfo.CreateProxy(_implementationType, constructorArguments.ToArray());
         }
 
         #endregion
     }
 
     /// <summary>
-    /// Represents a proxy template.
+    /// Represents a proxy type.
     /// </summary>
     /// <typeparam name="T">The declaring type.</typeparam>
-    internal sealed class ProxyTemplate<T> : IProxyTemplate<T> where T : class
+    internal sealed class ProxyType<T> : IProxyType<T> where T : class
     {
         /// <summary>
-        /// The proxy template.
+        /// The proxy type.
         /// </summary>
-        private readonly IProxyTemplate _proxyTemplate;
+        private readonly IProxyType _proxyType;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProxyTemplate{T}"/> class.
+        /// Initializes a new instance of the <see cref="ProxyType{T}"/> class.
         /// </summary>
-        /// <param name="proxyTemplate">The proxy template.</param>
-        public ProxyTemplate(IProxyTemplate proxyTemplate)
+        /// <param name="proxyType">The proxy type.</param>
+        public ProxyType(IProxyType proxyType)
         {
-            if (proxyTemplate == null)
-                throw new ArgumentNullException("proxyTemplate");
+            if (proxyType == null)
+                throw new ArgumentNullException("proxyType");
 
-            _proxyTemplate = proxyTemplate;
+            _proxyType = proxyType;
         }
 
-        #region IProxyTemplate Members
+        #region IProxyType Members
 
         /// <inheritdoc/>
         public Type DeclaringType
         {
-            get { return _proxyTemplate.DeclaringType; }
+            get { return _proxyType.DeclaringType; }
         }
 
         /// <inheritdoc/>
         public Type ParentType
         {
-            get { return _proxyTemplate.ParentType; }
+            get { return _proxyType.ParentType; }
         }
 
         /// <inheritdoc/>
         public Type ImplementationType
         {
-            get { return _proxyTemplate.ImplementationType; }
+            get { return _proxyType.ImplementationType; }
         }
 
         /// <inheritdoc/>
         public IEnumerable<Type> ImplementedInterfaces
         {
-            get { return _proxyTemplate.ImplementedInterfaces; }
+            get { return _proxyType.ImplementedInterfaces; }
         }
 
         /// <inheritdoc/>
         public IEnumerable<EventInfo> InterceptedEvents
         {
-            get { return _proxyTemplate.InterceptedEvents; }
+            get { return _proxyType.InterceptedEvents; }
         }
 
         /// <inheritdoc/>
         public IEnumerable<PropertyInfo> InterceptedProperties
         {
-            get { return _proxyTemplate.InterceptedProperties; }
+            get { return _proxyType.InterceptedProperties; }
         }
 
         /// <inheritdoc/>
         public IEnumerable<MethodInfo> InterceptedMethods
         {
-            get { return _proxyTemplate.InterceptedMethods; }
+            get { return _proxyType.InterceptedMethods; }
         }
 
         /// <inheritdoc/>
         public object AdaptProxy(Type interfaceType, object proxy)
         {
-            return _proxyTemplate.AdaptProxy(interfaceType, proxy);
+            return _proxyType.AdaptProxy(interfaceType, proxy);
         }
 
         /// <inheritdoc/>
-        object IProxyTemplate.CreateProxy(IInvocationHandler invocationHandler, params object[] arguments)
+        object IProxyType.CreateProxy(IInvocationHandler invocationHandler, params object[] arguments)
         {
-            return _proxyTemplate.CreateProxy(invocationHandler, arguments);
+            return _proxyType.CreateProxy(invocationHandler, arguments);
         }
 
         #endregion
 
-        #region IProxyTemplate<T> Members
+        #region IProxyType<T> Members
 
         /// <inheritdoc/>
         public T CreateProxy(IInvocationHandler invocationHandler, params object[] arguments)
         {
-            return (T) _proxyTemplate.CreateProxy(invocationHandler, arguments);
+            return (T) _proxyType.CreateProxy(invocationHandler, arguments);
         }
 
         #endregion

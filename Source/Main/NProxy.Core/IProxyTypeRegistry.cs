@@ -20,16 +20,16 @@ using System.Collections.Generic;
 namespace NProxy.Core
 {
     /// <summary>
-    /// Defines a proxy factory.
+    /// Defines a proxy type registry.
     /// </summary>
-    public interface IProxyFactory
+    public interface IProxyTypeRegistry
     {
         /// <summary>
-        /// Returns a proxy template.
+        /// Returns a proxy type.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The additional interface types.</param>
-        /// <returns>The proxy template.</returns>
-        IProxyTemplate GetProxyTemplate(Type declaringType, IEnumerable<Type> interfaceTypes);
+        /// <returns>The proxy type.</returns>
+        IProxyType GetProxyType(Type declaringType, IEnumerable<Type> interfaceTypes);
     }
 }

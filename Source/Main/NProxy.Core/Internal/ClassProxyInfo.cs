@@ -18,24 +18,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NProxy.Core.Internal.Definitions
+namespace NProxy.Core.Internal
 {
     /// <summary>
-    /// Represents a class proxy definition.
+    /// Represents a class proxy information.
     /// </summary>
-    internal sealed class ClassProxyDefinition : ProxyDefinitionBase
+    internal sealed class ClassProxyInfo : ProxyInfoBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClassProxyDefinition"/> class.
+        /// Initializes a new instance of the <see cref="ClassProxyInfo"/> class.
         /// </summary>
         /// <param name="declaringType">The declaring type.</param>
         /// <param name="interfaceTypes">The interface types.</param>
-        public ClassProxyDefinition(Type declaringType, IEnumerable<Type> interfaceTypes)
+        public ClassProxyInfo(Type declaringType, IEnumerable<Type> interfaceTypes)
             : base(declaringType, declaringType, interfaceTypes)
         {
         }
 
-        #region IProxyDefinition Members
+        #region IProxyInfo Members
 
         /// <inheritdoc/>
         public override IEnumerable<Type> ImplementedInterfaces
@@ -44,12 +44,12 @@ namespace NProxy.Core.Internal.Definitions
         }
 
         /// <inheritdoc/>
-        public override void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor)
+        public override void AcceptVisitor(IProxyInfoVisitor proxyInfoVisitor)
         {
-            base.AcceptVisitor(proxyDefinitionVisitor);
+            base.AcceptVisitor(proxyInfoVisitor);
 
             // Visit declaring type members.
-            proxyDefinitionVisitor.VisitMembers(DeclaringType);
+            proxyInfoVisitor.VisitMembers(DeclaringType);
         }
 
         /// <inheritdoc/>

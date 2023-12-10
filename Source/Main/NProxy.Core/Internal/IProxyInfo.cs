@@ -17,12 +17,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace NProxy.Core.Internal.Definitions
+namespace NProxy.Core.Internal
 {
     /// <summary>
-    /// Defines a proxy definition.
+    /// Defines a proxy information.
     /// </summary>
-    internal interface IProxyDefinition
+    internal interface IProxyInfo
     {
         /// <summary>
         /// Returns the declaring type.
@@ -42,8 +42,8 @@ namespace NProxy.Core.Internal.Definitions
         /// <summary>
         /// Dispatches to the specific visit method for each member.
         /// </summary>
-        /// <param name="proxyDefinitionVisitor">The proxy definition visitor.</param>
-        void AcceptVisitor(IProxyDefinitionVisitor proxyDefinitionVisitor);
+        /// <param name="proxyInfoVisitor">The proxy information visitor.</param>
+        void AcceptVisitor(IProxyInfoVisitor proxyInfoVisitor);
 
         /// <summary>
         /// Unwraps the specified proxy.
